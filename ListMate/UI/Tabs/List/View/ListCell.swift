@@ -9,6 +9,12 @@ import UIKit
 
 class ListCell: BaseCell {
     
+    var item: ListModel? {
+        didSet {
+            guard let item = item else { return }
+            
+        }
+    }
     
     override func setupCell() {
         super.setupCell()

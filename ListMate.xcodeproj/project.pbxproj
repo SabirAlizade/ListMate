@@ -27,6 +27,10 @@
 		03A105B02B2F509800E13A45 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105AF2B2F509800E13A45 /* CustomLabel.swift */; };
 		03A105B32B2F52F400E13A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03A105B22B2F52F400E13A45 /* Realm */; };
 		03A105B52B2F52F400E13A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03A105B42B2F52F400E13A45 /* RealmSwift */; };
+		03A105B92B2F554D00E13A45 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105B82B2F554D00E13A45 /* ListModel.swift */; };
+		03A105BC2B2F56A100E13A45 /* ItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105BB2B2F56A100E13A45 /* ItemsModel.swift */; };
+		03A105C02B2F750100E13A45 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105BF2B2F750100E13A45 /* ListViewModel.swift */; };
+		03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105C22B2F768C00E13A45 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		03A105A82B2F4E5400E13A45 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		03A105AC2B2F4EB000E13A45 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		03A105AF2B2F509800E13A45 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		03A105B82B2F554D00E13A45 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		03A105BB2B2F56A100E13A45 /* ItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsModel.swift; sourceTree = "<group>"; };
+		03A105BF2B2F750100E13A45 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		03A105C22B2F768C00E13A45 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				03A1057C2B2F316000E13A45 /* Controller */,
+				03A105B72B2F553200E13A45 /* ViewModel */,
 				03A105A72B2F4E3600E13A45 /* View */,
+				03A105B62B2F552900E13A45 /* Model */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -118,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				03A1057B2B2F310B00E13A45 /* Tabs */,
+				03A105C12B2F764200E13A45 /* Data */,
 				03A105892B2F3EEC00E13A45 /* Extension */,
 				03A105852B2F3E7800E13A45 /* Base */,
 				03A1057D2B2F323900E13A45 /* Custom */,
@@ -313,6 +324,31 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		03A105B62B2F552900E13A45 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03A105B82B2F554D00E13A45 /* ListModel.swift */,
+				03A105BB2B2F56A100E13A45 /* ItemsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03A105B72B2F553200E13A45 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				03A105BF2B2F750100E13A45 /* ListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		03A105C12B2F764200E13A45 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				03A105C22B2F768C00E13A45 /* DataManager.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -391,17 +427,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				03A105882B2F3E9600E13A45 /* BaseViewController.swift in Sources */,
+				03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */,
 				03A105A42B2F4A2D00E13A45 /* UIView+Stacking.swift in Sources */,
 				03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */,
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
+				03A105BC2B2F56A100E13A45 /* ItemsModel.swift in Sources */,
 				03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
 				03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */,
 				03A105B02B2F509800E13A45 /* CustomLabel.swift in Sources */,
 				03A105A32B2F4A2D00E13A45 /* AnchorKit.swift in Sources */,
 				03A105972B2F490300E13A45 /* Font.swift in Sources */,
+				03A105B92B2F554D00E13A45 /* ListModel.swift in Sources */,
 				03A105A22B2F4A2D00E13A45 /* CircleAnimationKit.swift in Sources */,
 				03A105672B2F300700E13A45 /* SceneDelegate.swift in Sources */,
+				03A105C02B2F750100E13A45 /* ListViewModel.swift in Sources */,
 				03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */,
 				03A105902B2F40F300E13A45 /* HistoryViewController.swift in Sources */,
 				03A105AD2B2F4EB000E13A45 /* BaseCell.swift in Sources */,
