@@ -21,12 +21,12 @@ class CustomTabBar: UITabBarController {
                                           image: UIImage(named: "list"),
                                           selectedImage: UIImage(named: "listSelected"))
         
-        let historyTab = UINavigationController(rootViewController: ListViewController())
+        let historyTab = UINavigationController(rootViewController: HistoryViewController())
         historyTab.tabBarItem = UITabBarItem(title: nil,
                                           image: UIImage(named: "history"),
                                           selectedImage: UIImage(named: "historySelected"))
         
-        let profileTab = UINavigationController(rootViewController: ListViewController())
+        let profileTab = UINavigationController(rootViewController: ProfileViewController())
         profileTab.tabBarItem = UITabBarItem(title: nil,
                                           image: UIImage(named: "profile"),
                                           selectedImage: UIImage(named: "profileSelected"))

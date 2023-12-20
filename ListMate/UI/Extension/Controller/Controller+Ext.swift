@@ -9,7 +9,7 @@ import UIKit
 
 extension UIViewController {
     
-    func setupLargeTitle(title: String, isLargeTitle: Bool = true) {
+    func setupLargeTitle(title: String, isLargeTitle: Bool = true) { //TODO: CHECK
         self.title = title
         navigationController?.navigationBar.prefersLargeTitles = isLargeTitle
         navigationItem.largeTitleDisplayMode = .always

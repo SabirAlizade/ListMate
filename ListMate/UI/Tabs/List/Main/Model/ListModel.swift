@@ -17,8 +17,8 @@ class ListModel: Object {
     @Persisted var totalAmount: Double
     
     convenience init(name: String,
-                     toBuyQuantity: Int,
-                     remainsQuantity: Int,
+                     toBuyQuantity: Int = 0,
+                     remainsQuantity: Int = 0,
                      date: Date,
                      items: List<ItemsModel>?,
                      totalAmount: Double) {

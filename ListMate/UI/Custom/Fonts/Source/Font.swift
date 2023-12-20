@@ -7,15 +7,16 @@
 
 import UIKit
 
-enum WeightType: String {
-    case light = "Poppins-Light"
+enum CustomWeightType: String {
+    case light   = "Poppins-Light"
     case regular = "Poppins-Regular"
+    case medium  = "Poppins-Medium"
     case semiBold = "Poppins-SemiBold"
 }
 
 extension UIFont {
     
-    static func poppinsFont(size: CGFloat, weight forKey: WeightType) -> UIFont {
+    static func poppinsFont(size: CGFloat, weight forKey: CustomWeightType) -> UIFont {
         if let font = UIFont(name: forKey.rawValue, size: size) {
             return font
         } else {

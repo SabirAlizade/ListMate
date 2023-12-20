@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: BaseViewController {
+class ListViewController: BaseViewController, ItemsModelDelegate {
     
     private lazy var viewModel: ListViewModel = {
         let model = ListViewModel()
@@ -27,11 +27,19 @@ class ListViewController: BaseViewController {
         super.setupUIComponents()
         configureNavBar()
         viewModel.readData()
-        //   setupLargeTitle(title: "List")
+//           setupLargeTitle(title: "List", isLargeTitle: false)
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//
+//        navigationController?.navigationBar.largeContentTitle = "List"
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
+        setupUI()
+    }
+    
+    private func setupUI(){
+        view.anchorFill(view: tableView)
     }
     
     private func configureNavBar() {
@@ -46,8 +54,13 @@ class ListViewController: BaseViewController {
     
     @objc
     private func didTapNewList() {
-        
-    }
+        let vc = NewListViewController()
+        let nc = UINavigationController(rootViewController: vc)
+        nc.sheetPresentationController?.detents = [.custom(resolver: { context in
+            return self.view.bounds.height / 4
+         }
+     )]
+        present(nc, animated: true)    }
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -63,12 +76,26 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        openItems(indexPath: indexPath.row)
+    }
+    
+    func openItems(indexPath: Int) {
+        let vc = ItemsViewController()
+        let nc = UINavigationController(rootViewController: vc)
+        let name = viewModel.lists?[indexPath].name
+        vc.title = name
+        vc.viewModel.delegate = self
+        nc.sheetPresentationController?.detents = [.large()]
+        present(nc, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
 }
 
-extension ListViewController: ListViewModelDelegate {
+extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
     func reloadData() {
         tableView.reloadData()
     }
