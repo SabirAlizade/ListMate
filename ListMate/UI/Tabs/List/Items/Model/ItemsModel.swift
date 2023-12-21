@@ -11,11 +11,11 @@ import RealmSwift
 enum Measures: String, PersistableEnum {
     case pcs = "Pcs"
     case kgs = "Kgs"
-    case g = "g"
     case l = "L"
 }
 
 class ItemsModel: Object {
+//    @Persisted(primaryKey: true) var id: UUID
     @Persisted var id: UUID
     @Persisted var name: String
     @Persisted var amount: Double

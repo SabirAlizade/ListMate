@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 typealias DiffableDataSource = UITableViewDiffableDataSource<String, ItemsModel>
 typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<String, ItemsModel>
@@ -14,6 +15,8 @@ class ItemsViewController: BaseViewController {
     
     private lazy var dataSource: DiffableDataSource = {
         return .init(tableView: tableView) { tableView, indexPath, itemIdentifier in
+            print(itemIdentifier)
+            
             let cell = tableView.reuseCell(ItemCell.self, indexPath: indexPath)
             cell.item = itemIdentifier
             return cell
@@ -36,20 +39,22 @@ class ItemsViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        updateDataSource()
+        viewModel.readData()
+           updateDataSource()
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
+        setupUI()
+    }
+    
+    private func setupUI() {
         view.anchorFill(view: tableView)
-        
         
         view.anchor(view: plusButton) { kit in
             kit.trailing(30)
             kit.bottom(30, safe: true)
         }
-        
-        
     }
     
     @objc
@@ -62,15 +67,24 @@ class ItemsViewController: BaseViewController {
     }
     
     private func updateDataSource() {
-        let snapshot = DataSourceSnapshot()
+        var snapshot = DataSourceSnapshot()
         
+        let group = Dictionary(grouping: viewModel.itemsArray) { $0.name }
+        
+        for (section, items) in group {
+            //        snapshot.appendItems(viewModel.itemsArray)
+            snapshot.appendSections([section])
+            snapshot.appendItems(items, toSection: section)
+        }
+//        snapshot.appendItems(viewModel.itemsArray)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
+
 extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = dataSource.snapshot().itemIdentifiers[indexPath.row]
+        //        let item = dataSource.snapshot().itemIdentifiers[indexPath.row]
         //TODO:  IMPLEMENT ITEM DETILED
     }
     
@@ -79,7 +93,11 @@ extension ItemsViewController: UITableViewDelegate {
     }
 }
 
-extension ItemsViewController: ItemsModelDelegate {
+extension ItemsViewController: ItemsModelDelegate, NewItemDelegate {
+    func passAmountData(amount: Double) {
+        tableView.reloadData()
+    }
+    
     func reloadData() {
         updateDataSource()
     }

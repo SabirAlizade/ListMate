@@ -27,10 +27,6 @@ class ListViewController: BaseViewController, ItemsModelDelegate {
         super.setupUIComponents()
         configureNavBar()
         viewModel.readData()
-//           setupLargeTitle(title: "List", isLargeTitle: false)
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//
-//        navigationController?.navigationBar.largeContentTitle = "List"
     }
     
     override func setupUIConstraints() {

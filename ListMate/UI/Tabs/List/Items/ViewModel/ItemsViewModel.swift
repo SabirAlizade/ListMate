@@ -24,12 +24,10 @@ class ItemsViewModel {
         }
     }
     
+    var itemsArray: [ItemsModel] = []
+    
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
-    
-    func setAmount() {
-        
-    }
     
     func saveItems(name: String, amount: Double, image: String = "noImage", measure: Measures, price: Double, isBought: Bool = false) {
         
@@ -54,6 +52,8 @@ class ItemsViewModel {
     func readData() {
         manager.readData(data: ItemsModel.self) { result in
             self.items = result
+            self.itemsArray = Array(result)
+            print(result)
         }
     }
     

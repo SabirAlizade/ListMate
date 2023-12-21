@@ -35,7 +35,7 @@ class NewListViewController: BaseViewController {
     }
     
     private func setupUI() {
-        let vStack = UIView().VStack(views: nameTextField, saveButton, spacing: 15, distribution: .fill)
+        let vStack = UIView().VStack(views: nameTextField.withHeight(44), saveButton.withHeight(44), spacing: 15, distribution: .fill)
         
         view.anchor(view: vStack) { kit in
             kit.top(25, safe: true)

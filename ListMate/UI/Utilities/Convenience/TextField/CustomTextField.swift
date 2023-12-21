@@ -25,13 +25,13 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.font = font
         keyboardType = keybord
         textColor = .darkText
-        layer.cornerRadius = 13
+        layer.cornerRadius = 8
         borderStyle = .roundedRect
         withBorder(width: 1, color: .buttongreen)
       //  let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
 //        imageView.image = image
 //        setLeftView(view: imageView)
-        height(50)
+       // height(50)
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
