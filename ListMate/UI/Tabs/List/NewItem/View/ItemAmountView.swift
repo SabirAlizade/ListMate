@@ -125,7 +125,6 @@ class ItemAmountView: BaseView {
         if item == .pcs {
             amountTextField.text = String(format: "%.0f", currentAmount)
         }
- 
     }
 }
 

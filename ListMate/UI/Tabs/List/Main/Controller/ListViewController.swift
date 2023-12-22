@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: BaseViewController, ItemsModelDelegate {
+class ListViewController: BaseViewController {
     
     private lazy var viewModel: ListViewModel = {
         let model = ListViewModel()
@@ -81,13 +81,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let nc = UINavigationController(rootViewController: vc)
         let name = viewModel.lists?[indexPath].name
         vc.title = name
-        vc.viewModel.delegate = self
+//        vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.large()]
         present(nc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 45
     }
 }
 

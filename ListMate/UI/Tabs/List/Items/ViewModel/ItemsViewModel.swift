@@ -8,19 +8,19 @@
 import Foundation
 import RealmSwift
 
-protocol ItemsModelDelegate: AnyObject {
-    func reloadData()
-}
+//protocol ItemsModelDelegate: AnyObject {
+//    func reloadData()
+//}
 
 class ItemsViewModel {
     
     private let manager = DataManager()
     
-    weak var delegate: ItemsModelDelegate?
-
+//    weak var delegate: ItemsModelDelegate?
+    
     private(set) var items: Results<ItemsModel>? {
         didSet {
-            delegate?.reloadData()
+         //   delegate?.reloadData()
         }
     }
     
@@ -29,25 +29,17 @@ class ItemsViewModel {
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
     
-    func saveItems(name: String, amount: Double, image: String = "noImage", measure: Measures, price: Double, isBought: Bool = false) {
+    
+    func minusButtonAction() {
         
-        let item = ItemsModel(id: UUID(), name: name,
-                              amount: amount,
-                              image: image,
-                              measure: measure,
-                              price: price,
-                              isBought: isBought)
-        
-        manager.saveObject(data: item) { result in
-            switch result {
-            case .success(let success):
-                self.items = success
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
-        }
-             delegate?.reloadData()
     }
+    
+    func plusButtonAction() {
+        
+    }
+}
+    
+extension ItemsViewModel {
     
     func readData() {
         manager.readData(data: ItemsModel.self) { result in
@@ -57,4 +49,23 @@ class ItemsViewModel {
         }
     }
     
+//    func saveItems(name: String, amount: Double, image: String = "noImage", measure: Measures, price: Double, isBought: Bool = false) {
+//        
+//        let item = ItemsModel(id: UUID(), name: name,
+//                              amount: amount,
+//                              image: image,
+//                              measure: measure,
+//                              price: price,
+//                              isBought: isBought)
+//        
+//        manager.saveObject(data: item) { result in
+//            switch result {
+//            case .success(let success):
+//                self.items = success
+//            case .failure(let failure):
+//                print(failure.localizedDescription)
+//            }
+//        }
+//             delegate?.reloadData()
+//    }
 }

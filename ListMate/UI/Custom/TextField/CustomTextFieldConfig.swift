@@ -36,3 +36,29 @@ class CustomTextFieldConfiguration: UITextField {
         dataSource?.resultValue(hasText: hasText, value: text)
     }
 }
+
+class AmountTextField: UITextField {
+    
+    func setLeftView(view: UIView, padding: CGFloat = 60) {
+        self.leftViewMode = .always
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: 50))
+        view.frame = CGRect(x: 0, y: 0, width: padding, height: 50)
+        view.center = subView.center
+        view.tintColor = .maingreen
+        view.contentMode = .scaleAspectFit
+        subView.addSubview(view)
+        self.leftView = subView
+    }
+    
+    func setRightView(view: UIView, padding: CGFloat = 60) {
+        self.rightViewMode = .always
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: 50))
+        view.frame = CGRect(x: 0, y: 0, width: padding, height: 50)
+        view.center = subView.center
+        view.tintColor = .maingreen
+        view.contentMode = .scaleAspectFit
+        subView.addSubview(view)
+        self.rightView = subView
+    }
+    
+}

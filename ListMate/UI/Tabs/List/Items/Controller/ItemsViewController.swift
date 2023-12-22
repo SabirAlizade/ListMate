@@ -13,12 +13,16 @@ typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<String, ItemsModel>
 
 class ItemsViewController: BaseViewController {
     
+    private var snapshot = DataSourceSnapshot()
+    
+    
     private lazy var dataSource: DiffableDataSource = {
         return .init(tableView: tableView) { tableView, indexPath, itemIdentifier in
             print(itemIdentifier)
             
             let cell = tableView.reuseCell(ItemCell.self, indexPath: indexPath)
             cell.item = itemIdentifier
+            //            cell.delegate = self
             return cell
         }
     }()
@@ -26,6 +30,8 @@ class ItemsViewController: BaseViewController {
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.delegate = self
+        view.separatorStyle = .none
+        view.sectionIndexBackgroundColor = .red
         view.register(ItemCell.self)
         return view
     }()
@@ -40,7 +46,7 @@ class ItemsViewController: BaseViewController {
     override func setupUIComponents() {
         super.setupUIComponents()
         viewModel.readData()
-           updateDataSource()
+        updateDataSource()
     }
     
     override func setupUIConstraints() {
@@ -63,42 +69,53 @@ class ItemsViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.medium()]
         vc.title = "New Item"
+        vc.viewModel.delegate = self
         present(nc, animated: true)
     }
     
     private func updateDataSource() {
-        var snapshot = DataSourceSnapshot()
-        
-        let group = Dictionary(grouping: viewModel.itemsArray) { $0.name }
+        let group = Dictionary(grouping: viewModel.itemsArray) { $0.notes }//TODO: CHANGE TO TIME ORDER
         
         for (section, items) in group {
-            //        snapshot.appendItems(viewModel.itemsArray)
             snapshot.appendSections([section])
             snapshot.appendItems(items, toSection: section)
         }
-//        snapshot.appendItems(viewModel.itemsArray)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
-
 extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let item = dataSource.snapshot().itemIdentifiers[indexPath.row]
+        //   let item = dataSource.snapshot().itemIdentifiers[indexPath.row]
         //TODO:  IMPLEMENT ITEM DETILED
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 110
     }
 }
 
-extension ItemsViewController: ItemsModelDelegate, NewItemDelegate {
-    func passAmountData(amount: Double) {
+extension ItemsViewController: NewItemDelegate/*ItemsModelDelegate*/ /*ItemCellDelegate*/   {
+    func reloadData() {
+  //TODO: DOESNT WORK
         tableView.reloadData()
     }
     
-    func reloadData() {
-        updateDataSource()
+    //    func didTapPlusButton(in cell: ItemCell) {
+    //        viewModel.plusButtonAction()
+    //        print("+")
+    //    }
+    //
+    //    func didTapMinusButton(in cell: ItemCell) {
+    //        viewModel.minusButtonAction()
+    //        print("-")
+    //    }
+    
+    //    func didUpdateText(in cell: ItemCell, newText: String) {
+    //
+    //    }
+    
+    func passAmountData(amount: Double) {
+        tableView.reloadData()
     }
 }
