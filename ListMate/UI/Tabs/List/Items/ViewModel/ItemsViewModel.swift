@@ -18,54 +18,40 @@ class ItemsViewModel {
     
 //    weak var delegate: ItemsModelDelegate?
     
-    private(set) var items: Results<ItemsModel>? {
+    private(set) var items: Results<ItemModel>? {
         didSet {
          //   delegate?.reloadData()
         }
     }
     
-    var itemsArray: [ItemsModel] = []
+    var itemsArray: [ItemModel] = []
     
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
     
+    func minusButtonAction() {}
     
-    func minusButtonAction() {
-        
-    }
-    
-    func plusButtonAction() {
-        
-    }
+    func plusButtonAction() {}
 }
     
 extension ItemsViewModel {
     
     func readData() {
-        manager.readData(data: ItemsModel.self) { result in
+        manager.readData(data: ItemModel.self) { result in
             self.items = result
             self.itemsArray = Array(result)
             print(result)
         }
     }
     
-//    func saveItems(name: String, amount: Double, image: String = "noImage", measure: Measures, price: Double, isBought: Bool = false) {
-//        
-//        let item = ItemsModel(id: UUID(), name: name,
-//                              amount: amount,
-//                              image: image,
-//                              measure: measure,
-//                              price: price,
-//                              isBought: isBought)
-//        
-//        manager.saveObject(data: item) { result in
-//            switch result {
-//            case .success(let success):
-//                self.items = success
-//            case .failure(let failure):
-//                print(failure.localizedDescription)
-//            }
-//        }
-//             delegate?.reloadData()
-//    }
+    func deleteItem(item: ItemModel) {
+        guard let realmItem = manager.realm.object(ofType: ItemModel.self, forPrimaryKey: ItemModel.primaryKey()) else { return }
+        
+            manager.delete(data: realmItem) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
 }

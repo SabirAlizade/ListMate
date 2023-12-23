@@ -19,7 +19,7 @@ final class NewItemViewModel {
     var measuresArray: [String] = ["Pcs", "Kgs", "L"]
     var selectedMeasure: Measures = .pcs
     var amountValue: Double = 1
-    var item: Results<ItemsModel>?
+    var item: Results<ItemModel>?
     
     private let manager = DataManager()
 
@@ -28,20 +28,25 @@ final class NewItemViewModel {
                   image: String,
                   measure: Measures) {
         
-        let item = ItemsModel(id: UUID(),
-                              name: name,
-                              amount: Double(1),
-                              image: image,
-                              measure: measure,
-                              price: price)
+        let item = ItemModel(id: UUID(),
+                             name: name,
+                             amount: Double(1),
+                             image: image,
+                             measure: measure,
+                             price: price)
                 
-        manager.saveObject(data: item) { result in
-            switch result {
-            case .success(let success):
-                self.item = success
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
+        manager.saveObject(data: item) {  error in
+            if let err = error {
+                print(err.localizedDescription)
+        }
+        
+//        manager.saveObject(data: item) { result in
+//            switch result {
+//            case .success(let success):
+//                self.item = success
+//            case .failure(let failure):
+//                print(failure.localizedDescription)
+//            }
         }
         delegate?.reloadData()
     }

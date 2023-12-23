@@ -9,7 +9,7 @@ import UIKit
 
 class NewListViewController: BaseViewController {
     
-    private lazy var viewModel: NewListViewModel = {
+    lazy var viewModel: NewListViewModel = {
         let model = NewListViewModel()
         return model
     }()

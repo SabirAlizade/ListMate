@@ -10,21 +10,34 @@ import RealmSwift
 
 class DataManager {
     
-    private let realm: Realm = try! Realm()
+    let realm: Realm = try! Realm()
     
-    func saveObject<T: Object>(data: T, completion: @escaping(Result<Results<T>, Error>) -> Void) {
+    
+    func saveObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
         do {
             try realm.write {
                 realm.add(data)
             }
-            readData(data: T.self) { result in
-                completion(.success(result))
-            }
+            completion(nil)
         }
         catch {
-            completion(.failure(error))
+            completion(error)
         }
     }
+    
+//    func saveObject<T: Object>(data: T, completion: @escaping(Result<Results<T>, Error>) -> Void) {
+//        do {
+//            try realm.write {
+//                realm.add(data)
+//            }
+//            readData(data: T.self) { result in
+//                completion(.success(result))
+//            }
+//        }
+//        catch {
+//            completion(.failure(error))
+//        }
+//    }
     
     func readData<T: Object>(data: T.Type, completion: @escaping(Results<T>) -> Void) {
         let result = realm.objects(data)

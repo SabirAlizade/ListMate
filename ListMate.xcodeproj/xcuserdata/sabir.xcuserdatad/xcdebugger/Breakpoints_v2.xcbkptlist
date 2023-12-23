@@ -3,22 +3,4 @@
    uuid = "B65CB3BA-ACD6-48ED-815D-3BF3E834F3DF"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "31735EF4-7B78-4B43-94BA-A518D29D5B85"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "NewItemDelegate"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

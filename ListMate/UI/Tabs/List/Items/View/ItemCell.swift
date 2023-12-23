@@ -16,7 +16,7 @@ import UIKit
 class ItemCell: BaseCell {
 //    weak var delegate: ItemCellDelegate?
     
-    var item: ItemsModel? {
+    var item: ItemModel? {
         didSet {
             guard let item = item else { return }
             nameLabel.text = item.name

@@ -12,12 +12,14 @@ class CustomTextField: CustomTextFieldConfiguration {
     convenience init(placeHolder: String,
                      textAlignment: NSTextAlignment = .left,
                      font: UIFont = .poppinsFont(size: 20, weight: .regular),
+                     border: BorderStyle = .roundedRect,
                      keybord: UIKeyboardType = .default,
 //                     image: UIImage? = nil,
                      dataSource: Any? = nil,
                      delegate: Any? = nil,
                      target: Any? = nil,
-                     action: Selector? = nil) {
+                     action: Selector? = nil
+    ) {
         self.init()
         self.dataSource = dataSource as? any TextFieldDataSource
         self.delegate = delegate as? any UITextFieldDelegate
@@ -26,7 +28,8 @@ class CustomTextField: CustomTextFieldConfiguration {
         keyboardType = keybord
         textColor = .darkText
         layer.cornerRadius = 8
-        borderStyle = .roundedRect
+        borderStyle = border
+        
         withBorder(width: 1, color: .buttongreen)
       //  let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
 //        imageView.image = image
@@ -43,3 +46,9 @@ class CustomTextField: CustomTextFieldConfiguration {
     }
 }
 
+extension CustomTextField {
+    func customizeBorder(width: CGFloat?, color: UIColor?) {
+           self.layer.borderWidth = width ?? 0
+           self.layer.borderColor = color?.cgColor
+       }
+}

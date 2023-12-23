@@ -39,6 +39,8 @@ class ListViewController: BaseViewController {
     }
     
     private func configureNavBar() {
+        navigationItem.title = "Lists"
+
         let rightButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
                                           style: .plain,
                                           target: self,
@@ -52,6 +54,7 @@ class ListViewController: BaseViewController {
     private func didTapNewList() {
         let vc = NewListViewController()
         let nc = UINavigationController(rootViewController: vc)
+        vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4
          }
@@ -78,16 +81,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func openItems(indexPath: Int) {
         let vc = ItemsViewController()
-        let nc = UINavigationController(rootViewController: vc)
         let name = viewModel.lists?[indexPath].name
         vc.title = name
-//        vc.viewModel.delegate = self
-        nc.sheetPresentationController?.detents = [.large()]
-        present(nc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 60
     }
 }
 

@@ -14,26 +14,29 @@ protocol NewListViewModelDelegate: AnyObject {
 }
 
 class NewListViewModel {
-    
     weak var delegate: NewListViewModelDelegate?
     
     private let manager = DataManager()
-    
-    var lists: Results<ListModel>?
+    private var lists: Results<ListModel>?
     
     func saveListItem(name: String) {
         let list = ListModel(name: name,
                              date: Date.now,
-                             items: List<ItemsModel>(),
+                             items: List<ItemModel>(),
                              totalAmount: 0)
-        manager.saveObject(data: list) { result in
-            switch result {
-            case .success(let success):
-                self.lists = success
-            case .failure(let failure):
-                print(failure.localizedDescription)
+        manager.saveObject(data: list) {  error in
+            if let err = error {
+                print(err.localizedDescription)
             }
         }
-             delegate?.reloadData()
+//            }       manager.saveObject(data: list) { result in
+//            switch result {
+//            case .success(let success):
+//                self.delegate?.reloadData()
+//                self.lists = success
+//            case .failure(let failure):
+//                print(failure.localizedDescription)
+//            }
+//        }
     }
 }

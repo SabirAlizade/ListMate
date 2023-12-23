@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */; };
+		036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2C12B36CED800D3F4F7 /* MainView.swift */; };
 		03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105642B2F300700E13A45 /* AppDelegate.swift */; };
 		03A105672B2F300700E13A45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105662B2F300700E13A45 /* SceneDelegate.swift */; };
 		03A105692B2F300700E13A45 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105682B2F300700E13A45 /* ListViewController.swift */; };
@@ -28,7 +30,7 @@
 		03A105B32B2F52F400E13A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 03A105B22B2F52F400E13A45 /* Realm */; };
 		03A105B52B2F52F400E13A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 03A105B42B2F52F400E13A45 /* RealmSwift */; };
 		03A105B92B2F554D00E13A45 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105B82B2F554D00E13A45 /* ListModel.swift */; };
-		03A105BC2B2F56A100E13A45 /* ItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105BB2B2F56A100E13A45 /* ItemsModel.swift */; };
+		03A105BC2B2F56A100E13A45 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105BB2B2F56A100E13A45 /* ItemModel.swift */; };
 		03A105C02B2F750100E13A45 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105BF2B2F750100E13A45 /* ListViewModel.swift */; };
 		03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105C22B2F768C00E13A45 /* DataManager.swift */; };
 		03A105C82B303DD000E13A45 /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105C72B303DD000E13A45 /* NewListViewController.swift */; };
@@ -38,6 +40,7 @@
 		03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D32B3042A900E13A45 /* CustomButton.swift */; };
 		03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D62B30449B00E13A45 /* NewListViewModel.swift */; };
 		03A105DA2B3048F000E13A45 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D92B3048F000E13A45 /* Date+Ext.swift */; };
+		03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B39E202B36BAFA007259F9 /* SummaryViewController.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
 		03CA6E852B30771000D59935 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */; };
@@ -53,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
+		036CC2C12B36CED800D3F4F7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		03A105612B2F300700E13A45 /* ListMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A105642B2F300700E13A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03A105662B2F300700E13A45 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +79,7 @@
 		03A105AC2B2F4EB000E13A45 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		03A105AF2B2F509800E13A45 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		03A105B82B2F554D00E13A45 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
-		03A105BB2B2F56A100E13A45 /* ItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsModel.swift; sourceTree = "<group>"; };
+		03A105BB2B2F56A100E13A45 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		03A105BF2B2F750100E13A45 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		03A105C22B2F768C00E13A45 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		03A105C72B303DD000E13A45 /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +89,7 @@
 		03A105D32B3042A900E13A45 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		03A105D62B30449B00E13A45 /* NewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewModel.swift; sourceTree = "<group>"; };
 		03A105D92B3048F000E13A45 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		03B39E202B36BAFA007259F9 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -111,6 +117,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		036CC2BD2B36CCDC00D3F4F7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		036CC2C02B36CE5300D3F4F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				036CC2C12B36CED800D3F4F7 /* MainView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		03A105582B2F300700E13A45 = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +176,7 @@
 				03A105C52B303DA900E13A45 /* NewList */,
 				03CA6E872B30AD7D00D59935 /* Items */,
 				03CA6E972B30D1A200D59935 /* NewItem */,
+				03B39E1D2B36BACA007259F9 /* Summary */,
 				03CA6E952B30C17F00D59935 /* ItemDetailed */,
 			);
 			path = List;
@@ -457,6 +479,30 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
+		03B39E1D2B36BACA007259F9 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				03B39E1E2B36BAD2007259F9 /* Controller */,
+				03B39E1F2B36BAE3007259F9 /* ViewModel */,
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
+		03B39E1E2B36BAD2007259F9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				03B39E202B36BAFA007259F9 /* SummaryViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		03B39E1F2B36BAE3007259F9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		03CA6E7E2B30770F00D59935 /* Poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,7 +544,7 @@
 		03CA6E8A2B30AD9400D59935 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				03A105BB2B2F56A100E13A45 /* ItemsModel.swift */,
+				03A105BB2B2F56A100E13A45 /* ItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -523,6 +569,8 @@
 			isa = PBXGroup;
 			children = (
 				03CA6E962B30C19B00D59935 /* Controlller */,
+				036CC2C02B36CE5300D3F4F7 /* View */,
+				036CC2BD2B36CCDC00D3F4F7 /* ViewModel */,
 			);
 			path = ItemDetailed;
 			sourceTree = "<group>";
@@ -530,6 +578,7 @@
 		03CA6E962B30C19B00D59935 /* Controlller */ = {
 			isa = PBXGroup;
 			children = (
+				036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */,
 			);
 			path = Controlller;
 			sourceTree = "<group>";
@@ -662,9 +711,10 @@
 				03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */,
 				03A105A42B2F4A2D00E13A45 /* UIView+Stacking.swift in Sources */,
 				03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */,
+				036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */,
 				03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */,
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
-				03A105BC2B2F56A100E13A45 /* ItemsModel.swift in Sources */,
+				03A105BC2B2F56A100E13A45 /* ItemModel.swift in Sources */,
 				03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */,
 				03A105CE2B303F5100E13A45 /* TextField+Ext.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
@@ -684,6 +734,7 @@
 				03E847282B3338A0004323F4 /* ItemAmountView.swift in Sources */,
 				03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */,
 				03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */,
+				036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */,
 				03A105902B2F40F300E13A45 /* HistoryViewController.swift in Sources */,
 				03CA6E912B30B68700D59935 /* ItemCell.swift in Sources */,
 				03A105D12B303FDA00E13A45 /* CustomTextField.swift in Sources */,
@@ -692,6 +743,7 @@
 				03CA6E8C2B30ADC300D59935 /* ItemsViewController.swift in Sources */,
 				03A105AD2B2F4EB000E13A45 /* BaseCell.swift in Sources */,
 				03A1058C2B2F3F3100E13A45 /* Controller+Ext.swift in Sources */,
+				03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

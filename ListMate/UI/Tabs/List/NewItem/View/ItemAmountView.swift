@@ -33,7 +33,6 @@ class ItemAmountView: BaseView {
         }
     }
     
-    
     private lazy var stepperView: UIStackView = {
         let view = UIStackView()
         view.withBorder(width: 1, color: .maingreen)

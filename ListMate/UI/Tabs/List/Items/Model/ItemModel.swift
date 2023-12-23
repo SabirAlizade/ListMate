@@ -14,8 +14,8 @@ enum Measures: String, PersistableEnum {
     case l = "L"
 }
 
-class ItemsModel: Object {
-    @Persisted var id: UUID
+class ItemModel: Object {
+    @Persisted(primaryKey: true) var id: UUID
     @Persisted var name: String
     @Persisted var amount: Double
     @Persisted var measure: Measures

@@ -28,7 +28,7 @@ class NewItemViewController: BaseViewController {
         return view
     }()
     
-    private lazy var pricetextFiled = CustomTextField(placeHolder: "Enter price", keybord: .numberPad)
+    private lazy var pricetextFiled = CustomTextField(placeHolder: "Enter price", keybord: .numberPad, dataSource: .none)
     
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -71,7 +71,6 @@ class NewItemViewController: BaseViewController {
     }
     
     private func setupUI() {
-        
         
         let hStack = UIView().HStack(views: itemAmount, pricetextFiled.withHeight(44), spacing: 60, distribution: .equalSpacing)
         let vStack = UIView().VStack(views: nameTextField.withHeight(44), measuresControl.withHeight(44), hStack, spacing: 20, distribution: .fill)
