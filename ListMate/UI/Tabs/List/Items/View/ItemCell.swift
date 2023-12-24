@@ -29,7 +29,6 @@ class ItemCell: BaseCell {
     
     private let containerView: UIView = {
        let view = UIView()
-
         view.backgroundColor = .white
         view.layer.shadowOpacity = 4
         view.layer.cornerRadius = 10
@@ -39,7 +38,6 @@ class ItemCell: BaseCell {
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
     private let priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
-    //TODO: CHECKMARK
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()
@@ -57,11 +55,11 @@ class ItemCell: BaseCell {
         textField.addTarget(self, action: #selector(didTapChange(_:)), for: .editingChanged)
         return textField
     }()
-    
+        
     let checkBox: CheckBox = {
-        let box = CheckBox()
-//        box.checkedBackgroundColor
-        return box
+        let checkBox = CheckBox()
+        checkBox.imageTint = .maingreen
+        return checkBox
     }()
     
 //    private var amountTextField: AmountTextField = AmountTextField() {
@@ -125,9 +123,6 @@ class ItemCell: BaseCell {
     private func checkDidTapPressed() {
         let uncheckedImage = UIImage(named: "uncheckbox")
         let checkedImage = UIImage(named: "checkbox")
-        
-        
-
     }
 
     @objc
@@ -166,6 +161,8 @@ class ItemCell: BaseCell {
         containerView.anchor(view: checkBox) { kit in
             kit.trailing(15)
             kit.centerY()
+            kit.width(30)
+            kit.height(30)
         }
         containerView.anchor(view: priceLabel) { kit in
             kit.trailing(checkBox.leadingAnchor, 15)

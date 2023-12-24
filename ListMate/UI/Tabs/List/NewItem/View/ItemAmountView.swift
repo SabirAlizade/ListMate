@@ -40,17 +40,17 @@ class ItemAmountView: BaseView {
         view.backgroundColor = .lightgreen
         return view
     }()
-    
+        
     private let amountTextField : UITextField = {
         let textField = UITextField()
         textField.textAlignment = .center
+        textField.keyboardType = .numberPad
         textField.text = "1"
         textField.font = .poppinsFont(size: 30, weight: .regular)
         return textField
     }()
     
     //TODO: ADD MEASURE LABEL TO THE RIGHT?
-    //TODO: TEXTFIELD HAS TO HAVE LEFT AND RIGHT BUTTON
     
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)

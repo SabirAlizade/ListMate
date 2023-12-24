@@ -32,13 +32,13 @@ class CheckBox: UIControl {
         }
     }
 
-    var checkedBackgroundColor: UIColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1) {
+    var checkedBackgroundColor: UIColor = #colorLiteral(red: 0.8705882353, green: 0.9803921569, blue: 0.9019607843, alpha: 1) {
         didSet {
             backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
         }
     }
 
-    var uncheckedBackgroundColor: UIColor = .white {
+    var uncheckedBackgroundColor: UIColor = #colorLiteral(red: 0.8705882353, green: 0.9803921569, blue: 0.9019607843, alpha: 1) {
         didSet {
             backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
         }
@@ -47,22 +47,23 @@ class CheckBox: UIControl {
     var checkedImage: UIImage? = UIImage(systemName: "checkmark") {
         didSet {
             checkedView.image = checkedImage?.withRenderingMode(.alwaysTemplate)
+            tintColor = .maingreen
         }
     }
 
-    var checkedBorderColor: UIColor = .black {
+    var checkedBorderColor: UIColor = .maingreen {
         didSet {
             layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
         }
     }
 
-    var uncheckedBorderColor: UIColor = .black {
+    var uncheckedBorderColor: UIColor = .maingreen {
         didSet {
             layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
         }
     }
 
-    var imageTint: UIColor? = .white {
+    var imageTint: UIColor? = .maingreen {
         didSet {
             checkedView.tintColor = imageTint
         }

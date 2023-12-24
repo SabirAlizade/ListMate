@@ -19,6 +19,7 @@ class ListViewController: BaseViewController {
         let view = UITableView()
         view.delegate = self
         view.dataSource = self
+        view.delaysContentTouches = false
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
     }()
@@ -89,6 +90,17 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+        
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
+            guard let item = self?.viewModel.lists?[indexPath.row] else { return }
+            self?.viewModel.deleteItem(item: item)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        
+        return swipeConfiguration
     }
 }
 

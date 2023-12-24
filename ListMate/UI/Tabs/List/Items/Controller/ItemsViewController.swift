@@ -113,18 +113,13 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal, title: nil) { [weak self] ( action, view, completionHandler) in
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
             guard let item = self?.viewModel.items?[indexPath.row] else { return }
             self?.viewModel.deleteItem(item: item)
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
-            completionHandler(true)
         }
-        
-        let configuration = UISwipeActionsConfiguration(actions: [action])
-        configuration.performsFirstActionWithFullSwipe = true
-        action.backgroundColor = .white
-        action.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysOriginal)
-        return UISwipeActionsConfiguration(actions: [action])
+        return swipeConfiguration
     }
 }
 
@@ -132,25 +127,25 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
     func reloadAndFilterData() {
         viewModel.filter()
     }
-
+    
     func reloadData() {
         tableView.reloadData()
     }
 }
-    //    func didTapPlusButton(in cell: ItemCell) {
-    //        viewModel.plusButtonAction()
-    //        print("+")
-    //    }
-    //
-    //    func didTapMinusButton(in cell: ItemCell) {
-    //        viewModel.minusButtonAction()
-    //        print("-")
-    //    }
-    
-    //    func didUpdateText(in cell: ItemCell, newText: String) {
-    //
-    //    }
-    
+//    func didTapPlusButton(in cell: ItemCell) {
+//        viewModel.plusButtonAction()
+//        print("+")
+//    }
+//
+//    func didTapMinusButton(in cell: ItemCell) {
+//        viewModel.minusButtonAction()
+//        print("-")
+//    }
+
+//    func didUpdateText(in cell: ItemCell, newText: String) {
+//
+//    }
+
 //    func passAmountData(amount: Double) {
 //        tableView.reloadData()
 //    }

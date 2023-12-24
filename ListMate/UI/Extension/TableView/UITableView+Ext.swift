@@ -7,15 +7,20 @@
 
 import UIKit
 
-extension UITableView {
-    
-    func register<T: UITableViewCell>(_ type: T.Type) {
-        self.register(type.self, forCellReuseIdentifier: type.description())
-    }
-    
-    func reuseCell<T: UITableViewCell>(_ type: T.Type, indexPath: IndexPath) -> T {
-        guard let cell = dequeueReusableCell(withIdentifier: type.description(),
-                                             for: indexPath) as? T else { return T() }
-        return cell
+class SwipeActionsHandler {
+
+    static func configureSwipeAction(for tableView: UITableView, at indexPath: IndexPath, actionHandler: @escaping () -> Void) -> UISwipeActionsConfiguration {
+        let action = UIContextualAction(style: .normal, title: nil) { (_, _, completionHandler) in
+            actionHandler()
+            completionHandler(true)
+        }
+
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = true
+
+        action.backgroundColor = .white
+        action.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysOriginal)
+
+        return configuration
     }
 }
