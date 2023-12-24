@@ -40,6 +40,8 @@
 		03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D32B3042A900E13A45 /* CustomButton.swift */; };
 		03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D62B30449B00E13A45 /* NewListViewModel.swift */; };
 		03A105DA2B3048F000E13A45 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D92B3048F000E13A45 /* Date+Ext.swift */; };
+		03AC79D32B37697900BD9946 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC79D22B37697900BD9946 /* CheckBox.swift */; };
+		03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AD576B2B37073D008A48C5 /* ProductSession.swift */; };
 		03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B39E202B36BAFA007259F9 /* SummaryViewController.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
@@ -89,6 +91,8 @@
 		03A105D32B3042A900E13A45 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		03A105D62B30449B00E13A45 /* NewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewModel.swift; sourceTree = "<group>"; };
 		03A105D92B3048F000E13A45 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		03AC79D22B37697900BD9946 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		03AD576B2B37073D008A48C5 /* ProductSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSession.swift; sourceTree = "<group>"; };
 		03B39E202B36BAFA007259F9 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -398,6 +402,7 @@
 		03A105C12B2F764200E13A45 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				03AD576A2B370735008A48C5 /* Session */,
 				03A105C22B2F768C00E13A45 /* DataManager.swift */,
 			);
 			path = Data;
@@ -479,6 +484,14 @@
 			path = Date;
 			sourceTree = "<group>";
 		};
+		03AD576A2B370735008A48C5 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				03AD576B2B37073D008A48C5 /* ProductSession.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
 		03B39E1D2B36BACA007259F9 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,6 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				03CA6E902B30B68700D59935 /* ItemCell.swift */,
+				03AC79D22B37697900BD9946 /* CheckBox.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -719,6 +733,7 @@
 				03A105CE2B303F5100E13A45 /* TextField+Ext.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
 				03CA6E942B30B80E00D59935 /* UITableView+Ext.swift in Sources */,
+				03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */,
 				03E8472B2B333901004323F4 /* BaseView.swift in Sources */,
 				03E847252B3335BD004323F4 /* NewItemViewModel.swift in Sources */,
 				03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */,
@@ -729,6 +744,7 @@
 				03A105CB2B303EF700E13A45 /* CustomTextFieldConfig.swift in Sources */,
 				03A105B92B2F554D00E13A45 /* ListModel.swift in Sources */,
 				03A105A22B2F4A2D00E13A45 /* CircleAnimationKit.swift in Sources */,
+				03AC79D32B37697900BD9946 /* CheckBox.swift in Sources */,
 				03A105672B2F300700E13A45 /* SceneDelegate.swift in Sources */,
 				03A105C02B2F750100E13A45 /* ListViewModel.swift in Sources */,
 				03E847282B3338A0004323F4 /* ItemAmountView.swift in Sources */,

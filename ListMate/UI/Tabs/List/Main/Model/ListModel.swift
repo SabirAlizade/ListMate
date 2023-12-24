@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 class ListModel: Object {
+    @Persisted(primaryKey: true) var id: UUID
     @Persisted var name: String
     @Persisted var toBuyQuantity: Int
     @Persisted var remainsQuantity: Int
@@ -24,6 +25,7 @@ class ListModel: Object {
                      totalAmount: Double) {
         
         self.init()
+        self.id = id
         self.name = name
         self.toBuyQuantity = toBuyQuantity
         self.remainsQuantity = remainsQuantity

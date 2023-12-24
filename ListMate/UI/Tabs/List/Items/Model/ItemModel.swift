@@ -15,7 +15,8 @@ enum Measures: String, PersistableEnum {
 }
 
 class ItemModel: Object {
-    @Persisted(primaryKey: true) var id: UUID
+    @Persisted(primaryKey: true) var objectId: ObjectId
+    @Persisted var id: String
     @Persisted var name: String
     @Persisted var amount: Double
     @Persisted var measure: Measures
@@ -27,7 +28,7 @@ class ItemModel: Object {
     @Persisted var isBought: Bool
     @Persisted var notes: String
     
-    convenience init(id: UUID,
+    convenience init(id: String,
                      name: String,
                      amount: Double,
                      image: String,
@@ -40,6 +41,7 @@ class ItemModel: Object {
                      notes: String = "") {
         
         self.init()
+        self.objectId = ObjectId.generate()
         self.id = id
         self.name = name
         self.image = image

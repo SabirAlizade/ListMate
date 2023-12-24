@@ -8,50 +8,48 @@
 import Foundation
 import RealmSwift
 
-//protocol ItemsModelDelegate: AnyObject {
-//    func reloadData()
-//}
+protocol ItemsModelDelegate: AnyObject {
+    func reloadData()
+}
 
 class ItemsViewModel {
-    
+    weak var delegate: ItemsModelDelegate?
     private let manager = DataManager()
+    private let session: ProductSession
     
-//    weak var delegate: ItemsModelDelegate?
+    init(session: ProductSession) {
+        self.session = session
+    }
     
     private(set) var items: Results<ItemModel>? {
         didSet {
-         //   delegate?.reloadData()
+            delegate?.reloadData()
         }
     }
-    
-    var itemsArray: [ItemModel] = []
     
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
     
     func minusButtonAction() {}
-    
     func plusButtonAction() {}
-}
     
-extension ItemsViewModel {
-    
-    func readData() {
-        manager.readData(data: ItemModel.self) { result in
+    func filter() {
+        manager.filterID(id: session.listID) { result in
             self.items = result
-            self.itemsArray = Array(result)
-            print(result)
+            print(result ?? "RESULT ERROR")
         }
     }
+}
+
+extension ItemsViewModel {
     
     func deleteItem(item: ItemModel) {
-        guard let realmItem = manager.realm.object(ofType: ItemModel.self, forPrimaryKey: ItemModel.primaryKey()) else { return }
-        
-            manager.delete(data: realmItem) { error in
+        let itemId = item.objectId
+        guard let realmItem = manager.realm.object(ofType: ItemModel.self, forPrimaryKey: itemId) else { return }
+        manager.delete(data: realmItem) { error in
             if let error {
                 print(error.localizedDescription)
             }
         }
     }
-
 }

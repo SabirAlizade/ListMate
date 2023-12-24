@@ -12,7 +12,7 @@ class NewItemViewController: BaseViewController {
     private var itemImage: UIImage? = UIImage(systemName: "camera.circle") //MARK: TO VM?
     
     lazy var viewModel: NewItemViewModel = {
-        let model = NewItemViewModel()
+        let model = NewItemViewModel(session: .shared)
         return model
     }()
     
@@ -121,6 +121,7 @@ class NewItemViewController: BaseViewController {
         guard let image = itemImage else { return }
         
         UserDefaults.standard.saveImage(image: image, key: name)
+        
         viewModel.saveItem(name: name,
                            price: price,
                            image: name,

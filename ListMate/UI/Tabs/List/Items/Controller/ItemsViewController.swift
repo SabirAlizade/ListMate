@@ -8,36 +8,22 @@
 import UIKit
 import RealmSwift
 
-typealias DiffableDataSource = UITableViewDiffableDataSource<String, ItemModel>
-typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<String, ItemModel>
-
 class ItemsViewController: BaseViewController {
     
-    private var snapshot = DataSourceSnapshot()
-    
-    
-    private lazy var dataSource: DiffableDataSource = {
-        return .init(tableView: tableView) { tableView, indexPath, itemIdentifier in
-            
-            let cell = tableView.reuseCell(ItemCell.self, indexPath: indexPath)
-            cell.item = itemIdentifier
-            //            cell.delegate = self
-            return cell
-        }
+    lazy var viewModel: ItemsViewModel = {
+        let model = ItemsViewModel(session: .shared)
+        model.delegate = self
+        return model
     }()
     
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.delegate = self
+        view.dataSource = self
         view.separatorStyle = .none
-        view.sectionIndexBackgroundColor = .red
-        view.register(ItemCell.self)
+        view.delaysContentTouches = false
+        view.register(ItemCell.self, forCellReuseIdentifier: ItemCell.description())
         return view
-    }()
-    
-    lazy var viewModel: ItemsViewModel = {
-        let model = ItemsViewModel()
-        return model
     }()
     
     lazy var summaryButton = CustomButton(title: "15 $",
@@ -51,8 +37,7 @@ class ItemsViewController: BaseViewController {
     override func setupUIComponents() {
         super.setupUIComponents()
         configureNavBar()
-        viewModel.readData()
-        updateDataSource()
+        viewModel.filter()
     }
     
     override func setupUIConstraints() {
@@ -83,10 +68,10 @@ class ItemsViewController: BaseViewController {
     @objc
     private func didTapAddItem() {
         let vc  = NewItemViewController()
+        vc.viewModel.delegate = self
+        vc.title = "New Item"
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.medium()]
-        vc.title = "New Item"
-        vc.viewModel.delegate = self
         present(nc, animated: true)
     }
     
@@ -96,26 +81,26 @@ class ItemsViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }
-    
-    private func updateDataSource() {
-        let group = Dictionary(grouping: viewModel.itemsArray) { $0.notes }//TODO: CHANGE TO TIME ORDER
-        
-        for (section, items) in group {
-            snapshot.appendSections([section])
-            snapshot.appendItems(items, toSection: section)
-        }
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
 }
 
-extension ItemsViewController: UITableViewDelegate {
+extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.items?.count ?? 0
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = viewModel.items?[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else  { return UITableViewCell() }
+        cell.item = item
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let item = dataSource.snapshot().itemIdentifiers[indexPath.row]
         openDetailed(indexPath: indexPath.row)
     }
     
     func openDetailed(indexPath: Int) {
-        let item = dataSource.snapshot().itemIdentifiers[indexPath].name
+        let item = viewModel.items?[indexPath].name
         let vc = DetailedViewController()
         vc.title = item
         let nc = UINavigationController(rootViewController: vc)
@@ -127,11 +112,11 @@ extension ItemsViewController: UITableViewDelegate {
         return 110
     }
     
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: nil) { [weak self] ( action, view, completionHandler) in
-            guard let item = self?.dataSource.snapshot().itemIdentifiers[indexPath.row] else { return }
+            guard let item = self?.viewModel.items?[indexPath.row] else { return }
             self?.viewModel.deleteItem(item: item)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
         }
         
@@ -143,12 +128,15 @@ extension ItemsViewController: UITableViewDelegate {
     }
 }
 
-extension ItemsViewController: NewItemDelegate/*ItemsModelDelegate*/ /*ItemCellDelegate*/   {
+extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
+    func reloadAndFilterData() {
+        viewModel.filter()
+    }
+
     func reloadData() {
-        //TODO: DOESNT WORK
         tableView.reloadData()
     }
-    
+}
     //    func didTapPlusButton(in cell: ItemCell) {
     //        viewModel.plusButtonAction()
     //        print("+")
@@ -163,10 +151,10 @@ extension ItemsViewController: NewItemDelegate/*ItemsModelDelegate*/ /*ItemCellD
     //
     //    }
     
-    func passAmountData(amount: Double) {
-        tableView.reloadData()
-    }
-}
+//    func passAmountData(amount: Double) {
+//        tableView.reloadData()
+//    }
+
 
 //#Preview {
 //    ItemsViewController()

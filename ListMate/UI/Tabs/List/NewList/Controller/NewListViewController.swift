@@ -10,7 +10,7 @@ import UIKit
 class NewListViewController: BaseViewController {
     
     lazy var viewModel: NewListViewModel = {
-        let model = NewListViewModel()
+        let model = NewListViewModel(session: .shared)
         return model
     }()
     

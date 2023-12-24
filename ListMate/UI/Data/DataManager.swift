@@ -25,20 +25,6 @@ class DataManager {
         }
     }
     
-//    func saveObject<T: Object>(data: T, completion: @escaping(Result<Results<T>, Error>) -> Void) {
-//        do {
-//            try realm.write {
-//                realm.add(data)
-//            }
-//            readData(data: T.self) { result in
-//                completion(.success(result))
-//            }
-//        }
-//        catch {
-//            completion(.failure(error))
-//        }
-//    }
-    
     func readData<T: Object>(data: T.Type, completion: @escaping(Results<T>) -> Void) {
         let result = realm.objects(data)
         completion(result)
@@ -66,4 +52,23 @@ class DataManager {
         }
     }
     
+    func filterID(id: String, completion: @escaping(Results<ItemModel>?) -> Void) {
+        print(id)
+        let predicate = NSPredicate(format: "id == %@", id)
+        do {
+            let realm = try Realm()
+            let results = realm.objects(ItemModel.self).filter(predicate)
+            if !results.isEmpty {
+                DispatchQueue.main.async {
+                    completion(results)
+                }
+            } else {
+                print("NO DATA FOUND FOR ID \(id)")
+                completion(nil)
+            }
+        } 
+        catch {
+            print("Error: \(error)")
+        }
+    }
 }

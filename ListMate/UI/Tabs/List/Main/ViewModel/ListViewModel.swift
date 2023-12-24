@@ -14,8 +14,12 @@ protocol ListViewModelDelegate: AnyObject {
 
 final class ListViewModel {
     weak var delegate: ListViewModelDelegate?
-    
+    private let session: ProductSession
     private let manager = DataManager()
+    
+    init(session: ProductSession) {
+        self.session = session
+    }
     
     private(set) var lists: Results<ListModel>? {
         didSet {
@@ -27,5 +31,9 @@ final class ListViewModel {
         manager.readData(data: ListModel.self) { result in
             self.lists = result
         }
+    }
+    
+    func updateListId(id: String) {
+        session.updateListId(id: id)
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 import RealmSwift
 
 protocol NewItemDelegate: AnyObject {
-    func passAmountData(amount: Double)
-    func reloadData()
+//    func passAmountData(amount: Double)
+    func reloadAndFilterData()
 }
 
 final class NewItemViewModel {
@@ -21,38 +21,37 @@ final class NewItemViewModel {
     var amountValue: Double = 1
     var item: Results<ItemModel>?
     
+    private let session: ProductSession
+    
+    init(session: ProductSession) {
+        self.session = session
+    }
+    
     private let manager = DataManager()
-
+    
     func saveItem(name: String,
                   price: Double,
                   image: String,
                   measure: Measures) {
         
-        let item = ItemModel(id: UUID(),
+        let item = ItemModel(id: session.listID,
                              name: name,
                              amount: Double(1),
                              image: image,
                              measure: measure,
                              price: price)
-                
+        
         manager.saveObject(data: item) {  error in
             if let err = error {
                 print(err.localizedDescription)
+            }
         }
-        
-//        manager.saveObject(data: item) { result in
-//            switch result {
-//            case .success(let success):
-//                self.item = success
-//            case .failure(let failure):
-//                print(failure.localizedDescription)
-//            }
-        }
-        delegate?.reloadData()
+        print("NEW ITEM \(item)")
+        delegate?.reloadAndFilterData()
     }
-
-    func changeSelectedAmount(amount: Double) {
-        delegate?.passAmountData(amount: amountValue)
-        print(amountValue)
-    }
+    
+//    func changeSelectedAmount(amount: Double) {
+//        delegate?.passAmountData(amount: amountValue)
+//        print(amountValue)
+//    }
 }

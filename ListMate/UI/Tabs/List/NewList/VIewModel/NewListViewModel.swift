@@ -18,6 +18,11 @@ class NewListViewModel {
     
     private let manager = DataManager()
     private var lists: Results<ListModel>?
+    private let session: ProductSession
+    
+    init(session: ProductSession) {
+        self.session = session
+    }
     
     func saveListItem(name: String) {
         let list = ListModel(name: name,
@@ -28,15 +33,7 @@ class NewListViewModel {
             if let err = error {
                 print(err.localizedDescription)
             }
+            self.delegate?.reloadData()
         }
-//            }       manager.saveObject(data: list) { result in
-//            switch result {
-//            case .success(let success):
-//                self.delegate?.reloadData()
-//                self.lists = success
-//            case .failure(let failure):
-//                print(failure.localizedDescription)
-//            }
-//        }
     }
 }

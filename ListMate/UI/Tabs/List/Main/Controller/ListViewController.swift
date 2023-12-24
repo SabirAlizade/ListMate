@@ -10,7 +10,7 @@ import UIKit
 class ListViewController: BaseViewController {
     
     private lazy var viewModel: ListViewModel = {
-        let model = ListViewModel()
+        let model = ListViewModel(session: .shared)
         model.delegate = self
         return model
     }()
@@ -40,7 +40,7 @@ class ListViewController: BaseViewController {
     
     private func configureNavBar() {
         navigationItem.title = "Lists"
-
+        
         let rightButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
                                           style: .plain,
                                           target: self,
@@ -57,8 +57,8 @@ class ListViewController: BaseViewController {
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4
-         }
-     )]
+        }
+                                                          )]
         present(nc, animated: true)    }
 }
 
@@ -80,9 +80,10 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func openItems(indexPath: Int) {
+        guard let item = viewModel.lists?[indexPath] else { return }
+        viewModel.updateListId(id: item.id.uuidString)
         let vc = ItemsViewController()
-        let name = viewModel.lists?[indexPath].name
-        vc.title = name
+        vc.title = item.name
         navigationController?.pushViewController(vc, animated: true)
     }
     
