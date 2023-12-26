@@ -44,8 +44,9 @@ class DataManager {
     func updateObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
         do {
             try realm.write {
-                realm.add(data, update: .all)
+                realm.add(data, update: .modified)
             }
+            completion(nil)
         }
         catch {
             completion(error)
@@ -53,7 +54,6 @@ class DataManager {
     }
     
     func filterID(id: String, completion: @escaping(Results<ItemModel>?) -> Void) {
-        print(id)
         let predicate = NSPredicate(format: "id == %@", id)
         do {
             let realm = try Realm()
@@ -63,7 +63,6 @@ class DataManager {
                     completion(results)
                 }
             } else {
-                print("NO DATA FOUND FOR ID \(id)")
                 completion(nil)
             }
         } 

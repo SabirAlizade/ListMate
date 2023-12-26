@@ -50,7 +50,7 @@
 		03CA6E8C2B30ADC300D59935 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E8B2B30ADC300D59935 /* ItemsViewController.swift */; };
 		03CA6E8E2B30AFF800D59935 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E8D2B30AFF800D59935 /* ItemsViewModel.swift */; };
 		03CA6E912B30B68700D59935 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E902B30B68700D59935 /* ItemCell.swift */; };
-		03CA6E942B30B80E00D59935 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E932B30B80E00D59935 /* UITableView+Ext.swift */; };
+		03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E932B30B80E00D59935 /* SwipeAction.swift */; };
 		03CA6E9B2B30D2E500D59935 /* NewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CA6E9A2B30D2E500D59935 /* NewItemViewController.swift */; };
 		03E847252B3335BD004323F4 /* NewItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E847242B3335BD004323F4 /* NewItemViewModel.swift */; };
 		03E847282B3338A0004323F4 /* ItemAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E847272B3338A0004323F4 /* ItemAmountView.swift */; };
@@ -101,7 +101,7 @@
 		03CA6E8B2B30ADC300D59935 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		03CA6E8D2B30AFF800D59935 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		03CA6E902B30B68700D59935 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
-		03CA6E932B30B80E00D59935 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		03CA6E932B30B80E00D59935 /* SwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAction.swift; sourceTree = "<group>"; };
 		03CA6E9A2B30D2E500D59935 /* NewItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewController.swift; sourceTree = "<group>"; };
 		03E847242B3335BD004323F4 /* NewItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewModel.swift; sourceTree = "<group>"; };
 		03E847272B3338A0004323F4 /* ItemAmountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAmountView.swift; sourceTree = "<group>"; };
@@ -221,6 +221,7 @@
 		03A1057D2B2F323900E13A45 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				03CA6E922B30B7DD00D59935 /* TableView */,
 				03A105C92B303ED000E13A45 /* TextField */,
 				03A105932B2F417000E13A45 /* Fonts */,
 				03A105802B2F329F00E13A45 /* TabBar */,
@@ -265,7 +266,6 @@
 		03A105892B2F3EEC00E13A45 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				03CA6E922B30B7DD00D59935 /* TableView */,
 				03A105D82B3048B900E13A45 /* Date */,
 				03A105CC2B303F3D00E13A45 /* TextField */,
 				03A1058A2B2F3F0600E13A45 /* Controller */,
@@ -402,8 +402,8 @@
 		03A105C12B2F764200E13A45 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				03AD576A2B370735008A48C5 /* Session */,
 				03A105C22B2F768C00E13A45 /* DataManager.swift */,
+				03AD576A2B370735008A48C5 /* Session */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -574,7 +574,7 @@
 		03CA6E922B30B7DD00D59935 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				03CA6E932B30B80E00D59935 /* UITableView+Ext.swift */,
+				03CA6E932B30B80E00D59935 /* SwipeAction.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -732,7 +732,7 @@
 				03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */,
 				03A105CE2B303F5100E13A45 /* TextField+Ext.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
-				03CA6E942B30B80E00D59935 /* UITableView+Ext.swift in Sources */,
+				03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */,
 				03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */,
 				03E8472B2B333901004323F4 /* BaseView.swift in Sources */,
 				03E847252B3335BD004323F4 /* NewItemViewModel.swift in Sources */,

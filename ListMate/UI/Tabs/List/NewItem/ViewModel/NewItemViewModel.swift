@@ -18,7 +18,7 @@ final class NewItemViewModel {
     
     var measuresArray: [String] = ["Pcs", "Kgs", "L"]
     var selectedMeasure: Measures = .pcs
-    var amountValue: Double = 1
+    private var amountValue: Double = 1
     var item: Results<ItemModel>?
     
     private let session: ProductSession
@@ -36,10 +36,11 @@ final class NewItemViewModel {
         
         let item = ItemModel(id: session.listID,
                              name: name,
-                             amount: Double(1),
+                             amount: amountValue,
                              image: image,
                              measure: measure,
-                             price: price)
+                             price: price,
+                             totalprice: price)
         
         manager.saveObject(data: item) {  error in
             if let err = error {
@@ -48,6 +49,10 @@ final class NewItemViewModel {
         }
         print("NEW ITEM \(item)")
         delegate?.reloadAndFilterData()
+    }
+    
+    func setAmount(amount: Double) {
+        amountValue = amount
     }
     
 //    func changeSelectedAmount(amount: Double) {

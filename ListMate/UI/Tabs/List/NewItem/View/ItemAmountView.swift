@@ -7,29 +7,40 @@
 
 import UIKit
 
+protocol ItemAmountDelegate: AnyObject {
+    func setAmount(amount: Double)
+}
+
 class ItemAmountView: BaseView {
     
-    var currentAmount: Double = 1
-    var step: Double = 1
-    let minPcsValue: Double = 1
-    let minkgValue: Double = 0.1
+    weak var delegate: ItemAmountDelegate?
     
-    var item: Measures? {
+    var quantityAmount: Double = 1
+    private var minValue: Double = 1
+    
+    var itemMeasure: Measures? {
         didSet {
-            guard let item = item else { return }
+            guard let item = itemMeasure else { return }
             switch item {
             case .pcs:
-                step = 1
-                currentAmount = 1
-                amountTextField.text = String(format: "%.0f", currentAmount)
-                checkMinimumValue(minValue: 1.0)
-          
+                quantityAmount = 1
+                minValue = 1
             case .kgs, .l:
-                step = 0.5
-                currentAmount = 1
-                amountTextField.text = "\(currentAmount)"
-                checkMinimumValue(minValue: 0.1)
+                quantityAmount = 1
+                minValue = 0.1
             }
+            checkMinimumValue()
+            amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+        }
+    }
+    
+    var item: ItemModel? {
+        didSet {
+            guard let item else { return }
+            itemMeasure = item.measure
+            quantityAmount = item.amount
+            amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+            checkMinimumValue()
         }
     }
     
@@ -40,18 +51,17 @@ class ItemAmountView: BaseView {
         view.backgroundColor = .lightgreen
         return view
     }()
-        
-    private let amountTextField : UITextField = {
+    
+    lazy var amountTextField : UITextField = { //TODO: CREATE CUSTOM AN SET RULES
         let textField = UITextField()
-        textField.textAlignment = .center
-        textField.keyboardType = .numberPad
         textField.text = "1"
+        textField.textAlignment = .center
+        textField.keyboardType = .decimalPad
         textField.font = .poppinsFont(size: 30, weight: .regular)
+        textField.addTarget(self, action: #selector (textFieldDidChange), for: .editingChanged)
         return textField
     }()
-    
-    //TODO: ADD MEASURE LABEL TO THE RIGHT?
-    
+        
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
@@ -72,7 +82,7 @@ class ItemAmountView: BaseView {
     override func setupView() {
         super.setupView()
         setupUI()
-        checkMinimumValue(minValue: 1.0)
+    
     }
     
     private func setupUI() {
@@ -85,7 +95,11 @@ class ItemAmountView: BaseView {
             kit.width(170)
             kit.height(40)
             
-            let hStack = UIView().HStack(views: minusButton.withWidth(45), amountTextField.withWidth(70), plusButton.withWidth(45), spacing: 5, distribution: .fill )
+            let hStack = UIView().HStack(views: minusButton.withWidth(45),
+                                         amountTextField.withWidth(70),
+                                         plusButton.withWidth(45),
+                                         spacing: 5,
+                                         distribution: .fill)
             
             stepperView.anchor(view: hStack) { kit in
                 kit.leading()
@@ -96,34 +110,77 @@ class ItemAmountView: BaseView {
         }
     }
     
-    private func changeValue(step: Double) {
-        
-    }
-    
-    
-    func checkMinimumValue(minValue: Double) {
-        if currentAmount == minValue {
+    private func checkMinimumValue() {
+        if quantityAmount <= minValue {
             minusButton.isEnabled = false
             minusButton.tintColor = .maingreen.withAlphaComponent(0.5)
+        } else {
+            minusButton.isEnabled = true
+            minusButton.tintColor = .maingreen
+        }
+     }
+    
+    @objc
+    private func didTapMinus() { //MARK:  ALLERGY ON 2
+        checkMinimumValue()
+        decrement(measureType: itemMeasure ?? .pcs)
+        amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+      
+        delegate?.setAmount(amount: quantityAmount)
+    }
+    
+    private func decrement(measureType: Measures) {
+        switch measureType {
+        case .pcs:
+            if quantityAmount > minValue {
+                quantityAmount -= 1
+            }
+        case .kgs, .l:
+                if quantityAmount > 0.5 {
+                    quantityAmount -= 0.5
+                    return
+                }
+                if quantityAmount <= 0.5 {
+                    quantityAmount = 0.1
+                    checkMinimumValue()
+                }
+            }
+        }
+    
+    
+    private func increment(measureType: Measures) {
+        switch measureType {
+        case .pcs:
+            quantityAmount += 1
+        case .kgs, .l:
+            if quantityAmount == 0.1 {
+                quantityAmount = 0.5
+            } else {
+                quantityAmount += 0.5
+            }
         }
     }
     
     @objc
-    private func didTapMinus() {
-        currentAmount -= step
-        amountTextField.text = "\(currentAmount)"
-        if item == .pcs {
-            amountTextField.text = String(format: "%.0f", currentAmount)
-        }
+    private func textFieldDidChange() {
+        guard let amount = Double(amountTextField.text ?? "") else { return }
+        delegate?.setAmount(amount: amount)
     }
     
     @objc
     private func didTapPlus() {
-        currentAmount += step
-        amountTextField.text = "\(currentAmount)"
-        if item == .pcs {
-            amountTextField.text = String(format: "%.0f", currentAmount)
+        checkMinimumValue()
+        increment(measureType: itemMeasure ?? .pcs)
+        amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+        delegate?.setAmount(amount: quantityAmount)
+    }
+    
+    private func checkTrailingZeros(amount: Double) -> String {
+        var amountString = String(format: "%.1f", amount)
+        if amountString.hasSuffix(".0") {
+            amountString = String(amountString.dropLast(2))
         }
+        return amountString
     }
 }
 

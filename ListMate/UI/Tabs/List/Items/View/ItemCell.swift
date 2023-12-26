@@ -8,19 +8,22 @@
 import UIKit
 
 protocol ItemCellDelegate: AnyObject {
-    func didTapPlusButton(in cell: ItemCell)
-    func didTapMinusButton(in cell: ItemCell)
-    func didUpdateText(in cell: ItemCell, newText: String?)
+ //   func updateSummaryPrice(summary: Double)
+    func updateCheckmark(cell: ItemCell, isChecked: Bool)
+    func updateAmount(cell: ItemCell, amount: Double)
 }
 
-class ItemCell: BaseCell {
+final class ItemCell: BaseCell {
     weak var delegate: ItemCellDelegate?
     
     var item: ItemModel? {
         didSet {
-            guard let item = item else { return }
+            guard let item else { return }
+            let price = item.totalprice
             nameLabel.text = item.name
-            priceLabel.text = "\(item.price) $"
+            priceLabel.text = String(format: "%.1f", price, "$")
+            itemAmountView.item = item
+            checkBox.isChecked = item.isBought
             if let image = UserDefaults.standard.readImage(key: item.image) {
                 itemImageView.image = image
             }
@@ -36,29 +39,25 @@ class ItemCell: BaseCell {
         return view
     }()
     
+    private lazy var itemAmountView: ItemAmountView = {
+        let view = ItemAmountView()
+        view.delegate = self
+        return view
+    }()
+    
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
-    private let priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
+    private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         return view
     }()
-    
-    private lazy var amountTextField: AmountTextField = {
-       let textField = AmountTextField()
-        textField.backgroundColor = .lightgreen
-        textField.setLeftView(view: minusButton)
-        textField.setRightView(view: plusButton)
-        textField.layer.cornerRadius = 13
-        textField.text = "23"
-        textField.addTarget(self, action: #selector(didTapChange(_:)), for: .editingChanged)
-        return textField
-    }()
         
-    let checkBox: CheckBox = {
+    lazy var checkBox: CheckBox = {
         let checkBox = CheckBox()
         checkBox.imageTint = .maingreen
+        checkBox.addTarget(self, action: #selector(changeCheck), for: .valueChanged)
         return checkBox
     }()
     
@@ -68,67 +67,28 @@ class ItemCell: BaseCell {
 //        }
 //    }
     
-    private lazy var minusButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
-        button.tintColor = .maingreen
-        button.addTarget(self, action: #selector(didTapMinusButton), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var plusButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .maingreen
-        button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
-        return button
-    }()
-        
     override func setupCell() {
         super.setupCell()
         selectionStyle = .none
         setupUI()
-//        configureAmountTextField()
     }
     
-//    private func configureAmountTextField() {
-//        amountTextField.backgroundColor = .lightgreen
-//        amountTextField.setLeftView(view: minusButton)
-//        amountTextField.setRightView(view: plusButton)
-//        amountTextField.layer.cornerRadius = 13
-//        amountTextField.text = "23"
-////        amountTextField.delegate = self
+    @objc
+    func changeCheck() {
+        let isChecked = checkBox.isChecked ? false : true
+        delegate?.updateCheckmark(cell: self, isChecked: isChecked)
+    }
+    
+//    private func priceCount() {
+//       // delegate?.updateSummaryPrice(summary: itemPrice)
 //    }
-
-    @objc
-    private func didTapMinusButton() {
-//        print("-")
-        delegate?.didTapMinusButton(in: self)
-    }
     
-    @objc
-    private func didTapPlusButton() {
-//        print("=")
 
-        delegate?.didTapPlusButton(in: self)
-    }
-    
-    @objc
-    private func didTapChange(_ sender: AmountTextField) {
-        delegate?.didUpdateText(in: self, newText: sender.text)
-    }
-    
-    @objc
-    private func checkDidTapPressed() {
-        let uncheckedImage = UIImage(named: "uncheckbox")
-        let checkedImage = UIImage(named: "checkbox")
-    }
-
-    @objc
-    private func textDidChange(_textfield: UITextField) {
-        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
-    }
+//    @objc
+//    private func textDidChange(_textfield: UITextField) {
+//        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
+//        priceCount()
+//    }
     
     private func setupUI() {
                 
@@ -151,7 +111,7 @@ class ItemCell: BaseCell {
             kit.top(containerView.topAnchor, 5)
         }
         
-        containerView.anchor(view: amountTextField) { kit in
+        containerView.anchor(view: itemAmountView) { kit in
             kit.leading(nameLabel.leadingAnchor)
             kit.top(nameLabel.bottomAnchor, 5)
             kit.width(150)
@@ -168,6 +128,13 @@ class ItemCell: BaseCell {
             kit.trailing(checkBox.leadingAnchor, 15)
             kit.centerY()
         }
+    }
+}
+
+extension ItemCell: ItemAmountDelegate {
+    func setAmount(amount: Double) {
+        delegate?.updateAmount(cell: self, amount: amount)
+        print("\(amount)")
     }
 }
 

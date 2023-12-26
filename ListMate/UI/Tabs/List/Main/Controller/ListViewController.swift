@@ -19,6 +19,7 @@ class ListViewController: BaseViewController {
         let view = UITableView()
         view.delegate = self
         view.dataSource = self
+        view.separatorStyle = .none
         view.delaysContentTouches = false
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
@@ -59,7 +60,7 @@ class ListViewController: BaseViewController {
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4
         }
-                                                          )]
+        )]
         present(nc, animated: true)    }
 }
 
@@ -84,8 +85,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let item = viewModel.lists?[indexPath] else { return }
         viewModel.updateListId(id: item.id.uuidString)
         let vc = ItemsViewController()
+        vc.hidesBottomBarWhenPushed = true
         vc.title = item.name
-        navigationController?.pushViewController(vc, animated: true)
+        show(vc, sender: self)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

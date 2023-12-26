@@ -25,8 +25,13 @@ class NewItemViewController: BaseViewController {
     
     private lazy var itemAmount: ItemAmountView = {
         let view = ItemAmountView()
+        view.delegate = self
         return view
     }()
+    
+    private let priceLabel = CustomLabel(text: "Price per package:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
+    
+    private let quantityLabel = CustomLabel(text: "Quantity:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
     
     private lazy var pricetextFiled = CustomTextField(placeHolder: "Enter price", keybord: .numberPad, dataSource: .none)
     
@@ -72,8 +77,10 @@ class NewItemViewController: BaseViewController {
     
     private func setupUI() {
         
-        let hStack = UIView().HStack(views: itemAmount, pricetextFiled.withHeight(44), spacing: 60, distribution: .equalSpacing)
-        let vStack = UIView().VStack(views: nameTextField.withHeight(44), measuresControl.withHeight(44), hStack, spacing: 20, distribution: .fill)
+        let labelHStack = UIView().HStack(views: priceLabel, quantityLabel, spacing: 60, distribution: .equalSpacing)
+        
+        let hStack = UIView().HStack(views: pricetextFiled.withHeight(44), itemAmount, spacing: 60, distribution: .equalSpacing)
+        let vStack = UIView().VStack(views: nameTextField.withHeight(44), measuresControl.withHeight(44), labelHStack, hStack, spacing: 20, distribution: .fill)
         
         view.anchor(view: vStack) { kit in
             kit.leading(20)
@@ -111,7 +118,7 @@ class NewItemViewController: BaseViewController {
     private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         let selectedMeasure = Measures.allCases[sender.selectedSegmentIndex]
         viewModel.selectedMeasure = selectedMeasure
-        itemAmount.item = selectedMeasure
+        itemAmount.itemMeasure = selectedMeasure
     }
     
     @objc
@@ -125,7 +132,7 @@ class NewItemViewController: BaseViewController {
         viewModel.saveItem(name: name,
                            price: price,
                            image: name,
-                           measure: itemAmount.item ?? .pcs)
+                           measure: itemAmount.itemMeasure ?? .pcs)
         dismiss(animated: true)
     }
     
@@ -175,3 +182,8 @@ extension UserDefaults {
     }
 }
 
+extension NewItemViewController: ItemAmountDelegate {
+    func setAmount(amount: Double) {
+        viewModel.setAmount(amount: amount)
+    }
+}

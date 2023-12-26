@@ -92,7 +92,8 @@ class CheckBox: UIControl {
         layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
         checkedView.isHidden = !isChecked
     }
-
+    
+  
     //MARK: - handle touches
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)

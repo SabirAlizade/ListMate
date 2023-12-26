@@ -26,7 +26,7 @@ class ItemsViewController: BaseViewController {
         return view
     }()
     
-    lazy var summaryButton = CustomButton(title: "15 $",
+    lazy var summaryButton = CustomButton(title: "\(viewModel.summary)",
                                           backgroundColor: .maingreen,
                                           titleColor: .white,
                                           target: self,
@@ -42,7 +42,6 @@ class ItemsViewController: BaseViewController {
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
-        tabBarController?.tabBar.isHidden = true
         setupUI()
     }
     
@@ -88,10 +87,13 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.items?.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.items?[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else  { return UITableViewCell() }
+        cell.delegate = self
         cell.item = item
+        print(viewModel.items ?? "")
         return cell
     }
     
@@ -116,14 +118,32 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
             guard let item = self?.viewModel.items?[indexPath.row] else { return }
             self?.viewModel.deleteItem(item: item)
-            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return swipeConfiguration
     }
 }
 
-extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
+extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate {
+    
+    func updateCheckmark(cell: ItemCell, isChecked: Bool) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            viewModel.updateCheckmark(index: indexPath.row, isCheked: isChecked)
+        }
+        tableView.reloadData()
+    }
+    
+    func updateAmount(cell: ItemCell, amount: Double) {
+        if let indexPath = tableView.indexPath(for: cell) {
+            viewModel.updateAmount(index: indexPath.row, amount: amount)
+        }
+        tableView.reloadData()
+    }
+
+    func updateSummaryPrice(summary: Double) {
+        
+    }
+    
     func reloadAndFilterData() {
         viewModel.filter()
     }
@@ -132,15 +152,7 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
         tableView.reloadData()
     }
 }
-//    func didTapPlusButton(in cell: ItemCell) {
-//        viewModel.plusButtonAction()
-//        print("+")
-//    }
-//
-//    func didTapMinusButton(in cell: ItemCell) {
-//        viewModel.minusButtonAction()
-//        print("-")
-//    }
+
 
 //    func didUpdateText(in cell: ItemCell, newText: String) {
 //
@@ -150,7 +162,3 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
 //        tableView.reloadData()
 //    }
 
-
-//#Preview {
-//    ItemsViewController()
-//}

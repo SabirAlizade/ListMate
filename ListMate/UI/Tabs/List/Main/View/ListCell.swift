@@ -36,6 +36,7 @@ class ListCell: BaseCell {
     
     override func setupCell() {
         super.setupCell()
+        selectionStyle = .none
         setupUI()
     }
     
