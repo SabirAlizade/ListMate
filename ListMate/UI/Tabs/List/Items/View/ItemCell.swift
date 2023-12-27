@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ItemCellDelegate: AnyObject {
- //   func updateSummaryPrice(summary: Double)
+    //   func updateSummaryPrice(summary: Double)
     func updateCheckmark(cell: ItemCell, isChecked: Bool)
     func updateAmount(cell: ItemCell, amount: Double)
 }
@@ -19,9 +19,8 @@ final class ItemCell: BaseCell {
     var item: ItemModel? {
         didSet {
             guard let item else { return }
-            let price = item.totalprice
             nameLabel.text = item.name
-            priceLabel.text = String(format: "%.1f", price, "$")
+            priceLabel.text = String(format: "%.1f", item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
             if let image = UserDefaults.standard.readImage(key: item.image) {
@@ -31,7 +30,7 @@ final class ItemCell: BaseCell {
     }
     
     private let containerView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .white
         view.layer.shadowOpacity = 4
         view.layer.cornerRadius = 10
@@ -48,12 +47,14 @@ final class ItemCell: BaseCell {
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
     private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
     
+    private lazy var currencyLabel = CustomLabel(text: "$", font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
+    
     private let itemImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
         return view
     }()
-        
+    
     lazy var checkBox: CheckBox = {
         let checkBox = CheckBox()
         checkBox.imageTint = .maingreen
@@ -61,11 +62,11 @@ final class ItemCell: BaseCell {
         return checkBox
     }()
     
-//    private var amountTextField: AmountTextField = AmountTextField() {
-//        didSet {
-//            delegate?.didUpdateText(in: self, newText: amountTextField.text)
-//        }
-//    }
+    //    private var amountTextField: AmountTextField = AmountTextField() {
+    //        didSet {
+    //            delegate?.didUpdateText(in: self, newText: amountTextField.text)
+    //        }
+    //    }
     
     override func setupCell() {
         super.setupCell()
@@ -79,26 +80,26 @@ final class ItemCell: BaseCell {
         delegate?.updateCheckmark(cell: self, isChecked: isChecked)
     }
     
-//    private func priceCount() {
-//       // delegate?.updateSummaryPrice(summary: itemPrice)
-//    }
+    //    private func priceCount() {
+    //       // delegate?.updateSummaryPrice(summary: itemPrice)
+    //    }
     
-
-//    @objc
-//    private func textDidChange(_textfield: UITextField) {
-//        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
-//        priceCount()
-//    }
+    
+    //    @objc
+    //    private func textDidChange(_textfield: UITextField) {
+    //        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
+    //        priceCount()
+    //    }
     
     private func setupUI() {
-                
+        
         contentView.anchor(view: containerView) { kit in
             kit.leading(5)
             kit.trailing(5)
             kit.top(10)
             kit.bottom(10)
         }
-     
+        
         containerView.anchor(view: itemImageView) { kit in
             kit.centerY()
             kit.leading(15)
@@ -114,7 +115,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: itemAmountView) { kit in
             kit.leading(nameLabel.leadingAnchor)
             kit.top(nameLabel.bottomAnchor, 5)
-            kit.width(150)
+            kit.width(180)
             kit.height(35)
         }
         
@@ -124,8 +125,14 @@ final class ItemCell: BaseCell {
             kit.width(30)
             kit.height(30)
         }
+        
+        containerView.anchor(view: currencyLabel) { kit in
+            kit.trailing(checkBox.leadingAnchor, 10)
+            kit.centerY()
+        }
+        
         containerView.anchor(view: priceLabel) { kit in
-            kit.trailing(checkBox.leadingAnchor, 15)
+            kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
         }
     }
@@ -134,7 +141,6 @@ final class ItemCell: BaseCell {
 extension ItemCell: ItemAmountDelegate {
     func setAmount(amount: Double) {
         delegate?.updateAmount(cell: self, amount: amount)
-        print("\(amount)")
     }
 }
 

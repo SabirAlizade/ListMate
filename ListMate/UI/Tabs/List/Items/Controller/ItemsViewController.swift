@@ -26,7 +26,7 @@ class ItemsViewController: BaseViewController {
         return view
     }()
     
-    lazy var summaryButton = CustomButton(title: "\(viewModel.summary)",
+    lazy var summaryButton = CustomButton(title: "0.0",
                                           backgroundColor: .maingreen,
                                           titleColor: .white,
                                           target: self,
@@ -38,11 +38,18 @@ class ItemsViewController: BaseViewController {
         super.setupUIComponents()
         configureNavBar()
         viewModel.filter()
+        configureSummaryButton()
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
+    }
+    
+    func configureSummaryButton() {
+        viewModel.updateSummaryButton = { [weak self] amount in
+            self?.summaryButton.setTitle("Total: \(amount) $", for: .normal)
+        }
     }
     
     private func configureNavBar() {
@@ -126,6 +133,10 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate {
     
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
     func updateCheckmark(cell: ItemCell, isChecked: Bool) {
         if let indexPath = tableView.indexPath(for: cell) {
             viewModel.updateCheckmark(index: indexPath.row, isCheked: isChecked)
@@ -139,26 +150,9 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDele
         }
         tableView.reloadData()
     }
-
-    func updateSummaryPrice(summary: Double) {
-        
-    }
     
     func reloadAndFilterData() {
         viewModel.filter()
     }
-    
-    func reloadData() {
-        tableView.reloadData()
-    }
 }
-
-
-//    func didUpdateText(in cell: ItemCell, newText: String) {
-//
-//    }
-
-//    func passAmountData(amount: Double) {
-//        tableView.reloadData()
-//    }
 

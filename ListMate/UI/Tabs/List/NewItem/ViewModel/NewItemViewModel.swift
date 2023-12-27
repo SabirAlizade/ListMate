@@ -40,7 +40,7 @@ final class NewItemViewModel {
                              image: image,
                              measure: measure,
                              price: price,
-                             totalprice: price)
+                             totalPrice: price)
         
         manager.saveObject(data: item) {  error in
             if let err = error {
@@ -57,6 +57,5 @@ final class NewItemViewModel {
     
 //    func changeSelectedAmount(amount: Double) {
 //        delegate?.passAmountData(amount: amountValue)
-//        print(amountValue)
 //    }
 }

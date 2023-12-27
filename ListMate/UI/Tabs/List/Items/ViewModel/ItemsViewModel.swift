@@ -16,17 +16,20 @@ class ItemsViewModel {
     weak var delegate: ItemsModelDelegate?
     private let manager = DataManager()
     private let session: ProductSession
-    private var summaryAmount: Double = 0
     
     init(session: ProductSession) {
         self.session = session
     }
+    
+    private var lists: Results<ListModel>?
     
     private(set) var items: Results<ItemModel>? {
         didSet {
             delegate?.reloadData()
         }
     }
+        
+    var updateSummaryButton: ((Double) -> Void)?
     
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
@@ -34,12 +37,10 @@ class ItemsViewModel {
     func filter() {
         manager.filterID(id: session.listID) { result in
             self.items = result
+            self.calculateSummary()
         }
     }
     
-    //    func updateSummary(summary: Double) {
-    ////        var summaryArray: [Double] = []
-    //    }
     //MARK: - DATABASE HANDLING
     func updateCheckmark(index: Int, isCheked: Bool) {
         guard let item = items?[index] else { return }
@@ -56,37 +57,18 @@ class ItemsViewModel {
     func updateAmount(index: Int, amount: Double) {
         guard let item = items?[index] else { return }
         let totalPrice = item.price * amount
-
         
         do {
             try manager.realm.write {
                 item.amount = amount
-                item.totalprice = totalPrice
+                item.totalPrice = totalPrice
             }
         }
         catch {
             print(error.localizedDescription)
         }
+        self.calculateSummary()
     }
-    
-    
-    
-    //        guard let item = items?[index] else { return }
-    //
-    //        //        item.amount = amount
-    //        //        item.price *= amount
-    //       // item.isBought = isCheked
-    //
-    //        manager.updateObject(data: item) { error in
-    //            item.isBought = isCheked
-    //
-    //
-    //            if let error {
-    //                print(error.localizedDescription)
-    //            }
-    //        }
-    //    }
-    
     
     func deleteItem(item: ItemModel) {
         let itemId = item.objectId
@@ -96,15 +78,32 @@ class ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
+        self.filter()
     }
 }
 
 extension ItemsViewModel {
     
-    var summary: Double {
-        guard !(items?.isEmpty ?? true) else {// MARK: IT CANT SEES THAT IT IS NOT EMPTY
-            return 10
+    func calculateSummary() {
+        guard let items else { return }
+        let sum = items.reduce(0.0) { $0 + $1.totalPrice}
+        updateSummaryButton?(sum)
+        updateListSummary(summary: sum)
+    }
+    
+    func updateListSummary(summary: Double) {
+        guard let uuid = UUID(uuidString: session.listID) else { return }
+        if let list = manager.realm.objects(ListModel.self).filter("id == %@", uuid).first {
+            do {
+                try manager.realm.write {
+                    list.totalAmount = summary
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
         }
-        return items?.reduce(0) { $0 + $1.price } ?? 0
     }
 }
+
+

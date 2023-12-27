@@ -12,7 +12,6 @@ class DataManager {
     
     let realm: Realm = try! Realm()
     
-    
     func saveObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
         do {
             try realm.write {
@@ -41,18 +40,6 @@ class DataManager {
         }
     }
     
-    func updateObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
-        do {
-            try realm.write {
-                realm.add(data, update: .modified)
-            }
-            completion(nil)
-        }
-        catch {
-            completion(error)
-        }
-    }
-    
     func filterID(id: String, completion: @escaping(Results<ItemModel>?) -> Void) {
         let predicate = NSPredicate(format: "id == %@", id)
         do {
@@ -65,9 +52,42 @@ class DataManager {
             } else {
                 completion(nil)
             }
-        } 
+        }
         catch {
             print("Error: \(error)")
         }
     }
 }
+
+//    func updateObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
+//        do {
+//            try realm.write {
+//                realm.add(data, update: .modified)
+//            }
+//            completion(nil)
+//        }
+//        catch {
+//            completion(error)
+//        }
+//    }
+
+//    func updateSummary(listID: String, completion: @escaping(Error?) -> Void) {
+//
+//        if let uuid = UUID(uuidString: listID) {
+//            if let listModel = realm.object(ofType: ListModel.self, forPrimaryKey: uuid) {
+//                if let totalPricesSum = listModel.items.sum(ofProperty: "totalPrice") as Double? {
+//                    do {
+//                        try realm.write {
+//                            listModel.totalAmount = totalPricesSum
+//                            print(totalPricesSum)
+//                        }
+//                        completion(nil)
+//                    }
+//                    catch {
+//                        completion(error)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
