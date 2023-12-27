@@ -8,7 +8,6 @@
 import UIKit
 
 protocol ItemCellDelegate: AnyObject {
-    //   func updateSummaryPrice(summary: Double)
     func updateCheckmark(cell: ItemCell, isChecked: Bool)
     func updateAmount(cell: ItemCell, amount: Double)
 }
@@ -61,13 +60,7 @@ final class ItemCell: BaseCell {
         checkBox.addTarget(self, action: #selector(changeCheck), for: .valueChanged)
         return checkBox
     }()
-    
-    //    private var amountTextField: AmountTextField = AmountTextField() {
-    //        didSet {
-    //            delegate?.didUpdateText(in: self, newText: amountTextField.text)
-    //        }
-    //    }
-    
+        
     override func setupCell() {
         super.setupCell()
         selectionStyle = .none
@@ -79,17 +72,6 @@ final class ItemCell: BaseCell {
         let isChecked = checkBox.isChecked ? false : true
         delegate?.updateCheckmark(cell: self, isChecked: isChecked)
     }
-    
-    //    private func priceCount() {
-    //       // delegate?.updateSummaryPrice(summary: itemPrice)
-    //    }
-    
-    
-    //    @objc
-    //    private func textDidChange(_textfield: UITextField) {
-    //        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
-    //        priceCount()
-    //    }
     
     private func setupUI() {
         
@@ -143,9 +125,3 @@ extension ItemCell: ItemAmountDelegate {
         delegate?.updateAmount(cell: self, amount: amount)
     }
 }
-
-//extension ItemCell: UITextFieldDelegate {
-//    func textFieldDidChangeSelection(_ textField: UITextField) {
-//        delegate?.didUpdateText(in: self, newText: amountTextField.text ?? "")
-//    }
-//}

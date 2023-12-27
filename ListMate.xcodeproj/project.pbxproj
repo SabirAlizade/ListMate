@@ -42,6 +42,9 @@
 		03A105DA2B3048F000E13A45 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D92B3048F000E13A45 /* Date+Ext.swift */; };
 		03AC79D32B37697900BD9946 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC79D22B37697900BD9946 /* CheckBox.swift */; };
 		03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AD576B2B37073D008A48C5 /* ProductSession.swift */; };
+		03B0A6912B3C0AE500B3F8D0 /* DetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B0A6902B3C0AE500B3F8D0 /* DetailedViewModel.swift */; };
+		03B0A6962B3C2D2000B3F8D0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B0A6952B3C2D2000B3F8D0 /* DetailsView.swift */; };
+		03B0A6982B3C633B00B3F8D0 /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */; };
 		03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B39E202B36BAFA007259F9 /* SummaryViewController.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
@@ -93,6 +96,9 @@
 		03A105D92B3048F000E13A45 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		03AC79D22B37697900BD9946 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		03AD576B2B37073D008A48C5 /* ProductSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSession.swift; sourceTree = "<group>"; };
+		03B0A6902B3C0AE500B3F8D0 /* DetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewModel.swift; sourceTree = "<group>"; };
+		03B0A6952B3C2D2000B3F8D0 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		03B39E202B36BAFA007259F9 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 		036CC2BD2B36CCDC00D3F4F7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				03B0A6902B3C0AE500B3F8D0 /* DetailedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -132,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				036CC2C12B36CED800D3F4F7 /* MainView.swift */,
+				03B0A6952B3C2D2000B3F8D0 /* DetailsView.swift */,
+				03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -725,6 +734,7 @@
 				03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */,
 				03A105A42B2F4A2D00E13A45 /* UIView+Stacking.swift in Sources */,
 				03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */,
+				03B0A6912B3C0AE500B3F8D0 /* DetailedViewModel.swift in Sources */,
 				036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */,
 				03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */,
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
@@ -748,6 +758,7 @@
 				03A105672B2F300700E13A45 /* SceneDelegate.swift in Sources */,
 				03A105C02B2F750100E13A45 /* ListViewModel.swift in Sources */,
 				03E847282B3338A0004323F4 /* ItemAmountView.swift in Sources */,
+				03B0A6962B3C2D2000B3F8D0 /* DetailsView.swift in Sources */,
 				03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */,
 				03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */,
 				036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */,
@@ -758,6 +769,7 @@
 				03A105C82B303DD000E13A45 /* NewListViewController.swift in Sources */,
 				03CA6E8C2B30ADC300D59935 /* ItemsViewController.swift in Sources */,
 				03A105AD2B2F4EB000E13A45 /* BaseCell.swift in Sources */,
+				03B0A6982B3C633B00B3F8D0 /* ImagePreviewViewController.swift in Sources */,
 				03A1058C2B2F3F3100E13A45 /* Controller+Ext.swift in Sources */,
 				03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */,
 			);

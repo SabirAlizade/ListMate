@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 protocol NewItemDelegate: AnyObject {
-//    func passAmountData(amount: Double)
     func reloadAndFilterData()
 }
 

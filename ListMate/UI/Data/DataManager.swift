@@ -59,17 +59,19 @@ class DataManager {
     }
 }
 
-//    func updateObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
-//        do {
-//            try realm.write {
-//                realm.add(data, update: .modified)
-//            }
-//            completion(nil)
-//        }
-//        catch {
-//            completion(error)
-//        }
-//    }
+/*
+ func updateObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
+     do {
+         try realm.write {
+             realm.add(data, update: .modified)
+         }
+         completion(nil)
+     }
+     catch {
+         completion(error)
+     }
+ }
+ */
 
 //    func updateSummary(listID: String, completion: @escaping(Error?) -> Void) {
 //

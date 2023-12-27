@@ -40,7 +40,7 @@ class ItemsViewController: BaseViewController {
         viewModel.filter()
         configureSummaryButton()
     }
-    
+        
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
@@ -109,9 +109,10 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func openDetailed(indexPath: Int) {
-        let item = viewModel.items?[indexPath].name
+        let item = viewModel.items?[indexPath]
         let vc = DetailedViewController()
-        vc.title = item
+        vc.viewModel.item = item
+        vc.viewModel.delegate = self
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
         present(nc, animated: true)
@@ -131,7 +132,11 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate {
+extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
+    func updateChanges() {
+        viewModel.filter()
+        tableView.reloadData()
+    }
     
     func reloadData() {
         tableView.reloadData()
@@ -156,3 +161,12 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDele
     }
 }
 
+/*
+ @objc
+ private func presentPicker() {
+     //PREVIEW HERE
+     let vc = ImagePreviewViewController()
+     vc.image = itemImage
+     show(vc, anim)
+     
+ */

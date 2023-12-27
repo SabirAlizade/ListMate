@@ -114,7 +114,7 @@ class NewItemViewController: BaseViewController {
         measuresControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
     
-    @objc
+    @objc//TODO: TRY TO REMOVE SENDER AND USE UISEGMENT CONTROL INSTEAD
     private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         let selectedMeasure = Measures.allCases[sender.selectedSegmentIndex]
         viewModel.selectedMeasure = selectedMeasure
@@ -162,6 +162,7 @@ extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationCo
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
 extension UserDefaults {
     func saveImage(image: UIImage, key: String) {
         guard let data = image.jpegData(compressionQuality: 1) else { return }
@@ -172,13 +173,13 @@ extension UserDefaults {
         setValue(imageData, forKey: key)
     }
     
-    private func readData(key: String) -> Data? {
-        return data(forKey: key)
-    }
-    
     func readImage(key: String) -> UIImage? {
         guard let imageData = readData(key: key) else { return UIImage() }
         return UIImage(data: imageData)
+    }
+    
+    private func readData(key: String) -> Data? {
+        return data(forKey: key)
     }
 }
 
