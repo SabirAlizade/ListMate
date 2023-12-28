@@ -147,7 +147,6 @@ class ItemAmountView: BaseView {
             }
         }
     
-    
     private func increment(measureType: Measures) {
         switch measureType {
         case .pcs:

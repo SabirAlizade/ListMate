@@ -79,6 +79,7 @@ class DetailedViewController: BaseViewController {
 extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePreviewDelegate {
     func updateImage(image: UIImage) {
         viewModel.updateImage(image: image)
+        saveChanges()
     }
     
     func openImage(image: UIImage) {

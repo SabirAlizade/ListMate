@@ -40,7 +40,7 @@ class ItemsViewController: BaseViewController {
         viewModel.filter()
         configureSummaryButton()
     }
-        
+    
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
@@ -48,7 +48,8 @@ class ItemsViewController: BaseViewController {
     
     func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            self?.summaryButton.setTitle("Total: \(amount) $", for: .normal)
+            let amountString = String(format: "%.1f", amount)
+            self?.summaryButton.setTitle("Total: \(amountString) $", for: .normal)
         }
     }
     
@@ -91,25 +92,37 @@ class ItemsViewController: BaseViewController {
 
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.numberOfSections()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.titleForSection(section)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.items?.count ?? 0
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.items?[indexPath.row]
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else  { return UITableViewCell() }
-        cell.delegate = self
-        cell.item = item
-        print(viewModel.items ?? "")
+        
+        if let item = viewModel.itemAtIndexPath(indexPath) {
+            cell.delegate = self
+            cell.item = item
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openDetailed(indexPath: indexPath.row)
+        openDetailed(indexPath: indexPath)
     }
     
-    func openDetailed(indexPath: Int) {
-        let item = viewModel.items?[indexPath]
+    func openDetailed(indexPath: IndexPath) {
+        guard let item = viewModel.itemAtIndexPath(indexPath) else {
+            return
+        }
         let vc = DetailedViewController()
         vc.viewModel.item = item
         vc.viewModel.delegate = self
@@ -123,10 +136,11 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
             guard let item = self?.viewModel.items?[indexPath.row] else { return }
-            self?.viewModel.deleteItem(item: item)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.viewModel.deleteItem(item: item)
         }
         return swipeConfiguration
     }
@@ -160,13 +174,3 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDele
         viewModel.filter()
     }
 }
-
-/*
- @objc
- private func presentPicker() {
-     //PREVIEW HERE
-     let vc = ImagePreviewViewController()
-     vc.image = itemImage
-     show(vc, anim)
-     
- */
