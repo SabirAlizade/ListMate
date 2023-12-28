@@ -38,14 +38,8 @@ class ItemsViewModel {
     private var remainsSection: [ItemModel] {
         return items?.filter("isBought == false").compactMap { $0 } ?? []
     }
-    private var completedSection: [ItemModel] {
+    var completedSection: [ItemModel] {
         return items?.filter("isBought == true").compactMap { $0 } ?? []
-    }
-    
-    var toBuySection: (name: String, items: [ItemModel], totalPrice: Double) {
-        let filteredItems = items?.filter("isBought == false").compactMap { $0 } ?? []
-        let total = filteredItems.reduce(0) { $0 + $1.price }
-        return ("To buy", filteredItems, total)
     }
     
     func filter() {
@@ -85,7 +79,7 @@ class ItemsViewModel {
     
     private func calcSectionPrice(section: [ItemModel]) -> String {
         if !section.isEmpty {
-            let sectionTotal = section.reduce(0) { $0 + $1.price}
+            let sectionTotal = section.reduce(0) { $0 + $1.totalPrice}
             let formatString = String(format: "%.1f", sectionTotal)
             return "Total: \(formatString) $"
         }
@@ -123,6 +117,7 @@ class ItemsViewModel {
             print(error.localizedDescription)
         }
         self.calculateSummary()
+        delegate?.reloadData()
     }
     
     func deleteItem(item: ItemModel) {
@@ -139,12 +134,10 @@ class ItemsViewModel {
 }
 
 extension ItemsViewModel {
-    
+
     func calculateSummary() {
-        guard let items else { return }
-        let sum = items.reduce(0.0) { $0 + $1.totalPrice}
+        let sum = completedSection.reduce(0.0) { $0 + $1.totalPrice }
         updateSummaryButton?(sum)
-        updateListSummary(summary: sum)
     }
     
     func updateListSummary(summary: Double) {

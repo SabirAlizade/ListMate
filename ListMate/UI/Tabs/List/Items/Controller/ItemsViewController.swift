@@ -49,7 +49,7 @@ class ItemsViewController: BaseViewController {
     func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
             let amountString = String(format: "%.1f", amount)
-            self?.summaryButton.setTitle("Total: \(amountString) $", for: .normal)
+            self?.summaryButton.setTitle("Total:  \(amountString) $", for: .normal)
         }
     }
     
@@ -85,6 +85,7 @@ class ItemsViewController: BaseViewController {
     @objc
     private func summaryButtonTapped() {
         let vc = SummaryViewController()
+        vc.viewModel.updateItems(items: viewModel.completedSection)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }

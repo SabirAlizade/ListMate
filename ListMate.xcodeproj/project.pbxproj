@@ -46,6 +46,8 @@
 		03B0A6962B3C2D2000B3F8D0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B0A6952B3C2D2000B3F8D0 /* DetailsView.swift */; };
 		03B0A6982B3C633B00B3F8D0 /* ImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */; };
 		03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B39E202B36BAFA007259F9 /* SummaryViewController.swift */; };
+		03B5F0EB2B3DD1490015AA23 /* ReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5F0EA2B3DD1490015AA23 /* ReceiptCell.swift */; };
+		03B5F0ED2B3DDD1D0015AA23 /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5F0EC2B3DDD1D0015AA23 /* SummaryViewModel.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
 		03CA6E852B30771000D59935 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */; };
@@ -100,6 +102,8 @@
 		03B0A6952B3C2D2000B3F8D0 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewViewController.swift; sourceTree = "<group>"; };
 		03B39E202B36BAFA007259F9 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		03B5F0EA2B3DD1490015AA23 /* ReceiptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCell.swift; sourceTree = "<group>"; };
+		03B5F0EC2B3DDD1D0015AA23 /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -506,6 +510,7 @@
 			children = (
 				03B39E1E2B36BAD2007259F9 /* Controller */,
 				03B39E1F2B36BAE3007259F9 /* ViewModel */,
+				03B5F0E92B3DD12C0015AA23 /* View */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -521,8 +526,17 @@
 		03B39E1F2B36BAE3007259F9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				03B5F0EC2B3DDD1D0015AA23 /* SummaryViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		03B5F0E92B3DD12C0015AA23 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03B5F0EA2B3DD1490015AA23 /* ReceiptCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		03CA6E7E2B30770F00D59935 /* Poppins */ = {
@@ -740,6 +754,7 @@
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
 				03A105BC2B2F56A100E13A45 /* ItemModel.swift in Sources */,
 				03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */,
+				03B5F0ED2B3DDD1D0015AA23 /* SummaryViewModel.swift in Sources */,
 				03A105CE2B303F5100E13A45 /* TextField+Ext.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
 				03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */,
@@ -749,6 +764,7 @@
 				03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */,
 				03A105B02B2F509800E13A45 /* CustomLabel.swift in Sources */,
 				03CA6E9B2B30D2E500D59935 /* NewItemViewController.swift in Sources */,
+				03B5F0EB2B3DD1490015AA23 /* ReceiptCell.swift in Sources */,
 				03A105A32B2F4A2D00E13A45 /* AnchorKit.swift in Sources */,
 				03A105972B2F490300E13A45 /* Font.swift in Sources */,
 				03A105CB2B303EF700E13A45 /* CustomTextFieldConfig.swift in Sources */,
