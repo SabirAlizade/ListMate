@@ -10,6 +10,7 @@ import RealmSwift
 
 protocol NewItemDelegate: AnyObject {
     func reloadAndFilterData()
+    func passSuggested(name: String, price: Double)
 }
 
 final class NewItemViewModel {
@@ -21,6 +22,8 @@ final class NewItemViewModel {
     var item: Results<ItemModel>?
     
     private let session: ProductSession
+    
+    var catalogItems: [CatalogModel] = []
     
     init(session: ProductSession) {
         self.session = session
@@ -46,7 +49,6 @@ final class NewItemViewModel {
                 print(error.localizedDescription)
             }
         }
-        print("NEW ITEM \(item)")
         delegate?.reloadAndFilterData()
         passToCatalog(name: name, price: price)
     }
@@ -54,6 +56,9 @@ final class NewItemViewModel {
     func setAmount(amount: Double) {
         amountValue = amount
     }
+}
+
+extension NewItemViewModel {
     
     private func passToCatalog(name: String, price: Double) {
         let catalogItem = CatalogModel(name: name, price: price)
@@ -63,4 +68,26 @@ final class NewItemViewModel {
             }
         }
     }
+    
+    func readData() {
+        manager.readData(data: CatalogModel.self) { result in
+            self.catalogItems.append(contentsOf: result )
+        }
+    }
+    
+    func passSuggestedItem(name: String, price: Double) {
+        delegate?.passSuggested(name: name, price: price)
+    }
+    
+    func filter(name: String) {
+        let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
+        manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { result in
+            self.catalogItems.append(contentsOf: result )
+            print(result)
+        }
+    }
+}
+extension NewItemDelegate {
+    func passSuggested(name: String, price: Double) {}
+    func reloadAndFilterData() {}
 }

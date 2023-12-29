@@ -57,6 +57,13 @@ class DataManager {
             print("Error: \(error)")
         }
     }
+    
+    func filterObjects<T: Object>(type: T.Type,
+                                  predicate: NSPredicate,
+                                  completion: @escaping (Results<T>) -> Void) {
+        let results = realm.objects(type).filter(predicate)
+        completion(results)
+    }
 }
 
 /*

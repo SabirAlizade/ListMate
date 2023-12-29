@@ -40,6 +40,7 @@ final class ItemCell: BaseCell {
     private lazy var itemAmountView: ItemAmountView = {
         let view = ItemAmountView()
         view.delegate = self
+        view.amountTextField.isUserInteractionEnabled = false
         return view
     }()
     

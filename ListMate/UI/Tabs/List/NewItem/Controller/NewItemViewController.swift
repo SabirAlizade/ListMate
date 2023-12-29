@@ -13,10 +13,9 @@ class NewItemViewController: BaseViewController {
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
+        model.delegate = self
         return model
     }()
-    
-    private let nameTextField = CustomTextField(placeHolder: "Enter name of item")
     
     private lazy var measuresControl: UISegmentedControl = {
         let control = UISegmentedControl(items: viewModel.measuresArray)
@@ -29,11 +28,18 @@ class NewItemViewController: BaseViewController {
         return view
     }()
     
+    private lazy var suggestionToolbar: SuggestionsToolbar = {
+        let toolbar = SuggestionsToolbar()
+        return toolbar
+    }()
+    
+    private let nameTextField = CustomTextField(placeHolder: "Enter name of item")
+    
     private let priceLabel = CustomLabel(text: "Price per package:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
     
     private let quantityLabel = CustomLabel(text: "Quantity:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
     
-    private lazy var pricetextFiled = CustomTextField(placeHolder: "Enter price", keybord: .numberPad, dataSource: .none)
+    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price", keybord: .numberPad, dataSource: .none)
     
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -68,6 +74,8 @@ class NewItemViewController: BaseViewController {
         view.backgroundColor = .maingray
         closeBarButton()
         configureMeasuresControl()
+        nameTextField.becomeFirstResponder()
+        nameTextField.delegate = self
     }
     
     override func setupUIConstraints() {
@@ -76,16 +84,14 @@ class NewItemViewController: BaseViewController {
     }
     
     private func setupUI() {
-        
         let labelHStack = UIView().HStack(views: priceLabel, quantityLabel, spacing: 60, distribution: .equalSpacing)
-        
-        let hStack = UIView().HStack(views: pricetextFiled.withHeight(44), itemAmount, spacing: 60, distribution: .equalSpacing)
+        let hStack = UIView().HStack(views: pricetextField.withHeight(44), itemAmount, spacing: 60, distribution: .equalSpacing)
         let vStack = UIView().VStack(views: nameTextField.withHeight(44), measuresControl.withHeight(44), labelHStack, hStack, spacing: 20, distribution: .fill)
         
         view.anchor(view: vStack) { kit in
             kit.leading(20)
             kit.trailing(20)
-            kit.top(10, safe: true)
+            kit.top(20, safe: true)
         }
         
         view.anchor(view: itemImageView) { kit in
@@ -107,6 +113,11 @@ class NewItemViewController: BaseViewController {
             kit.bottom(15,safe: true)
             kit.width(160)
         }
+        
+        view.anchor(view: suggestionToolbar) { kit in
+            kit.leading()
+            kit.trailing()
+        }
     }
     
     private func configureMeasuresControl() {
@@ -124,7 +135,7 @@ class NewItemViewController: BaseViewController {
     @objc
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
-        guard let price = Double(pricetextFiled.text ?? "1") else { return }
+        guard let price = Double(pricetextField.text ?? "1") else { return }
         guard let image = itemImage else { return }
         
         UserDefaults.standard.saveImage(image: image, key: name)
@@ -182,8 +193,35 @@ extension UserDefaults {
     }
 }
 
-extension NewItemViewController: ItemAmountDelegate {
+extension NewItemViewController: ItemAmountDelegate, NewItemDelegate {
+    
+    func passSuggested(name: String, price: Double) {
+        print(name)
+        DispatchQueue.main.async {
+            self.nameTextField.text = name
+            self.pricetextField.text = "\(price)"
+        }
+    }
+    
     func setAmount(amount: Double) {
         viewModel.setAmount(amount: amount)
+    }
+}
+
+extension NewItemViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        nameTextField.inputAccessoryView = suggestionToolbar
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        nameTextField.inputAccessoryView = suggestionToolbar
+        
+        if let text = nameTextField.text  {
+            viewModel.filter(name: text)
+            return true
+        } else {
+            return false
+        }
     }
 }

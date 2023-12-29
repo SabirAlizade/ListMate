@@ -123,7 +123,6 @@ class ItemAmountView: BaseView {
         checkMinimumValue()
         decrement(measureType: itemMeasure ?? .pcs)
         amountTextField.text = checkTrailingZeros(amount: quantityAmount)
-      
         delegate?.setAmount(amount: quantityAmount)
     }
     

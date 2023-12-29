@@ -68,7 +68,7 @@ class ItemsViewController: BaseViewController {
         
         view.anchor(view: plusButton) { kit in
             kit.trailing(30)
-            kit.bottom(30, safe: true)
+            kit.bottom(40, safe: true)
         }
     }
     
@@ -149,6 +149,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
+   
     func passPrice(index: Int, price: Double) {
         viewModel.updateAmount(index: index, amount: viewModel.items![index].amount)
     }
