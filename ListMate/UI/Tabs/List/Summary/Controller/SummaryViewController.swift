@@ -63,7 +63,6 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
             kit.trailing(20)
             kit.top(40)
         }
-        
         return footerView
     }
 }
@@ -72,6 +71,4 @@ extension SummaryViewController: SummaryViewModelDelegate {
     func reloadData() {
         tableView.reloadData()
     }
-    
-    
 }

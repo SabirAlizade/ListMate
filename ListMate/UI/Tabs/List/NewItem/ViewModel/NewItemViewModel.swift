@@ -15,7 +15,7 @@ protocol NewItemDelegate: AnyObject {
 final class NewItemViewModel {
     weak var delegate: NewItemDelegate?
     
-    var measuresArray: [String] = ["Pcs", "Kgs", "L"]
+    var measuresArray: [String] = ["Pcs", "Kgs", "L"] //MARK: DELETE THIS AND USE HASH
     var selectedMeasure: Measures = .pcs
     private var amountValue: Double = 1
     var item: Results<ItemModel>?
@@ -41,20 +41,26 @@ final class NewItemViewModel {
                              price: price,
                              totalPrice: price)
         
-        manager.saveObject(data: item) {  error in
-            if let err = error {
-                print(err.localizedDescription)
+        manager.saveObject(data: item) { error in
+            if let error {
+                print(error.localizedDescription)
             }
         }
         print("NEW ITEM \(item)")
         delegate?.reloadAndFilterData()
+        passToCatalog(name: name, price: price)
     }
     
     func setAmount(amount: Double) {
         amountValue = amount
     }
     
-//    func changeSelectedAmount(amount: Double) {
-//        delegate?.passAmountData(amount: amountValue)
-//    }
+    private func passToCatalog(name: String, price: Double) {
+        let catalogItem = CatalogModel(name: name, price: price)
+        manager.saveObject(data: catalogItem) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

@@ -11,14 +11,15 @@ import UIKit
 
 protocol DetailedViewModelDelegate: AnyObject {
     func updateChanges()
+    func passPrice(index: Int, price: Double)
 }
 
 class DetailedViewModel {
     weak var delegate: DetailedViewModelDelegate?
     var item: ItemModel?
     private let manager = DataManager()
+    var cellIndex: Int?
 
-    
     func updateValues(name: String, note: String) {
         guard let item else { return }
         do {
@@ -32,6 +33,7 @@ class DetailedViewModel {
         }
     }
     
+    
     func updateValues(measeure: Measures, price: Double, store: String) {
         guard let item else { return }
         do {
@@ -44,6 +46,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
+        delegate?.passPrice(index: cellIndex! , price: price )
     }
     
     func updateImage(image: UIImage) {

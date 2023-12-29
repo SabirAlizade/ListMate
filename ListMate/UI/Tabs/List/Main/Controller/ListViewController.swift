@@ -58,10 +58,10 @@ class ListViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
-            return self.view.bounds.height / 4
-        }
+            return self.view.bounds.height / 4 }
         )]
-        present(nc, animated: true)    }
+        present(nc, animated: true) 
+    }
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -71,8 +71,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.lists?[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.description(),
-                                                       for: indexPath) as? ListCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: ListCell.description(),
+            for: indexPath) as? ListCell else { return UITableViewCell() }
         cell.item = item
         return cell
     }
@@ -95,13 +96,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(
+            for: tableView, at: indexPath) { [weak self] in
             guard let item = self?.viewModel.lists?[indexPath.row] else { return }
             self?.viewModel.deleteItem(item: item)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
         return swipeConfiguration
     }
 }

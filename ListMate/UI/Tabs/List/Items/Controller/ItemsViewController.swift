@@ -109,10 +109,10 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else  { return UITableViewCell() }
         
-        if let item = viewModel.itemAtIndexPath(indexPath) {
+         let item = viewModel.itemAtIndexPath(indexPath)
             cell.delegate = self
             cell.item = item
-        }
+        
         return cell
     }
     
@@ -126,6 +126,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let vc = DetailedViewController()
         vc.viewModel.item = item
+        vc.viewModel.cellIndex = indexPath.row
         vc.viewModel.delegate = self
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
@@ -148,6 +149,10 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
+    func passPrice(index: Int, price: Double) {
+        viewModel.updateAmount(index: index, amount: viewModel.items![index].amount)
+    }
+    
     func updateChanges() {
         viewModel.filter()
         tableView.reloadData()
@@ -164,7 +169,7 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDele
         tableView.reloadData()
     }
     
-    func updateAmount(cell: ItemCell, amount: Double) {
+    func updateAmount(cell: ItemCell, amount: Double) {//MARK: HOW TO MANUALLY CALL??
         if let indexPath = tableView.indexPath(for: cell) {
             viewModel.updateAmount(index: indexPath.row, amount: amount)
         }

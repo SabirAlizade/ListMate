@@ -82,11 +82,9 @@ class ItemAmountView: BaseView {
     override func setupView() {
         super.setupView()
         setupUI()
-    
     }
     
     private func setupUI() {
-        
         self.anchor(view: stepperView) { kit in
             kit.leading()
             kit.trailing()

@@ -17,7 +17,7 @@
 		03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105812B2F32B100E13A45 /* CustomTabBar.swift */; };
 		03A105882B2F3E9600E13A45 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105872B2F3E9600E13A45 /* BaseViewController.swift */; };
 		03A1058C2B2F3F3100E13A45 /* Controller+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1058B2B2F3F3100E13A45 /* Controller+Ext.swift */; };
-		03A105902B2F40F300E13A45 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1058F2B2F40F300E13A45 /* HistoryViewController.swift */; };
+		03A105902B2F40F300E13A45 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */; };
 		03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105912B2F412000E13A45 /* ProfileViewControler.swift */; };
 		03A105972B2F490300E13A45 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105962B2F490300E13A45 /* Font.swift */; };
 		03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1059D2B2F4A2D00E13A45 /* UIStackView.swift */; };
@@ -48,6 +48,9 @@
 		03B39E212B36BAFA007259F9 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B39E202B36BAFA007259F9 /* SummaryViewController.swift */; };
 		03B5F0EB2B3DD1490015AA23 /* ReceiptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5F0EA2B3DD1490015AA23 /* ReceiptCell.swift */; };
 		03B5F0ED2B3DDD1D0015AA23 /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5F0EC2B3DDD1D0015AA23 /* SummaryViewModel.swift */; };
+		03B5F0F02B3E04130015AA23 /* CatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B5F0EF2B3E04130015AA23 /* CatalogModel.swift */; };
+		03BC07672B3EAA39005298F9 /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC07662B3EAA39005298F9 /* CatalogViewModel.swift */; };
+		03BC076A2B3EAD0E005298F9 /* CatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC07692B3EAD0E005298F9 /* CatalogCell.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
 		03CA6E852B30771000D59935 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */; };
@@ -75,7 +78,7 @@
 		03A105812B2F32B100E13A45 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		03A105872B2F3E9600E13A45 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		03A1058B2B2F3F3100E13A45 /* Controller+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Controller+Ext.swift"; sourceTree = "<group>"; };
-		03A1058F2B2F40F300E13A45 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		03A105912B2F412000E13A45 /* ProfileViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControler.swift; sourceTree = "<group>"; };
 		03A105962B2F490300E13A45 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		03A1059D2B2F4A2D00E13A45 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -104,6 +107,9 @@
 		03B39E202B36BAFA007259F9 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		03B5F0EA2B3DD1490015AA23 /* ReceiptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptCell.swift; sourceTree = "<group>"; };
 		03B5F0EC2B3DDD1D0015AA23 /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
+		03B5F0EF2B3E04130015AA23 /* CatalogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogModel.swift; sourceTree = "<group>"; };
+		03BC07662B3EAA39005298F9 /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
+		03BC07692B3EAD0E005298F9 /* CatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCell.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -217,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				03A105792B2F307600E13A45 /* List */,
-				03A1057E2B2F325B00E13A45 /* History */,
+				03A1057E2B2F325B00E13A45 /* Catalog */,
 				03A1057F2B2F327400E13A45 /* Profile */,
 			);
 			path = Tabs;
@@ -242,12 +248,15 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
-		03A1057E2B2F325B00E13A45 /* History */ = {
+		03A1057E2B2F325B00E13A45 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
 				03A1058D2B2F40DE00E13A45 /* Controller */,
+				03BC07652B3EAA22005298F9 /* ViewModel */,
+				03BC07682B3EACFE005298F9 /* View */,
+				03B5F0EE2B3E04020015AA23 /* Model */,
 			);
-			path = History;
+			path = Catalog;
 			sourceTree = "<group>";
 		};
 		03A1057F2B2F327400E13A45 /* Profile */ = {
@@ -297,7 +306,7 @@
 		03A1058D2B2F40DE00E13A45 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				03A1058F2B2F40F300E13A45 /* HistoryViewController.swift */,
+				03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -539,6 +548,30 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		03B5F0EE2B3E04020015AA23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03B5F0EF2B3E04130015AA23 /* CatalogModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03BC07652B3EAA22005298F9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				03BC07662B3EAA39005298F9 /* CatalogViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		03BC07682B3EACFE005298F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03BC07692B3EAD0E005298F9 /* CatalogCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		03CA6E7E2B30770F00D59935 /* Poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,8 +639,8 @@
 			isa = PBXGroup;
 			children = (
 				03CA6E962B30C19B00D59935 /* Controlller */,
-				036CC2C02B36CE5300D3F4F7 /* View */,
 				036CC2BD2B36CCDC00D3F4F7 /* ViewModel */,
+				036CC2C02B36CE5300D3F4F7 /* View */,
 			);
 			path = ItemDetailed;
 			sourceTree = "<group>";
@@ -757,6 +790,7 @@
 				03B5F0ED2B3DDD1D0015AA23 /* SummaryViewModel.swift in Sources */,
 				03A105CE2B303F5100E13A45 /* TextField+Ext.swift in Sources */,
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
+				03B5F0F02B3E04130015AA23 /* CatalogModel.swift in Sources */,
 				03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */,
 				03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */,
 				03E8472B2B333901004323F4 /* BaseView.swift in Sources */,
@@ -778,10 +812,12 @@
 				03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */,
 				03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */,
 				036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */,
-				03A105902B2F40F300E13A45 /* HistoryViewController.swift in Sources */,
+				03A105902B2F40F300E13A45 /* CatalogViewController.swift in Sources */,
 				03CA6E912B30B68700D59935 /* ItemCell.swift in Sources */,
 				03A105D12B303FDA00E13A45 /* CustomTextField.swift in Sources */,
+				03BC076A2B3EAD0E005298F9 /* CatalogCell.swift in Sources */,
 				03CA6E8E2B30AFF800D59935 /* ItemsViewModel.swift in Sources */,
+				03BC07672B3EAA39005298F9 /* CatalogViewModel.swift in Sources */,
 				03A105C82B303DD000E13A45 /* NewListViewController.swift in Sources */,
 				03CA6E8C2B30ADC300D59935 /* ItemsViewController.swift in Sources */,
 				03A105AD2B2F4EB000E13A45 /* BaseCell.swift in Sources */,

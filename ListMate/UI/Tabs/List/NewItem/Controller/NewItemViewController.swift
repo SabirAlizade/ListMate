@@ -133,7 +133,6 @@ class NewItemViewController: BaseViewController {
                            price: price,
                            image: name,
                            measure: itemAmount.itemMeasure ?? .pcs)
-        dismiss(animated: true)
     }
     
     @objc
