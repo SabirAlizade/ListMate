@@ -26,10 +26,11 @@ final class ListViewModel {
             delegate?.reloadData()
         }
     }
-    
+        
     func readData() {
         manager.readData(data: ListModel.self) { result in
             self.lists = result
+            print(result)
         }
     }
     
@@ -45,5 +46,6 @@ final class ListViewModel {
                 print(error.localizedDescription)
             }
         }
+        delegate?.reloadData()
     }
 }

@@ -7,13 +7,8 @@
 
 import Foundation
 
-protocol SummaryViewModelDelegate: AnyObject {
-    func reloadData()
-}
 
-class SummaryViewModel {
-    
-    weak var delegate: SummaryViewModelDelegate?
+final class SummaryViewModel {
     
     private var items: [ItemModel] = []
     
@@ -24,13 +19,12 @@ class SummaryViewModel {
     
     func countTotal() -> String {
         let sum = items.reduce(0.0) { $0 + $1.totalPrice }
-        return "\(sum)"
+        return Double.doubleToString(double: sum)
     }
 }
 
 extension SummaryViewModel {
     var summaryItems: [ItemModel] {
-        delegate?.reloadData()
         return items
     }
 }

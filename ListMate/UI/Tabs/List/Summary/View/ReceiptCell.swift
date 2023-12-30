@@ -12,7 +12,7 @@ class ReceiptCell: BaseCell{
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-            amountLabel.text =  String("x \(checkTrailingZeros(amount: item.amount))")
+            amountLabel.text =  String("x \(Double.doubleToString(double: item.amount))")
             priceLabel.text =  String("\(item.totalPrice) $")
         }
     }
@@ -51,13 +51,5 @@ class ReceiptCell: BaseCell{
             kit.top(10)
             kit.bottom(10)
         })
-    }
-    
-    private func checkTrailingZeros(amount: Double) -> String {
-        var amountString = String(format: "%.1f", amount)
-        if amountString.hasSuffix(".0") {
-            amountString = String(amountString.dropLast(2))
-        }
-        return amountString
     }
 }

@@ -24,11 +24,12 @@ class SuggestionCell: UICollectionViewCell {
     }()
     
     private lazy var nameLabel = CustomLabel()
+    
     private let iconView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "plus.square.fill")
-        view.image?.withTintColor(.maingreen)
         view.contentMode = .scaleAspectFit
+        view.tintColor = .maingreen
         return view
     }()
     
@@ -39,7 +40,13 @@ class SuggestionCell: UICollectionViewCell {
     
     private func setupUI() {
         let hStack = UIView().HStack(views: nameLabel, iconView.withWidth(25).withHeight(25), spacing: 10, distribution: .fill)
-        self.anchorFill(view: bubbleView)
+        
+        self.anchor(view: bubbleView) { kit in
+            kit.leading(5)
+            kit.trailing(5)
+            kit.top()
+            kit.bottom()
+        }
         
         bubbleView.anchor(view: hStack) { kit in
             kit.leading(10)

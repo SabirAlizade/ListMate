@@ -35,11 +35,19 @@ class NewItemViewController: BaseViewController {
     
     private let nameTextField = CustomTextField(placeHolder: "Enter name of item")
     
-    private let priceLabel = CustomLabel(text: "Price per package:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
+    private let priceLabel = CustomLabel(text: "Price per package:",
+                                         textColor: .black,
+                                         font: .poppinsFont(size: 12, weight: .light),
+                                         alignment: .center)
     
-    private let quantityLabel = CustomLabel(text: "Quantity:", textColor: .black, font: .poppinsFont(size: 12, weight: .light), alignment: .center)
+    private let quantityLabel = CustomLabel(text: "Quantity:",
+                                            textColor: .black,
+                                            font: .poppinsFont(size: 12, weight: .light),
+                                            alignment: .center)
     
-    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price", keybord: .numberPad, dataSource: .none)
+    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
+                                                      keybord: .numberPad,
+                                                      dataSource: nil)
     
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -110,7 +118,7 @@ class NewItemViewController: BaseViewController {
         
         view.anchor(view: saveButton) { kit in
             kit.centerX()
-            kit.bottom(15,safe: true)
+            kit.top(itemImageButton.bottomAnchor, 25)
             kit.width(160)
         }
         
@@ -143,8 +151,7 @@ class NewItemViewController: BaseViewController {
         viewModel.saveItem(name: name,
                            price: price,
                            image: name,
-                           measure: itemAmount.itemMeasure ?? .pcs)
-    }
+                           measure: itemAmount.itemMeasure ?? .pcs) }
     
     @objc
     private func presentPicker() {
@@ -195,11 +202,12 @@ extension UserDefaults {
 
 extension NewItemViewController: ItemAmountDelegate, NewItemDelegate {
     
-    func passSuggested(name: String, price: Double) {
+    func passSuggested(name: String, price: Double, measure: Measures) {
         print(name)
         DispatchQueue.main.async {
             self.nameTextField.text = name
             self.pricetextField.text = "\(price)"
+            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
         }
     }
     

@@ -23,7 +23,7 @@ class SummaryViewController: BaseViewController {
         let model = SummaryViewModel()
         return model
     }()
-    
+        
     override func setupUIComponents() {
         super.setupUIComponents()
         closeBarButton()
@@ -35,6 +35,7 @@ class SummaryViewController: BaseViewController {
         setupUI()
     }
     private func setupUI() {
+        
         view.anchorFill(view: tableView)
     }
     
@@ -54,7 +55,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
-        let footerLabel = CustomLabel(text: "TOTAL: \(viewModel.countTotal())",
+        let footerLabel = CustomLabel(text: "TOTAL:  \(viewModel.countTotal()) $",
                                       textColor: .black,
                                       font: .poppinsFont(size: 22, weight: .semiBold),
                                       alignment: .right)
@@ -67,8 +68,3 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension SummaryViewController: SummaryViewModelDelegate {
-    func reloadData() {
-        tableView.reloadData()
-    }
-}

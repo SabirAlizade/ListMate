@@ -80,7 +80,7 @@ class ItemsViewModel {
     private func calcSectionPrice(section: [ItemModel]) -> String {
         if !section.isEmpty {
             let sectionTotal = section.reduce(0) { $0 + $1.totalPrice}
-            let formatString = String(format: "%.1f", sectionTotal)
+            let formatString = Double.doubleToString(double: sectionTotal)
             return "Total: \(formatString) $"
         }
         return "Total: 0.0 $"
@@ -146,12 +146,18 @@ extension ItemsViewModel {
             do {
                 try manager.realm.write {
                     list.totalAmount = summary
+                    list.completedQuantity = completedSection.count
+                    list.totalItemQuantity = remainsSection.count + completedSection.count
                 }
             }
             catch {
                 print(error.localizedDescription)
             }
         }
+        
+        
+        print(completedSection.count)
+        print(remainsSection.count + completedSection.count)
     }
 }
 

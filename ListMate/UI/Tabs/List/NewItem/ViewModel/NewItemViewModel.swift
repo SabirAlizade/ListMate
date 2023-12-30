@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol NewItemDelegate: AnyObject {
     func reloadAndFilterData()
-    func passSuggested(name: String, price: Double)
+    func passSuggested(name: String, price: Double, measure: Measures)
 }
 
 final class NewItemViewModel {
@@ -50,7 +50,11 @@ final class NewItemViewModel {
             }
         }
         delegate?.reloadAndFilterData()
-        passToCatalog(name: name, price: price)
+        passToCatalog(name: name, price: price, measure: measure)
+    }
+    
+    private func updateList() {
+        
     }
     
     func setAmount(amount: Double) {
@@ -60,8 +64,8 @@ final class NewItemViewModel {
 
 extension NewItemViewModel {
     
-    private func passToCatalog(name: String, price: Double) {
-        let catalogItem = CatalogModel(name: name, price: price)
+    private func passToCatalog(name: String, price: Double, measure: Measures) {
+        let catalogItem = CatalogModel(name: name, price: price, measure: measure)
         manager.saveObject(data: catalogItem) { error in
             if let error {
                 print(error.localizedDescription)
@@ -75,8 +79,8 @@ extension NewItemViewModel {
         }
     }
     
-    func passSuggestedItem(name: String, price: Double) {
-        delegate?.passSuggested(name: name, price: price)
+    func passSuggestedItem(name: String, price: Double, measure: Measures) {
+        delegate?.passSuggested(name: name, price: price, measure: measure)
     }
     
     func filter(name: String) {
@@ -88,6 +92,6 @@ extension NewItemViewModel {
     }
 }
 extension NewItemDelegate {
-    func passSuggested(name: String, price: Double) {}
+    func passSuggested(name: String, price: Double, measure: Measures) {}
     func reloadAndFilterData() {}
 }

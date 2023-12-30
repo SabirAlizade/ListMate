@@ -19,9 +19,10 @@ final class ItemCell: BaseCell {
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-            priceLabel.text = String(format: "%.1f", item.totalPrice)
+            priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
+            isCheked(bool: item.isBought)
             if let image = UserDefaults.standard.readImage(key: item.image) {
                 itemImageView.image = image
             }
@@ -31,9 +32,9 @@ final class ItemCell: BaseCell {
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.shadowOpacity = 4
+        view.layer.shadowOpacity = 0.5
         view.layer.cornerRadius = 10
-        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
         return view
     }()
     
@@ -52,6 +53,7 @@ final class ItemCell: BaseCell {
     private let itemImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -61,7 +63,7 @@ final class ItemCell: BaseCell {
         checkBox.addTarget(self, action: #selector(changeCheck), for: .valueChanged)
         return checkBox
     }()
-        
+    
     override func setupCell() {
         super.setupCell()
         selectionStyle = .none
@@ -77,8 +79,8 @@ final class ItemCell: BaseCell {
     private func setupUI() {
         
         contentView.anchor(view: containerView) { kit in
-            kit.leading(5)
-            kit.trailing(5)
+            kit.leading(15)
+            kit.trailing(15)
             kit.top(10)
             kit.bottom(10)
         }
@@ -98,7 +100,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: itemAmountView) { kit in
             kit.leading(nameLabel.leadingAnchor)
             kit.top(nameLabel.bottomAnchor, 5)
-            kit.width(180)
+            kit.width(140)
             kit.height(35)
         }
         
@@ -117,6 +119,12 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: priceLabel) { kit in
             kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
+        }
+    }
+    
+    private func isCheked(bool: Bool) {
+        if bool {
+            containerView.backgroundColor = .white.withAlphaComponent(0.9)
         }
     }
 }

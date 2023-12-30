@@ -11,8 +11,8 @@ import RealmSwift
 class ListModel: Object {
     @Persisted(primaryKey: true) var id: UUID
     @Persisted var name: String
-    @Persisted var toBuyQuantity: Int
-    @Persisted var remainsQuantity: Int
+    @Persisted var totalItemQuantity: Int
+    @Persisted var completedQuantity: Int
     @Persisted var date: Date
     @Persisted var items = List<ItemModel>()
     @Persisted var totalAmount: Double
@@ -27,8 +27,8 @@ class ListModel: Object {
         self.init()
         self.id = id
         self.name = name
-        self.toBuyQuantity = toBuyQuantity
-        self.remainsQuantity = remainsQuantity
+        self.totalItemQuantity = toBuyQuantity
+        self.completedQuantity = remainsQuantity
         self.date = date
         self.items = items ?? List<ItemModel>()
         self.totalAmount = totalAmount

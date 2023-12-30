@@ -26,7 +26,7 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.textAlignment = textAlignment
         self.font = font
         keyboardType = keybord
-        textColor = .darkText
+        textColor = .black
         layer.cornerRadius = 8
         borderStyle = border
         

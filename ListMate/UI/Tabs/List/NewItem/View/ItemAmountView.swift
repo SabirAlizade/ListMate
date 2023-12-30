@@ -30,7 +30,7 @@ class ItemAmountView: BaseView {
                 minValue = 0.1
             }
             checkMinimumValue()
-            amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+            amountTextField.text = Double.doubleToString(double: quantityAmount)
         }
     }
     
@@ -39,7 +39,7 @@ class ItemAmountView: BaseView {
             guard let item else { return }
             itemMeasure = item.measure
             quantityAmount = item.amount
-            amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+            amountTextField.text = Double.doubleToString(double: quantityAmount)
             checkMinimumValue()
         }
     }
@@ -57,7 +57,7 @@ class ItemAmountView: BaseView {
         textField.text = "1"
         textField.textAlignment = .center
         textField.keyboardType = .decimalPad
-        textField.font = .poppinsFont(size: 30, weight: .regular)
+        textField.font = .poppinsFont(size: 26, weight: .regular)
         textField.addTarget(self, action: #selector (textFieldDidChange), for: .editingChanged)
         return textField
     }()
@@ -122,7 +122,7 @@ class ItemAmountView: BaseView {
     private func didTapMinus() { //MARK:  ALLERGY ON 2
         checkMinimumValue()
         decrement(measureType: itemMeasure ?? .pcs)
-        amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+        amountTextField.text = Double.doubleToString(double: quantityAmount)
         delegate?.setAmount(amount: quantityAmount)
     }
     
@@ -167,16 +167,8 @@ class ItemAmountView: BaseView {
     private func didTapPlus() {
         checkMinimumValue()
         increment(measureType: itemMeasure ?? .pcs)
-        amountTextField.text = checkTrailingZeros(amount: quantityAmount)
+        amountTextField.text = Double.doubleToString(double: quantityAmount)
         delegate?.setAmount(amount: quantityAmount)
-    }
-    
-    private func checkTrailingZeros(amount: Double) -> String {
-        var amountString = String(format: "%.1f", amount)
-        if amountString.hasSuffix(".0") {
-            amountString = String(amountString.dropLast(2))
-        }
-        return amountString
     }
 }
 

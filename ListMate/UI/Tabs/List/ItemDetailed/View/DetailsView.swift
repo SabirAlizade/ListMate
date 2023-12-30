@@ -31,26 +31,36 @@ class DetailsView: BaseView {
         return view
     }()
     
-    private let measureLabel = CustomLabel(text: "Measure:", textColor: .black, font: .poppinsFont(size: 16, weight: .light), alignment: .left)
+    private let measureLabel = CustomLabel(text: "Measure:",
+                                           textColor: .black,
+                                           font: .poppinsFont(size: 16, weight: .light),
+                                           alignment: .left)
+    
+    private let priceLabel = CustomLabel(text: "Price per package:",
+                                         textColor: .black,
+                                         font: .poppinsFont(size: 16, weight: .light),
+                                         alignment: .left)
+    
+    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
+                                                      textAlignment: .center,
+                                                      keybord: .numberPad,
+                                                      target: self,
+                                                      action: #selector(didTapValueChanged))
+    
+    private let storeLabel = CustomLabel(text: "Store:",
+                                         textColor: .black,
+                                         font: .poppinsFont(size: 16, weight: .light),
+                                         alignment: .left)
+    
+    private lazy var storeTextField = CustomTextField(placeHolder: "Enter name",
+                                                      target: self,
+                                                      action: #selector(didTapValueChanged))
     
     private lazy var measuresSegmentControl: UISegmentedControl = {
         let control = UISegmentedControl()
         control.addTarget(self, action: #selector (didTapValueChanged), for: .valueChanged)
         return control
     }()
-    
-    private let priceLabel = CustomLabel(text: "Price per package:", textColor: .black, font: .poppinsFont(size: 16, weight: .light), alignment: .left)
-    
-    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
-                                                      keybord: .numberPad,
-                                                      target: self,
-                                                      action: #selector(didTapValueChanged))
-    
-    private let storeLabel = CustomLabel(text: "Store:", textColor: .black, font: .poppinsFont(size: 16, weight: .light), alignment: .left)
-    
-    private lazy var storeTextField = CustomTextField(placeHolder: "Enter store name",
-                                                      target: self,
-                                                      action: #selector(didTapValueChanged))
     
     override func setupView() {
         super.setupView()
@@ -61,11 +71,8 @@ class DetailsView: BaseView {
     private func setupUI() {
         
         let measureStack = UIView().HStack(views: measureLabel, measuresSegmentControl.withWidth(240), spacing: 10, distribution: .fill)
-        
-        let priceStack = UIView().HStack(views: priceLabel, pricetextField, spacing: 10, distribution: .fill)
-        
-        let storeStack = UIView().HStack(views: storeLabel, storeTextField, spacing: 10, distribution: .fill)
-        
+        let priceStack = UIView().HStack(views: priceLabel, pricetextField.withWidth(90), spacing: 10, distribution: .fill)
+        let storeStack = UIView().HStack(views: storeLabel, storeTextField.withWidth(160), spacing: 10, distribution: .fill)
         let vStack = UIView().VStack(views: measureStack, priceStack, storeStack, spacing: 20, distribution: .fill)
         
         self.anchorFill(view: detailsView)

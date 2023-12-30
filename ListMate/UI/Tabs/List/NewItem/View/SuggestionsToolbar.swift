@@ -21,7 +21,7 @@ class SuggestionsToolbar: BaseView {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.delegate = self
         view.dataSource = self
-        view.backgroundColor = .maingray
+        view.backgroundColor = .lightGray
         view.showsHorizontalScrollIndicator = false
         view.register(SuggestionCell.self, forCellWithReuseIdentifier: SuggestionCell.description())
         return view
@@ -61,7 +61,7 @@ extension SuggestionsToolbar: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem  = viewModel.catalogItems[indexPath.item]
-        viewModel.passSuggestedItem(name: selectedItem.name , price: selectedItem.price )
+        viewModel.passSuggestedItem(name: selectedItem.name, price: selectedItem.price, measure: selectedItem.measure)
         viewModel.catalogItems.remove(at: indexPath.item)
         collectionView.performBatchUpdates({
             collectionView.deleteItems(at: [indexPath])
@@ -71,13 +71,23 @@ extension SuggestionsToolbar: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension SuggestionsToolbar {
     private func registerForKeyboardNorifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(notification:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(notification:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
     
     private func unregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillShowNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillHideNotification,
+                                                  object: nil)
     }
     
     @objc private func keyboardWillShow(notification: Notification) {

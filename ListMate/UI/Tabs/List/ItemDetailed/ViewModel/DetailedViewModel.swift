@@ -19,7 +19,7 @@ class DetailedViewModel {
     var item: ItemModel?
     private let manager = DataManager()
     var cellIndex: Int?
-
+    
     func updateValues(name: String, note: String) {
         guard let item else { return }
         do {
@@ -32,7 +32,6 @@ class DetailedViewModel {
             print(error.localizedDescription)
         }
     }
-    
     
     func updateValues(measeure: Measures, price: Double, store: String) {
         guard let item else { return }
@@ -50,7 +49,7 @@ class DetailedViewModel {
     }
     
     func updateImage(image: UIImage) {
-         let imageString = image.description
+        let imageString = image.description
         do {
             try manager.realm.write {
                 item?.image = imageString
