@@ -9,14 +9,14 @@ import UIKit
 
 class DetailedViewController: BaseViewController {
     
-    lazy var mainView: MainView = {
+    private lazy var mainView: MainView = {
         let view = MainView()
         view.item = self.viewModel.item
         view.delegate = self
         return view
     }()
     
-    lazy var detailsView: DetailsView = {
+    private lazy var detailsView: DetailsView = {
         let view = DetailsView()
         view.item = self.viewModel.item
         view.delegate = self

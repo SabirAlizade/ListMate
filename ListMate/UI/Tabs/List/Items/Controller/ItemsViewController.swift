@@ -27,9 +27,7 @@ class ItemsViewController: BaseViewController {
     }()
     
     lazy var summaryButton = CustomButton(title: "0.0",
-                                          backgroundColor: .maingreen,
-                                          titleColor: .white,
-                                          target: self,
+                                          backgroundColor: .maingreen,      titleColor: .white,        target: self,
                                           action:  #selector(summaryButtonTapped))
     
     private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
@@ -48,7 +46,7 @@ class ItemsViewController: BaseViewController {
     
     func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            let amountString = Double.doubleToString(double: amount)
+            let amountString = Double.doubleToString(double: amount ?? 0.0)
             self?.summaryButton.setTitle("Total:  \(amountString) $", for: .normal)
         }
     }
@@ -144,31 +142,22 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
     
-    func passPrice(index: Int, price: Double) {
-        viewModel.updateAmount(index: index, amount: viewModel.items![index].amount)
-    }
-    
     func updateChanges() {
-        viewModel.filter()
-        tableView.reloadData()
+        viewModel.test()
+//        tableView.reloadData()
+        
     }
     
     func reloadData() {
         tableView.reloadData()
     }
     
-    func updateCheckmark(cell: ItemCell, isChecked: Bool) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            viewModel.updateCheckmark(index: indexPath.row, isCheked: isChecked)
-        }
-        tableView.reloadData()
+    func updateCheckmark(isChecked: Bool, id: ObjectId) {
+        viewModel.updateCheckmark(isCheked: isChecked, id: id)
     }
     
-    func updateAmount(cell: ItemCell, amount: Double) {//MARK: HOW TO MANUALLY CALL??
-        if let indexPath = tableView.indexPath(for: cell) {
-            viewModel.updateAmount(index: indexPath.row, amount: amount)
-        }
-        tableView.reloadData()
+    func updateAmount(amount: Double, id: ObjectId) {
+        viewModel.updateAmount(amount: amount, id: id)
     }
     
     func reloadAndFilterData() {

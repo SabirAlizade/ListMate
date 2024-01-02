@@ -35,10 +35,8 @@ class SummaryViewController: BaseViewController {
         setupUI()
     }
     private func setupUI() {
-        
         view.anchorFill(view: tableView)
     }
-    
 }
 
 extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {

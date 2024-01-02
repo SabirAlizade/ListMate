@@ -9,7 +9,9 @@ import UIKit
 
 class NewItemViewController: BaseViewController {
     
-    private var itemImage: UIImage? = UIImage(systemName: "camera.circle") //MARK: TO VM?
+    private var bottomCostant: NSLayoutConstraint?
+    
+    private var itemImage: UIImage? = UIImage(systemName: "camera.circle")
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
@@ -76,6 +78,15 @@ class NewItemViewController: BaseViewController {
                                                titleColor: .white,
                                                target: self,
                                                action: #selector(didTapAdd))
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.bottomCostant = nameTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        self.bottomCostant?.isActive = true
+        
+        
+//        nameTextField.inputAccessoryView = suggestionToolbar
+    }
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -161,6 +172,16 @@ class NewItemViewController: BaseViewController {
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
+    
+//    func keyboardShow() {
+//        bottomCostant?.constant += 100
+//        UIView.animate(withDuration: 0.3) {
+//            self.loadViewIfNeeded()
+//        } completion: { isFinish in
+//            <#code#>
+//        }
+//
+//    }
 }
 
 extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -218,12 +239,12 @@ extension NewItemViewController: ItemAmountDelegate, NewItemDelegate {
 
 extension NewItemViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        nameTextField.inputAccessoryView = suggestionToolbar
+//        nameTextField.inputAccessoryView = suggestionToolbar
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        nameTextField.inputAccessoryView = suggestionToolbar
+        
         
         if let text = nameTextField.text  {
             viewModel.filter(name: text)

@@ -10,7 +10,7 @@ import UIKit
 
 class SuggestionsToolbar: BaseView {
     
-    var viewModel: NewItemViewModel = {
+   private var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
         return model
     }()

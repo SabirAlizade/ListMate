@@ -43,7 +43,7 @@ class DetailsView: BaseView {
     
     private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
                                                       textAlignment: .center,
-                                                      keybord: .numberPad,
+                                                      keybord: .decimalPad,
                                                       target: self,
                                                       action: #selector(didTapValueChanged))
     

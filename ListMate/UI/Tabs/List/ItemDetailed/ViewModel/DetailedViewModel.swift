@@ -11,7 +11,6 @@ import UIKit
 
 protocol DetailedViewModelDelegate: AnyObject {
     func updateChanges()
-    func passPrice(index: Int, price: Double)
 }
 
 class DetailedViewModel {
@@ -31,6 +30,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
+        reloadItemsData()
     }
     
     func updateValues(measeure: Measures, price: Double, store: String) {
@@ -45,7 +45,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
-        delegate?.passPrice(index: cellIndex! , price: price )
+        reloadItemsData()
     }
     
     func updateImage(image: UIImage) {
@@ -58,6 +58,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
+        reloadItemsData()
     }
     
     func reloadItemsData() {

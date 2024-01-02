@@ -23,8 +23,6 @@ class ItemModel: Object {
     @Persisted var price: Double
     @Persisted var totalPrice: Double
     @Persisted var image: String
-    // @Persisted var category = List<CategoriesModel>()
-    //@Persisted var lastPrice: Double
     @Persisted var boughtAt: String
     @Persisted var isBought: Bool
     @Persisted var notes: String
@@ -36,8 +34,6 @@ class ItemModel: Object {
                      measure: Measures,
                      price: Double,
                      totalPrice: Double = 0,
-                     // category: List<CategoriesModel>?,
-                     //  lastPrice: Double,
                      boughtAt: String = "",
                      isBought: Bool = false,
                      notes: String = "") {
@@ -51,8 +47,6 @@ class ItemModel: Object {
         self.measure = measure
         self.price = price
         self.totalPrice = totalPrice
-        //  self.category = category ?? List<CategoriesModel>()
-        //  self.lastPrice = lastPrice
         self.boughtAt = boughtAt
         self.isBought = isBought
         self.notes = notes

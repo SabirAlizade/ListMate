@@ -19,6 +19,9 @@ class ItemsViewModel {
     
     private let manager = DataManager()
     private let session: ProductSession
+    private var itemAmount: Double?
+    private var selectedMeasure: Measures?
+    private var localItems: [ItemModel] = []
     
     init(session: ProductSession) {
         self.session = session
@@ -30,28 +33,32 @@ class ItemsViewModel {
         }
     }
     
-    var updateSummaryButton: ((Double) -> Void)?
+    var updateSummaryButton: ((Double?) -> Void)?
     
-    private var itemAmount: Double?
-    private var selectedMeasure: Measures?
+    private func loadLocalItems() {
+        guard let items else { return }
+        self.localItems = Array(items)
+        delegate?.reloadData()
+    }
     
     private var remainsSection: [ItemModel] {
-        return items?.filter("isBought == false").compactMap { $0 } ?? []
+        return localItems.filter { !$0.isBought }
     }
+    
     var completedSection: [ItemModel] {
-        return items?.filter("isBought == true").compactMap { $0 } ?? []
+        return localItems.filter { $0.isBought }
     }
     
     func filter() {
         manager.filterID(id: session.listID) { result in
             self.items = result
-            self.calculateSummary()
+            self.loadLocalItems()
         }
     }
     //MARK: - SECTIONS HANDLING
     
     func numberOfSections() -> Int {
-        var numberOfSections = 0
+        var numberOfSections = 1
         
         if !remainsSection.isEmpty {
             numberOfSections += 1
@@ -81,43 +88,60 @@ class ItemsViewModel {
         if !section.isEmpty {
             let sectionTotal = section.reduce(0) { $0 + $1.totalPrice}
             let formatString = Double.doubleToString(double: sectionTotal)
+            if section == completedSection {
+                if let unwrappedClosure = updateSummaryButton {
+                    unwrappedClosure(sectionTotal)
+                } else {
+                    print("Error")
+                }
+            }
             return "Total: \(formatString) $"
         }
         return "Total: 0.0 $"
     }
     
     //MARK: - DATABASE HANDLING
-    func updateCheckmark(index: Int, isCheked: Bool) {
-        guard let item = items?[index] else { return }
-        do {
-            try manager.realm.write {
-                item.isBought = isCheked
+    func updateCheckmark( isCheked: Bool, id: ObjectId) {
+        
+        if let item = localItems.first(where: { $0.objectId == id }) {
+            do {
+                try manager.realm.write {
+                    item.isBought = isCheked
+                }
+            } catch {
+                print(error.localizedDescription)
             }
+            delegate?.reloadData()
         }
-        catch {
-            print(error.localizedDescription)
-        }
+        
+        localItems.removeAll()
+        localItems.append(contentsOf: completedSection)
+        localItems.append(contentsOf: remainsSection)
         filter()
-        delegate?.reloadData()
-        print(index)
-        print(isCheked)
     }
     
-    func updateAmount(index: Int, amount: Double) {
-        guard let item = items?[index] else { return }
-        let totalPrice = item.price * amount
-        
-        do {
-            try manager.realm.write {
-                item.amount = amount
-                item.totalPrice = totalPrice
-            }
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-        self.calculateSummary()
+    func test() {
+        localItems.removeAll()
+        localItems.append(contentsOf: completedSection)
+        localItems.append(contentsOf: remainsSection)
+        filter()
         delegate?.reloadData()
+    }
+    
+    func updateAmount(amount: Double, id: ObjectId) {
+        if let item = localItems.first(where: { $0.objectId == id }) {
+            let totalPrice = item.price * amount
+            do {
+                try manager.realm.write {
+                    item.amount = amount
+                    item.totalPrice = totalPrice
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+            delegate?.reloadData()
+        }
     }
     
     func deleteItem(item: ItemModel) {
@@ -134,13 +158,10 @@ class ItemsViewModel {
 }
 
 extension ItemsViewModel {
-
-    func calculateSummary() {
-        let sum = completedSection.reduce(0.0) { $0 + $1.totalPrice }
-        updateSummaryButton?(sum)
-    }
     
-    func updateListSummary(summary: Double) {
+    func updateListSummary() {
+        guard let items else { return }
+        let summary = items.reduce(0) { $0 + $1.totalPrice}
         guard let uuid = UUID(uuidString: session.listID) else { return }
         if let list = manager.realm.objects(ListModel.self).filter("id == %@", uuid).first {
             do {
@@ -154,8 +175,6 @@ extension ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
-        
-        
         print(completedSection.count)
         print(remainsSection.count + completedSection.count)
     }

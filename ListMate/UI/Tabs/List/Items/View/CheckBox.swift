@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheckBox: UIControl {
+final class CheckBox: UIControl {
     
     let checkedView: UIImageView = {
         let view = UIImageView()

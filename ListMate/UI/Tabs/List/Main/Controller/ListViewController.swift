@@ -87,6 +87,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.updateListId(id: item.id.uuidString)
         let vc = ItemsViewController()
         vc.hidesBottomBarWhenPushed = true
+        //vc.viewModel.delegate = self
         vc.title = item.name
         show(vc, sender: self)
     }

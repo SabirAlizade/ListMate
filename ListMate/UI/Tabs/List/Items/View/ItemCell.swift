@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol ItemCellDelegate: AnyObject {
-    func updateCheckmark(cell: ItemCell, isChecked: Bool)
-    func updateAmount(cell: ItemCell, amount: Double)
+    func updateCheckmark(isChecked: Bool, id: ObjectId)
+    func updateAmount(amount: Double, id: ObjectId)
 }
 
 final class ItemCell: BaseCell {
@@ -22,7 +23,7 @@ final class ItemCell: BaseCell {
             priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
-            isCheked(bool: item.isBought)
+//            isCheked(bool: item.isBought)
             if let image = UserDefaults.standard.readImage(key: item.image) {
                 itemImageView.image = image
             }
@@ -46,9 +47,11 @@ final class ItemCell: BaseCell {
     }()
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
-    private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
-    
-    private lazy var currencyLabel = CustomLabel(text: "$", font: .poppinsFont(size: 20, weight: .medium), alignment: .center)
+    private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium),
+                                              alignment: .center)
+    private lazy var currencyLabel = CustomLabel(text: "$",
+                                                     font: .poppinsFont(size: 20, weight: .medium),
+                                                     alignment: .center)
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()
@@ -71,9 +74,10 @@ final class ItemCell: BaseCell {
     }
     
     @objc
-    func changeCheck() {
+    private func changeCheck() {
         let isChecked = checkBox.isChecked ? false : true
-        delegate?.updateCheckmark(cell: self, isChecked: isChecked)
+        guard let id = item?.objectId else { return }
+        delegate?.updateCheckmark(isChecked: isChecked, id: id)
     }
     
     private func setupUI() {
@@ -122,15 +126,16 @@ final class ItemCell: BaseCell {
         }
     }
     
-    private func isCheked(bool: Bool) {
-        if bool {
-            containerView.backgroundColor = .white.withAlphaComponent(0.9)
-        }
-    }
+//    private func isCheked(bool: Bool) {
+//        if bool {
+//            containerView.backgroundColor = .white.withAlphaComponent(0.9)
+//        }
+//    }
 }
 
 extension ItemCell: ItemAmountDelegate {
     func setAmount(amount: Double) {
-        delegate?.updateAmount(cell: self, amount: amount)
+        guard let id = item?.objectId else { return }
+        delegate?.updateAmount(amount: amount, id: id)
     }
 }
