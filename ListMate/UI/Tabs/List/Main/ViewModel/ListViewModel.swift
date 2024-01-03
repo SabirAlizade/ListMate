@@ -26,6 +26,8 @@ final class ListViewModel {
             delegate?.reloadData()
         }
     }
+    
+    var listArray: [ListModel] = []
         
     func readData() {
         manager.readData(data: ListModel.self) { result in
@@ -46,6 +48,6 @@ final class ListViewModel {
                 print(error.localizedDescription)
             }
         }
-        delegate?.reloadData()
+        //delegate?.reloadData()
     }
 }

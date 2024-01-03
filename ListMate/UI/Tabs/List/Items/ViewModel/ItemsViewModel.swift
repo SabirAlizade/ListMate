@@ -11,6 +11,7 @@ import RealmSwift
 
 protocol ItemsModelDelegate: AnyObject {
     func reloadData()
+    func reloadListData()
 }
 
 class ItemsViewModel {
@@ -21,7 +22,7 @@ class ItemsViewModel {
     private let session: ProductSession
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
-    private var localItems: [ItemModel] = []
+     var localItems: [ItemModel] = []
     
     init(session: ProductSession) {
         self.session = session
@@ -29,14 +30,14 @@ class ItemsViewModel {
     
     private(set) var items: Results<ItemModel>? {
         didSet {
-            delegate?.reloadData()
+          //  delegate?.reloadData()
         }
     }
     
     var updateSummaryButton: ((Double?) -> Void)?
     
     private func loadLocalItems() {
-        guard let items else { return }
+        guard let items = self.items else { return }
         self.localItems = Array(items)
         delegate?.reloadData()
     }
@@ -50,9 +51,14 @@ class ItemsViewModel {
     }
     
     func filter() {
-        manager.filterID(id: session.listID) { result in
+        manager.filterID(id: session.listID) { [self] result in
+            self.localItems.removeAll()
             self.items = result
+           
+           
             self.loadLocalItems()
+//            localItems.append(contentsOf: completedSection)
+//            localItems.append(contentsOf: remainsSection)
         }
     }
     //MARK: - SECTIONS HANDLING
@@ -108,26 +114,18 @@ class ItemsViewModel {
                 try manager.realm.write {
                     item.isBought = isCheked
                 }
-            } catch {
+            } 
+            catch {
                 print(error.localizedDescription)
             }
             delegate?.reloadData()
         }
         
-        localItems.removeAll()
-        localItems.append(contentsOf: completedSection)
-        localItems.append(contentsOf: remainsSection)
-        filter()
-    }
     
-    func test() {
-        localItems.removeAll()
-        localItems.append(contentsOf: completedSection)
-        localItems.append(contentsOf: remainsSection)
         filter()
-        delegate?.reloadData()
+        updateListSummary()
     }
-    
+
     func updateAmount(amount: Double, id: ObjectId) {
         if let item = localItems.first(where: { $0.objectId == id }) {
             let totalPrice = item.price * amount
@@ -153,7 +151,7 @@ class ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
-        self.filter()
+     //   self.filter()
     }
 }
 
@@ -177,7 +175,10 @@ extension ItemsViewModel {
         }
         print(completedSection.count)
         print(remainsSection.count + completedSection.count)
+        delegate?.reloadListData()
     }
 }
 
-
+extension ItemsModelDelegate {
+    func reloadListData() {}
+}

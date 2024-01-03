@@ -53,10 +53,6 @@ final class NewItemViewModel {
         passToCatalog(name: name, price: price, measure: measure)
     }
     
-    private func updateList() {
-        
-    }
-    
     func setAmount(amount: Double) {
         amountValue = amount
     }

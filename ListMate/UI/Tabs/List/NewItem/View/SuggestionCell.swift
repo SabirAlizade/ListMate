@@ -39,7 +39,7 @@ class SuggestionCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        let hStack = UIView().HStack(views: nameLabel, iconView.withWidth(25).withHeight(25), spacing: 10, distribution: .fill)
+        let hStack = UIView().HStack(views: nameLabel.withWidth(140), iconView.withWidth(25).withHeight(25), spacing: 10, distribution: .fill)
         
         self.anchor(view: bubbleView) { kit in
             kit.leading(5)

@@ -131,21 +131,32 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
+//            guard let itemsInSection = self?.viewModel.localItems[indexPath.section], // Assuming your items are organized in sections
+//                  let item = itemsInSection[indexPath.row] else { return }
+//
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//            self?.viewModel.deleteItem(item: item)
+//        }
+//        return swipeConfiguration
+//    }
+        
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
-            guard let item = self?.viewModel.items?[indexPath.row] else { return }
+            if let item = self?.viewModel.itemAtIndexPath(indexPath) {
+                self?.viewModel.deleteItem(item: item)
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
-            self?.viewModel.deleteItem(item: item)
         }
         return swipeConfiguration
     }
+         ////"Object has been deleted or invalidated."
+
 }
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
     
     func updateChanges() {
-        viewModel.test()
 //        tableView.reloadData()
-        
     }
     
     func reloadData() {

@@ -21,17 +21,21 @@ class NewItemViewController: BaseViewController {
     
     private lazy var measuresControl: UISegmentedControl = {
         let control = UISegmentedControl(items: viewModel.measuresArray)
+        control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
     
     private lazy var itemAmount: ItemAmountView = {
         let view = ItemAmountView()
         view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var suggestionToolbar: SuggestionsToolbar = {
-        let toolbar = SuggestionsToolbar()
+    private lazy var suggestionToolbar: SuggestionsToolbarView = {
+        let toolbar = SuggestionsToolbarView()
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.isHidden = true
         return toolbar
     }()
     
@@ -60,6 +64,7 @@ class NewItemViewController: BaseViewController {
         view.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
         view.addGestureRecognizer(tapGesture)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -70,6 +75,7 @@ class NewItemViewController: BaseViewController {
         button.setImage(UIImage(systemName: "camera.circle")?.withConfiguration(config), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -81,11 +87,34 @@ class NewItemViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bottomCostant = nameTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        self.bottomCostant?.isActive = true
+        configureAutoresizing()
+        bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        bottomCostant?.isActive = true
+        configureKeyboardNotification()
+//                nameTextField.inputAccessoryView = suggestionToolbar
+    }
+    
+    private func configureAutoresizing() {
+        nameTextField.delegate = self
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        quantityLabel.translatesAutoresizingMaskIntoConstraints = false
+        pricetextField.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func configureKeyboardNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
         
-        
-//        nameTextField.inputAccessoryView = suggestionToolbar
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
     override func setupUIComponents() {
@@ -103,40 +132,69 @@ class NewItemViewController: BaseViewController {
     }
     
     private func setupUI() {
-        let labelHStack = UIView().HStack(views: priceLabel, quantityLabel, spacing: 60, distribution: .equalSpacing)
-        let hStack = UIView().HStack(views: pricetextField.withHeight(44), itemAmount, spacing: 60, distribution: .equalSpacing)
-        let vStack = UIView().VStack(views: nameTextField.withHeight(44), measuresControl.withHeight(44), labelHStack, hStack, spacing: 20, distribution: .fill)
+        view.addSubview(nameTextField)
+        view.addSubview(measuresControl)
+        view.addSubview(priceLabel)
+        view.addSubview(pricetextField)
+        view.addSubview(quantityLabel)
+        view.addSubview(itemAmount)
+        view.addSubview(itemImageView)
+        view.addSubview(itemImageButton)
+        view.addSubview(saveButton)
+        view.addSubview(suggestionToolbar)
         
-        view.anchor(view: vStack) { kit in
-            kit.leading(20)
-            kit.trailing(20)
-            kit.top(20, safe: true)
-        }
-        
-        view.anchor(view: itemImageView) { kit in
-            kit.centerX()
-            kit.top(vStack.bottomAnchor, 15)
-            kit.width(90)
-            kit.height(90)
-        }
-        
-        view.anchor(view: itemImageButton) { kit in
-            kit.centerX()
-            kit.top(vStack.bottomAnchor, 15)
-            kit.width(90)
-            kit.height(90)
-        }
-        
-        view.anchor(view: saveButton) { kit in
-            kit.centerX()
-            kit.top(itemImageButton.bottomAnchor, 25)
-            kit.width(160)
-        }
-        
-        view.anchor(view: suggestionToolbar) { kit in
-            kit.leading()
-            kit.trailing()
-        }
+        NSLayoutConstraint.activate([
+            
+            nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -20),
+            nameTextField.heightAnchor.constraint(equalToConstant: 44),
+            
+            measuresControl.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            measuresControl.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            measuresControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
+            measuresControl.heightAnchor.constraint(equalToConstant: 44),
+            
+            priceLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            priceLabel.widthAnchor.constraint(equalToConstant: 140),
+            priceLabel.heightAnchor.constraint(equalToConstant: 44),
+            priceLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 15),
+            
+            quantityLabel.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            quantityLabel.widthAnchor.constraint(equalToConstant: 140),
+            quantityLabel.heightAnchor.constraint(equalToConstant: 44),
+            quantityLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 15),
+            
+            pricetextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            pricetextField.widthAnchor.constraint(equalToConstant: 120),
+            pricetextField.heightAnchor.constraint(equalToConstant: 44),
+            pricetextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
+            
+            itemAmount.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            itemAmount.widthAnchor.constraint(equalToConstant: 110),
+            itemAmount.heightAnchor.constraint(equalToConstant: 44),
+            itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
+            
+            itemImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            itemImageView.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 15),
+            itemImageView.heightAnchor.constraint(equalToConstant: 90),
+            itemImageView.widthAnchor.constraint(equalToConstant: 90),
+            
+            itemImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            itemImageButton.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 15),
+            itemImageButton.heightAnchor.constraint(equalToConstant: 90),
+            itemImageButton.widthAnchor.constraint(equalToConstant: 90),
+            
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveButton.topAnchor.constraint(equalTo: itemImageView.bottomAnchor, constant: 15),
+            saveButton.widthAnchor.constraint(equalToConstant: 160),
+            saveButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            suggestionToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            suggestionToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            suggestionToolbar.heightAnchor.constraint(equalToConstant: 40),
+            suggestionToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
     }
     
     private func configureMeasuresControl() {
@@ -173,15 +231,48 @@ class NewItemViewController: BaseViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
-//    func keyboardShow() {
-//        bottomCostant?.constant += 100
-//        UIView.animate(withDuration: 0.3) {
-//            self.loadViewIfNeeded()
-//        } completion: { isFinish in
-//            <#code#>
-//        }
-//
-//    }
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        if nameTextField.isEditing {
+            moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
+            suggestionToolbar.isHidden = false
+        } else {
+            suggestionToolbar.isHidden = true
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
+        suggestionToolbar.isHidden = true
+    }
+    
+    func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let keyboardHeight = keyboardSize.height
+        
+        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+        
+        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+        
+        if keyboardWillShow {
+            let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
+            let bottomConstant: CGFloat = 20
+            self.bottomCostant?.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
+        } else {
+            viewBottomConstraint.constant = 20
+        }
+        
+        let animator = UIViewPropertyAnimator(duration: keyboardDuration, curve: keyboardCurve) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+        animator.startAnimation()
+    }
+}
+
+extension UIViewController: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -237,20 +328,3 @@ extension NewItemViewController: ItemAmountDelegate, NewItemDelegate {
     }
 }
 
-extension NewItemViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        nameTextField.inputAccessoryView = suggestionToolbar
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        
-        if let text = nameTextField.text  {
-            viewModel.filter(name: text)
-            return true
-        } else {
-            return false
-        }
-    }
-}

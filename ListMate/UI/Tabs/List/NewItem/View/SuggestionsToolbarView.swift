@@ -1,5 +1,5 @@
 //
-//  SuggestionsToolbar.swift
+//  SuggestionsToolbarView.swift
 //  ListMate
 //
 //  Created by Sabir Alizade on 29.12.23.
@@ -8,7 +8,7 @@
 import UIKit
 
 
-class SuggestionsToolbar: BaseView {
+class SuggestionsToolbarView: BaseView {
     
    private var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
@@ -31,19 +31,14 @@ class SuggestionsToolbar: BaseView {
         super.setupView()
         viewModel.readData()
         setupUI()
-        registerForKeyboardNorifications()
     }
     
     private func setupUI() {
         self.anchorFill(view: collectionView)
     }
-    
-    deinit {
-        unregisterFromKeyboardNotifications()
-    }
 }
 
-extension SuggestionsToolbar: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.catalogItems.count
     }
@@ -66,40 +61,5 @@ extension SuggestionsToolbar: UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.performBatchUpdates({
             collectionView.deleteItems(at: [indexPath])
         }, completion: nil)
-    }
-}
-
-extension SuggestionsToolbar {
-    private func registerForKeyboardNorifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(notification:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(notification:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-    
-    private func unregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillShowNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillHideNotification,
-                                                  object: nil)
-    }
-    
-    @objc private func keyboardWillShow(notification: Notification) {
-        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            let toolbarHeight: CGFloat = 50
-            let newFrame = CGRect(x: 0, y: keyboardFrame.origin.y - toolbarHeight, width: UIScreen.main.bounds.width, height: toolbarHeight)
-            self.frame = newFrame
-            self.isHidden = false
-        }
-    }
-    
-    @objc private func keyboardWillHide(notification: Notification) {
-        self.isHidden = true
     }
 }
