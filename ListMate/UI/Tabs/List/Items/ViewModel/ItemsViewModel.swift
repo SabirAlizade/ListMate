@@ -142,10 +142,21 @@ class ItemsViewModel {
         }
     }
     
+    func removeRow(index: Int) {
+        guard let item = items?[index] else { return }
+        manager.delete(data: item) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
+
+    }
+    
     func deleteItem(item: ItemModel) {
         let itemId = item.objectId
         guard let realmItem = manager.realm.object(ofType: ItemModel.self,
                                                    forPrimaryKey: itemId) else { return }
+        
         manager.delete(data: realmItem) { error in
             if let error {
                 print(error.localizedDescription)

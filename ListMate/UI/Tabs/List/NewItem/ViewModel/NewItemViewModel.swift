@@ -12,7 +12,7 @@ protocol NewItemDelegate: AnyObject {
     func reloadAndFilterData()
     func passSuggested(name: String, price: Double, measure: Measures)
 }
-
+// 2 protocols 
 final class NewItemViewModel {
     weak var delegate: NewItemDelegate?
     

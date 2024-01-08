@@ -27,7 +27,9 @@ class ItemsViewController: BaseViewController {
     }()
     
     lazy var summaryButton = CustomButton(title: "0.0",
-                                          backgroundColor: .maingreen,      titleColor: .white,        target: self,
+                                          backgroundColor: .maingreen,
+                                          titleColor: .white,
+                                          target: self,
                                           action:  #selector(summaryButtonTapped))
     
     private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
@@ -52,8 +54,9 @@ class ItemsViewController: BaseViewController {
     }
     
     private func configureNavBar() {
+        
         let summarybtn = UIBarButtonItem(customView: summaryButton)
-        summarybtn.width = 90
+        summarybtn.width = 95
         summarybtn.customView?.withHeight(35)
         summarybtn.customView?.layer.shadowOpacity = 5
         summarybtn.customView?.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -131,26 +134,16 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
-//            guard let itemsInSection = self?.viewModel.localItems[indexPath.section], // Assuming your items are organized in sections
-//                  let item = itemsInSection[indexPath.row] else { return }
-//
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            self?.viewModel.deleteItem(item: item)
-//        }
-//        return swipeConfiguration
-//    }
-        
-        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { [weak self] in
-            if let item = self?.viewModel.itemAtIndexPath(indexPath) {
-                self?.viewModel.deleteItem(item: item)
-            }
+
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { 
+//            if let item = self.viewModel.itemAtIndexPath(indexPath) {
+//                self.viewModel.deleteItem(item: item)
+//            }
+            self.viewModel.removeRow(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return swipeConfiguration
     }
-         ////"Object has been deleted or invalidated."
-
 }
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {

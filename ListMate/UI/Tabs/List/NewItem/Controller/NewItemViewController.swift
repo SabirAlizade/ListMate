@@ -13,7 +13,7 @@ class NewItemViewController: BaseViewController {
     
     private var itemImage: UIImage? = UIImage(systemName: "camera.circle")
     
-    lazy var viewModel: NewItemViewModel = {
+     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
         model.delegate = self
         return model
