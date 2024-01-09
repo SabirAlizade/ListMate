@@ -7,32 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C88F1246-F778-479B-901E-65B3987E0FAA"
+            uuid = "F76865E0-35E0-4734-8671-21721A972E5D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Main/Controller/ListViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "reloadListData()"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "updateListSummary()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "869AB741-88B0-4FD9-9614-8BA8AE5A83C2"
+            uuid = "74CE22D2-C3D7-440E-A301-AFE87E7C59B1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Main/Controller/ListViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "reloadListData()"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "updateListSummary()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F29D8EF9-9EE3-4F13-95C9-9F4DF38D03A6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "updateListSummary()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

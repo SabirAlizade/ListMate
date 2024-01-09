@@ -37,7 +37,7 @@ class ItemsViewController: BaseViewController {
     override func setupUIComponents() {
         super.setupUIComponents()
         configureNavBar()
-        viewModel.filter()
+        viewModel.readFilteredData()
         configureSummaryButton()
     }
     
@@ -86,7 +86,7 @@ class ItemsViewController: BaseViewController {
     @objc
     private func summaryButtonTapped() {
         let vc = SummaryViewController()
-        vc.viewModel.updateItems(items: viewModel.completedSection)
+    //    vc.viewModel.updateItems(items: viewModel.completedSection)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }
@@ -95,20 +95,20 @@ class ItemsViewController: BaseViewController {
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections()
+        return viewModel.getSections().count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.titleForSection(section)
-    }
+            return viewModel.getSections()[section].name
+        }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsInSection(section)
+        return viewModel.getSections()[section].data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else  { return UITableViewCell() }
-        let item = viewModel.itemAtIndexPath(indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.description(), for: indexPath) as? ItemCell else { return UITableViewCell() }
+        let item = viewModel.getSections()[indexPath.section].data[indexPath.row]
         cell.delegate = self
         cell.item = item
         return cell
@@ -119,10 +119,10 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func openDetailed(indexPath: IndexPath) {
-        guard let item = viewModel.itemAtIndexPath(indexPath) else { return }
+        let item = viewModel.getSections()[indexPath.section].data[indexPath.row]
         let vc = DetailedViewController()
         vc.viewModel.item = item
-        vc.viewModel.cellIndex = indexPath.row
+//        vc.viewModel.cellIndex = indexPath.row
         vc.viewModel.delegate = self
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
@@ -146,7 +146,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDelegate, DetailedViewModelDelegate {
+extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, DetailedViewModelDelegate {
     
     func updateChanges() {
 //        tableView.reloadData()
@@ -156,15 +156,17 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, ItemCellDele
         tableView.reloadData()
     }
     
+    func reloadAndFilterData() {
+        viewModel.readFilteredData()
+    }
+}
+
+extension ItemsViewController: ItemCellDelegate {
     func updateCheckmark(isChecked: Bool, id: ObjectId) {
         viewModel.updateCheckmark(isCheked: isChecked, id: id)
     }
     
     func updateAmount(amount: Double, id: ObjectId) {
         viewModel.updateAmount(amount: amount, id: id)
-    }
-    
-    func reloadAndFilterData() {
-        viewModel.filter()
     }
 }

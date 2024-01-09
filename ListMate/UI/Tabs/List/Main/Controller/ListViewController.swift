@@ -87,7 +87,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.updateListId(id: item.id.uuidString)
         let vc = ItemsViewController()
         vc.hidesBottomBarWhenPushed = true
-//        vc.viewModel.delegate = self //MARK: CALLS CRASH(ITEMS DISAPPEAR)
+        vc.viewModel.quantityDelegate = self //MARK: CALLS CRASH(ITEMS DISAPPEAR)
         vc.title = item.name
         show(vc, sender: self)
     }
@@ -108,12 +108,24 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate, ItemsModelDelegate {
-    func reloadListData() {
-   //     viewModel.readData()
-    }
-    
+extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
     func reloadData() {
         tableView.reloadData()
+    }
+    
+//    func reloadListData() {
+//   //     viewModel.readData()
+//    }
+//    
+//    func reloadData() {
+//        tableView.reloadData()
+//    }
+}
+
+
+extension ListViewController: ItemsQuantityDelegate {
+    func updateQuantity() {
+                tableView.reloadData()
+
     }
 }

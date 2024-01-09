@@ -61,14 +61,14 @@ final class NewItemViewModel {
 extension NewItemViewModel {
     
     private func passToCatalog(name: String, price: Double, measure: Measures) {
-        let catalogItem = CatalogModel(name: name, price: price, measure: measure)
-        manager.saveObject(data: catalogItem) { error in
-            if let error {
-                print(error.localizedDescription)
+                let catalogItem = CatalogModel(name: name, price: price, measure: measure)
+                self.manager.saveObject(data: catalogItem) { error in
+                    if let error {
+                        print(error.localizedDescription)
+                    }
+                }
             }
-        }
-    }
-    
+        
     func readData() {
         manager.readData(data: CatalogModel.self) { result in
             self.catalogItems.append(contentsOf: result )
@@ -87,6 +87,7 @@ extension NewItemViewModel {
         }
     }
 }
+
 extension NewItemDelegate {
     func passSuggested(name: String, price: Double, measure: Measures) {}
     func reloadAndFilterData() {}
