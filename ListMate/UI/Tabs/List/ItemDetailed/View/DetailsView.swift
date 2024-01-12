@@ -19,7 +19,7 @@ class DetailsView: BaseView {
         didSet {
             guard let item else { return }
             selectedSegmentIndex(item: item)
-            pricetextField.text = "\(item.price)"
+            pricetextField.text = Double.doubleToString(double: item.price)
             storeTextField.text = item.boughtAt
         }
     }

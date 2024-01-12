@@ -94,7 +94,7 @@ class ItemAmountView: BaseView {
             kit.height(40)
             
             let hStack = UIView().HStack(views: minusButton.withWidth(45),
-                                         amountTextField.withWidth(70),
+                                         amountTextField.withWidth(80),
                                          plusButton.withWidth(45),
                                          spacing: 5,
                                          distribution: .fill)

@@ -143,17 +143,13 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, DetailedViewModelDelegate {
-    
-    func updateChanges() {
-        //        tableView.reloadData()
-    }
+extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
     
     func reloadData() {
         tableView.reloadData()
     }
     
-    func reloadAndFilterData() {
+    func updateItemsData() {
         viewModel.readFilteredData()
     }
 }
@@ -165,5 +161,12 @@ extension ItemsViewController: ItemCellDelegate {
     
     func updateAmount(amount: Double, id: ObjectId) {
         viewModel.updateAmount(amount: amount, id: id)
+    }
+}
+
+extension ItemsViewController: DetailedViewModelDelegate {
+    func updateChanges() {
+        tableView.reloadData()
+
     }
 }

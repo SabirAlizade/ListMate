@@ -15,7 +15,7 @@ class NewItemViewController: BaseViewController {
     
      lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
-        model.delegate = self
+        model.suggestionDelegate = self
         return model
     }()
     
@@ -171,7 +171,7 @@ class NewItemViewController: BaseViewController {
             pricetextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
             
             itemAmount.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
-            itemAmount.widthAnchor.constraint(equalToConstant: 110),
+            itemAmount.widthAnchor.constraint(equalToConstant: 140),
             itemAmount.heightAnchor.constraint(equalToConstant: 44),
             itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
             
@@ -312,19 +312,34 @@ extension UserDefaults {
     }
 }
 
-extension NewItemViewController: ItemAmountDelegate, NewItemDelegate {
-    
-    func passSuggested(name: String, price: Double, measure: Measures) {
-        print(name)
-        DispatchQueue.main.async {
-            self.nameTextField.text = name
-            self.pricetextField.text = "\(price)"
-            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
-        }
-    }
-    
+extension NewItemViewController: ItemAmountDelegate {
     func setAmount(amount: Double) {
         viewModel.setAmount(amount: amount)
     }
 }
 
+extension NewItemViewController: PassSuggestionDelegate {
+//    func passSuggested(name: String, price: Double, measure: Measures) {
+//        print("passSuggested called with \(name), \(price), \(measure)")
+//        DispatchQueue.main.async {
+//            self.nameTextField.text = name
+//            self.pricetextField.text = "\(price)"
+//            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
+//        }
+//    }
+    
+    func passSuggested(name: String, price: Double, measure: Measures) {
+        print("passSuggested called with \(name), \(price), \(measure)")
+        if Thread.isMainThread {
+            self.nameTextField.text = name
+            self.pricetextField.text = "\(price)"
+            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
+        } else {
+            DispatchQueue.main.async {
+                self.nameTextField.text = name
+                self.pricetextField.text = "\(price)"
+                self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
+            }
+        }
+    }
+}

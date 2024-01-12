@@ -9,12 +9,16 @@ import Foundation
 import RealmSwift
 
 protocol NewItemDelegate: AnyObject {
-    func reloadAndFilterData()
+    func updateItemsData()
+}
+
+protocol PassSuggestionDelegate: AnyObject {
     func passSuggested(name: String, price: Double, measure: Measures)
 }
-// 2 protocols 
+
 final class NewItemViewModel {
     weak var delegate: NewItemDelegate?
+    weak var suggestionDelegate: PassSuggestionDelegate?
     
     var measuresArray: [String] = ["Pcs", "Kgs", "L"] //MARK: DELETE THIS AND USE HASH
     var selectedMeasure: Measures = .pcs
@@ -49,12 +53,16 @@ final class NewItemViewModel {
                 print(error.localizedDescription)
             }
         }
-        delegate?.reloadAndFilterData()
+        delegate?.updateItemsData()
         passToCatalog(name: name, price: price, measure: measure)
     }
     
     func setAmount(amount: Double) {
         amountValue = amount
+    }
+    
+    deinit {
+        print("NewItemViewModel deallocated")
     }
 }
 
@@ -76,7 +84,10 @@ extension NewItemViewModel {
     }
     
     func passSuggestedItem(name: String, price: Double, measure: Measures) {
-        delegate?.passSuggested(name: name, price: price, measure: measure)
+        print(name)
+        print(price)
+        print(measure)
+            self.suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
     }
     
     func filter(name: String) {
@@ -86,9 +97,4 @@ extension NewItemViewModel {
             print(result)
         }
     }
-}
-
-extension NewItemDelegate {
-    func passSuggested(name: String, price: Double, measure: Measures) {}
-    func reloadAndFilterData() {}
 }

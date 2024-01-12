@@ -40,7 +40,7 @@ class SuggestionsToolbarView: BaseView {
 
 extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.catalogItems.count
+        return viewModel.catalogItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -56,6 +56,7 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem  = viewModel.catalogItems[indexPath.item]
+        
         viewModel.passSuggestedItem(name: selectedItem.name, price: selectedItem.price, measure: selectedItem.measure)
         viewModel.catalogItems.remove(at: indexPath.item)
         collectionView.performBatchUpdates({

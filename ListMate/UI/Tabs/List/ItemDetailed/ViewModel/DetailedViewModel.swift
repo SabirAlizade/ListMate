@@ -30,7 +30,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
-        reloadItemsData()
+      //  reloadItemsData()
     }
     
     func updateValues(measeure: Measures, price: Double, store: String) {
@@ -40,12 +40,12 @@ class DetailedViewModel {
                 item.measure = measeure
                 item.price = price
                 item.boughtAt = store
+                item.totalPrice = item.amount * price
             }
         }
         catch {
             print(error.localizedDescription)
         }
-        reloadItemsData()
     }
     
     func updateImage(image: UIImage) {
@@ -58,7 +58,7 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
-        reloadItemsData()
+     //   reloadItemsData()
     }
     
     func reloadItemsData() {
