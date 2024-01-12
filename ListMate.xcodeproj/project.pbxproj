@@ -40,7 +40,6 @@
 		03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D32B3042A900E13A45 /* CustomButton.swift */; };
 		03A105D72B30449B00E13A45 /* NewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D62B30449B00E13A45 /* NewListViewModel.swift */; };
 		03A105DA2B3048F000E13A45 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105D92B3048F000E13A45 /* Date+Ext.swift */; };
-		03A773162B4BDA1B00C0875D /* ListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A773152B4BDA1B00C0875D /* ListData.swift */; };
 		03A773182B4C01C900C0875D /* ItemTempModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A773172B4C01C900C0875D /* ItemTempModel.swift */; };
 		03AC79D32B37697900BD9946 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AC79D22B37697900BD9946 /* CheckBox.swift */; };
 		03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AD576B2B37073D008A48C5 /* ProductSession.swift */; };
@@ -104,7 +103,6 @@
 		03A105D32B3042A900E13A45 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		03A105D62B30449B00E13A45 /* NewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewModel.swift; sourceTree = "<group>"; };
 		03A105D92B3048F000E13A45 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
-		03A773152B4BDA1B00C0875D /* ListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListData.swift; sourceTree = "<group>"; };
 		03A773172B4C01C900C0875D /* ItemTempModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTempModel.swift; sourceTree = "<group>"; };
 		03AC79D22B37697900BD9946 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		03AD576B2B37073D008A48C5 /* ProductSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSession.swift; sourceTree = "<group>"; };
@@ -420,7 +418,6 @@
 			isa = PBXGroup;
 			children = (
 				03A105B82B2F554D00E13A45 /* ListModel.swift */,
-				03A773152B4BDA1B00C0875D /* ListData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -806,7 +803,6 @@
 				03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */,
 				03B0A6912B3C0AE500B3F8D0 /* DetailedViewModel.swift in Sources */,
 				036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */,
-				03A773162B4BDA1B00C0875D /* ListData.swift in Sources */,
 				03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */,
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
 				03A105BC2B2F56A100E13A45 /* ItemModel.swift in Sources */,

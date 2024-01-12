@@ -7,48 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F76865E0-35E0-4734-8671-21721A972E5D"
+            uuid = "66449BD1-BE11-450E-B521-F640E977B93C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
+            filePath = "ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "updateListSummary()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74CE22D2-C3D7-440E-A301-AFE87E7C59B1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "updateListSummary()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F29D8EF9-9EE3-4F13-95C9-9F4DF38D03A6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "updateListSummary()"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "filter(name:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

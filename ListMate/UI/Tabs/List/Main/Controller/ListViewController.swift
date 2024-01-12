@@ -126,6 +126,5 @@ extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
 extension ListViewController: ItemsQuantityDelegate {
     func updateQuantity() {
                 tableView.reloadData()
-
     }
 }

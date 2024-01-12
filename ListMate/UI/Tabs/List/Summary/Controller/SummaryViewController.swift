@@ -23,7 +23,7 @@ class SummaryViewController: BaseViewController {
         let model = SummaryViewModel()
         return model
     }()
-        
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         closeBarButton()
@@ -34,8 +34,9 @@ class SummaryViewController: BaseViewController {
         super.setupUIConstraints()
         setupUI()
     }
+    
     private func setupUI() {
-        view.anchorFill(view: tableView)
+        view.anchorFill(view: tableView, safe: true)
     }
 }
 

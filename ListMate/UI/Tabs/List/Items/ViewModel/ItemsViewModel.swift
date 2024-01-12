@@ -14,7 +14,7 @@ protocol ItemsQuantityDelegate: AnyObject {
 
 protocol ItemsModelDelegate: AnyObject {
     func reloadData()
-    func reloadListData()
+    //    func reloadListData()
 }
 
 class ItemsViewModel {
@@ -26,7 +26,18 @@ class ItemsViewModel {
     private let session: ProductSession
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
-    var updateSummaryButton: ((Double?) -> Void)?
+    
+    var completedItemsArray: [ItemModel] = []
+    
+    private var summaryAmount: Double = 0 {
+        didSet {
+            updateSummaryButton?(summaryAmount)
+        }
+    }
+    
+    var updateSummaryButton: ((Double) -> Void)?
+    
+    private var completedItemsQuantity: Int = 0
     
     private(set) var items: Results<ItemModel>?
     
@@ -41,36 +52,28 @@ class ItemsViewModel {
         }
     }
     
-    
-    
     //   updateListSummary()
-    
     
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
         let completedItems = items.filter { $0.isBought }
-        let remainsContact = items.filter { !$0.isBought }
+        let remainsItems = items.filter { !$0.isBought }
         
         let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
-        let remainsSection = ItemSection(name: "Remains", data: Array(remainsContact))
+        let remainsSection = ItemSection(name: "Remains", data: Array(remainsItems))
         
+        updateListSummary(completedItems: completedItems, remainItems: remainsItems)
+        
+        completedItemsArray.removeAll()
+        completedItemsArray.append(contentsOf: completedItems)
         return [completedSection, remainsSection]
     }
     
-    private func calcSectionPrice(section: [ItemModel]) -> String {
-        if !section.isEmpty {
-            let sectionTotal = section.reduce(0) { $0 + $1.totalPrice}
-            let formatString = Double.doubleToString(double: sectionTotal)
-            //            if section == completedSection {
-            //                if let unwrappedClosure = updateSummaryButton {
-            //                    unwrappedClosure(sectionTotal)
-            //                } else {
-            //                    print("Error")
-            //                }
-            //            }
-            return "Total: \(formatString) $"
-        }
-        return "Total: 0.0 $"
+    func sectionHeaderTitle(for section: Int) -> String {
+        let sectionModel = getSections()[section]
+        let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
+        let formatString = Double.doubleToString(double: sectionTotal)
+        return "\(sectionModel.name) total: \(formatString) $"
     }
     
     func updateCheckmark(isCheked: Bool, id: ObjectId) {
@@ -105,43 +108,36 @@ class ItemsViewModel {
     }
     
     func removeRow(index: Int) {
-                guard let item = items?[index] else { return }
-                manager.delete(data: item) { error in
-                    if let error {
-                        print(error.localizedDescription)
-                    }
-                }
-                //updateListSummary()
+        guard let item = items?[index] else { return }
+        manager.delete(data: item) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
 extension ItemsViewModel {
     
-    func updateListSummary() {
-        // guard let items else { return }
-        //        let summary = items?.reduce(0) { $0 + $1.totalPrice}
-        //
-        //        guard let uuid = UUID(uuidString: session.listID) else { return }
-        //        if let list = manager.realm.objects(ListModel.self).filter("id == %@", uuid).first {
-        //            do {
-        //                try manager.realm.write {
-        //                    list.totalAmount = summary ?? 0
-        //                    list.completedQuantity = completedSection.count
-        //                    list.totalItemQuantity = remainsSection.count + completedSection.count
-        //                }
-        //            }
-        //            catch {
-        //                print(error.localizedDescription)
-        //            }
-        //        }
-        //        print(completedSection.count)
-        //        print(remainsSection.count + completedSection.count)
-        //        //delegate?.reloadListData()
-        //        quantityDelegate?.updateQuantity()
+    func updateListSummary(completedItems: LazyFilterSequence<Results<ItemModel>>, remainItems: LazyFilterSequence<Results<ItemModel>>) {
+        let summary = completedItems.reduce(0) { $0 + $1.totalPrice}
+        
+        summaryAmount = summary
+        
+        guard let uuid = UUID(uuidString: session.listID) else { return }
+        if let list = manager.realm.objects(ListModel.self).filter("id == %@", uuid).first {
+            do {
+                try manager.realm.write {
+                    list.totalAmount = summary
+                    list.completedQuantity = completedItems.count
+                    list.totalItemQuantity = completedItems.count + remainItems.count
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+        //delegate?.reloadListData()
+        quantityDelegate?.updateQuantity()
     }
-    
-}
-
-extension ItemsModelDelegate {
-    func reloadListData() {}
 }

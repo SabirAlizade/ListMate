@@ -48,7 +48,7 @@ class ItemsViewController: BaseViewController {
     
     func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            let amountString = Double.doubleToString(double: amount ?? 0.0)
+            let amountString = Double.doubleToString(double: amount )
             self?.summaryButton.setTitle("Total:  \(amountString) $", for: .normal)
         }
     }
@@ -86,7 +86,8 @@ class ItemsViewController: BaseViewController {
     @objc
     private func summaryButtonTapped() {
         let vc = SummaryViewController()
-    //    vc.viewModel.updateItems(items: viewModel.completedSection)
+        print(viewModel.completedItemsArray)
+        vc.viewModel.updateItems(items: viewModel.completedItemsArray)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }
@@ -99,8 +100,8 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            return viewModel.getSections()[section].name
-        }
+        viewModel.sectionHeaderTitle(for: section)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getSections()[section].data.count
@@ -122,7 +123,6 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
         let item = viewModel.getSections()[indexPath.section].data[indexPath.row]
         let vc = DetailedViewController()
         vc.viewModel.item = item
-//        vc.viewModel.cellIndex = indexPath.row
         vc.viewModel.delegate = self
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
@@ -134,11 +134,8 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) { 
-//            if let item = self.viewModel.itemAtIndexPath(indexPath) {
-//                self.viewModel.deleteItem(item: item)
-//            }
+        
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
             self.viewModel.removeRow(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -149,7 +146,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate, DetailedViewModelDelegate {
     
     func updateChanges() {
-//        tableView.reloadData()
+        //        tableView.reloadData()
     }
     
     func reloadData() {
