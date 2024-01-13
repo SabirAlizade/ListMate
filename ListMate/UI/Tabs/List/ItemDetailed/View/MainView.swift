@@ -50,7 +50,7 @@ final class MainView: BaseView {
                                                      action: #selector(didTapValueChanged)
     )
     
-    private lazy var itemImageView: UIImageView = {
+     lazy var itemImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         view.layer.borderWidth = 1
@@ -116,7 +116,6 @@ final class MainView: BaseView {
     private func didTapValueChanged() {
         guard let name = nameTextField.text else { return }
         guard let note = noteTextField.text else { return }
-        
         delegate?.updateNameAndNote(name: name, note: note)
     }
 }

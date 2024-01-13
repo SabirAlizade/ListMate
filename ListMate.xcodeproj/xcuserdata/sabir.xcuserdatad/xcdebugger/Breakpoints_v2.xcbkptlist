@@ -307,22 +307,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0CD1975E-2DD3-4C00-98E4-B3E4AB2EFB3F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "viewModel"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2B625149-177F-4F07-BF8F-B02849B6AC68"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -510,54 +494,6 @@
             endingLineNumber = "317"
             landmarkName = "setAmount(amount:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5BAE4225-3629-44B5-88F6-43AE1D38FB3C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/Items/Controller/ItemsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "updateChanges()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5BAE4225-3629-44B5-88F6-43AE1D38FB3C - b3e088b5d8e0e53d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ListMate.ItemsViewController.updateChanges() -&gt; ()"
-                  moduleName = "ListMate"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/Items/Controller/ItemsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "5BAE4225-3629-44B5-88F6-43AE1D38FB3C - b3e088b5d8e0e6de"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ListMate.ItemsViewController.updateChanges() -&gt; ()"
-                  moduleName = "ListMate"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/Items/Controller/ItemsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "170"
-                  endingLineNumber = "170"
-                  offsetFromSymbolStart = "22">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

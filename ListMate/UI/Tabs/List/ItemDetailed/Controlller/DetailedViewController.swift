@@ -69,7 +69,7 @@ class DetailedViewController: BaseViewController {
     @objc
     private func openPreviewer(image: UIImage) {
         let vc = ImagePreviewViewController()
-        vc.itemImage = image
+        vc.imageView.image = image
         vc.delegate = self
         let nc = UINavigationController(rootViewController: vc)
         navigationController?.present(nc, animated: true)
@@ -79,7 +79,8 @@ class DetailedViewController: BaseViewController {
 extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePreviewDelegate {
     func updateImage(image: UIImage) {
         viewModel.updateImage(image: image)
-        saveChanges()
+        mainView.itemImageView.image = image
+        dismiss(animated: true)
     }
     
     func openImage(image: UIImage) {

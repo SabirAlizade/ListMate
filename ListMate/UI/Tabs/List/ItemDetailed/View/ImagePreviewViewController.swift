@@ -15,26 +15,25 @@ class ImagePreviewViewController: BaseViewController {
     
     weak var delegate: ImagePreviewDelegate?
     
-    var itemImage: UIImage?
-    
-    private lazy var imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = self.itemImage
+        imageView.image = UIImage(systemName: "camera.circle")
         return imageView
     }()
     
-    private lazy var choosePicButton = CustomButton(title: "Choose photo",
-                                                    backgroundColor: .black,
-                                                    titleColor: .white,
-                                                    target: self,
-                                                    action: #selector(presentPicker))
+    private lazy var choosePicButton = CustomImageButton(image: UIImage(systemName: "photo.on.rectangle"),
+                                                         tintColor: .white,
+                                                         backgroundColor: .black,
+                                                         target: self,
+                                                         action: #selector(presentPicker))
     
-    private lazy var takephotoButton = CustomButton(title: "Take photo",
-                                                    backgroundColor: .black,
-                                                    titleColor: .white,
-                                                    target: self,
-                                                    action: #selector(takePicture))
+    
+    private lazy var takephotoButton = CustomImageButton(image: UIImage(systemName: "camera"),
+                                                         tintColor: .white,
+                                                         backgroundColor: .black,
+                                                         target: self,
+                                                         action: #selector(takePicture))
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -45,38 +44,43 @@ class ImagePreviewViewController: BaseViewController {
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
-       // configureGestures()
+        // configureGestures()
     }
     
     private func setupUI() {
-        let hStack = UIView().HStack(views: takephotoButton, choosePicButton, spacing: 120, distribution: .fill)
-        
         view.anchorFill(view: imageView, safe: true)
-        view.anchor(view: hStack) { kit in
+        view.anchor(view: takephotoButton) { kit in
+            kit.bottom(10, safe: true)
+            kit.leading(10)
+            kit.width(30)
+            kit.height(30)
+        }
+        
+        view.anchor(view: choosePicButton) { kit in
             kit.bottom(10, safe: true)
             kit.trailing(10)
-            kit.leading(10)
-            kit.height(35)
+            kit.width(30)
+            kit.height(30)
         }
     }
     
-//    @objc
-//    private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
-//        guard let view = sender.view else { return }
-//        if sender.state == .changed || sender.state == .ended {
-//            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
-//            sender.scale = 1.0
-//        }
-//    }
-//    
-//    private func configureGestures() {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
-//        imageView.addGestureRecognizer(tapGesture)
-//        
-//        //            let pinchGesture = UIPinchGestureRecognizer(target: self, action: pinchHandling)
-//        //            imageView.addGestureRecognizer(pinchGesture)
-//    }
-//    
+    //    @objc
+    //    private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
+    //        guard let view = sender.view else { return }
+    //        if sender.state == .changed || sender.state == .ended {
+    //            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
+    //            sender.scale = 1.0
+    //        }
+    //    }
+    //
+    //    private func configureGestures() {
+    //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
+    //        imageView.addGestureRecognizer(tapGesture)
+    //
+    //        //            let pinchGesture = UIPinchGestureRecognizer(target: self, action: pinchHandling)
+    //        //            imageView.addGestureRecognizer(pinchGesture)
+    //    }
+    //
     
     @objc
     private func takePicture() {
@@ -102,9 +106,9 @@ class ImagePreviewViewController: BaseViewController {
     
     @objc
     private func savePicture() {
-        guard let itemImage else { return }
-        UserDefaults.standard.saveImage(image: itemImage, key: itemImage.description)
-        delegate?.updateImage(image: itemImage)
+        guard let selected = imageView.image else { return }
+        UserDefaults.standard.saveImage(image: selected, key: selected.description)
+        delegate?.updateImage(image: selected)
     }
 }
 
@@ -113,7 +117,6 @@ extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            itemImage = imageSelected
             imageView.image = imageSelected
             choosePicButton.isHidden = true
             imageView.isHidden = false
@@ -121,7 +124,6 @@ extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigat
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            itemImage = imageOriginal
             imageView.image = imageOriginal
         }
         picker.dismiss(animated: true)

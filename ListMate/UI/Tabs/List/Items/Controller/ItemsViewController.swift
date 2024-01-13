@@ -25,12 +25,19 @@ class ItemsViewController: BaseViewController {
         view.register(ItemCell.self, forCellReuseIdentifier: ItemCell.description())
         return view
     }()
-    
-    lazy var summaryButton = CustomButton(title: "0.0",
-                                          backgroundColor: .maingreen,
-                                          titleColor: .white,
-                                          target: self,
-                                          action:  #selector(summaryButtonTapped))
+
+    private lazy var summaryButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .poppinsFont(size: 18, weight: .regular)
+        button.backgroundColor = .maingreen
+        button.setTitle( "0.0", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        button.setImage(UIImage(systemName: "cart"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(summaryButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
     
@@ -46,19 +53,18 @@ class ItemsViewController: BaseViewController {
         setupUI()
     }
     
-    func configureSummaryButton() {
+    private func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
             let amountString = Double.doubleToString(double: amount )
-            self?.summaryButton.setTitle("Total:  \(amountString) $", for: .normal)
+            self?.summaryButton.setTitle(" \(amountString) $", for: .normal)
         }
     }
     
     private func configureNavBar() {
-        
         let summarybtn = UIBarButtonItem(customView: summaryButton)
-        summarybtn.width = 95
+        summarybtn.customView?.withWidth(115)
         summarybtn.customView?.withHeight(35)
-        summarybtn.customView?.layer.shadowOpacity = 5
+        summarybtn.customView?.layer.shadowOpacity = 1
         summarybtn.customView?.layer.shadowOffset = CGSize(width: 0, height: 1)
         navigationItem.rightBarButtonItem = summarybtn
         navigationController?.navigationBar.tintColor = .maingreen
@@ -130,7 +136,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 105
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -55,7 +55,7 @@ final class ItemCell: BaseCell {
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleToFill
         view.backgroundColor = .clear
         return view
     }()
@@ -123,6 +123,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: priceLabel) { kit in
             kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
+            kit.width(60)
         }
     }
     

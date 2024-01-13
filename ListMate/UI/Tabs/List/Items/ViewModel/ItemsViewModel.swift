@@ -114,6 +114,7 @@ class ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
+        readFilteredData() 
     }
 }
 
