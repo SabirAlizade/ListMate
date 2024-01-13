@@ -14,57 +14,10 @@
             filePath = "ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "filter(name:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "66449BD1-BE11-450E-B521-F640E977B93C - 11b2529202eb2248"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewModel.filter(name: Swift.String) -&gt; ()"
-                  moduleName = "ListMate"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "267">
-               </Location>
-               <Location
-                  uuid = "66449BD1-BE11-450E-B521-F640E977B93C - ce38312d2fb7e34b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (RealmSwift.Results&lt;ListMate.CatalogModel&gt;) -&gt; () in ListMate.NewItemViewModel.filter(name: Swift.String) -&gt; ()"
-                  moduleName = "ListMate"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "98"
-                  endingLineNumber = "98"
-                  offsetFromSymbolStart = "44">
-               </Location>
-               <Location
-                  uuid = "66449BD1-BE11-450E-B521-F640E977B93C - ce38312d2fb7e368"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (RealmSwift.Results&lt;ListMate.CatalogModel&gt;) -&gt; () in ListMate.NewItemViewModel.filter(name: Swift.String) -&gt; ()"
-                  moduleName = "ListMate"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "201">
-               </Location>
-            </Locations>
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -493,6 +446,22 @@
             startingLineNumber = "317"
             endingLineNumber = "317"
             landmarkName = "setAmount(amount:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6157045-0125-47B8-8E70-D2C8F90D03B3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/Items/ViewModel/ItemsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "removeRow(index:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

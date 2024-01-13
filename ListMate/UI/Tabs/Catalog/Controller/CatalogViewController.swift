@@ -9,26 +9,26 @@ import UIKit
 
 class CatalogViewController: BaseViewController {
     
-   private lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let view = UITableView()
-       view.dataSource = self
-       view.delegate = self
-       view.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.description())
+        view.dataSource = self
+        view.delegate = self
+        view.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.description())
         return view
     }()
     
     private lazy var viewModel: CatalogViewModel = {
-       let model = CatalogViewModel()
+        let model = CatalogViewModel()
         model.delegate = self
         return model
     }()
-
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         navigationItem.title = "Catalog"
         viewModel.readData()
     }
-
+    
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
@@ -47,7 +47,7 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.catalogItems?[indexPath.row]
-       guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else { return UITableViewCell() }
         cell.item = item
         return cell
     }
@@ -55,12 +55,10 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(
-            for: tableView, at: indexPath) { [weak self] in
-            guard let item = self?.viewModel.catalogItems?[indexPath.row] else { return }
-            self?.viewModel.deleteItem(item: item)
-            
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
+            self.viewModel.deleteItem(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return swipeConfiguration

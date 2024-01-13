@@ -30,14 +30,12 @@ final class CatalogViewModel {
         }
     }
     
-    func deleteItem(item: CatalogModel) {
-        let catalogId = item.id
-        guard let realmItem = manager.realm.object(ofType: CatalogModel.self, forPrimaryKey: catalogId) else { return }
-        manager.delete(data: realmItem) { error in
+    func deleteItem(index: Int) {
+        guard let item = catalogItems?[index] else { return }
+        manager.delete(data: item) { error in
             if let error {
                 print(error.localizedDescription)
             }
         }
     }
-    
 }
