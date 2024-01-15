@@ -17,10 +17,12 @@ protocol PassSuggestionDelegate: AnyObject {
 }
 
 final class NewItemViewModel {
+
     weak var delegate: NewItemDelegate?
     weak var suggestionDelegate: PassSuggestionDelegate?
     
     var measuresArray: [String] = ["Pcs", "Kgs", "L"] //MARK: DELETE THIS AND USE HASH
+
     var selectedMeasure: Measures = .pcs
     private var amountValue: Double = 1
     var item: Results<ItemModel>?
@@ -61,6 +63,13 @@ final class NewItemViewModel {
         amountValue = amount
     }
     
+    func passSuggestedItem(name: String, price: Double, measure: Measures) {
+        print(name)
+        print(price)
+        print(measure)
+        suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
+    }
+    
     deinit {
         print("NewItemViewModel deallocated")
     }
@@ -87,18 +96,10 @@ extension NewItemViewModel {
         }
     }
     
-    func passSuggestedItem(name: String, price: Double, measure: Measures) {
-        print(name)
-        print(price)
-        print(measure)
-            self.suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
-    }
-    
     func filter(name: String) {
         let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
         manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { result in
             self.catalogItems.append(contentsOf: result )
-            print(result)
         }
     }
 }

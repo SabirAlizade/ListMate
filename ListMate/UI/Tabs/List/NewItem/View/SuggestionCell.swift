@@ -45,6 +45,7 @@ class SuggestionCell: UICollectionViewCell {
             kit.leading(5)
             kit.trailing(5)
             kit.top()
+            kit.width(160)
             kit.bottom()
         }
         

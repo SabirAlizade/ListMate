@@ -13,9 +13,8 @@ class NewItemViewController: BaseViewController {
     
     private var itemImage: UIImage? = UIImage(systemName: "camera.circle")
     
-     lazy var viewModel: NewItemViewModel = {
+    lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
-        model.suggestionDelegate = self
         return model
     }()
     
@@ -36,6 +35,7 @@ class NewItemViewController: BaseViewController {
         let toolbar = SuggestionsToolbarView()
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.isHidden = true
+        toolbar.viewModel.suggestionDelegate = self
         return toolbar
     }()
     
@@ -51,7 +51,7 @@ class NewItemViewController: BaseViewController {
                                             font: .poppinsFont(size: 12, weight: .light),
                                             alignment: .center)
     
-    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
+    private lazy var priceTextField = CustomTextField(placeHolder: "Enter price",
                                                       keybord: .numberPad,
                                                       dataSource: nil)
     
@@ -91,15 +91,15 @@ class NewItemViewController: BaseViewController {
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
         configureKeyboardNotification()
-//                nameTextField.inputAccessoryView = suggestionToolbar
+        
+        //                nameTextField.inputAccessoryView = suggestionToolbar
     }
     
     private func configureAutoresizing() {
-        nameTextField.delegate = self
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         quantityLabel.translatesAutoresizingMaskIntoConstraints = false
-        pricetextField.translatesAutoresizingMaskIntoConstraints = false
+        priceTextField.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -123,7 +123,6 @@ class NewItemViewController: BaseViewController {
         closeBarButton()
         configureMeasuresControl()
         nameTextField.becomeFirstResponder()
-        nameTextField.delegate = self
     }
     
     override func setupUIConstraints() {
@@ -135,7 +134,7 @@ class NewItemViewController: BaseViewController {
         view.addSubview(nameTextField)
         view.addSubview(measuresControl)
         view.addSubview(priceLabel)
-        view.addSubview(pricetextField)
+        view.addSubview(priceTextField)
         view.addSubview(quantityLabel)
         view.addSubview(itemAmount)
         view.addSubview(itemImageView)
@@ -147,41 +146,41 @@ class NewItemViewController: BaseViewController {
             
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -20),
+            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
             nameTextField.heightAnchor.constraint(equalToConstant: 44),
             
             measuresControl.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
             measuresControl.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             measuresControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
-            measuresControl.heightAnchor.constraint(equalToConstant: 44),
+            measuresControl.heightAnchor.constraint(equalToConstant: 40),
             
-            priceLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             priceLabel.widthAnchor.constraint(equalToConstant: 140),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
-            priceLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 15),
+            priceLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
             
-            quantityLabel.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            quantityLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             quantityLabel.widthAnchor.constraint(equalToConstant: 140),
             quantityLabel.heightAnchor.constraint(equalToConstant: 44),
-            quantityLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 15),
+            quantityLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
             
-            pricetextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
-            pricetextField.widthAnchor.constraint(equalToConstant: 120),
-            pricetextField.heightAnchor.constraint(equalToConstant: 44),
-            pricetextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
+            priceTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            priceTextField.widthAnchor.constraint(equalToConstant: 120),
+            priceTextField.heightAnchor.constraint(equalToConstant: 44),
+            priceTextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor),
             
             itemAmount.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             itemAmount.widthAnchor.constraint(equalToConstant: 140),
             itemAmount.heightAnchor.constraint(equalToConstant: 44),
-            itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 5),
+            itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 3),
             
             itemImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            itemImageView.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 15),
+            itemImageView.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 6),
             itemImageView.heightAnchor.constraint(equalToConstant: 90),
             itemImageView.widthAnchor.constraint(equalToConstant: 90),
             
             itemImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            itemImageButton.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 15),
+            itemImageButton.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 6),
             itemImageButton.heightAnchor.constraint(equalToConstant: 90),
             itemImageButton.widthAnchor.constraint(equalToConstant: 90),
             
@@ -212,7 +211,7 @@ class NewItemViewController: BaseViewController {
     @objc
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
-        guard let price = Double(pricetextField.text ?? "1") else { return }
+        guard let price = Double(priceTextField.text ?? "1") else { return }
         guard let image = itemImage else { return }
         
         UserDefaults.standard.saveImage(image: image, key: name)
@@ -319,27 +318,9 @@ extension NewItemViewController: ItemAmountDelegate {
 }
 
 extension NewItemViewController: PassSuggestionDelegate {
-//    func passSuggested(name: String, price: Double, measure: Measures) {
-//        print("passSuggested called with \(name), \(price), \(measure)")
-//        DispatchQueue.main.async {
-//            self.nameTextField.text = name
-//            self.pricetextField.text = "\(price)"
-//            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
-//        }
-//    }
-    
     func passSuggested(name: String, price: Double, measure: Measures) {
-        print("passSuggested called with \(name), \(price), \(measure)")
-        if Thread.isMainThread {
-            self.nameTextField.text = name
-            self.pricetextField.text = "\(price)"
-            self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
-        } else {
-            DispatchQueue.main.async {
-                self.nameTextField.text = name
-                self.pricetextField.text = "\(price)"
-                self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
-            }
-        }
+        self.nameTextField.text = name
+        self.priceTextField.text = "\(price)"
+        self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }

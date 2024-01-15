@@ -14,7 +14,6 @@ protocol ItemsQuantityDelegate: AnyObject {
 
 protocol ItemsModelDelegate: AnyObject {
     func reloadData()
-    //    func reloadListData()
 }
 
 class ItemsViewModel {
@@ -51,9 +50,7 @@ class ItemsViewModel {
             self.delegate?.reloadData()
         }
     }
-    
-    //   updateListSummary()
-    
+        
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
         let completedItems = items.filter { $0.isBought }
@@ -71,9 +68,15 @@ class ItemsViewModel {
     
     func sectionHeaderTitle(for section: Int) -> String {
         let sectionModel = getSections()[section]
-        let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
-        let formatString = Double.doubleToString(double: sectionTotal)
-        return "\(sectionModel.name) total: \(formatString) $"
+        
+        if sectionModel.data.isEmpty {
+            return ""
+        } else {
+            let sectionModel = getSections()[section]
+            let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
+            let formatString = Double.doubleToString(double: sectionTotal)
+            return "\(sectionModel.name) total: \(formatString) $"
+        }
     }
     
     func updateCheckmark(isCheked: Bool, id: ObjectId) {
@@ -88,7 +91,6 @@ class ItemsViewModel {
             }
             delegate?.reloadData()
         }
-        // readFilteredData()
     }
     
     func updateAmount(amount: Double, id: ObjectId) {
@@ -114,7 +116,9 @@ class ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
-        readFilteredData() 
+        DispatchQueue.main.async {
+            self.readFilteredData()
+        }
     }
 }
 
@@ -138,7 +142,6 @@ extension ItemsViewModel {
                 print(error.localizedDescription)
             }
         }
-        //delegate?.reloadListData()
         quantityDelegate?.updateQuantity()
     }
 }

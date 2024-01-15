@@ -10,7 +10,7 @@ import UIKit
 
 class SuggestionsToolbarView: BaseView {
     
-   private var viewModel: NewItemViewModel = {
+    var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
         return model
     }()
@@ -51,7 +51,7 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 35)
+        return CGSize(width: 140, height: 35)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

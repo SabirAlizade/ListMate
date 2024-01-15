@@ -25,7 +25,7 @@ class ItemsViewController: BaseViewController {
         view.register(ItemCell.self, forCellReuseIdentifier: ItemCell.description())
         return view
     }()
-
+    
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .poppinsFont(size: 18, weight: .regular)
@@ -37,6 +37,13 @@ class ItemsViewController: BaseViewController {
         button.tintColor = .white
         button.addTarget(self, action: #selector(summaryButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private var emptyBagImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "emptybag")
+        view.contentMode = .scaleAspectFit
+        return view
     }()
     
     private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
@@ -73,6 +80,11 @@ class ItemsViewController: BaseViewController {
     private func setupUI() {
         view.anchorFill(view: tableView)
         
+        view.anchor(view: emptyBagImage) { kit in
+            kit.centerX()
+            kit.centerY()
+        }
+        
         view.anchor(view: plusButton) { kit in
             kit.trailing(20)
             kit.bottom(40, safe: true)
@@ -85,7 +97,7 @@ class ItemsViewController: BaseViewController {
         vc.viewModel.delegate = self
         vc.title = "New Item"
         let nc = UINavigationController(rootViewController: vc)
-        nc.sheetPresentationController?.detents = [.medium()]
+        nc.sheetPresentationController?.detents = [.large()]
         present(nc, animated: true)
     }
     
@@ -102,7 +114,13 @@ class ItemsViewController: BaseViewController {
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.getSections().count
+        let numberOfSections = viewModel.getSections().count
+        if numberOfSections == 0 {
+            emptyBagImage.isHidden = false
+        } else {
+            emptyBagImage.isHidden = true
+        }
+        return numberOfSections
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -173,6 +191,6 @@ extension ItemsViewController: ItemCellDelegate {
 extension ItemsViewController: DetailedViewModelDelegate {
     func updateChanges() {
         tableView.reloadData()
-
+        
     }
 }
