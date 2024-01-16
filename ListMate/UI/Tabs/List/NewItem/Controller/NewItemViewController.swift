@@ -11,8 +11,7 @@ class NewItemViewController: BaseViewController {
     
     private var bottomCostant: NSLayoutConstraint?
     
-   private var itemImage: UIImage? = UIImage(named: "noImage")
-    //UIImage(systemName: "camera.circle")
+    private var itemImage: UIImage? = UIImage(named: "noImage")
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)

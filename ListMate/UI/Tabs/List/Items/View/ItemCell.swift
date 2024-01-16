@@ -23,7 +23,6 @@ final class ItemCell: BaseCell {
             priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
-//            isCheked(bool: item.isBought)
             if let image = UserDefaults.standard.readImage(key: item.image) {
                 itemImageView.image = image
             }
@@ -48,7 +47,7 @@ final class ItemCell: BaseCell {
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
     private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium),
-                                              alignment: .center)
+                                              alignment: .right)
     private lazy var currencyLabel = CustomLabel(text: "$",
                                                      font: .poppinsFont(size: 20, weight: .medium),
                                                      alignment: .center)
@@ -126,12 +125,6 @@ final class ItemCell: BaseCell {
             kit.width(60)
         }
     }
-    
-//    private func isCheked(bool: Bool) {
-//        if bool {
-//            containerView.backgroundColor = .white.withAlphaComponent(0.9)
-//        }
-//    }
 }
 
 extension ItemCell: ItemAmountDelegate {

@@ -54,17 +54,18 @@ class ItemsViewModel {
     
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
-        let completedItems = items.filter { $0.isBought }
+       
         let remainsItems = items.filter { !$0.isBought }
+        let completedItems = items.filter { $0.isBought }
         
-        let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
         let remainsSection = ItemSection(name: "Remains", data: Array(remainsItems))
+        let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
         
         updateListSummary(completedItems: completedItems, remainItems: remainsItems)
         
         completedItemsArray.removeAll()
         completedItemsArray.append(contentsOf: completedItems)
-        return [completedSection, remainsSection]
+        return [remainsSection, completedSection]
     }
     
     func sectionHeaderTitle(for section: Int) -> String {

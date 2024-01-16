@@ -38,11 +38,10 @@ final class ListViewModel {
     func updateListId(id: String) {
         session.updateListId(id: id)
     }
-    
-    func deleteItem(item: ListModel) {
-        let listId = item.id
-        guard let realmItem = manager.realm.object(ofType: ListModel.self, forPrimaryKey: listId) else { return }
-        manager.delete(data: realmItem) { error in
+        
+    func deleteItem(index: Int) {
+        guard let item = lists?[index] else { return }
+        manager.delete(data: item) { error in
             if let error {
                 print(error.localizedDescription)
             }

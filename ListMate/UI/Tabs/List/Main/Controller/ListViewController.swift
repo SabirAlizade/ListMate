@@ -59,8 +59,8 @@ class ListViewController: BaseViewController {
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4 }
-        )]
-        present(nc, animated: true) 
+                                                          )]
+        present(nc, animated: true)
     }
 }
 
@@ -87,7 +87,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.updateListId(id: item.id.uuidString)
         let vc = ItemsViewController()
         vc.hidesBottomBarWhenPushed = true
-        vc.viewModel.quantityDelegate = self //MARK: CALLS CRASH(ITEMS DISAPPEAR)
+        vc.viewModel.quantityDelegate = self
         vc.title = item.name
         show(vc, sender: self)
     }
@@ -95,13 +95,10 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
-        
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(
-            for: tableView, at: indexPath) { [weak self] in
-            guard let item = self?.viewModel.lists?[indexPath.row] else { return }
-            self?.viewModel.deleteItem(item: item)
-            
+        let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
+            self.viewModel.deleteItem(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return swipeConfiguration
@@ -114,9 +111,8 @@ extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
     }
 }
 
-
 extension ListViewController: ItemsQuantityDelegate {
     func updateQuantity() {
-                tableView.reloadData()
+        tableView.reloadData()
     }
 }
