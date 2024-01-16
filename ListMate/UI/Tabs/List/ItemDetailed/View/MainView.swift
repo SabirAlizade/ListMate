@@ -68,9 +68,7 @@ final class MainView: BaseView {
         super.setupView()
         setupUI()
     }
-    
-    //MARK: IF PICTURE IS STANDART SHOULD AVOID PREVIEW AND PICK PICTURE INSTEAD
-    
+        
     private func setupUI() {
         nameTextField.customizeBorder(width: nil, color: nil)
         noteTextField.customizeBorder(width: nil, color: nil)
@@ -102,25 +100,48 @@ final class MainView: BaseView {
         }
     }
     
-    @objc
-    private func presentPicker() {
-        guard let itemImage else { return }
-            delegate?.openImage(image: itemImage)
-        }
-//    }
 //    @objc
 //    private func presentPicker() {
-////        guard let itemImage = itemImage else { return }
-////
-////      //  let cameraCircleImage = UIImage(systemName: "camera.circle")
-////        let choosePhotoImage = UIImage(named: "choosePhoto")
-////
-////        if itemImage.pngData() == (cameraCircleImage ?? UIImage()).pngData() {
-////            delegate?.openImage(image: choosePhotoImage ?? itemImage)
-////        } else {
-////            delegate?.openImage(image: itemImage)
-////        }
+//        guard let itemImage else { return }
+//            delegate?.openImage(image: itemImage)
+//        }
 //    }
+    
+    
+    @objc
+    private func presentPicker() {
+        guard let itemImage = itemImage else { return }
+        guard let noImage = UIImage(named: "noImage") else { return }
+        if itemImage.isEqualTo(noImage) {
+            print("Images are the same.")
+        } else {
+            print("Images are different.")
+        }
+     
+        delegate?.openImage(image: itemImage)
+//
+//        if let sampleImage = UIImage(named: "noImage"),
+//           let incomingImage = itemImage.pngData(),
+//           let sampleImageData = sampleImage.pngData() {
+//            if incomingImage == sampleImageData {
+//                // It's the "sample" image!
+//                print("It's the sample image!")
+//            } else {
+//                // It's a different image.
+//                print("It's a different image.")
+//            }
+//            delegate?.openImage(image: itemImage)
+//        }
+    }
+//      //  let cameraCircleImage = UIImage(systemName: "camera.circle")
+//        let choosePhotoImage = UIImage(named: "choosePhoto")
+//
+//        if itemImage.pngData() == (cameraCircleImage ?? UIImage()).pngData() {
+//            delegate?.openImage(image: choosePhotoImage ?? itemImage)
+//        } else {
+//            delegate?.openImage(image: itemImage)
+//        }
+    
     
     @objc
     private func didTapValueChanged() {
@@ -146,3 +167,14 @@ final class MainView: BaseView {
 //        picker.dismiss(animated: true, completion: nil)
 //    }
 //}
+
+extension UIImage {
+    func isEqualTo(_ otherImage: UIImage) -> Bool {
+        guard let imageData1 = self.pngData(), let imageData2 = otherImage.pngData() else {
+            return false
+        }
+        print(imageData1)
+        print(imageData2)
+        return imageData1 == imageData2
+    }
+}

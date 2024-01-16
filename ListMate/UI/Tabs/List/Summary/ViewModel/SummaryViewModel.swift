@@ -14,7 +14,6 @@ final class SummaryViewModel {
     
     func updateItems(items: [ItemModel]) {
         self.items = items
-        print(items)
     }
     
     func countTotal() -> String {

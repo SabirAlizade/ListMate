@@ -114,13 +114,9 @@ class ItemsViewController: BaseViewController {
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let numberOfSections = viewModel.getSections().count
-        if numberOfSections == 0 {
-            emptyBagImage.isHidden = false
-        } else {
-            emptyBagImage.isHidden = true
-        }
-        return numberOfSections
+        let sectionsCount = viewModel.getSections().count
+        emptyBagImage.isHidden = sectionsCount == 0 ? false : true
+        return sectionsCount
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -160,6 +156,9 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
             self.viewModel.removeRow(indexPath: indexPath)
+            
+            let areAllSectionsEmpty = self.viewModel.getSections().allSatisfy { $0.data.isEmpty }
+            self.emptyBagImage.isHidden = !areAllSectionsEmpty
         }
         return swipeConfiguration
     }
@@ -188,6 +187,5 @@ extension ItemsViewController: ItemCellDelegate {
 extension ItemsViewController: DetailedViewModelDelegate {
     func updateChanges() {
         tableView.reloadData()
-        
     }
 }

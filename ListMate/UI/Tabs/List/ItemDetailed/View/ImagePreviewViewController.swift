@@ -42,6 +42,7 @@ class ImagePreviewViewController: BaseViewController {
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
+
         // configureGestures()
     }
     

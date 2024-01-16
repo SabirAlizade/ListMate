@@ -49,7 +49,7 @@ class NewItemViewController: BaseViewController {
     private let quantityLabel = CustomLabel(text: "Quantity:",
                                             textColor: .black,
                                             font: .poppinsFont(size: 12, weight: .light),
-                                            alignment: .center)
+                                            alignment: .left)
     
     private lazy var priceTextField = CustomTextField(placeHolder: "Enter price",
                                                       keybord: .numberPad,
@@ -159,7 +159,7 @@ class NewItemViewController: BaseViewController {
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
             
-            quantityLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            quantityLabel.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -160),
             quantityLabel.widthAnchor.constraint(equalToConstant: 140),
             quantityLabel.heightAnchor.constraint(equalToConstant: 44),
             quantityLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
@@ -169,7 +169,7 @@ class NewItemViewController: BaseViewController {
             priceTextField.heightAnchor.constraint(equalToConstant: 44),
             priceTextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor),
             
-            itemAmount.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            itemAmount.trailingAnchor.constraint(equalTo:  view.trailingAnchor, constant: -20),
             itemAmount.widthAnchor.constraint(equalToConstant: 140),
             itemAmount.heightAnchor.constraint(equalToConstant: 44),
             itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 3),
@@ -284,7 +284,8 @@ extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            itemImage = imageOriginal
+//            itemImage = imageOriginal
+            itemImage = nil
             itemImageView.image = imageOriginal
         }
         picker.dismiss(animated: true, completion: nil)
@@ -324,3 +325,4 @@ extension NewItemViewController: PassSuggestionDelegate {
         self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }
+
