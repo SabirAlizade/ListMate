@@ -18,7 +18,6 @@ class ImagePreviewViewController: BaseViewController {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "camera.circle")
         return imageView
     }()
     
@@ -27,7 +26,6 @@ class ImagePreviewViewController: BaseViewController {
                                                          backgroundColor: .black,
                                                          target: self,
                                                          action: #selector(presentPicker))
-    
     
     private lazy var takephotoButton = CustomImageButton(image: UIImage(systemName: "camera"),
                                                          tintColor: .white,
@@ -96,7 +94,7 @@ class ImagePreviewViewController: BaseViewController {
     }
     
     @objc
-    private func presentPicker() {
+     private func presentPicker() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true

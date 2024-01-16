@@ -45,12 +45,13 @@ class ItemsViewModel {
     }
     
     func readFilteredData() {
-        manager.filterID(id: session.listID) { [self] result in
+        manager.filterID(id: session.listID) { [weak self] result in
+            guard let self = self else { return }
             self.items = result
             self.delegate?.reloadData()
         }
     }
-        
+    
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
         let completedItems = items.filter { $0.isBought }
@@ -109,16 +110,21 @@ class ItemsViewModel {
         }
     }
     
-    func removeRow(index: Int) {
-        guard let item = items?[index] else { return }
+    func removeRow(indexPath: IndexPath) {
+        let sectionItems = getSections()[indexPath.section].data
+        
+        guard indexPath.row < sectionItems.count else {
+            print("Invalid index for deletion")
+            return
+        }
+        
+        let item = sectionItems[indexPath.row]
         manager.delete(data: item) { error in
             if let error {
                 print(error.localizedDescription)
             }
         }
-        DispatchQueue.main.async {
-            self.readFilteredData()
-        }
+        self.delegate?.reloadData()
     }
 }
 

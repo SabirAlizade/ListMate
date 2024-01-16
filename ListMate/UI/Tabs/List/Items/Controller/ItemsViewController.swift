@@ -158,17 +158,14 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
-            self.viewModel.removeRow(index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.viewModel.removeRow(indexPath: indexPath)
         }
         return swipeConfiguration
     }
 }
 
 extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
-    
     func reloadData() {
         tableView.reloadData()
     }

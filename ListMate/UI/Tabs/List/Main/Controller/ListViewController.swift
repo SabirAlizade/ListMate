@@ -112,14 +112,6 @@ extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
     func reloadData() {
         tableView.reloadData()
     }
-    
-//    func reloadListData() {
-//   //     viewModel.readData()
-//    }
-//    
-//    func reloadData() {
-//        tableView.reloadData()
-//    }
 }
 
 

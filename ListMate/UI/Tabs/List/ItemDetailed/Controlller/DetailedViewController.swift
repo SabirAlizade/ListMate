@@ -96,24 +96,6 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
     }
 }
 
-//extension DetailedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-//            itemImage = imageSelected
-//            itemImageView.image = imageSelected
-//            itemImageButton.isHidden = true
-//            itemImageView.isHidden = false
-//        }
-//
-//        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            itemImage = imageOriginal
-//            itemImageView.image = imageOriginal
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
-
-
 
 //MARK: - PICKER SET UP
 /*

@@ -30,7 +30,6 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
-      //  reloadItemsData()
     }
     
     func updateValues(measeure: Measures, price: Double, store: String) {
@@ -58,7 +57,6 @@ class DetailedViewModel {
         catch {
             print(error.localizedDescription)
         }
-     //   reloadItemsData()
     }
     
     func reloadItemsData() {

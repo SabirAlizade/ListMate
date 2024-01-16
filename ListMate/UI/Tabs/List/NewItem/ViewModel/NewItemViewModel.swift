@@ -64,14 +64,7 @@ final class NewItemViewModel {
     }
     
     func passSuggestedItem(name: String, price: Double, measure: Measures) {
-        print(name)
-        print(price)
-        print(measure)
         suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
-    }
-    
-    deinit {
-        print("NewItemViewModel deallocated")
     }
 }
 

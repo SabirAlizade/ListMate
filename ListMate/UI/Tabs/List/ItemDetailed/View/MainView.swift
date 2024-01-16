@@ -15,7 +15,7 @@ protocol MainViewDelegate: AnyObject {
 final class MainView: BaseView {
     weak var delegate: MainViewDelegate?
     
-    private var itemImage: UIImage? = UIImage(systemName: "camera.circle")
+    private var itemImage: UIImage?
     
     var item: ItemModel? {
         didSet {
@@ -40,15 +40,13 @@ final class MainView: BaseView {
                                                      font: .poppinsFont(size: 22, weight: .medium),
                                                      border: .none,
                                                      target: self,
-                                                     action: #selector(didTapValueChanged)
-    )
+                                                     action: #selector(didTapValueChanged))
     
     private lazy var noteTextField = CustomTextField(placeHolder: "Add note",
                                                      font: .poppinsFont(size: 18, weight: .light),
                                                      border: .none,
                                                      target: self,
-                                                     action: #selector(didTapValueChanged)
-    )
+                                                     action: #selector(didTapValueChanged))
     
      lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -73,8 +71,6 @@ final class MainView: BaseView {
     
     //MARK: IF PICTURE IS STANDART SHOULD AVOID PREVIEW AND PICK PICTURE INSTEAD
     
-  
-
     private func setupUI() {
         nameTextField.customizeBorder(width: nil, color: nil)
         noteTextField.customizeBorder(width: nil, color: nil)
@@ -97,20 +93,34 @@ final class MainView: BaseView {
         
         mainView.anchor(view: nameTextField) { kit in
             kit.leading(itemImageButton.trailingAnchor, 10)
-            kit.top(10)
+            kit.top(13)
         }
         
         mainView.anchor(view: noteTextField) { kit in
             kit.leading(nameTextField)
-            kit.bottom(10)
+            kit.bottom(13)
         }
     }
     
     @objc
     private func presentPicker() {
         guard let itemImage else { return }
-        delegate?.openImage(image: itemImage)
-    }
+            delegate?.openImage(image: itemImage)
+        }
+//    }
+//    @objc
+//    private func presentPicker() {
+////        guard let itemImage = itemImage else { return }
+////
+////      //  let cameraCircleImage = UIImage(systemName: "camera.circle")
+////        let choosePhotoImage = UIImage(named: "choosePhoto")
+////
+////        if itemImage.pngData() == (cameraCircleImage ?? UIImage()).pngData() {
+////            delegate?.openImage(image: choosePhotoImage ?? itemImage)
+////        } else {
+////            delegate?.openImage(image: itemImage)
+////        }
+//    }
     
     @objc
     private func didTapValueChanged() {

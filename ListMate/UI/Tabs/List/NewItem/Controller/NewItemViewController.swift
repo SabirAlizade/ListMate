@@ -11,7 +11,8 @@ class NewItemViewController: BaseViewController {
     
     private var bottomCostant: NSLayoutConstraint?
     
-    private var itemImage: UIImage? = UIImage(systemName: "camera.circle")
+   private var itemImage: UIImage? = UIImage(named: "noImage")
+    //UIImage(systemName: "camera.circle")
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
@@ -72,7 +73,7 @@ class NewItemViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.tintColor = .darkText
         let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 50))
-        button.setImage(UIImage(systemName: "camera.circle")?.withConfiguration(config), for: .normal)
+        button.setImage(itemImage?.withConfiguration(config), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
