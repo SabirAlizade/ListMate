@@ -23,8 +23,12 @@ final class ItemCell: BaseCell {
             priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
-            if let image = UserDefaults.standard.readImage(key: item.image) {
+             let image = UserDefaults.standard.readImage(key: item.image)
+            if image != nil {
+                
                 itemImageView.image = image
+            } else {
+                itemImageView.image = UIImage(named: "noImage")
             }
         }
     }

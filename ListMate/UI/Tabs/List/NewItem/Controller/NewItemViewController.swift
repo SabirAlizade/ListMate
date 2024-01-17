@@ -52,7 +52,7 @@ class NewItemViewController: BaseViewController {
                                             alignment: .left)
     
     private lazy var priceTextField = CustomTextField(placeHolder: "Enter price",
-                                                      keybord: .numberPad,
+                                                      keybord: .decimalPad,
                                                       dataSource: nil)
     
     private lazy var itemImageView: UIImageView = {
@@ -74,7 +74,7 @@ class NewItemViewController: BaseViewController {
         let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 50))
         button.setImage(itemImage?.withConfiguration(config), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
+        button.showsMenuAsPrimaryAction = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -121,13 +121,21 @@ class NewItemViewController: BaseViewController {
         super.setupUIComponents()
         view.backgroundColor = .maingray
         closeBarButton()
-        configureMeasuresControl()
+        configureMenu()
         nameTextField.becomeFirstResponder()
+        configureMeasuresControl()
+        
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
+    }
+    
+    private func configureMenu() {
+        let menu = imagePickerButtons(takePictureAction: takePicture,
+                                      presentPickerAction: presentPicker)
+        itemImageButton.menu = menu
     }
     
     private func setupUI() {
@@ -219,7 +227,9 @@ class NewItemViewController: BaseViewController {
         viewModel.saveItem(name: name,
                            price: price,
                            image: name,
-                           measure: itemAmount.itemMeasure ?? .pcs) }
+                           measure: itemAmount.itemMeasure ?? .pcs)
+        dismiss(animated: true)
+    }
     
     @objc
     private func presentPicker() {
@@ -228,6 +238,19 @@ class NewItemViewController: BaseViewController {
         picker.allowsEditing = true
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
+    }
+    
+    @objc
+    private func takePicture() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePC = UIImagePickerController()
+            imagePC.sourceType = .camera
+            imagePC.allowsEditing = true
+            imagePC.delegate = self
+            present(imagePC, animated: true)
+        } else {
+            print("Camera is not available")
+        }
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -284,7 +307,6 @@ extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            itemImage = imageOriginal
             itemImage = nil
             itemImageView.image = imageOriginal
         }

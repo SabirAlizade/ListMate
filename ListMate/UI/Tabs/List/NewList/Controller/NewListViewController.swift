@@ -32,6 +32,7 @@ class NewListViewController: BaseViewController {
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
+        nameTextField.becomeFirstResponder()
     }
     
     private func setupUI() {

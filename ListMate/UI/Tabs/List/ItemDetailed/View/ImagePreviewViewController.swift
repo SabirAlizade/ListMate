@@ -21,47 +21,65 @@ class ImagePreviewViewController: BaseViewController {
         return imageView
     }()
     
-    private lazy var choosePicButton = CustomImageButton(image: UIImage(systemName: "photo.on.rectangle"),
-                                                         tintColor: .white,
-                                                         backgroundColor: .black,
-                                                         target: self,
-                                                         action: #selector(presentPicker))
+    //    private lazy var choosePicButton = CustomImageButton(image: UIImage(systemName: "photo.on.rectangle"),
+    //                                                         tintColor: .white,
+    //                                                         backgroundColor: .black,
+    //                                                         target: self,
+    //                                                         action: #selector(presentPicker))
+    //
+    //    private lazy var takephotoButton = CustomImageButton(image: UIImage(systemName: "camera"),
+    //                                                         tintColor: .white,
+    //                                                         backgroundColor: .black,
+    //                                                         target: self,
+    //                                                         action: #selector(takePicture))
     
-    private lazy var takephotoButton = CustomImageButton(image: UIImage(systemName: "camera"),
-                                                         tintColor: .white,
-                                                         backgroundColor: .black,
-                                                         target: self,
-                                                         action: #selector(takePicture))
+    //
+    //    private lazy var editButton = CustomImageButton(image: UIImage(systemName: "pencil.circle"),
+    //                                                         tintColor: .white,
+    //                                                         backgroundColor: .black,
+    //                                                         target: self,
+    //                                                         action: #selector(rightBarButtonTapped))
+    
+    private lazy var editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage( UIImage(systemName: "pencil.circle"), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
     
     override func setupUIComponents() {
         super.setupUIComponents()
         view.backgroundColor = .black
         closeBarButton()
+        //        configureBarButton()
+        configBarButtn()
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
-
+        
         // configureGestures()
     }
     
     private func setupUI() {
         view.anchorFill(view: imageView, safe: true)
-        view.anchor(view: takephotoButton) { kit in
-            kit.bottom(10, safe: true)
-            kit.leading(10)
-            kit.width(30)
-            kit.height(30)
-        }
-        
-        view.anchor(view: choosePicButton) { kit in
-            kit.bottom(10, safe: true)
-            kit.trailing(10)
-            kit.width(30)
-            kit.height(30)
-        }
+        //        view.anchor(view: takephotoButton) { kit in
+        //            kit.bottom(10, safe: true)
+        //            kit.leading(10)
+        //            kit.width(30)
+        //            kit.height(30)
+        //        }
+        //
+        //        view.anchor(view: choosePicButton) { kit in
+        //            kit.bottom(10, safe: true)
+        //            kit.trailing(10)
+        //            kit.width(30)
+        //            kit.height(30)
+        //        }
     }
+    
+    
     
     //    @objc
     //    private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
@@ -81,6 +99,13 @@ class ImagePreviewViewController: BaseViewController {
     //    }
     //
     
+   private  func configBarButtn(){
+        let menuItems = imagePickerButtons(takePictureAction: takePicture, presentPickerAction: presentPicker)
+        let editButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"),
+                                             menu: menuItems)
+        navigationItem.rightBarButtonItem = editButtonItem
+    }
+    
     @objc
     private func takePicture() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -95,7 +120,7 @@ class ImagePreviewViewController: BaseViewController {
     }
     
     @objc
-     private func presentPicker() {
+    private func presentPicker() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true
@@ -117,7 +142,7 @@ extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigat
         
         if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             imageView.image = imageSelected
-            choosePicButton.isHidden = true
+            //   choosePicButton.isHidden = true
             imageView.isHidden = false
             savePicture()
         }

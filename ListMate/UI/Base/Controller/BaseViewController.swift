@@ -25,6 +25,20 @@ class BaseViewController: UIViewController {
                                                            action: #selector(didTapDismiss))
     }
     
+    func imagePickerButtons(takePictureAction: @escaping () -> Void, presentPickerAction: @escaping () -> Void) -> UIMenu {
+        lazy var takePicButton = UIAction(title: "Take image", image: UIImage(systemName: "camera")) { action in
+            takePictureAction()
+        }
+        lazy var choosePicButton = UIAction(title: "Choose from gallery", image: UIImage(systemName: "photo.on.rectangle")) { action in
+            presentPickerAction()
+        }
+        
+        lazy var buttons: [UIAction] = [takePicButton, choosePicButton]
+        lazy var menuButtons = UIMenu(title: "Choose option", children: buttons)
+        
+        return menuButtons
+    }
+    
     @objc
     private func didTapDismiss() {
         dismiss(animated: true)
