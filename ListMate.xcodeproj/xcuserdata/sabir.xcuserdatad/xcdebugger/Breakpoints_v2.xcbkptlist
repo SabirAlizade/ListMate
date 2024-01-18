@@ -7,62 +7,93 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FCD8B72E-21BB-404B-978C-C80A4F44D685"
+            uuid = "2E317E6D-BCF2-4F06-9AB2-D11C6081FB53"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/ViewModel/DetailedViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "updateImage(image:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E353E222-22FC-41C1-94E6-E30C98AC5240"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "item"
+            landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "FCD8B72E-21BB-404B-978C-C80A4F44D685 - aa1bf55caa97dc27"
+                  uuid = "E353E222-22FC-41C1-94E6-E30C98AC5240 - aa8111073be71e22"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewController.imagePickerController(_: __C.UIImagePickerController, didFinishPickingMediaWithInfo: Swift.Dictionary&lt;__C.UIImagePickerControllerInfoKey, Any&gt;) -&gt; ()"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
                   moduleName = "ListMate"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "311"
-                  endingLineNumber = "311"
-                  offsetFromSymbolStart = "1024">
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "456">
                </Location>
                <Location
-                  uuid = "FCD8B72E-21BB-404B-978C-C80A4F44D685 - aa1bf55caa97dc06"
+                  uuid = "E353E222-22FC-41C1-94E6-E30C98AC5240 - aa8111073be71e22"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewController.imagePickerController(_: __C.UIImagePickerController, didFinishPickingMediaWithInfo: Swift.Dictionary&lt;__C.UIImagePickerControllerInfoKey, Any&gt;) -&gt; ()"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
                   moduleName = "ListMate"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "310"
-                  endingLineNumber = "310"
-                  offsetFromSymbolStart = "999">
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "477">
                </Location>
                <Location
-                  uuid = "FCD8B72E-21BB-404B-978C-C80A4F44D685 - aa1bf55caa97dc27"
+                  uuid = "E353E222-22FC-41C1-94E6-E30C98AC5240 - fbf93fa7767d4f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewController.imagePickerController(_: __C.UIImagePickerController, didFinishPickingMediaWithInfo: Swift.Dictionary&lt;__C.UIImagePickerControllerInfoKey, Any&gt;) -&gt; ()"
+                  symbolName = "ListMate.MainView.init(frame: __C.CGRect) -&gt; ListMate.MainView"
                   moduleName = "ListMate"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "311"
-                  endingLineNumber = "311"
-                  offsetFromSymbolStart = "999">
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "320">
+               </Location>
+               <Location
+                  uuid = "E353E222-22FC-41C1-94E6-E30C98AC5240 - c5be8e1722f697cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ListMate.MainView&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "235">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -70,79 +101,92 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B591D280-1F95-413D-B7C1-B9A1A810D896"
+            uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "312"
-            endingLineNumber = "312"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FD1DB8FF-14F2-417B-963A-33CE8967979C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EBF1DA68-9B25-4B3A-8CF6-F21F81CF4543"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "item"
+            landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "EBF1DA68-9B25-4B3A-8CF6-F21F81CF4543 - aa1bf55caa97dcf9"
+                  uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F - aa8111073be71e03"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewController.imagePickerController(_: __C.UIImagePickerController, didFinishPickingMediaWithInfo: Swift.Dictionary&lt;__C.UIImagePickerControllerInfoKey, Any&gt;) -&gt; ()"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
                   moduleName = "ListMate"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "305"
-                  endingLineNumber = "305"
-                  offsetFromSymbolStart = "642">
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "567">
                </Location>
                <Location
-                  uuid = "EBF1DA68-9B25-4B3A-8CF6-F21F81CF4543 - aa1bf55caa97dcf9"
+                  uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F - aa8111073be71e03"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ListMate.NewItemViewController.imagePickerController(_: __C.UIImagePickerController, didFinishPickingMediaWithInfo: Swift.Dictionary&lt;__C.UIImagePickerControllerInfoKey, Any&gt;) -&gt; ()"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
                   moduleName = "ListMate"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "305"
-                  endingLineNumber = "305"
-                  offsetFromSymbolStart = "590">
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "588">
+               </Location>
+               <Location
+                  uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F - 47fd66c96492f0eb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; __C.UIView in variable initialization expression of ListMate.MainView.mainView : __C.UIView"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "22">
+               </Location>
+               <Location
+                  uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F - fbf93fa7767d4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.init(frame: __C.CGRect) -&gt; ListMate.MainView"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "320">
+               </Location>
+               <Location
+                  uuid = "B8A50B95-889C-4CFF-9884-FB7936C0288F - c5be8e1722f697cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ListMate.MainView&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "235">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -150,113 +194,780 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "379FD361-D514-4CD7-8076-843CB2554A6E"
+            uuid = "44DCA47E-A4B9-44DF-B2D3-5CD85C1AD0BC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "didTapAdd()"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "item"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "44DCA47E-A4B9-44DF-B2D3-5CD85C1AD0BC - aa8111073be71f3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "1123">
+               </Location>
+               <Location
+                  uuid = "44DCA47E-A4B9-44DF-B2D3-5CD85C1AD0BC - aa8111073be71f3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "1178">
+               </Location>
+               <Location
+                  uuid = "44DCA47E-A4B9-44DF-B2D3-5CD85C1AD0BC - fea0cf21a83c5e28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.nameTextField.getter : ListMate.CustomTextField"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "207">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47009FC3-3B83-45DC-A4D6-D0A9C9C64188"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "item"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "47009FC3-3B83-45DC-A4D6-D0A9C9C64188 - aa8111073be71f1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "1220">
+               </Location>
+               <Location
+                  uuid = "47009FC3-3B83-45DC-A4D6-D0A9C9C64188 - aa8111073be71f1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.item.didset : Swift.Optional&lt;ListMate.ItemModel&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "1227">
+               </Location>
+               <Location
+                  uuid = "47009FC3-3B83-45DC-A4D6-D0A9C9C64188 - fea0cf21a83c5e28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.nameTextField.getter : ListMate.CustomTextField"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "207">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F18F2E3-87FF-4A9F-88F3-5E2183F261B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "openPreviewer(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3F18F2E3-87FF-4A9F-88F3-5E2183F261B8 - 73bc38507d4ea954"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openPreviewer(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "394">
+               </Location>
+               <Location
+                  uuid = "3F18F2E3-87FF-4A9F-88F3-5E2183F261B8 - 73bc38507d4ea977"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openPreviewer(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "94">
+               </Location>
+               <Location
+                  uuid = "3F18F2E3-87FF-4A9F-88F3-5E2183F261B8 - a66d09ea0427fe88"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.updateDetailsData(measeure: ListMate.Measures, price: Swift.Double, store: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A4FEDA51-8B46-4E8A-A2AC-EC62C737798F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "openPreviewer(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A4FEDA51-8B46-4E8A-A2AC-EC62C737798F - a66d09ea0427feab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.updateDetailsData(measeure: ListMate.Measures, price: Swift.Double, store: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "145">
+               </Location>
+               <Location
+                  uuid = "A4FEDA51-8B46-4E8A-A2AC-EC62C737798F - 73bc38507d4ea977"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openPreviewer(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "94">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0C60514-549F-4A86-BB3C-AF25AF192844"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "openPreviewer(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A0C60514-549F-4A86-BB3C-AF25AF192844 - 74f39b68cce2d85"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  uuid = "A0C60514-549F-4A86-BB3C-AF25AF192844 - 73bc38507d4ea931"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openPreviewer(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "204">
+               </Location>
+               <Location
+                  uuid = "A0C60514-549F-4A86-BB3C-AF25AF192844 - 21ad89cb007e35d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.updateNameAndNote(name: Swift.String, note: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "65">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FC4D89AF-BCF2-4ACA-A0FC-9F09D527C76A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "openPreviewer(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FC4D89AF-BCF2-4ACA-A0FC-9F09D527C76A - 74f39b68cce2d85"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  uuid = "FC4D89AF-BCF2-4ACA-A0FC-9F09D527C76A - 73bc38507d4ea916"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openPreviewer(image: __C.UIImage) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "FC4D89AF-BCF2-4ACA-A0FC-9F09D527C76A - 21ad89cb007e35d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.updateNameAndNote(name: Swift.String, note: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "65">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A8461EC-BA8E-48E6-9517-FE26114AB171"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "presentPicker()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "41D8B6C2-0CAC-4ECC-A9C4-92403BC21064"
+            uuid = "08439519-9721-4D0B-88AE-1785A1471021"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "didTapAdd()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "presentPicker()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "08439519-9721-4D0B-88AE-1785A1471021 - 1b410eee96e8dfc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.presentPicker() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "37">
+               </Location>
+               <Location
+                  uuid = "08439519-9721-4D0B-88AE-1785A1471021 - 1b410eee96e8df16"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.presentPicker() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "873B8EDF-AF7B-49A3-A020-C3F547C1142B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "presentPicker()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "873B8EDF-AF7B-49A3-A020-C3F547C1142B - 1b410eee96e8dfc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.presentPicker() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "37">
+               </Location>
+               <Location
+                  uuid = "873B8EDF-AF7B-49A3-A020-C3F547C1142B - 1b410eee96e8df16"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.MainView.presentPicker() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "38D51F28-C81C-49CD-93BC-E4D5F0D2DC56"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "itemImageButton"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "38D51F28-C81C-49CD-93BC-E4D5F0D2DC56 - 7804c470cc44663f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; __C.UIButton in ListMate.MainView.itemImageButton.getter : __C.UIButton"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "99">
+               </Location>
+               <Location
+                  uuid = "38D51F28-C81C-49CD-93BC-E4D5F0D2DC56 - 7804c470cc44663f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; __C.UIButton in ListMate.MainView.itemImageButton.getter : __C.UIButton"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/View/MainView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "237">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "11B150B7-B31C-4CEA-98A0-AA8CF8C8983E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "openImage(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "11B150B7-B31C-4CEA-98A0-AA8CF8C8983E - facde32b7f6dd2ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openImage(image: Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "78">
+               </Location>
+               <Location
+                  uuid = "11B150B7-B31C-4CEA-98A0-AA8CF8C8983E - facde32b7f6dd2ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openImage(image: Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20B852DB-0B01-4CE8-9994-5200F0974CB3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "openImage(image:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "20B852DB-0B01-4CE8-9994-5200F0974CB3 - facde32b7f6dd208"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openImage(image: Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "157">
+               </Location>
+               <Location
+                  uuid = "20B852DB-0B01-4CE8-9994-5200F0974CB3 - facde32b7f6dd208"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.openImage(image: Swift.Optional&lt;__C.UIImage&gt;) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "187">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC46DEE5-7409-4387-9C84-81BC05CCEEAD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "configureMenu()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC46DEE5-7409-4387-9C84-81BC05CCEEAD - 74f39b68cce2c7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "285">
+               </Location>
+               <Location
+                  uuid = "DC46DEE5-7409-4387-9C84-81BC05CCEEAD - 74f39b68cce2c7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "46">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "413EAF5B-EF1B-48A7-9AFF-25B32BC2397B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "configureMenu()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "26A47EE7-F367-45D4-BDC9-101B85288543"
+            uuid = "6BFA71F1-4DE5-4D2E-8033-C0C9141A9C3F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "didTapAdd()"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "configureMenu()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6BFA71F1-4DE5-4D2E-8033-C0C9141A9C3F - b9501ccbf8bd797"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.takePicture() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "50">
+               </Location>
+               <Location
+                  uuid = "6BFA71F1-4DE5-4D2E-8033-C0C9141A9C3F - 74f39b68cce2cde"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "175">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0D5EBAEE-E2CB-4D1E-8E29-A758EAD5DE48"
+            uuid = "7970C6D6-7396-4A34-B7FC-1899E6472BC2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
+            filePath = "ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "didTapAdd()"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "configureMenu()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "93ED3449-3318-4E81-8331-19CA32BBE185"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "didTapAdd()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "680F8D6A-A9F0-4102-9995-67F139AF5C03"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "didTapAdd()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AD96D56E-1512-4C9E-8AC6-44F2068DBB34"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ListMate/UI/Tabs/List/NewItem/Controller/NewItemViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "didTapAdd()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7970C6D6-7396-4A34-B7FC-1899E6472BC2 - b9501ccbf8bd797"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.takePicture() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "50">
+               </Location>
+               <Location
+                  uuid = "7970C6D6-7396-4A34-B7FC-1899E6472BC2 - 74f39b68cce2cff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.DetailedViewController.configureMenu() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/ItemDetailed/Controlller/DetailedViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "248">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

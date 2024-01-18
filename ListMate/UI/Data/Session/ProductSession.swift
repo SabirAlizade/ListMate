@@ -12,7 +12,6 @@ class ProductSession {
     static let shared = ProductSession()
     private init() {}
     
-    
     private(set) var listID: String = ""
     
     func updateListId(id: String) {

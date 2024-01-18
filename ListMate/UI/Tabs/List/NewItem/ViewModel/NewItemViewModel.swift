@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 protocol NewItemDelegate: AnyObject {
     func updateItemsData()
@@ -17,12 +18,12 @@ protocol PassSuggestionDelegate: AnyObject {
 }
 
 final class NewItemViewModel {
-
+    
     weak var delegate: NewItemDelegate?
     weak var suggestionDelegate: PassSuggestionDelegate?
     
     var measuresArray: [String] = ["Pcs", "Kgs", "L"] //MARK: DELETE THIS AND USE HASH
-
+    
     var selectedMeasure: Measures = .pcs
     private var amountValue: Double = 1
     var item: Results<ItemModel>?
@@ -39,13 +40,13 @@ final class NewItemViewModel {
     
     func saveItem(name: String,
                   price: Double,
-                  image: String,
+                  imagePath: String?,
                   measure: Measures) {
         
         let item = ItemModel(id: session.listID,
                              name: name,
                              amount: amountValue,
-                             image: image,
+                             image: imagePath,
                              measure: measure,
                              price: price,
                              totalPrice: price)
@@ -57,6 +58,7 @@ final class NewItemViewModel {
         }
         delegate?.updateItemsData()
         passToCatalog(name: name, price: price, measure: measure)
+        
     }
     
     func setAmount(amount: Double) {
@@ -69,7 +71,6 @@ final class NewItemViewModel {
 }
 
 extension NewItemViewModel {
-    
     private func passToCatalog(name: String, price: Double, measure: Measures) {
         let catalogItem = CatalogModel(name: name, price: price, measure: measure)
         if manager.realm.objects(CatalogModel.self).filter("name == %@", name).first != nil {
@@ -93,6 +94,30 @@ extension NewItemViewModel {
         let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
         manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { result in
             self.catalogItems.append(contentsOf: result )
+        }
+    }
+}
+//MARK: - IMAGE SAVING
+extension NewItemViewModel {
+    func saveImageToDocumentsDirectory(image: UIImage?, completion: @escaping (String?) -> Void) {
+        guard let data = image?.jpegData(compressionQuality: 1) else {
+            completion(nil)
+            return
+        }
+        
+        let fileName = "image_\(Date().timeIntervalSince1970).jpg"
+        
+        do {
+            let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+            let fileURL = libraryDirectory.appendingPathComponent(fileName)
+            
+            try data.write(to: fileURL)
+            ImageCacheManager.shared.setImage(image, forKey: fileName)
+            
+            completion(fileName)
+        } catch {
+            print("Error saving image: \(error)")
+            completion(nil)
         }
     }
 }

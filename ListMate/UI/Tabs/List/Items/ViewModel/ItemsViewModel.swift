@@ -50,6 +50,14 @@ class ItemsViewModel {
             self.items = result
             self.delegate?.reloadData()
         }
+        
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
+            print("Files in Documents directory during loading: \(fileURLs)")
+        } catch {
+            print("Error reading contents of Documents directory during loading: \(error)")
+        }
     }
     
     func getSections() -> [ItemSection] {

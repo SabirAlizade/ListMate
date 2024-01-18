@@ -23,13 +23,7 @@ final class ItemCell: BaseCell {
             priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
             checkBox.isChecked = item.isBought
-             let image = UserDefaults.standard.readImage(key: item.image)
-            if image != nil {
-                
-                itemImageView.image = image
-            } else {
-                itemImageView.image = UIImage(named: "noImage")
-            }
+            loadImageData(imageName: item.image)
         }
     }
     
@@ -53,8 +47,8 @@ final class ItemCell: BaseCell {
     private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium),
                                               alignment: .right)
     private lazy var currencyLabel = CustomLabel(text: "$",
-                                                     font: .poppinsFont(size: 20, weight: .medium),
-                                                     alignment: .center)
+                                                 font: .poppinsFont(size: 20, weight: .medium),
+                                                 alignment: .center)
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()
@@ -63,7 +57,7 @@ final class ItemCell: BaseCell {
         return view
     }()
     
-    lazy var checkBox: CheckBox = {
+    private lazy var checkBox: CheckBox = {
         let checkBox = CheckBox()
         checkBox.imageTint = .maingreen
         checkBox.addTarget(self, action: #selector(changeCheck), for: .valueChanged)
@@ -127,6 +121,27 @@ final class ItemCell: BaseCell {
             kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
             kit.width(60)
+        }
+    }
+    
+    private func loadImageData(imageName: String?) {
+        if let fileName = imageName {
+            if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
+                itemImageView.image = cachedImage
+            } else {
+                let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+                let fileURL = libraryDirectory.appendingPathComponent(fileName)
+
+                if let image = UIImage(contentsOfFile: fileURL.path) {
+                    itemImageView.image = image
+                    ImageCacheManager.shared.setImage(image, forKey: fileName)
+                } else {
+                    itemImageView.image = UIImage(named: "noImage")
+                }
+            }
+        } else {
+            itemImageView.image = UIImage(named: "noImage")
+            print("No image")
         }
     }
 }

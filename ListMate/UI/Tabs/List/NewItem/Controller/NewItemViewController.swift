@@ -11,7 +11,7 @@ class NewItemViewController: BaseViewController {
     
     private var bottomCostant: NSLayoutConstraint?
     
-    private var itemImage: UIImage? = UIImage(named: "noImage")
+    private var itemImage: UIImage? /*= UIImage(named: "noImage")*/
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
@@ -119,12 +119,11 @@ class NewItemViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
+        nameTextField.becomeFirstResponder()
         view.backgroundColor = .maingray
         closeBarButton()
         configureMenu()
-        nameTextField.becomeFirstResponder()
         configureMeasuresControl()
-        
     }
     
     override func setupUIConstraints() {
@@ -220,15 +219,14 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         guard let price = Double(priceTextField.text ?? "1") else { return }
-        guard let image = itemImage else { return }
         
-        UserDefaults.standard.saveImage(image: image, key: name)
-        
-        viewModel.saveItem(name: name,
-                           price: price,
-                           image: name,
-                           measure: itemAmount.itemMeasure ?? .pcs)
-        dismiss(animated: true)
+        viewModel.saveImageToDocumentsDirectory(image: itemImage) { imagePath in
+            self.viewModel.saveItem(name: name,
+                                    price: price,
+                                    imagePath: imagePath,
+                                    measure: self.itemAmount.itemMeasure ?? .pcs)
+            self.dismiss(animated: true)
+        }
     }
     
     @objc
@@ -307,30 +305,11 @@ extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            itemImage = nil
+            //  itemImage = nil
+            itemImage = imageOriginal
             itemImageView.image = imageOriginal
         }
         picker.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UserDefaults {
-    func saveImage(image: UIImage, key: String) {
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
-        saveImageData(imageData: data, key: key)
-    }
-    
-    private func saveImageData(imageData: Data, key: String) {
-        setValue(imageData, forKey: key)
-    }
-    
-    func readImage(key: String) -> UIImage? {
-        guard let imageData = readData(key: key) else { return UIImage() }
-        return UIImage(data: imageData)
-    }
-    
-    private func readData(key: String) -> Data? {
-        return data(forKey: key)
     }
 }
 
@@ -347,4 +326,3 @@ extension NewItemViewController: PassSuggestionDelegate {
         self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }
-

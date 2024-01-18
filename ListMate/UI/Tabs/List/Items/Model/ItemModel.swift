@@ -22,7 +22,7 @@ class ItemModel: Object {
     @Persisted var measure: Measures
     @Persisted var price: Double
     @Persisted var totalPrice: Double
-    @Persisted var image: String
+    @Persisted var image: String? // RENAME TO imagePath?
     @Persisted var boughtAt: String
     @Persisted var isBought: Bool
     @Persisted var notes: String
@@ -30,7 +30,7 @@ class ItemModel: Object {
     convenience init(id: String,
                      name: String,
                      amount: Double,
-                     image: String,
+                     image: String?,
                      measure: Measures,
                      price: Double,
                      totalPrice: Double = 0,
@@ -53,14 +53,4 @@ class ItemModel: Object {
     }
 }
 
-//class CategoriesModel: Object {
-//    @Persisted var name: String
-//    @Persisted var icon: String
-//
-//    convenience init(name: String, icon: String) {
-//        self.init()
-//        self.name = name
-//        self.icon = icon
-//    }
-//}
 

@@ -9,7 +9,7 @@ import UIKit
 
 protocol MainViewDelegate: AnyObject {
     func updateNameAndNote(name: String, note: String)
-    func openImage(image: UIImage)
+    func openImage(image: UIImage?)
 }
 
 final class MainView: BaseView {
@@ -22,12 +22,25 @@ final class MainView: BaseView {
             guard let item else { return }
             nameTextField.text = item.name
             noteTextField.text = item.notes
-            if let image = UserDefaults.standard.readImage(key: item.image) {
+            //            if let image = UserDefaults.standard.readImage(key: item.image) {
+            //                itemImage = image
+            //                itemImageView.image = image
+            //            }
+            
+            if let imagePath = item.image,
+               let image = ImageUtility.loadImageFromPath(imagePath) {
                 itemImage = image
                 itemImageView.image = image
+            } else {
+                // If image path is nil or loading fails, set a default image
+                print("IMage is NIL")
+                itemImage = nil
+                itemImageView.isHidden = false
+                itemImageButton.setImage(UIImage(systemName: "camera.circle"), for: .normal)
             }
         }
     }
+    
     
     private let mainView: UIView = {
         let view = UIView()
@@ -48,7 +61,7 @@ final class MainView: BaseView {
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
-     lazy var itemImageView: UIImageView = {
+    lazy var itemImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleToFill
         view.layer.borderWidth = 1
@@ -68,7 +81,7 @@ final class MainView: BaseView {
         super.setupView()
         setupUI()
     }
-        
+    
     private func setupUI() {
         nameTextField.customizeBorder(width: nil, color: nil)
         noteTextField.customizeBorder(width: nil, color: nil)
@@ -100,48 +113,21 @@ final class MainView: BaseView {
         }
     }
     
-//    @objc
-//    private func presentPicker() {
-//        guard let itemImage else { return }
-//            delegate?.openImage(image: itemImage)
-//        }
-//    }
+    
+    
+    //    @objc
+    //    private func presentPicker() {
+    //        guard let itemImage else { return }
+    //            delegate?.openImage(image: itemImage)
+    //        }
+    //    }
     
     
     @objc
     private func presentPicker() {
-        guard let itemImage = itemImage else { return }
-        guard let noImage = UIImage(named: "noImage") else { return }
-        if itemImage.isEqualTo(noImage) {
-            print("Images are the same.")
-        } else {
-            print("Images are different.")
-        }
-     
+        //guard let itemImage = itemImage else { return }
         delegate?.openImage(image: itemImage)
-//
-//        if let sampleImage = UIImage(named: "noImage"),
-//           let incomingImage = itemImage.pngData(),
-//           let sampleImageData = sampleImage.pngData() {
-//            if incomingImage == sampleImageData {
-//                // It's the "sample" image!
-//                print("It's the sample image!")
-//            } else {
-//                // It's a different image.
-//                print("It's a different image.")
-//            }
-//            delegate?.openImage(image: itemImage)
-//        }
     }
-//      //  let cameraCircleImage = UIImage(systemName: "camera.circle")
-//        let choosePhotoImage = UIImage(named: "choosePhoto")
-//
-//        if itemImage.pngData() == (cameraCircleImage ?? UIImage()).pngData() {
-//            delegate?.openImage(image: choosePhotoImage ?? itemImage)
-//        } else {
-//            delegate?.openImage(image: itemImage)
-//        }
-    
     
     @objc
     private func didTapValueChanged() {
@@ -168,13 +154,3 @@ final class MainView: BaseView {
 //    }
 //}
 
-extension UIImage {
-    func isEqualTo(_ otherImage: UIImage) -> Bool {
-        guard let imageData1 = self.pngData(), let imageData2 = otherImage.pngData() else {
-            return false
-        }
-        print(imageData1)
-        print(imageData2)
-        return imageData1 == imageData2
-    }
-}

@@ -131,7 +131,7 @@ class ImagePreviewViewController: BaseViewController {
     @objc
     private func savePicture() {
         guard let selected = imageView.image else { return }
-        UserDefaults.standard.saveImage(image: selected, key: selected.description)
+       // UserDefaults.standard.saveImage(image: selected, key: selected.description)
         delegate?.updateImage(image: selected)
     }
 }
@@ -144,7 +144,7 @@ extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigat
             imageView.image = imageSelected
             //   choosePicButton.isHidden = true
             imageView.isHidden = false
-            savePicture()
+          //  savePicture()
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

@@ -20,7 +20,7 @@ struct ItemTempModel {
      var measure: Measures
      var price: Double
      var totalPrice: Double
-     var image: String
+     var image: String?
      var boughtAt: String
      var isBought: Bool
      var notes: String
