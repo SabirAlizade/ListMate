@@ -141,7 +141,6 @@ final class ItemCell: BaseCell {
             }
         } else {
             itemImageView.image = UIImage(named: "noImage")
-            print("No image")
         }
     }
 }

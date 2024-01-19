@@ -10,6 +10,7 @@ import UIKit
 protocol MainViewDelegate: AnyObject {
     func updateNameAndNote(name: String, note: String)
     func openImage(image: UIImage?)
+    func openMenu()
 }
 
 final class MainView: BaseView {
@@ -22,25 +23,9 @@ final class MainView: BaseView {
             guard let item else { return }
             nameTextField.text = item.name
             noteTextField.text = item.notes
-            //            if let image = UserDefaults.standard.readImage(key: item.image) {
-            //                itemImage = image
-            //                itemImageView.image = image
-            //            }
-            
-            if let imagePath = item.image,
-               let image = ImageUtility.loadImageFromPath(imagePath) {
-                itemImage = image
-                itemImageView.image = image
-            } else {
-                // If image path is nil or loading fails, set a default image
-                print("IMage is NIL")
-                itemImage = nil
-                itemImageView.isHidden = false
-                itemImageButton.setImage(UIImage(systemName: "camera.circle"), for: .normal)
-            }
+            loadImageData(imageName: item.image)
         }
     }
-    
     
     private let mainView: UIView = {
         let view = UIView()
@@ -69,7 +54,7 @@ final class MainView: BaseView {
         return view
     }()
     
-    private lazy var itemImageButton: UIButton = {
+     lazy var itemImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .darkText
         button.imageView?.contentMode = .scaleAspectFit
@@ -113,20 +98,39 @@ final class MainView: BaseView {
         }
     }
     
-    
-    
-    //    @objc
-    //    private func presentPicker() {
-    //        guard let itemImage else { return }
-    //            delegate?.openImage(image: itemImage)
-    //        }
-    //    }
-    
+    private func loadImageData(imageName: String?) {
+        if imageName == nil {
+            itemImageButton.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)
+            itemImageButton.tintColor = .maingreen
+            itemImageButton.showsMenuAsPrimaryAction = true
+            itemImageView.layer.borderWidth = 0
+        } else  {
+            if let fileName = imageName {
+                if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
+                    itemImageView.image = cachedImage
+                } else {
+                    let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+                    let fileURL = libraryDirectory.appendingPathComponent(fileName)
+                    
+                    if let image = UIImage(contentsOfFile: fileURL.path) {
+                        itemImageView.image = image
+                        ImageCacheManager.shared.setImage(image, forKey: fileName)
+                    } else {
+                        itemImageView.image = UIImage(named: "noImage")
+                    }
+                }
+            }
+            itemImage = itemImageView.image
+        }
+    }
     
     @objc
     private func presentPicker() {
-        //guard let itemImage = itemImage else { return }
-        delegate?.openImage(image: itemImage)
+        if itemImage != nil {
+            delegate?.openImage(image: itemImage)
+        } else {
+            delegate?.openMenu()
+        }
     }
     
     @objc
@@ -136,21 +140,3 @@ final class MainView: BaseView {
         delegate?.updateNameAndNote(name: name, note: note)
     }
 }
-//
-//extension MainView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-//            itemImage = imageSelected
-//            itemImageView.image = imageSelected
-//            itemImageButton.isHidden = true
-//            itemImageView.isHidden = false
-//        }
-//
-//        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            itemImage = imageOriginal
-//            itemImageView.image = imageOriginal
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
-

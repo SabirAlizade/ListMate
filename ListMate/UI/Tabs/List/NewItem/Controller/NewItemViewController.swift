@@ -11,7 +11,7 @@ class NewItemViewController: BaseViewController {
     
     private var bottomCostant: NSLayoutConstraint?
     
-    private var itemImage: UIImage? /*= UIImage(named: "noImage")*/
+    private var itemImage: UIImage?
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
@@ -58,7 +58,7 @@ class NewItemViewController: BaseViewController {
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()
         view.isHidden = true
-        view.layer.borderWidth = 1
+        view.layer.borderWidth = 0
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
@@ -70,11 +70,12 @@ class NewItemViewController: BaseViewController {
     
     private lazy var itemImageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.tintColor = .darkText
+        button.tintColor = .maingreen
         let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 50))
-        button.setImage(itemImage?.withConfiguration(config), for: .normal)
+        button.setImage(UIImage(systemName: "photo.badge.plus")?.withConfiguration(config), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.showsMenuAsPrimaryAction = true
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -91,8 +92,6 @@ class NewItemViewController: BaseViewController {
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
         configureKeyboardNotification()
-        
-        //                nameTextField.inputAccessoryView = suggestionToolbar
     }
     
     private func configureAutoresizing() {
@@ -153,7 +152,7 @@ class NewItemViewController: BaseViewController {
             
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
+            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             nameTextField.heightAnchor.constraint(equalToConstant: 44),
             
             measuresControl.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
@@ -220,7 +219,9 @@ class NewItemViewController: BaseViewController {
         guard let name = nameTextField.text else { return }
         guard let price = Double(priceTextField.text ?? "1") else { return }
         
-        viewModel.saveImageToDocumentsDirectory(image: itemImage) { imagePath in
+        
+        
+        ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
             self.viewModel.saveItem(name: name,
                                     price: price,
                                     imagePath: imagePath,
@@ -302,10 +303,10 @@ extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationCo
             itemImageView.image = imageSelected
             itemImageButton.isHidden = true
             itemImageView.isHidden = false
+            itemImageView.layer.borderWidth = 1
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            //  itemImage = nil
             itemImage = imageOriginal
             itemImageView.image = imageOriginal
         }

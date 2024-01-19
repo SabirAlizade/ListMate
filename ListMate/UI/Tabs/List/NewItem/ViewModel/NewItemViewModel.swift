@@ -58,7 +58,6 @@ final class NewItemViewModel {
         }
         delegate?.updateItemsData()
         passToCatalog(name: name, price: price, measure: measure)
-        
     }
     
     func setAmount(amount: Double) {
@@ -94,30 +93,6 @@ extension NewItemViewModel {
         let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
         manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { result in
             self.catalogItems.append(contentsOf: result )
-        }
-    }
-}
-//MARK: - IMAGE SAVING
-extension NewItemViewModel {
-    func saveImageToDocumentsDirectory(image: UIImage?, completion: @escaping (String?) -> Void) {
-        guard let data = image?.jpegData(compressionQuality: 1) else {
-            completion(nil)
-            return
-        }
-        
-        let fileName = "image_\(Date().timeIntervalSince1970).jpg"
-        
-        do {
-            let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
-            let fileURL = libraryDirectory.appendingPathComponent(fileName)
-            
-            try data.write(to: fileURL)
-            ImageCacheManager.shared.setImage(image, forKey: fileName)
-            
-            completion(fileName)
-        } catch {
-            print("Error saving image: \(error)")
-            completion(nil)
         }
     }
 }

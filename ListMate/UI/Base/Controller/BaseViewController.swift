@@ -29,7 +29,7 @@ class BaseViewController: UIViewController {
         lazy var takePicButton = UIAction(title: "Take image", image: UIImage(systemName: "camera")) { action in
             takePictureAction()
         }
-        lazy var choosePicButton = UIAction(title: "Choose from gallery", image: UIImage(systemName: "photo.on.rectangle")) { action in
+        lazy var choosePicButton = UIAction(title: "Select from gallery", image: UIImage(systemName: "photo.on.rectangle")) { action in
             presentPickerAction()
         }
         

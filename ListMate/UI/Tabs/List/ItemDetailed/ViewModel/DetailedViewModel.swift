@@ -48,14 +48,15 @@ class DetailedViewModel {
     }
     
     func updateImage(image: UIImage) {
-        let imageString = image.description
-        do {
-            try manager.realm.write {
-                item?.image = imageString
+        ImageManager.shared.saveImageToLibrary(image: image) { imagePath in
+            do {
+                try self.manager.realm.write {
+                    self.item?.image = imagePath
+                }
             }
-        }
-        catch {
-            print(error.localizedDescription)
+            catch {
+                print(error.localizedDescription)
+            }
         }
     }
     

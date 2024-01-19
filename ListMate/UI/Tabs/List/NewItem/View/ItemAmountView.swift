@@ -58,6 +58,7 @@ class ItemAmountView: BaseView {
         textField.textAlignment = .center
         textField.keyboardType = .decimalPad
         textField.font = .poppinsFont(size: 26, weight: .regular)
+        textField.doneAccessory = true
         textField.addTarget(self, action: #selector (textFieldDidChange), for: .editingChanged)
         return textField
     }()

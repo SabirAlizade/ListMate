@@ -21,38 +21,11 @@ class ImagePreviewViewController: BaseViewController {
         return imageView
     }()
     
-    //    private lazy var choosePicButton = CustomImageButton(image: UIImage(systemName: "photo.on.rectangle"),
-    //                                                         tintColor: .white,
-    //                                                         backgroundColor: .black,
-    //                                                         target: self,
-    //                                                         action: #selector(presentPicker))
-    //
-    //    private lazy var takephotoButton = CustomImageButton(image: UIImage(systemName: "camera"),
-    //                                                         tintColor: .white,
-    //                                                         backgroundColor: .black,
-    //                                                         target: self,
-    //                                                         action: #selector(takePicture))
-    
-    //
-    //    private lazy var editButton = CustomImageButton(image: UIImage(systemName: "pencil.circle"),
-    //                                                         tintColor: .white,
-    //                                                         backgroundColor: .black,
-    //                                                         target: self,
-    //                                                         action: #selector(rightBarButtonTapped))
-    
-    private lazy var editButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage( UIImage(systemName: "pencil.circle"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
-    
     override func setupUIComponents() {
         super.setupUIComponents()
         view.backgroundColor = .black
         closeBarButton()
-        //        configureBarButton()
-        configBarButtn()
+        configureEditBarButton()
     }
     
     override func setupUIConstraints() {
@@ -64,19 +37,6 @@ class ImagePreviewViewController: BaseViewController {
     
     private func setupUI() {
         view.anchorFill(view: imageView, safe: true)
-        //        view.anchor(view: takephotoButton) { kit in
-        //            kit.bottom(10, safe: true)
-        //            kit.leading(10)
-        //            kit.width(30)
-        //            kit.height(30)
-        //        }
-        //
-        //        view.anchor(view: choosePicButton) { kit in
-        //            kit.bottom(10, safe: true)
-        //            kit.trailing(10)
-        //            kit.width(30)
-        //            kit.height(30)
-        //        }
     }
     
     
@@ -99,10 +59,11 @@ class ImagePreviewViewController: BaseViewController {
     //    }
     //
     
-   private  func configBarButtn(){
+    private  func configureEditBarButton() {
         let menuItems = imagePickerButtons(takePictureAction: takePicture, presentPickerAction: presentPicker)
         let editButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"),
                                              menu: menuItems)
+        editButtonItem.tintColor = .maingreen
         navigationItem.rightBarButtonItem = editButtonItem
     }
     
@@ -131,7 +92,6 @@ class ImagePreviewViewController: BaseViewController {
     @objc
     private func savePicture() {
         guard let selected = imageView.image else { return }
-       // UserDefaults.standard.saveImage(image: selected, key: selected.description)
         delegate?.updateImage(image: selected)
     }
 }
@@ -142,9 +102,8 @@ extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigat
         
         if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             imageView.image = imageSelected
-            //   choosePicButton.isHidden = true
             imageView.isHidden = false
-          //  savePicture()
+            savePicture()
         }
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
