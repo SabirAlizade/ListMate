@@ -15,6 +15,7 @@ class NewItemViewController: BaseViewController {
     
     lazy var viewModel: NewItemViewModel = {
         let model = NewItemViewModel(session: .shared)
+        model.suggestionDelegate = self
         return model
     }()
     
@@ -32,14 +33,15 @@ class NewItemViewController: BaseViewController {
     }()
     
     private lazy var suggestionToolbar: SuggestionsToolbarView = {
-        let toolbar = SuggestionsToolbarView()
+        let toolbar = SuggestionsToolbarView(viewModel: viewModel)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         toolbar.isHidden = true
         toolbar.viewModel.suggestionDelegate = self
         return toolbar
     }()
     
-    private let nameTextField = CustomTextField(placeHolder: "Enter name of item")
+    private lazy var  nameTextField = CustomTextField(placeHolder: "Enter name of item",
+                                                      delegate: self)
     
     private let priceLabel = CustomLabel(text: "Price per package:",
                                          textColor: .black,
@@ -86,7 +88,6 @@ class NewItemViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureAutoresizing()
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
         configureKeyboardNotification()
@@ -120,6 +121,7 @@ class NewItemViewController: BaseViewController {
         view.backgroundColor = .maingray
         closeBarButton()
         configureMenu()
+        configureAutoresizing()
         configureMeasuresControl()
     }
     
@@ -248,17 +250,22 @@ class NewItemViewController: BaseViewController {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        if nameTextField.isEditing {
-            moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
-            suggestionToolbar.isHidden = false
-        } else {
+        guard nameTextField.isEditing else {
             suggestionToolbar.isHidden = true
+            return
         }
+        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
+        viewModel.readData()
+        catalogCountCheck()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
         suggestionToolbar.isHidden = true
+    }
+    
+    private func catalogCountCheck() {
+        suggestionToolbar.isHidden = viewModel.catalogItems.isEmpty
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
@@ -284,9 +291,17 @@ class NewItemViewController: BaseViewController {
     }
 }
 
-extension UIViewController: UITextFieldDelegate {
+extension NewItemViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == nameTextField {
+            let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
+            viewModel.filterSuggestions(name: newText)
+        }
         return true
     }
 }
@@ -316,6 +331,14 @@ extension NewItemViewController: ItemAmountDelegate {
 }
 
 extension NewItemViewController: PassSuggestionDelegate {
+    func manageToolBar() {
+        catalogCountCheck()
+    }
+    
+    func updateSuggestionsData() {
+        suggestionToolbar.collectionView.reloadData()
+    }
+    
     func passSuggested(name: String, price: Double, measure: Measures) {
         self.nameTextField.text = name
         self.priceTextField.text = "\(price)"

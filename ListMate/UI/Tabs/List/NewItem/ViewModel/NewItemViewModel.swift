@@ -15,6 +15,8 @@ protocol NewItemDelegate: AnyObject {
 
 protocol PassSuggestionDelegate: AnyObject {
     func passSuggested(name: String, price: Double, measure: Measures)
+    func updateSuggestionsData()
+    func manageToolBar()
 }
 
 final class NewItemViewModel {
@@ -29,14 +31,13 @@ final class NewItemViewModel {
     var item: Results<ItemModel>?
     
     private let session: ProductSession
-    
+    private let manager = DataManager()
+
     var catalogItems: [CatalogModel] = []
     
     init(session: ProductSession) {
         self.session = session
     }
-    
-    private let manager = DataManager()
     
     func saveItem(name: String,
                   price: Double,
@@ -63,10 +64,6 @@ final class NewItemViewModel {
     func setAmount(amount: Double) {
         amountValue = amount
     }
-    
-    func passSuggestedItem(name: String, price: Double, measure: Measures) {
-        suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
-    }
 }
 
 extension NewItemViewModel {
@@ -85,15 +82,34 @@ extension NewItemViewModel {
     }
     
     func readData() {
+        catalogItems.removeAll()
         manager.readData(data: CatalogModel.self) { result in
-            self.catalogItems.append(contentsOf: result )
+            self.catalogItems.append(contentsOf: result)
         }
     }
     
-    func filter(name: String) {
-        let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
-        manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { result in
-            self.catalogItems.append(contentsOf: result )
+    func filterSuggestions(name: String) {
+        if name == "" {
+            readData()
+            suggestionDelegate?.updateSuggestionsData()
+        } else {
+            let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
+            manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
+                guard let self = self else { return }
+                catalogItems.removeAll()
+                catalogItems.append(contentsOf: result)
+                suggestionDelegate?.updateSuggestionsData()
+            }
         }
     }
+    
+    func passSuggestedItem(name: String, price: Double, measure: Measures) {
+        suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
+        suggestionDelegate?.updateSuggestionsData()
+    }
+    
+    func checkCatalogCount() {
+        suggestionDelegate?.manageToolBar()
+    }
 }
+
