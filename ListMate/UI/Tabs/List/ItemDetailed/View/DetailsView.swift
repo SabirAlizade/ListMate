@@ -19,7 +19,7 @@ class DetailsView: BaseView {
         didSet {
             guard let item else { return }
             selectedSegmentIndex(item: item)
-            pricetextField.text = Double.doubleToString(double: item.price)
+            priceTextField.text = Double.doubleToString(double: item.price)
             storeTextField.text = item.boughtAt
         }
     }
@@ -40,12 +40,13 @@ class DetailsView: BaseView {
                                          textColor: .black,
                                          font: .poppinsFont(size: 16, weight: .light),
                                          alignment: .left)
+
     
-    private lazy var pricetextField = CustomTextField(placeHolder: "Enter price",
-                                                      textAlignment: .center,
-                                                      keybord: .decimalPad,
-                                                      target: self,
-                                                      action: #selector(didTapValueChanged))
+    private lazy var priceTextField = PriceTextField(placeHolder: "Enter price",
+                                                     target: self,
+                                                     action: #selector(didTapValueChanged))
+    
+
     
     private let storeLabel = CustomLabel(text: "Store:",
                                          textColor: .black,
@@ -71,7 +72,7 @@ class DetailsView: BaseView {
     private func setupUI() {
         
         let measureStack = UIView().HStack(views: measureLabel, measuresSegmentControl.withWidth(240), spacing: 10, distribution: .fill)
-        let priceStack = UIView().HStack(views: priceLabel, pricetextField.withWidth(90), spacing: 10, distribution: .fill)
+        let priceStack = UIView().HStack(views: priceLabel, priceTextField.withWidth(90), spacing: 10, distribution: .fill)
         let storeStack = UIView().HStack(views: storeLabel, storeTextField.withWidth(160), spacing: 10, distribution: .fill)
         let vStack = UIView().VStack(views: measureStack, priceStack, storeStack, spacing: 20, distribution: .fill)
         
@@ -87,7 +88,7 @@ class DetailsView: BaseView {
     
     @objc
     private func didTapValueChanged() {
-        guard let price = Double(pricetextField.text ?? "") else { return }
+        guard let price = Double(priceTextField.text ?? "") else { return }
         guard let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
         
@@ -107,5 +108,3 @@ class DetailsView: BaseView {
         }
     }
 }
-
-

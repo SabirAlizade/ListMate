@@ -73,6 +73,7 @@ extension NewItemViewModel {
     private func passToCatalog(name: String, price: Double, measure: Measures) {
         let catalogItem = CatalogModel(name: name, price: price, measure: measure)
         if manager.realm.objects(CatalogModel.self).filter("name == %@", name).first != nil {
+            print("Item already exist")
             return
         } else {
             self.manager.saveObject(data: catalogItem) { error in

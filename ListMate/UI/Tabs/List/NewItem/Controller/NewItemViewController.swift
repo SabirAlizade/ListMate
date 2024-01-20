@@ -51,9 +51,7 @@ class NewItemViewController: BaseViewController {
                                             font: .poppinsFont(size: 12, weight: .light),
                                             alignment: .left)
     
-    private lazy var priceTextField = CustomTextField(placeHolder: "Enter price",
-                                                      keybord: .decimalPad,
-                                                      dataSource: nil)
+    private lazy var priceTextField = PriceTextField(placeHolder: "Enter price")
     
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -218,9 +216,6 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         guard let price = Double(priceTextField.text ?? "1") else { return }
-        
-        
-        
         ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
             self.viewModel.saveItem(name: name,
                                     price: price,

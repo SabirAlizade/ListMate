@@ -55,7 +55,7 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedItem  = viewModel.catalogItems[indexPath.item]
+        let selectedItem = viewModel.catalogItems[indexPath.item]
         
         viewModel.passSuggestedItem(name: selectedItem.name, price: selectedItem.price, measure: selectedItem.measure)
         viewModel.catalogItems.remove(at: indexPath.item)

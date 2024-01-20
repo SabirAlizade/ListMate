@@ -3,4 +3,54 @@
    uuid = "B65CB3BA-ACD6-48ED-815D-3BF3E834F3DF"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77E50010-F723-4EFD-8E62-0EB263CFB675"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "filter(name:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "77E50010-F723-4EFD-8E62-0EB263CFB675 - 11b2529202eb23cc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.NewItemViewModel.filter(name: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "71">
+               </Location>
+               <Location
+                  uuid = "77E50010-F723-4EFD-8E62-0EB263CFB675 - 11b2529202eb23ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.NewItemViewModel.filter(name: Swift.String) -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/List/NewItem/ViewModel/NewItemViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "71">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
