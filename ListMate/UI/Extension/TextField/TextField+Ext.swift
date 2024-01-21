@@ -42,7 +42,7 @@ extension UITextField {
                                                     style: .done,
                                                     target: self,
                                                     action: #selector(self.doneButtonAction))
-
+        done.tintColor = .maingreen
         let items = [flexSpace, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()

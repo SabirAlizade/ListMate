@@ -18,6 +18,7 @@ class ImagePreviewViewController: BaseViewController {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -31,35 +32,31 @@ class ImagePreviewViewController: BaseViewController {
     override func setupUIConstraints() {
         super.setupUIConstraints()
         setupUI()
-        
-        // configureGestures()
+        configureGestures()
     }
     
     private func setupUI() {
         view.anchorFill(view: imageView, safe: true)
     }
     
+    @objc
+    private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
+        guard let view = sender.view else { return }
+        if sender.state == .changed || sender.state == .ended {
+            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
+            sender.scale = 1.0
+        }
+    }
     
+    private func configureGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
+        imageView.addGestureRecognizer(tapGesture)
+        
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+        imageView.addGestureRecognizer(pinchGesture)
+    }
     
-    //    @objc
-    //    private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
-    //        guard let view = sender.view else { return }
-    //        if sender.state == .changed || sender.state == .ended {
-    //            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
-    //            sender.scale = 1.0
-    //        }
-    //    }
-    //
-    //    private func configureGestures() {
-    //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
-    //        imageView.addGestureRecognizer(tapGesture)
-    //
-    //        //            let pinchGesture = UIPinchGestureRecognizer(target: self, action: pinchHandling)
-    //        //            imageView.addGestureRecognizer(pinchGesture)
-    //    }
-    //
-    
-    private  func configureEditBarButton() {
+    private func configureEditBarButton() {
         let menuItems = imagePickerButtons(takePictureAction: takePicture, presentPickerAction: presentPicker)
         let editButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"),
                                              menu: menuItems)

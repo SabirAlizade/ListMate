@@ -46,10 +46,18 @@ class ItemsViewController: BaseViewController {
         return view
     }()
     
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.color = .maingreen
+        return indicator
+    }()
+    
     private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
     
     override func setupUIComponents() {
         super.setupUIComponents()
+        startIndicator()
         configureNavBar()
         viewModel.readFilteredData()
         configureSummaryButton()
@@ -65,6 +73,14 @@ class ItemsViewController: BaseViewController {
             let amountString = Double.doubleToString(double: amount )
             self?.summaryButton.setTitle(" \(amountString) $", for: .normal)
         }
+    }
+    
+    private func startIndicator() {
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.activityIndicator.stopAnimating()
+        }
+        tableView.reloadData()
     }
     
     private func configureNavBar() {
@@ -88,6 +104,11 @@ class ItemsViewController: BaseViewController {
         view.anchor(view: plusButton) { kit in
             kit.trailing(20)
             kit.bottom(40, safe: true)
+        }
+        
+        view.anchor(view: activityIndicator) { kit in
+            kit.centerX()
+            kit.centerY()
         }
     }
     
