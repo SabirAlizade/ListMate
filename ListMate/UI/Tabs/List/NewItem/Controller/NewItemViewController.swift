@@ -40,8 +40,11 @@ class NewItemViewController: BaseViewController {
         return toolbar
     }()
     
-    private lazy var  nameTextField = CustomTextField(placeHolder: "Enter name of item",
-                                                      delegate: self)
+    private lazy var nameTextField = CustomTextField(placeHolder: "Enter name of item",
+                                                     delegate: self,
+                                                     target: self,
+                                                     action:  #selector(textFieldDidChange(_:)))
+    
     
     private let priceLabel = CustomLabel(text: "Price per package:",
                                          textColor: .black,
@@ -260,7 +263,6 @@ class NewItemViewController: BaseViewController {
             return
         }
         moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
-        viewModel.readData()
         catalogCountCheck()
     }
     
@@ -276,9 +278,7 @@ class NewItemViewController: BaseViewController {
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-        
         let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        
         let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
         
         if keyboardWillShow {
@@ -294,19 +294,17 @@ class NewItemViewController: BaseViewController {
         }
         animator.startAnimation()
     }
+    
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        guard let newText = textField.text else { return }
+        viewModel.filterSuggestions(name: newText)
+    }
 }
 
 extension NewItemViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == nameTextField {
-            let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
-            viewModel.filterSuggestions(name: newText)
-        }
         return true
     }
 }
