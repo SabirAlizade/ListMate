@@ -52,9 +52,7 @@ class PriceTextFieldConfiguration: UITextField, UITextFieldDelegate {
     
     @objc private func editingChanged() {
         guard let text = self.text else { return }
-        
         let textWithoutCommas = text.replacingOccurrences(of: ",", with: ".")
-        
         let components = textWithoutCommas.components(separatedBy: ".")
         if components.count > 2 {
             let formattedText = components.prefix(2).joined(separator: ".")

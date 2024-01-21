@@ -217,13 +217,18 @@ class NewItemViewController: BaseViewController {
     @objc
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
-        guard let price = Double(priceTextField.text ?? "1") else { return }
-        ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
-            self.viewModel.saveItem(name: name,
-                                    price: price,
-                                    imagePath: imagePath,
-                                    measure: self.itemAmount.itemMeasure ?? .pcs)
-            self.dismiss(animated: true)
+        if name.isEmpty {
+            alertMessage(title: "Empty name", message: "Please enter name of item")
+        } else {
+            let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
+            guard let price = Double(pricetext ?? "0") else { return }
+            ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
+                self.viewModel.saveItem(name: name,
+                                        price: price,
+                                        imagePath: imagePath,
+                                        measure: self.itemAmount.itemMeasure ?? .pcs)
+                self.dismiss(animated: true)
+            }
         }
     }
     

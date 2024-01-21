@@ -52,7 +52,6 @@ class CustomTextField: CustomTextFieldConfiguration {
 }
 
 class PriceTextField: PriceTextFieldConfiguration {
-    private var previousValue: String?
     
     convenience init(placeHolder: String,
                      target: Any? = nil,

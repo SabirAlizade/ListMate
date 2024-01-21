@@ -60,7 +60,3 @@ class ListCell: BaseCell {
         }
     }
 }
-
-#Preview {
-    ListCell()
-}
