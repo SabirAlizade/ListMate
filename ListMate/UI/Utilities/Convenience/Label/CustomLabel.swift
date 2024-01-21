@@ -10,7 +10,7 @@ import UIKit
 class CustomLabel: UILabel {
     
     convenience init(text: String? = nil,
-                     textColor: UIColor = .darkText,
+                     textColor: UIColor = .maintext,
                      font: UIFont = .poppinsFont(size: 20, weight: .regular),
                      alignment: NSTextAlignment = .left) {
         self.init()

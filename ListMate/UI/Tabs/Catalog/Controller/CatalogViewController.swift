@@ -35,7 +35,7 @@ class CatalogViewController: BaseViewController {
     }
     
     private func setupUI() {
-        view.anchorFill(view: tableView, safe: true)
+        view.anchorFill(view: tableView)
     }
 }
 

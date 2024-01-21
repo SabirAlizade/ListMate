@@ -18,7 +18,7 @@ class SwipeActionsHandler {
         let configuration = UISwipeActionsConfiguration(actions: [action])
         configuration.performsFirstActionWithFullSwipe = true
 
-        action.backgroundColor = .white
+        action.backgroundColor = .textfieldback
         action.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysOriginal)
 
         return configuration

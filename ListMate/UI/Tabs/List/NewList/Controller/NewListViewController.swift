@@ -24,7 +24,6 @@ class NewListViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        view.backgroundColor = .white
         closeBarButton()
         setupLargeTitle(title: "Add List", isLargeTitle: false)
     }

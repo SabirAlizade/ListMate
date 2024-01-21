@@ -30,19 +30,21 @@ final class MainView: BaseView {
     private let mainView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .white
+        view.backgroundColor = .mainwhite
         return view
     }()
     
     private lazy var nameTextField = CustomTextField(placeHolder: "Set name",
                                                      font: .poppinsFont(size: 22, weight: .medium),
                                                      border: .none,
+                                                     backgroundColor: .mainwhite,
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
     private lazy var noteTextField = CustomTextField(placeHolder: "Add note",
                                                      font: .poppinsFont(size: 18, weight: .light),
                                                      border: .none,
+                                                     backgroundColor: .mainwhite,
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
@@ -54,7 +56,7 @@ final class MainView: BaseView {
         return view
     }()
     
-     lazy var itemImageButton: UIButton = {
+    lazy var itemImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .darkText
         button.imageView?.contentMode = .scaleAspectFit

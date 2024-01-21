@@ -19,7 +19,7 @@ class SuggestionCell: UICollectionViewCell {
     private let bubbleView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .white
+        view.backgroundColor = .maincell
         return view
     }()
     
@@ -39,13 +39,13 @@ class SuggestionCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        let hStack = UIView().HStack(views: nameLabel.withWidth(140), iconView.withWidth(25).withHeight(25), spacing: 10, distribution: .fill)
+        let hStack = UIView().HStack(views: nameLabel, iconView.withWidth(25).withHeight(25), spacing: 10, distribution: .fill)
         
         self.anchor(view: bubbleView) { kit in
             kit.leading(5)
             kit.trailing(5)
             kit.top()
-            kit.width(160)
+            kit.width(120)
             kit.bottom()
         }
         

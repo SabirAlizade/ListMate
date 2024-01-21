@@ -36,7 +36,7 @@ class SummaryViewController: BaseViewController {
     }
     
     private func setupUI() {
-        view.anchorFill(view: tableView, safe: true)
+        view.anchorFill(view: tableView)
     }
 }
 
@@ -55,7 +55,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
         let footerLabel = CustomLabel(text: "TOTAL:  \(viewModel.countTotal()) $",
-                                      textColor: .black,
+                                      textColor: .maintext,
                                       font: .poppinsFont(size: 22, weight: .semiBold),
                                       alignment: .right)
         

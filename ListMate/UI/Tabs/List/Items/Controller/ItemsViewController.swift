@@ -125,7 +125,6 @@ class ItemsViewController: BaseViewController {
     @objc
     private func summaryButtonTapped() {
         let vc = SummaryViewController()
-        print(viewModel.completedItemsArray)
         vc.viewModel.updateItems(items: viewModel.completedItemsArray)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)

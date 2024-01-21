@@ -45,7 +45,6 @@ class NewItemViewController: BaseViewController {
                                                      target: self,
                                                      action:  #selector(textFieldDidChange(_:)))
     
-    
     private let priceLabel = CustomLabel(text: "Price per package:",
                                          textColor: .black,
                                          font: .poppinsFont(size: 12, weight: .light),
@@ -176,12 +175,12 @@ class NewItemViewController: BaseViewController {
             priceTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
             priceTextField.widthAnchor.constraint(equalToConstant: 120),
             priceTextField.heightAnchor.constraint(equalToConstant: 44),
-            priceTextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor),
+            priceTextField.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: -3),
             
             itemAmount.trailingAnchor.constraint(equalTo:  view.trailingAnchor, constant: -20),
             itemAmount.widthAnchor.constraint(equalToConstant: 140),
             itemAmount.heightAnchor.constraint(equalToConstant: 44),
-            itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: 3),
+            itemAmount.topAnchor.constraint(equalTo: quantityLabel.bottomAnchor, constant: -3),
             
             itemImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             itemImageView.topAnchor.constraint(equalTo: itemAmount.bottomAnchor, constant: 6),

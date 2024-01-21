@@ -52,14 +52,15 @@ class ItemAmountView: BaseView {
         return view
     }()
     
-    lazy var amountTextField : UITextField = { //TODO: CREATE CUSTOM AN SET RULES
+    lazy var amountTextField : UITextField = {
         let textField = UITextField()
         textField.text = "1"
+        textField.textColor = .black
         textField.textAlignment = .center
         textField.keyboardType = .decimalPad
-        textField.font = .poppinsFont(size: 26, weight: .regular)
+        textField.font = .poppinsFont(size: 22, weight: .regular)
         textField.doneAccessory = true
-        textField.addTarget(self, action: #selector (textFieldDidChange), for: .editingChanged)
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
         
@@ -95,7 +96,7 @@ class ItemAmountView: BaseView {
             kit.height(40)
             
             let hStack = UIView().HStack(views: minusButton.withWidth(45),
-                                         amountTextField.withWidth(80),
+                                         amountTextField.withWidth(90),
                                          plusButton.withWidth(45),
                                          spacing: 5,
                                          distribution: .fill)

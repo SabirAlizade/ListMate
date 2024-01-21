@@ -13,6 +13,7 @@ class CustomTextField: CustomTextFieldConfiguration {
                      textAlignment: NSTextAlignment = .left,
                      font: UIFont = .poppinsFont(size: 20, weight: .regular),
                      border: BorderStyle = .roundedRect,
+                     backgroundColor: UIColor = .textfieldback,
                      keyboard: UIKeyboardType = .default,
                      //                     image: UIImage? = nil,
                      dataSource: Any? = nil,
@@ -26,9 +27,10 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.textAlignment = textAlignment
         self.font = font
         keyboardType = keyboard
-        textColor = .black
         layer.cornerRadius = 8
         borderStyle = border
+        textColor = .maintext
+        self.backgroundColor = backgroundColor
         
         withBorder(width: 1, color: .buttongreen)
         // let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
@@ -61,10 +63,12 @@ class PriceTextField: PriceTextFieldConfiguration {
         placeholder = placeHolder
         textAlignment = .left
         keyboardType = .decimalPad
-        textColor = .black
         font = .poppinsFont(size: 20, weight: .regular)
         layer.cornerRadius = 8
         borderStyle = .roundedRect
+        textColor = .maintext
+        backgroundColor = .textfieldback
+
         
         withBorder(width: 1, color: .buttongreen)
         attributedPlaceholder = NSAttributedString(

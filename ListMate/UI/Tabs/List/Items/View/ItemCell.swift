@@ -29,7 +29,7 @@ final class ItemCell: BaseCell {
     
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .maincell
         view.layer.shadowOpacity = 0.5
         view.layer.cornerRadius = 10
         view.layer.shadowOffset = CGSize(width: 0, height: 2)

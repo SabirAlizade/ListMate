@@ -27,31 +27,23 @@ class DetailsView: BaseView {
     private let detailsView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .white
+        view.backgroundColor = .mainwhite
         return view
     }()
     
     private let measureLabel = CustomLabel(text: "Measure:",
-                                           textColor: .black,
-                                           font: .poppinsFont(size: 16, weight: .light),
-                                           alignment: .left)
+                                           font: .poppinsFont(size: 16, weight: .light))
     
     private let priceLabel = CustomLabel(text: "Price per package:",
-                                         textColor: .black,
-                                         font: .poppinsFont(size: 16, weight: .light),
-                                         alignment: .left)
+                                         font: .poppinsFont(size: 16, weight: .light))
 
     
     private lazy var priceTextField = PriceTextField(placeHolder: "Enter price",
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
-
-    
     private let storeLabel = CustomLabel(text: "Store:",
-                                         textColor: .black,
-                                         font: .poppinsFont(size: 16, weight: .light),
-                                         alignment: .left)
+                                         font: .poppinsFont(size: 16, weight: .light))
     
     private lazy var storeTextField = CustomTextField(placeHolder: "Enter name",
                                                       target: self,
