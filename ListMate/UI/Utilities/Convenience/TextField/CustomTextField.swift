@@ -15,7 +15,6 @@ class CustomTextField: CustomTextFieldConfiguration {
                      border: BorderStyle = .roundedRect,
                      backgroundColor: UIColor = .textfieldback,
                      keyboard: UIKeyboardType = .default,
-                     //                     image: UIImage? = nil,
                      dataSource: Any? = nil,
                      delegate: Any? = nil,
                      target: Any? = nil,
@@ -31,12 +30,7 @@ class CustomTextField: CustomTextFieldConfiguration {
         borderStyle = border
         textColor = .maintext
         self.backgroundColor = backgroundColor
-        
         withBorder(width: 1, color: .buttongreen)
-        // let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-        // imageView.image = image
-        // setLeftView(view: imageView)
-        // height(50)
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -67,9 +61,10 @@ class PriceTextField: PriceTextFieldConfiguration {
         layer.cornerRadius = 8
         borderStyle = .roundedRect
         textColor = .maintext
-        backgroundColor = .textfieldback
-
-        
+        self.backgroundColor = .textfieldback
+        let priceImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        priceImageView.image = UIImage(named: "dollarsign")
+        setRightView(view: priceImageView)
         withBorder(width: 1, color: .buttongreen)
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
@@ -84,5 +79,17 @@ class PriceTextField: PriceTextFieldConfiguration {
             self.layer.borderWidth = width ?? 0
             self.layer.borderColor = color?.cgColor
         }
+    }
+}
+
+extension PriceTextField {
+    func setRightView(view: UIView, padding: CGFloat = 20) {
+        self.rightViewMode = .always
+        let subView = UIView(frame: CGRect(x: -10, y: 0, width: padding, height: 50))
+        view.backgroundColor = .textfieldback
+        view.center = subView.center
+        view.contentMode = .scaleAspectFit
+        subView.addSubview(view)
+        self.rightView = subView
     }
 }

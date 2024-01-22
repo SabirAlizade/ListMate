@@ -92,11 +92,13 @@ final class MainView: BaseView {
         mainView.anchor(view: nameTextField) { kit in
             kit.leading(itemImageButton.trailingAnchor, 10)
             kit.top(13)
+            kit.trailing(mainView.trailingAnchor, 10)
         }
         
         mainView.anchor(view: noteTextField) { kit in
             kit.leading(nameTextField)
             kit.bottom(13)
+            kit.trailing(mainView.trailingAnchor, 10)
         }
     }
     
