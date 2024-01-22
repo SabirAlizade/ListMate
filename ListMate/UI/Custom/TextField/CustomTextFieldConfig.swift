@@ -13,6 +13,7 @@ protocol TextFieldDataSource {
 
 class CustomTextFieldConfiguration: UITextField, UITextFieldDelegate {
     var dataSource: TextFieldDataSource?
+    private var maxCharacterCount = 26
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +34,12 @@ class CustomTextFieldConfiguration: UITextField, UITextFieldDelegate {
         if text == " " {
             self.text = nil
         }
-        dataSource?.resultValue(hasText: hasText, value: text)
+        
+        if text.count > maxCharacterCount {
+            let index = text.index(text.startIndex, offsetBy: maxCharacterCount)
+            self.text = String(text.prefix(upTo: index))
+        }
+        dataSource?.resultValue(hasText: !text.isEmpty, value: text)
     }
 }
 
@@ -60,6 +66,13 @@ class PriceTextFieldConfiguration: UITextField, UITextFieldDelegate {
         } else {
             self.text = textWithoutCommas
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        return updatedText.count <= 9
     }
 }
 

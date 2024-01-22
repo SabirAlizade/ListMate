@@ -18,18 +18,6 @@ extension UITextField {
             }
         }
     }
-    
-//    func setLeftView(view: UIView, padding: CGFloat = 60) {
-//        self.leftViewMode = .always
-//        let subView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: 50))
-//        view.backgroundColor = .white
-//        view.frame = CGRect(x: 0, y: 0, width: padding, height: 25)
-//        view.center = subView.center
-//        view.tintColor = .maingreen
-//        view.contentMode = .scaleAspectFit
-//        subView.addSubview(view)
-//        self.leftView = subView
-//    }
 
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))

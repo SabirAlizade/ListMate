@@ -96,6 +96,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: nameLabel) { kit in
             kit.leading(itemImageView.trailingAnchor, 15)
             kit.top(containerView.topAnchor, 5)
+            kit.width(200)
         }
         
         containerView.anchor(view: itemAmountView) { kit in
@@ -120,7 +121,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: priceLabel) { kit in
             kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
-            kit.width(60)
+            kit.width(70)
         }
     }
     

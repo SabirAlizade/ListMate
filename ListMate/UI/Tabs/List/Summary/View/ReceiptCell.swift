@@ -14,7 +14,6 @@ class ReceiptCell: BaseCell{
             nameLabel.text = item.name
             amountLabel.text =  String("x \(Double.doubleToString(double: item.amount))")
             priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice)) $")
-            
         }
     }
     
