@@ -21,6 +21,7 @@ class ListViewController: BaseViewController {
         view.dataSource = self
         view.separatorStyle = .singleLine
         view.delaysContentTouches = false
+        view.backgroundColor = .maingray
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
     }()
@@ -59,7 +60,7 @@ class ListViewController: BaseViewController {
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4 }
-                                                          )]
+        )]
         present(nc, animated: true)
     }
 }

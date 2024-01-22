@@ -18,7 +18,6 @@ class BaseViewController: UIViewController {
     
     func setupUIComponents() {}
     func setupUIConstraints() {}
-    
     func closeBarButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close,
                                                            target: self,
@@ -29,6 +28,7 @@ class BaseViewController: UIViewController {
         lazy var takePicButton = UIAction(title: "Take image", image: UIImage(systemName: "camera")) { action in
             takePictureAction()
         }
+        
         lazy var choosePicButton = UIAction(title: "Select from gallery", image: UIImage(systemName: "photo.on.rectangle")) { action in
             presentPickerAction()
         }

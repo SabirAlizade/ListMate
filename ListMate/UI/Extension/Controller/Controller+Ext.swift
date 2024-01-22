@@ -18,12 +18,6 @@ extension UIViewController {
         present(alertController, animated: true)
     }
     
-    func setupLargeTitle(title: String, isLargeTitle: Bool = true) { //TODO: CHECK
-        self.title = title
-        navigationController?.navigationBar.prefersLargeTitles = isLargeTitle
-        navigationItem.largeTitleDisplayMode = .always
-    }
-    
     func customBackgroundColor() {
         self.view.backgroundColor = .maingray
     }

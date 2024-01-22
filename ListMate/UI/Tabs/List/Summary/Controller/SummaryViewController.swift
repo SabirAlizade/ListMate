@@ -65,5 +65,23 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return footerView
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        
+        let greetingLabel = CustomLabel(text: "THANK YOU!\nfor using\nListMate",
+                                        textColor: .gray,
+                                        font: UIFont.monospacedSystemFont(ofSize: 19, weight: .regular),
+                                        alignment: .center)
+        
+        greetingLabel.numberOfLines = 0
+        
+        headerView.anchor(view: greetingLabel) { kit in
+            kit.centerX()
+            kit.top(-40)
+            kit.height(90)
+            kit.width(120)
+        }
+        return headerView
+    }
 }
-

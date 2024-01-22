@@ -13,6 +13,7 @@ class CatalogViewController: BaseViewController {
         let view = UITableView()
         view.dataSource = self
         view.delegate = self
+        view.backgroundColor = .maingray
         view.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.description())
         return view
     }()
@@ -50,6 +51,7 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else { return UITableViewCell() }
         cell.item = item
         cell.selectionStyle = .none
+        cell.backgroundColor = .maingray
         return cell
     }
     

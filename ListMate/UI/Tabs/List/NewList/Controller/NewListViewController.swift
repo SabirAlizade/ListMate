@@ -25,7 +25,7 @@ class NewListViewController: BaseViewController {
     override func setupUIComponents() {
         super.setupUIComponents()
         closeBarButton()
-        setupLargeTitle(title: "Add List", isLargeTitle: false)
+        title = "Add list"
     }
     
     override func setupUIConstraints() {
