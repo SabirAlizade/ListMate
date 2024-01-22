@@ -18,7 +18,6 @@
 		03A105882B2F3E9600E13A45 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105872B2F3E9600E13A45 /* BaseViewController.swift */; };
 		03A1058C2B2F3F3100E13A45 /* Controller+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1058B2B2F3F3100E13A45 /* Controller+Ext.swift */; };
 		03A105902B2F40F300E13A45 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */; };
-		03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105912B2F412000E13A45 /* ProfileViewControler.swift */; };
 		03A105972B2F490300E13A45 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105962B2F490300E13A45 /* Font.swift */; };
 		03A105A12B2F4A2D00E13A45 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1059D2B2F4A2D00E13A45 /* UIStackView.swift */; };
 		03A105A22B2F4A2D00E13A45 /* CircleAnimationKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A1059E2B2F4A2D00E13A45 /* CircleAnimationKit.swift */; };
@@ -85,7 +84,6 @@
 		03A105872B2F3E9600E13A45 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		03A1058B2B2F3F3100E13A45 /* Controller+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Controller+Ext.swift"; sourceTree = "<group>"; };
 		03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
-		03A105912B2F412000E13A45 /* ProfileViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControler.swift; sourceTree = "<group>"; };
 		03A105962B2F490300E13A45 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		03A1059D2B2F4A2D00E13A45 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		03A1059E2B2F4A2D00E13A45 /* CircleAnimationKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleAnimationKit.swift; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 			children = (
 				03A105792B2F307600E13A45 /* List */,
 				03A1057E2B2F325B00E13A45 /* Catalog */,
-				03A1057F2B2F327400E13A45 /* Profile */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -269,14 +266,6 @@
 				03B5F0EE2B3E04020015AA23 /* Model */,
 			);
 			path = Catalog;
-			sourceTree = "<group>";
-		};
-		03A1057F2B2F327400E13A45 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				03A1058E2B2F40E400E13A45 /* Controller */,
-			);
-			path = Profile;
 			sourceTree = "<group>";
 		};
 		03A105802B2F329F00E13A45 /* TabBar */ = {
@@ -320,14 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				03A1058F2B2F40F300E13A45 /* CatalogViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		03A1058E2B2F40E400E13A45 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				03A105912B2F412000E13A45 /* ProfileViewControler.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -814,7 +795,6 @@
 				03A105882B2F3E9600E13A45 /* BaseViewController.swift in Sources */,
 				03A105C32B2F768C00E13A45 /* DataManager.swift in Sources */,
 				03A105A42B2F4A2D00E13A45 /* UIView+Stacking.swift in Sources */,
-				03A105922B2F412000E13A45 /* ProfileViewControler.swift in Sources */,
 				03B0A6912B3C0AE500B3F8D0 /* DetailedViewModel.swift in Sources */,
 				036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */,
 				03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */,

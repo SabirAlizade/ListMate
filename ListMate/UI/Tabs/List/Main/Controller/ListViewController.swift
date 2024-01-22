@@ -16,10 +16,10 @@ class ListViewController: BaseViewController {
     }()
     
     private lazy var tableView: UITableView = {
-        let view = UITableView()
+        let view = UITableView(frame: .zero, style: .insetGrouped)
         view.delegate = self
         view.dataSource = self
-        view.separatorStyle = .none
+        view.separatorStyle = .singleLine
         view.delaysContentTouches = false
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
@@ -75,6 +75,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             withIdentifier: ListCell.description(),
             for: indexPath) as? ListCell else { return UITableViewCell() }
         cell.item = item
+        cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -93,7 +95,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 50
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

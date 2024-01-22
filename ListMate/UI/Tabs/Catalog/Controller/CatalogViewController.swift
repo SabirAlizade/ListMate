@@ -49,6 +49,7 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
         let item = viewModel.catalogItems?[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else { return UITableViewCell() }
         cell.item = item
+        cell.selectionStyle = .none
         return cell
     }
     

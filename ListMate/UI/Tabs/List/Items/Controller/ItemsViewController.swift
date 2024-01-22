@@ -30,11 +30,14 @@ class ItemsViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .poppinsFont(size: 18, weight: .regular)
         button.backgroundColor = .maingreen
-        button.setTitle( "0.0", for: .normal)
+        button.setTitle( "0.00", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "cart"), for: .normal)
         button.tintColor = .white
+        button.layer.shadowColor = UIColor.maingreen.cgColor
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
         button.addTarget(self, action: #selector(summaryButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -85,10 +88,13 @@ class ItemsViewController: BaseViewController {
     
     private func configureNavBar() {
         let summarybtn = UIBarButtonItem(customView: summaryButton)
-        summarybtn.customView?.withWidth(115)
-        summarybtn.customView?.withHeight(35)
-        summarybtn.customView?.layer.shadowOpacity = 1
-        summarybtn.customView?.layer.shadowOffset = CGSize(width: 0, height: 1)
+        if let customView = summarybtn.customView {
+            customView.withWidth(115)
+            customView.withHeight(35)
+//            customView.layer.shadowColor = UIColor.lightgreen.cgColor
+//            customView.layer.shadowOpacity = 2
+//            customView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        }
         navigationItem.rightBarButtonItem = summarybtn
         navigationController?.navigationBar.tintColor = .maingreen
     }
@@ -170,7 +176,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 95
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

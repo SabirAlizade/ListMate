@@ -38,14 +38,14 @@ class DetailsView: BaseView {
                                          font: .poppinsFont(size: 16, weight: .light))
 
     
-    private lazy var priceTextField = PriceTextField(placeHolder: "Enter price",
+    private lazy var priceTextField = PriceTextField(placeHolder: "0.00",
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
     private let storeLabel = CustomLabel(text: "Store:",
                                          font: .poppinsFont(size: 16, weight: .light))
     
-    private lazy var storeTextField = CustomTextField(placeHolder: "Enter name",
+    private lazy var storeTextField = CustomTextField(placeHolder: "Store name ",
                                                       target: self,
                                                       action: #selector(didTapValueChanged))
     

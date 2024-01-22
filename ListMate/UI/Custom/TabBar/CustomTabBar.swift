@@ -23,8 +23,8 @@ class CustomTabBar: UITabBarController {
         
         let catalogTab = UINavigationController(rootViewController: CatalogViewController())
         catalogTab.tabBarItem = UITabBarItem(title: nil,
-                                          image: UIImage(named: "catalog"),
-                                          selectedImage: UIImage(named: "catalogSelected"))
+                                             image: UIImage(named: "catalog"),
+                                             selectedImage: UIImage(named: "catalogSelected"))
         
         viewControllers = [listTab, catalogTab]
     }

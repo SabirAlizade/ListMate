@@ -55,7 +55,7 @@ class NewItemViewController: BaseViewController {
                                             font: .poppinsFont(size: 12, weight: .light),
                                             alignment: .left)
     
-    private lazy var priceTextField = PriceTextField(placeHolder: "Price")
+    private lazy var priceTextField = PriceTextField(placeHolder: "0.00")
     
     private lazy var itemImageView: UIImageView = {
         let view = UIImageView()

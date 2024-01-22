@@ -30,9 +30,10 @@ final class ItemCell: BaseCell {
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .maincell
-        view.layer.shadowOpacity = 0.5
+        view.layer.shadowColor = UIColor.maingreen.cgColor
+        view.layer.shadowOpacity = 0.3
         view.layer.cornerRadius = 10
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowOffset = CGSize(width: 0, height: 0.3)
         return view
     }()
     
@@ -82,8 +83,8 @@ final class ItemCell: BaseCell {
         contentView.anchor(view: containerView) { kit in
             kit.leading(15)
             kit.trailing(15)
-            kit.top(10)
-            kit.bottom(10)
+            kit.top(6)
+            kit.bottom(6)
         }
         
         containerView.anchor(view: itemImageView) { kit in
@@ -150,5 +151,13 @@ extension ItemCell: ItemAmountDelegate {
     func setAmount(amount: Double) {
         guard let id = item?.objectId else { return }
         delegate?.updateAmount(amount: amount, id: id)
+    }
+}
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
     }
 }
