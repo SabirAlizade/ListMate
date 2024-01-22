@@ -23,8 +23,8 @@ class ImagePreviewViewController: BaseViewController {
     }()
     
     private lazy var activityIndicator: ActivityIndicator = {
-          return ActivityIndicator.shared
-      }()
+        return ActivityIndicator.shared
+    }()
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -53,9 +53,6 @@ class ImagePreviewViewController: BaseViewController {
     }
     
     private func configureGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
-        imageView.addGestureRecognizer(tapGesture)
-        
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
         imageView.addGestureRecognizer(pinchGesture)
     }
@@ -69,28 +66,14 @@ class ImagePreviewViewController: BaseViewController {
     }
     
     @objc
-    private func takePicture() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePC = UIImagePickerController()
-            imagePC.sourceType = .camera
-            imagePC.allowsEditing = true
-            imagePC.delegate = self
-            present(imagePC, animated: true)
-        } else {
-            print("Camera is not available")
-        }
+    override func takePicture() {
+        presentImagePicker(sourceType: .camera)
     }
     
     @objc
     private func presentPicker() {
         activityIndicator.showActivityIndicator(view: self.view)
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.present(picker, animated: true) {
-            self.activityIndicator.stopActivityIndicator()
-        }
+        presentImagePicker(sourceType: .photoLibrary)
     }
     
     @objc
@@ -100,23 +83,14 @@ class ImagePreviewViewController: BaseViewController {
     }
 }
 
-extension ImagePreviewViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            imageView.image = imageSelected
+extension ImagePreviewViewController: ImagePickerDelegate {
+    func didSelectImage(_ image: UIImage, isEdited: Bool) {
+        imageView.image = image
+        if isEdited {
             imageView.isHidden = false
             savePicture()
         }
-        
-        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageView.image = imageOriginal
-        }
-        picker.dismiss(animated: true)
     }
 }
-
-
 
 

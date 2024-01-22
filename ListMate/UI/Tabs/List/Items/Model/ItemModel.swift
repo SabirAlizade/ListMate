@@ -22,9 +22,9 @@ class ItemModel: Object {
     @Persisted var measure: Measures
     @Persisted var price: Double
     @Persisted var totalPrice: Double
-    @Persisted var image: String? // RENAME TO imagePath?
-    @Persisted var boughtAt: String
-    @Persisted var isBought: Bool
+    @Persisted var imagePath: String?
+    @Persisted var storeName: String
+    @Persisted var isChecked: Bool
     @Persisted var notes: String
     
     convenience init(id: String,
@@ -42,13 +42,13 @@ class ItemModel: Object {
         self.objectId = ObjectId.generate()
         self.id = id
         self.name = name
-        self.image = image
+        self.imagePath = image
         self.amount = amount
         self.measure = measure
         self.price = price
         self.totalPrice = totalPrice
-        self.boughtAt = boughtAt
-        self.isBought = isBought
+        self.storeName = boughtAt
+        self.isChecked = isBought
         self.notes = notes
     }
 }

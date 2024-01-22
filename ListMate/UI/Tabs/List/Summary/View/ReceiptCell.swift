@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class ReceiptCell: BaseCell{
     
     var item: ItemModel? {
@@ -26,17 +27,7 @@ class ReceiptCell: BaseCell{
     private let priceLabel = CustomLabel(textColor: .gray,
                                          font: .poppinsFont(size: 20, weight: .light),
                                          alignment: .left)
-    
-    private let dottedLineView: UIView = {
-        let view = UIView()
-        let border = CAShapeLayer()
-        border .strokeColor = UIColor.gray.cgColor
-        border.lineDashPattern = [2, 2]
-        border.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 1)
-        view.layer.addSublayer(border)
-        return view
-    }()
-    
+        
     override func setupCell() {
         super.setupCell()
         setupUI()
@@ -63,7 +54,6 @@ class ReceiptCell: BaseCell{
             kit.bottom(10)
         })
     }
-    
     
     private func addDottedLine() {
         let borderLayer = CAShapeLayer()

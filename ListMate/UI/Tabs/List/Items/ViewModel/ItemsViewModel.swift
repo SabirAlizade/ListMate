@@ -56,8 +56,8 @@ final class ItemsViewModel {
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
         
-        let remainingItems = items.filter { !$0.isBought }
-        let completedItems = items.filter { $0.isBought }
+        let remainingItems = items.filter { !$0.isChecked }
+        let completedItems = items.filter { $0.isChecked }
         
         let remainingSection = ItemSection(name: "Remaining", data: Array(remainingItems))
         let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
@@ -85,7 +85,7 @@ final class ItemsViewModel {
         if let item = items?.first(where: { $0.objectId == id }) {
             do {
                 try manager.realm.write {
-                    item.isBought = isCheked
+                    item.isChecked = isCheked
                 }
             }
             catch {

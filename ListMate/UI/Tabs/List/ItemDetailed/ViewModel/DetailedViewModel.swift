@@ -28,7 +28,7 @@ class DetailedViewModel {
             }
         }
         catch {
-            print(error.localizedDescription)
+            print("Error updating name or note \(error.localizedDescription)")
         }
     }
     
@@ -38,12 +38,12 @@ class DetailedViewModel {
             try manager.realm.write {
                 item.measure = measeure
                 item.price = price
-                item.boughtAt = store
+                item.storeName = store
                 item.totalPrice = item.amount * price
             }
         }
         catch {
-            print(error.localizedDescription)
+            print("Error updating detailed item data \(error.localizedDescription)")
         }
     }
     
@@ -51,11 +51,11 @@ class DetailedViewModel {
         ImageManager.shared.saveImageToLibrary(image: image) { imagePath in
             do {
                 try self.manager.realm.write {
-                    self.item?.image = imagePath
+                    self.item?.imagePath = imagePath
                 }
             }
             catch {
-                print(error.localizedDescription)
+                print("Error saving image to library \(error.localizedDescription)")
             }
         }
     }

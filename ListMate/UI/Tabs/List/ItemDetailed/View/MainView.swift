@@ -23,7 +23,7 @@ final class MainView: BaseView {
             guard let item else { return }
             nameTextField.text = item.name
             noteTextField.text = item.notes
-            loadImageData(imageName: item.image)
+            loadImageData(imageName: item.imagePath)
         }
     }
     
@@ -102,6 +102,7 @@ final class MainView: BaseView {
         }
     }
     
+ // CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
     private func loadImageData(imageName: String?) {
         if imageName == nil {
             itemImageButton.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)

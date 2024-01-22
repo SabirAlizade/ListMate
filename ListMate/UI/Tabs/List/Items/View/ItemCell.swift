@@ -22,8 +22,8 @@ final class ItemCell: BaseCell {
             nameLabel.text = item.name
             priceLabel.text = Double.doubleToString(double: item.totalPrice)
             itemAmountView.item = item
-            checkBox.isChecked = item.isBought
-            loadImageData(imageName: item.image)
+            checkBox.isChecked = item.isChecked
+            loadImageData(imageName: item.imagePath)
         }
     }
     

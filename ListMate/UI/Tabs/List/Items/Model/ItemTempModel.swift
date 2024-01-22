@@ -3,7 +3,6 @@
 //  ListMate
 //
 //  Created by Sabir Alizade on 08.01.24.
-//
 
 import Foundation
 
@@ -32,9 +31,9 @@ struct ItemTempModel {
         self.measure = item.measure
         self.price = item.price
         self.totalPrice = item.totalPrice
-        self.image = item.image
-        self.boughtAt = item.boughtAt
-        self.isBought = item.isBought
+        self.image = item.imagePath
+        self.boughtAt = item.storeName
+        self.isBought = item.isChecked
         self.notes = item.notes
     }
 }

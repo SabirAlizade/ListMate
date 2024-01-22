@@ -16,7 +16,7 @@ protocol NewItemDelegate: AnyObject {
 protocol PassSuggestionDelegate: AnyObject {
     func passSuggested(name: String, price: Double, measure: Measures)
     func updateSuggestionsData()
-    func manageToolBar()
+    func checkSuggestionsBar()
 }
 
 final class NewItemViewModel {
@@ -24,19 +24,15 @@ final class NewItemViewModel {
     weak var delegate: NewItemDelegate?
     weak var suggestionDelegate: PassSuggestionDelegate?
     
-    var measuresArray: [String] = ["Pcs", "Kgs", "L"] //MARK: DELETE THIS AND USE HASH
-    
     var selectedMeasure: Measures = .pcs
     private var amountValue: Double = 1
-    var item: Results<ItemModel>?
-    
-    private let session: ProductSession
+    private let productSession: ProductSession
     private let manager = DataManager()
-
+    
     var catalogItems: [CatalogModel] = []
     
     init(session: ProductSession) {
-        self.session = session
+        self.productSession = session
     }
     
     func saveItem(name: String,
@@ -44,7 +40,7 @@ final class NewItemViewModel {
                   imagePath: String?,
                   measure: Measures) {
         
-        let item = ItemModel(id: session.listID,
+        let item = ItemModel(id: productSession.listID,
                              name: name,
                              amount: amountValue,
                              image: imagePath,
@@ -54,7 +50,7 @@ final class NewItemViewModel {
         
         manager.saveObject(data: item) { error in
             if let error {
-                print(error.localizedDescription)
+                print("Error saving item \(error.localizedDescription)")
             }
         }
         delegate?.updateItemsData()
@@ -74,7 +70,7 @@ extension NewItemViewModel {
         } else {
             self.manager.saveObject(data: catalogItem) { error in
                 if let error {
-                    print(error.localizedDescription)
+                    print("Error saving to catalog \(error.localizedDescription)")
                 }
             }
         }
@@ -88,7 +84,7 @@ extension NewItemViewModel {
     }
     
     func filterSuggestions(name: String) {
-        if name == "" {
+        if name.isEmpty {
             readData()
             suggestionDelegate?.updateSuggestionsData()
         } else {
@@ -108,7 +104,7 @@ extension NewItemViewModel {
     }
     
     func checkCatalogCount() {
-        suggestionDelegate?.manageToolBar()
+        suggestionDelegate?.checkSuggestionsBar()
     }
 }
 
