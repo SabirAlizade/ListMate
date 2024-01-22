@@ -61,7 +61,7 @@ final class ItemCell: BaseCell {
     private lazy var checkBox: CheckBox = {
         let checkBox = CheckBox()
         checkBox.imageTint = .maingreen
-        checkBox.addTarget(self, action: #selector(changeCheck), for: .valueChanged)
+        checkBox.addTarget(self, action: #selector(changeCheckboxCheck), for: .valueChanged)
         return checkBox
     }()
     
@@ -72,10 +72,10 @@ final class ItemCell: BaseCell {
     }
     
     @objc
-    private func changeCheck() {
-        let isChecked = checkBox.isChecked ? false : true
+    private func changeCheckboxCheck() {
+        let isCheckboxChecked = checkBox.isChecked ? false : true
         guard let id = item?.objectId else { return }
-        delegate?.updateCheckmark(isChecked: isChecked, id: id)
+        delegate?.updateCheckmark(isChecked: isCheckboxChecked, id: id)
     }
     
     private func setupUI() {
@@ -133,7 +133,7 @@ final class ItemCell: BaseCell {
             } else {
                 let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
                 let fileURL = libraryDirectory.appendingPathComponent(fileName)
-
+                
                 if let image = UIImage(contentsOfFile: fileURL.path) {
                     itemImageView.image = image
                     ImageCacheManager.shared.setImage(image, forKey: fileName)
@@ -154,10 +154,3 @@ extension ItemCell: ItemAmountDelegate {
     }
 }
 
-extension UIImage {
-    func resized(to size: CGSize) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { _ in
-            draw(in: CGRect(origin: .zero, size: size))
-        }
-    }
-}

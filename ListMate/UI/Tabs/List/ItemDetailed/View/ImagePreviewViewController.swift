@@ -22,6 +22,10 @@ class ImagePreviewViewController: BaseViewController {
         return imageView
     }()
     
+    private lazy var activityIndicator: ActivityIndicator = {
+          return ActivityIndicator.shared
+      }()
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         view.backgroundColor = .black
@@ -79,11 +83,14 @@ class ImagePreviewViewController: BaseViewController {
     
     @objc
     private func presentPicker() {
+        activityIndicator.showActivityIndicator(view: self.view)
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         picker.delegate = self
-        self.present(picker, animated: true, completion: nil)
+        self.present(picker, animated: true) {
+            self.activityIndicator.stopActivityIndicator()
+        }
     }
     
     @objc

@@ -55,6 +55,7 @@
 		03BC076C2B3ED436005298F9 /* SuggestionsToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC076B2B3ED436005298F9 /* SuggestionsToolbarView.swift */; };
 		03BC076E2B3ED6BE005298F9 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC076D2B3ED6BE005298F9 /* SuggestionCell.swift */; };
 		03C27FE82B40009800E8A368 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C27FE72B40009800E8A368 /* Double.swift */; };
+		03C549DA2B5ED169007BE5B4 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C549D92B5ED169007BE5B4 /* ActivityIndicator.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
 		03CA6E852B30771000D59935 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */; };
@@ -119,6 +120,7 @@
 		03BC076B2B3ED436005298F9 /* SuggestionsToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsToolbarView.swift; sourceTree = "<group>"; };
 		03BC076D2B3ED6BE005298F9 /* SuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
 		03C27FE72B40009800E8A368 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		03C549D92B5ED169007BE5B4 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 		03A105A52B2F4A6200E13A45 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				03C549D82B5ED13F007BE5B4 /* ActivityIndicatorManager */,
 				03B806B12B5801C90017EF43 /* ImageManager */,
 				03A105A62B2F4A7B00E13A45 /* Convenience */,
 			);
@@ -584,6 +587,14 @@
 			path = Double;
 			sourceTree = "<group>";
 		};
+		03C549D82B5ED13F007BE5B4 /* ActivityIndicatorManager */ = {
+			isa = PBXGroup;
+			children = (
+				03C549D92B5ED169007BE5B4 /* ActivityIndicator.swift */,
+			);
+			path = ActivityIndicatorManager;
+			sourceTree = "<group>";
+		};
 		03CA6E7E2B30770F00D59935 /* Poppins */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +818,7 @@
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
 				03B5F0F02B3E04130015AA23 /* CatalogModel.swift in Sources */,
 				03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */,
+				03C549DA2B5ED169007BE5B4 /* ActivityIndicator.swift in Sources */,
 				03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */,
 				03E8472B2B333901004323F4 /* BaseView.swift in Sources */,
 				03BC076C2B3ED436005298F9 /* SuggestionsToolbarView.swift in Sources */,

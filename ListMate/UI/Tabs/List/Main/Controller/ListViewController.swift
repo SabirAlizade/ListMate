@@ -108,14 +108,13 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate {
+extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate, ItemsQuantityDelegate {
     func reloadData() {
         tableView.reloadData()
     }
-}
-
-extension ListViewController: ItemsQuantityDelegate {
+    
     func updateQuantity() {
         tableView.reloadData()
     }
 }
+

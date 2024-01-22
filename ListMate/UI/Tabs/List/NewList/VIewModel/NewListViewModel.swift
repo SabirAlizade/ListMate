@@ -8,20 +8,20 @@
 import Foundation
 import RealmSwift
 
-
 protocol NewListViewModelDelegate: AnyObject {
     func reloadData()
 }
 
-class NewListViewModel {
+final class NewListViewModel {
     weak var delegate: NewListViewModelDelegate?
     
-    private let manager = DataManager()
+    private var manager = DataManager()
     private var lists: Results<ListModel>?
     private let session: ProductSession
     
-    init(session: ProductSession) {
+    init(session: ProductSession, manager: DataManager = DataManager()) {
         self.session = session
+        self.manager = manager
     }
     
     func saveListItem(name: String) {
@@ -29,9 +29,9 @@ class NewListViewModel {
                              date: Date.now,
                              items: List<ItemModel>(),
                              totalAmount: 0)
-        manager.saveObject(data: list) {  error in
-            if let err = error {
-                print(err.localizedDescription)
+        manager.saveObject(data: list) { error in
+            if let error {
+                print("Error saving list item: \(error.localizedDescription)")
             }
             self.delegate?.reloadData()
         }

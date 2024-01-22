@@ -32,13 +32,13 @@ final class CheckBox: UIControl {
         }
     }
 
-    var checkedBackgroundColor: UIColor = #colorLiteral(red: 0.8705882353, green: 0.9803921569, blue: 0.9019607843, alpha: 1) {
+    var checkedBackgroundColor: UIColor = .lightgreen {
         didSet {
             backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
         }
     }
 
-    var uncheckedBackgroundColor: UIColor = #colorLiteral(red: 0.8705882353, green: 0.9803921569, blue: 0.9019607843, alpha: 1) {
+    var uncheckedBackgroundColor: UIColor = .lightgreen {
         didSet {
             backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
         }

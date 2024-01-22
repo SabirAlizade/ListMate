@@ -95,6 +95,10 @@ class NewItemViewController: BaseViewController {
         configureKeyboardNotification()
     }
     
+    private lazy var activityIndicator: ActivityIndicator = {
+        return ActivityIndicator.shared
+    }()
+    
     private func configureAutoresizing() {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -236,11 +240,14 @@ class NewItemViewController: BaseViewController {
     
     @objc
     private func presentPicker() {
+        activityIndicator.showActivityIndicator(view: self.view)
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         picker.delegate = self
-        self.present(picker, animated: true, completion: nil)
+        self.present(picker, animated: true) {
+            self.activityIndicator.stopActivityIndicator()
+        }
     }
     
     @objc

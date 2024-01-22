@@ -16,13 +16,13 @@ protocol ItemsModelDelegate: AnyObject {
     func reloadData()
 }
 
-class ItemsViewModel {
+final class ItemsViewModel {
     
     weak var delegate: ItemsModelDelegate?
     weak var quantityDelegate: ItemsQuantityDelegate?
     
     private let manager = DataManager()
-    private let session: ProductSession
+    private let productSession: ProductSession
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
     
@@ -41,20 +41,21 @@ class ItemsViewModel {
     private(set) var items: Results<ItemModel>?
     
     init(session: ProductSession) {
-        self.session = session
+        self.productSession = session
     }
     
-    func readFilteredData() {
-        manager.filterID(id: session.listID) { [weak self] result in
-            guard let self = self else { return }
+    func readFilteredData(completion: @escaping() -> Void) {
+        manager.filterID(id: productSession.listID) { [weak self] result in
+            guard let self else { return }
             self.items = result
             self.delegate?.reloadData()
+            completion()
         }
     }
     
     func getSections() -> [ItemSection] {
         guard let items else { return [] }
-       
+        
         let remainingItems = items.filter { !$0.isBought }
         let completedItems = items.filter { $0.isBought }
         
@@ -74,7 +75,6 @@ class ItemsViewModel {
         if sectionModel.data.isEmpty {
             return ""
         } else {
-            let sectionModel = getSections()[section]
             let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
             let formatString = Double.doubleToString(double: sectionTotal)
             return "\(sectionModel.name) total: \(formatString) $"
@@ -89,7 +89,7 @@ class ItemsViewModel {
                 }
             }
             catch {
-                print(error.localizedDescription)
+                print("Failed to update checkmark: \(error.localizedDescription)")
             }
             delegate?.reloadData()
         }
@@ -105,7 +105,7 @@ class ItemsViewModel {
                 }
             }
             catch {
-                print(error.localizedDescription)
+                print("Failed to update amount: \(error.localizedDescription)")
             }
             delegate?.reloadData()
         }
@@ -122,7 +122,7 @@ class ItemsViewModel {
         let item = sectionItems[indexPath.row]
         manager.delete(data: item) { error in
             if let error {
-                print(error.localizedDescription)
+                print("Failed to delete item: \(error.localizedDescription)")
             }
         }
         self.delegate?.reloadData()
@@ -136,8 +136,8 @@ extension ItemsViewModel {
         
         summaryAmount = summary
         
-        guard let uuid = UUID(uuidString: session.listID) else { return }
-        if let list = manager.realm.objects(ListModel.self).filter("id == %@", uuid).first {
+        guard let listUUID = UUID(uuidString: productSession.listID) else { return }
+        if let list = manager.realm.objects(ListModel.self).filter("id == %@", listUUID).first {
             do {
                 try manager.realm.write {
                     list.totalAmount = summary

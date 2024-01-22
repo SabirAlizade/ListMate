@@ -27,8 +27,6 @@ final class ListViewModel {
         }
     }
     
-    var listArray: [ListModel] = []
-        
     func readData() {
         manager.readData(data: ListModel.self) { result in
             self.lists = result
@@ -38,12 +36,12 @@ final class ListViewModel {
     func updateListId(id: String) {
         session.updateListId(id: id)
     }
-        
+    
     func deleteItem(index: Int) {
         guard let item = lists?[index] else { return }
         manager.delete(data: item) { error in
             if let error {
-                print(error.localizedDescription)
+                print("Error deleting item \(error.localizedDescription)")
             }
         }
     }

@@ -47,10 +47,10 @@ class NewListViewController: BaseViewController {
     
     @objc
     private func didTapSave() {
-            guard let name = nameTextField.text else { return }
-            if name.isEmpty {
-                alertMessage(title: "Empty name", message: "Please enter name of list")
-            } else {
+        guard let name = nameTextField.text else { return }
+        if name.isEmpty {
+            alertMessage(title: "Empty name", message: "Please enter name of list")
+        } else {
             viewModel.saveListItem(name: name)
             dismiss(animated: true)
         }

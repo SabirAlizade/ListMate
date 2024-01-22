@@ -38,7 +38,7 @@ class ItemsViewController: BaseViewController {
         button.layer.shadowColor = UIColor.maingreen.cgColor
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        button.addTarget(self, action: #selector(summaryButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapSummaryButton), for: .touchUpInside)
         return button
     }()
     
@@ -49,25 +49,24 @@ class ItemsViewController: BaseViewController {
         return view
     }()
     
-    private var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.hidesWhenStopped = true
-        indicator.color = .maingreen
-        return indicator
-    }()
+    private lazy var plusButton = FloatingButton(target: self, action: #selector(didTapAddItem))
     
-    private lazy var plusButton = FloatingButton(target: self, action:  #selector (didTapAddItem))
+    private lazy var activityIndicator: ActivityIndicator = {
+        return ActivityIndicator.shared
+    }()
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        startIndicator()
+        activityIndicator.showActivityIndicator(view: view)
         configureNavBar()
-        viewModel.readFilteredData()
-        configureSummaryButton()
+        viewModel.readFilteredData() { [weak self] in
+            self?.activityIndicator.stopActivityIndicator()
+        }
     }
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
+        configureSummaryButton()
         setupUI()
     }
     
@@ -78,24 +77,13 @@ class ItemsViewController: BaseViewController {
         }
     }
     
-    private func startIndicator() {
-        activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.activityIndicator.stopAnimating()
-        }
-        tableView.reloadData()
-    }
-    
     private func configureNavBar() {
-        let summarybtn = UIBarButtonItem(customView: summaryButton)
-        if let customView = summarybtn.customView {
+        let summarybutton = UIBarButtonItem(customView: summaryButton)
+        if let customView = summarybutton.customView {
             customView.withWidth(115)
             customView.withHeight(35)
-//            customView.layer.shadowColor = UIColor.lightgreen.cgColor
-//            customView.layer.shadowOpacity = 2
-//            customView.layer.shadowOffset = CGSize(width: 3, height: 3)
         }
-        navigationItem.rightBarButtonItem = summarybtn
+        navigationItem.rightBarButtonItem = summarybutton
         navigationController?.navigationBar.tintColor = .maingreen
     }
     
@@ -111,11 +99,6 @@ class ItemsViewController: BaseViewController {
             kit.trailing(20)
             kit.bottom(40, safe: true)
         }
-        
-        view.anchor(view: activityIndicator) { kit in
-            kit.centerX()
-            kit.centerY()
-        }
     }
     
     @objc
@@ -129,7 +112,7 @@ class ItemsViewController: BaseViewController {
     }
     
     @objc
-    private func summaryButtonTapped() {
+    private func didTapSummaryButton() {
         let vc = SummaryViewController()
         vc.viewModel.updateItems(items: viewModel.completedItemsArray)
         let nc = UINavigationController(rootViewController: vc)
@@ -196,7 +179,7 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
     }
     
     func updateItemsData() {
-        viewModel.readFilteredData()
+        viewModel.readFilteredData(completion: {})
     }
 }
 
