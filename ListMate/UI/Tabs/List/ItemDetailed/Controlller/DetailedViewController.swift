@@ -28,6 +28,9 @@ class DetailedViewController: BaseViewController {
         return model
     }()
     
+    private lazy var activityIndicator: ActivityIndicator = {
+        return ActivityIndicator.shared
+    }()
     override func setupUIComponents() {
         super.setupUIComponents()
         title = viewModel.item?.name
@@ -48,7 +51,6 @@ class DetailedViewController: BaseViewController {
     }
     
     private func setupUI() {
-        
         view.anchor(view: mainView) { kit in
             kit.leading(20)
             kit.trailing(20)
@@ -63,22 +65,22 @@ class DetailedViewController: BaseViewController {
         }
     }
     
+    @objc
+    private func saveChanges() {
+        viewModel.reloadItemsData()
+        saveSelectedPicture()
+        dismiss(animated: true)
+    }
+    //MARK: - IMAGE PICKER HANDLING
     private func configureMenu() {
         let menu = imagePickerButtons(takePictureAction: takePicture,
                                       presentPickerAction: presentPicker)
         mainView.itemImageButton.menu = menu
     }
     
-    private func savePicture() {
+    private func saveSelectedPicture() {
         guard let selected = mainView.itemImageView.image else { return }
         viewModel.updateImage(image: selected)
-    }
-    
-    @objc
-    private func saveChanges() {
-        viewModel.reloadItemsData()
-        savePicture()
-        dismiss(animated: true)
     }
     
     @objc
@@ -91,33 +93,24 @@ class DetailedViewController: BaseViewController {
     }
     
     @objc
-    private func takePicture() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePC = UIImagePickerController()
-            imagePC.sourceType = .camera
-            imagePC.allowsEditing = true
-            imagePC.delegate = self
-            present(imagePC, animated: true)
-        } else {
-            print("Camera is not available")
-        }
+    override func takePicture() {
+        presentImagePicker(sourceType: .camera)
     }
     
     @objc
     private func presentPicker() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.present(picker, animated: true, completion: nil)
+        presentImagePicker(sourceType: .photoLibrary)
+        activityIndicator.showActivityIndicator(view: self.view)
     }
 }
 
 extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePreviewDelegate {
     func updateImage(image: UIImage) {
-        viewModel.updateImage(image: image)
-        mainView.itemImageView.image = image
-        dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.viewModel.updateImage(image: image)
+            self.mainView.itemImageView.image = image
+            self.dismiss(animated: true)
+        }
     }
     
     func openImage(image: UIImage?) {
@@ -138,19 +131,12 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
     }
 }
 
-extension DetailedViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            mainView.itemImageView.image = imageSelected
+extension DetailedViewController: ImagePickerDelegate {
+    func didSelectImage(_ image: UIImage, isEdited: Bool) {
+        if isEdited {
             mainView.itemImageButton.isHidden = true
             mainView.itemImageView.layer.borderWidth = 1
         }
-        
-        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            mainView.itemImageView.image = imageOriginal
-        }
-        picker.dismiss(animated: true)
+        mainView.itemImageView.image = image
     }
 }

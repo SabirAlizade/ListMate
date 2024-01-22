@@ -10,7 +10,6 @@ import UIKit
 class NewItemViewController: BaseViewController {
     
     private var bottomCostant: NSLayoutConstraint?
-    
     private var itemImage: UIImage?
     
     lazy var viewModel: NewItemViewModel = {
@@ -19,8 +18,8 @@ class NewItemViewController: BaseViewController {
         return model
     }()
     
-    private lazy var measuresControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: viewModel.measuresArray)
+    private lazy var measuresSegmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: Measures.allCases.map { $0.rawValue })
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
@@ -136,15 +135,9 @@ class NewItemViewController: BaseViewController {
         setupUI()
     }
     
-    private func configureMenu() {
-        let menu = imagePickerButtons(takePictureAction: takePicture,
-                                      presentPickerAction: presentPicker)
-        itemImageButton.menu = menu
-    }
-    
     private func setupUI() {
         view.addSubview(nameTextField)
-        view.addSubview(measuresControl)
+        view.addSubview(measuresSegmentedControl)
         view.addSubview(priceLabel)
         view.addSubview(priceTextField)
         view.addSubview(quantityLabel)
@@ -155,26 +148,25 @@ class NewItemViewController: BaseViewController {
         view.addSubview(suggestionToolbar)
         
         NSLayoutConstraint.activate([
-            
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             nameTextField.heightAnchor.constraint(equalToConstant: 44),
             
-            measuresControl.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
-            measuresControl.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
-            measuresControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
-            measuresControl.heightAnchor.constraint(equalToConstant: 40),
+            measuresSegmentedControl.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            measuresSegmentedControl.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            measuresSegmentedControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
+            measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
             priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             priceLabel.widthAnchor.constraint(equalToConstant: 140),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
-            priceLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
+            priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
             
             quantityLabel.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -160),
             quantityLabel.widthAnchor.constraint(equalToConstant: 140),
             quantityLabel.heightAnchor.constraint(equalToConstant: 44),
-            quantityLabel.topAnchor.constraint(equalTo: measuresControl.bottomAnchor, constant: 10),
+            quantityLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
             
             priceTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
             priceTextField.widthAnchor.constraint(equalToConstant: 120),
@@ -208,12 +200,16 @@ class NewItemViewController: BaseViewController {
         ])
     }
     
-    private func configureMeasuresControl() {
-        measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: viewModel.selectedMeasure) ?? 0
-        measuresControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
+    private func catalogCountCheck() {
+        suggestionToolbar.isHidden = viewModel.catalogItems.isEmpty
     }
     
-    @objc//TODO: TRY TO REMOVE SENDER AND USE UISEGMENT CONTROL INSTEAD
+    private func configureMeasuresControl() {
+        measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: viewModel.selectedMeasure) ?? 0
+        measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
+    }
+    
+    @objc//TODO: NEED TO CHANGE LOGIC AND USE UISEGMENT CONTROL INSTEAD
     private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         let selectedMeasure = Measures.allCases[sender.selectedSegmentIndex]
         viewModel.selectedMeasure = selectedMeasure
@@ -238,30 +234,34 @@ class NewItemViewController: BaseViewController {
         }
     }
     
-    @objc
-    private func presentPicker() {
-        activityIndicator.showActivityIndicator(view: self.view)
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.present(picker, animated: true) {
-            self.activityIndicator.stopActivityIndicator()
-        }
+    //MARK: - IMAGE PICKER HANDLING
+    
+    private func configureMenu() {
+        let menu = imagePickerButtons(takePictureAction: takePicture,
+                                      presentPickerAction: presentPicker)
+        itemImageButton.menu = menu
     }
     
     @objc
-    private func takePicture() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePC = UIImagePickerController()
-            imagePC.sourceType = .camera
-            imagePC.allowsEditing = true
-            imagePC.delegate = self
-            present(imagePC, animated: true)
-        } else {
-            print("Camera is not available")
-        }
+    override func takePicture() {
+        presentImagePicker(sourceType: .camera)
     }
+    
+    @objc
+    private func presentPicker() {
+        activityIndicator.showActivityIndicator(view: self.view)
+        presentImagePicker(sourceType: .photoLibrary)
+    }
+    
+    private func didFinishPickingImage(_ image: UIImage) {
+        itemImage = image
+        itemImageView.image = image
+        itemImageButton.isHidden = true
+        itemImageView.isHidden = false
+        itemImageView.layer.borderWidth = 1
+    }
+    
+    //MARK: - KEYBOARD APPEARANCE HANDLING
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         guard nameTextField.isEditing else {
@@ -275,10 +275,6 @@ class NewItemViewController: BaseViewController {
     @objc func keyboardWillHide(_ notification: NSNotification) {
         moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
         suggestionToolbar.isHidden = true
-    }
-    
-    private func catalogCountCheck() {
-        suggestionToolbar.isHidden = viewModel.catalogItems.isEmpty
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
@@ -300,6 +296,7 @@ class NewItemViewController: BaseViewController {
         }
         animator.startAnimation()
     }
+    // MARK: -
     
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
@@ -315,21 +312,9 @@ extension NewItemViewController: UITextFieldDelegate {
     }
 }
 
-extension NewItemViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            itemImage = imageSelected
-            itemImageView.image = imageSelected
-            itemImageButton.isHidden = true
-            itemImageView.isHidden = false
-            itemImageView.layer.borderWidth = 1
-        }
-        
-        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            itemImage = imageOriginal
-            itemImageView.image = imageOriginal
-        }
-        picker.dismiss(animated: true, completion: nil)
+extension NewItemViewController: ImagePickerDelegate {
+    func didSelectImage(_ image: UIImage, isEdited: Bool) {
+        didFinishPickingImage(image)
     }
 }
 
@@ -340,7 +325,7 @@ extension NewItemViewController: ItemAmountDelegate {
 }
 
 extension NewItemViewController: PassSuggestionDelegate {
-    func manageToolBar() {
+    func checkSuggestionsBar() {
         catalogCountCheck()
     }
     
@@ -351,6 +336,6 @@ extension NewItemViewController: PassSuggestionDelegate {
     func passSuggested(name: String, price: Double, measure: Measures) {
         self.nameTextField.text = name
         self.priceTextField.text = "\(price)"
-        self.measuresControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
+        self.measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }

@@ -3,4 +3,165 @@
    uuid = "B65CB3BA-ACD6-48ED-815D-3BF3E834F3DF"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A73E87B8-716C-41F0-9E00-29622F343005"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/Catalog/Controller/CatalogViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "setupUIComponents()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB893D3B-6504-47B8-8531-1EA1049FB9A8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "catalogItems"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "CB893D3B-6504-47B8-8531-1EA1049FB9A8 - 3681eb4ddef27666"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.CatalogViewModel.catalogItems.getter : Swift.Optional&lt;RealmSwift.Results&lt;ListMate.CatalogModel&gt;&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "CB893D3B-6504-47B8-8531-1EA1049FB9A8 - 100b230666171b47"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.CatalogViewModel.catalogItems.setter : Swift.Optional&lt;RealmSwift.Results&lt;ListMate.CatalogModel&gt;&gt;"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "CB893D3B-6504-47B8-8531-1EA1049FB9A8 - 1ebaeabcb9efe949"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.CatalogViewModel.init() -&gt; ListMate.CatalogViewModel"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "82">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5E8EA88F-BDC6-49A4-8C14-638697A11E2B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "catalogItems"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "91BF095A-E29F-4F89-8231-0188B47B1484"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "readData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "91BF095A-E29F-4F89-8231-0188B47B1484 - f3fe1729dcb15b68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ListMate.CatalogViewModel.readData() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  uuid = "91BF095A-E29F-4F89-8231-0188B47B1484 - 31542d45c84d906e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RealmSwift.Results&lt;ListMate.CatalogModel&gt;) -&gt; () in ListMate.CatalogViewModel.readData() -&gt; ()"
+                  moduleName = "ListMate"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sabir/Developer/Mobile/ListMate/ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "41">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B48817BD-A629-4108-8B02-1700CDE6B474"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ListMate/UI/Tabs/Catalog/ViewModel/CatalogViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "readData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

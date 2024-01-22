@@ -8,7 +8,7 @@
 import UIKit
 
 class SuggestionsToolbarView: BaseView {
-
+    
     var viewModel: NewItemViewModel
     init(viewModel: NewItemViewModel) {
         self.viewModel = viewModel
@@ -56,12 +56,12 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           let selectedItem = viewModel.catalogItems[indexPath.item]
-   
+        let selectedItem = viewModel.catalogItems[indexPath.item]
+        
         viewModel.passSuggestedItem(name: selectedItem.name, price: selectedItem.price, measure: selectedItem.measure)
         
         collectionView.performBatchUpdates({
-                viewModel.catalogItems.remove(at: indexPath.item)
+            viewModel.catalogItems.remove(at: indexPath.item)
             collectionView.deleteItems(at: [indexPath])
         }, completion: nil)
         viewModel.checkCatalogCount()

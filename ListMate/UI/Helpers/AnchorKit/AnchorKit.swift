@@ -1,10 +1,4 @@
-//
-//  AnchorKit.swift
-//  AnchorKit
-//
-//  Created by Habiboff on 01.05.22.
-//  Copyright © 2022 Nahid Habibov. All rights reserved.
-//
+
 
 import UIKit
 

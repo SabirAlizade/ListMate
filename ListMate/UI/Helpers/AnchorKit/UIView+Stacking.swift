@@ -1,10 +1,4 @@
-//
-//  UIView+Stacking.swift
-//  AnchorKit
-//
-//  Created by Habiboff on 15.11.22.
-//  Copyright © 2022 Nahid Habibov. All rights reserved.
-//
+
 
 import UIKit
 

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 protocol CatalogViewDelegate: AnyObject {
-        func reloadData()
+    func reloadData()
 }
 
 final class CatalogViewModel {
@@ -17,7 +17,7 @@ final class CatalogViewModel {
     weak var delegate: CatalogViewDelegate?
     
     private let manager = DataManager()
-
+    
     private(set) var catalogItems: Results<CatalogModel>? {
         didSet {
             delegate?.reloadData()
@@ -34,7 +34,7 @@ final class CatalogViewModel {
         guard let item = catalogItems?[index] else { return }
         manager.delete(data: item) { error in
             if let error {
-                print(error.localizedDescription)
+                print("Error deleting catalog item \(error.localizedDescription)")
             }
         }
     }

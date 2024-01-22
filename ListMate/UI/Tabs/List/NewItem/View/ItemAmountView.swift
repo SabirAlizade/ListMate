@@ -63,7 +63,8 @@ class ItemAmountView: BaseView {
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
-        
+    
+    
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
@@ -118,59 +119,38 @@ class ItemAmountView: BaseView {
             minusButton.isEnabled = true
             minusButton.tintColor = .maingreen
         }
-     }
+    }
     
     @objc
-    private func didTapMinus() { //MARK:  ALLERGY ON 2
+    private func didTapMinus() {
         checkMinimumValue()
-        decrement(measureType: itemMeasure ?? .pcs)
+        updateAmount(with: itemMeasure ?? .pcs, increment: false)
         amountTextField.text = Double.doubleToString(double: quantityAmount)
         delegate?.setAmount(amount: quantityAmount)
     }
-    
-    private func decrement(measureType: Measures) {
+
+    private func updateAmount(with measureType: Measures, increment: Bool) {
         switch measureType {
         case .pcs:
-            if quantityAmount > minValue {
-                quantityAmount -= 1
-            }
+            quantityAmount += increment ? 1 : -1
         case .kgs, .l:
-                if quantityAmount > 0.5 {
-                    quantityAmount -= 0.5
-                    return
-                }
-                if quantityAmount <= 0.5 {
-                    quantityAmount = 0.1
-                    checkMinimumValue()
-                }
-            }
+            let step: Double = increment ? 0.5 : -0.5
+            quantityAmount += increment ? step : (quantityAmount > 0.5 ? step : 0.1)
         }
-    
-    private func increment(measureType: Measures) {
-        switch measureType {
-        case .pcs:
-            quantityAmount += 1
-        case .kgs, .l:
-            if quantityAmount == 0.1 {
-                quantityAmount = 0.5
-            } else {
-                quantityAmount += 0.5
-            }
-        }
+    }
+
+    @objc
+    private func didTapPlus() {
+        checkMinimumValue()
+        updateAmount(with: itemMeasure ?? .pcs, increment: true)
+        amountTextField.text = Double.doubleToString(double: quantityAmount)
+        delegate?.setAmount(amount: quantityAmount)
     }
     
     @objc
     private func textFieldDidChange() {
         guard let amount = Double(amountTextField.text ?? "") else { return }
         delegate?.setAmount(amount: amount)
-    }
-    
-    @objc
-    private func didTapPlus() {
-        checkMinimumValue()
-        increment(measureType: itemMeasure ?? .pcs)
-        amountTextField.text = Double.doubleToString(double: quantityAmount)
-        delegate?.setAmount(amount: quantityAmount)
     }
 }
 
