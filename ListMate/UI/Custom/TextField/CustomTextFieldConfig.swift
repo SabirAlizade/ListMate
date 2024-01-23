@@ -11,7 +11,7 @@ protocol TextFieldDataSource {
     func resultValue(hasText: Bool, value: String)
 }
 
-class CustomTextFieldConfiguration: UITextField, UITextFieldDelegate {
+class CustomTextFieldConfiguration: UITextField {
     var dataSource: TextFieldDataSource?
     private var maxCharacterCount = 26
     
