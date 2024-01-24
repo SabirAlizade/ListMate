@@ -16,7 +16,7 @@ protocol MainViewDelegate: AnyObject {
 final class MainView: BaseView {
     weak var delegate: MainViewDelegate?
     
-    private var itemImage: UIImage?
+    var itemImage: UIImage?
     
     var item: ItemModel? {
         didSet {
@@ -102,40 +102,23 @@ final class MainView: BaseView {
         }
     }
     
- // CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
+    // CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
     private func loadImageData(imageName: String?) {
-        if imageName == nil {
+        if let imageName = imageName, !imageName.isEmpty {
+            let cachedImage = ImageCacheManager.shared.getImage(forKey: imageName)
+            itemImageView.image = cachedImage
+        } else {
             itemImageButton.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)
             itemImageButton.tintColor = .maingreen
             itemImageButton.showsMenuAsPrimaryAction = true
             itemImageView.layer.borderWidth = 0
-        } else  {
-            if let fileName = imageName {
-                if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
-                    itemImageView.image = cachedImage
-                } else {
-                    let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
-                    let fileURL = libraryDirectory.appendingPathComponent(fileName)
-                    
-                    if let image = UIImage(contentsOfFile: fileURL.path) {
-                        itemImageView.image = image
-                        ImageCacheManager.shared.setImage(image, forKey: fileName)
-                    } else {
-                        itemImageView.image = UIImage(named: "noImage")
-                    }
-                }
-            }
-            itemImage = itemImageView.image
         }
+        itemImage = itemImageView.image
     }
     
     @objc
     private func presentPicker() {
-        if itemImage != nil {
-            delegate?.openImage(image: itemImage)
-        } else {
-            delegate?.openMenu()
-        }
+        delegate?.openImage(image: itemImage) ?? delegate?.openMenu()
     }
     
     @objc

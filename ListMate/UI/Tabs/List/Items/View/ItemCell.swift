@@ -126,23 +126,33 @@ final class ItemCell: BaseCell {
         }
     }
     
-    private func loadImageData(imageName: String?) {
-        if let fileName = imageName {
-            if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
-                itemImageView.image = cachedImage
-            } else {
-                let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
-                let fileURL = libraryDirectory.appendingPathComponent(fileName)
-                
-                if let image = UIImage(contentsOfFile: fileURL.path) {
-                    itemImageView.image = image
-                    ImageCacheManager.shared.setImage(image, forKey: fileName)
-                } else {
-                    itemImageView.image = UIImage(named: "noImage")
-                }
-            }
+    //MARK: - CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
+    private func loadImageData(imageName: String? = nil) {
+        guard let fileName = imageName else {
+            setNoImage()
+            return
+        }
+
+        if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
+            itemImageView.image = cachedImage
         } else {
-            itemImageView.image = UIImage(named: "noImage")
+            loadImageFromFile(fileName)
+        }
+    }
+
+    private func setNoImage() {
+        itemImageView.image = UIImage(named: "noImage")
+    }
+
+    private func loadImageFromFile(_ fileName: String) {
+        let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        let fileURL = libraryDirectory.appendingPathComponent(fileName)
+
+        if let image = UIImage(contentsOfFile: fileURL.path) {
+            itemImageView.image = image
+            ImageCacheManager.shared.setImage(image, forKey: fileName)
+        } else {
+            setNoImage()
         }
     }
 }
