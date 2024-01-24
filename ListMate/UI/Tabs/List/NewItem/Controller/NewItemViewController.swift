@@ -209,7 +209,7 @@ class NewItemViewController: BaseViewController {
         measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
     
-    @objc//TODO: NEED TO CHANGE LOGIC AND USE UISEGMENT CONTROL INSTEAD
+    @objc
     private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         let selectedMeasure = Measures.allCases[sender.selectedSegmentIndex]
         viewModel.selectedMeasure = selectedMeasure
@@ -261,6 +261,11 @@ class NewItemViewController: BaseViewController {
         itemImageView.layer.borderWidth = 1
     }
     
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        viewModel.filterSuggestions(name: nameTextField.text ?? "")
+    }
+    
     //MARK: - KEYBOARD APPEARANCE HANDLING
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -295,12 +300,6 @@ class NewItemViewController: BaseViewController {
             self?.view.layoutIfNeeded()
         }
         animator.startAnimation()
-    }
-    // MARK: -
-    
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        viewModel.filterSuggestions(name: nameTextField.text ?? "")
     }
 }
 
