@@ -107,8 +107,8 @@ class DetailedViewController: BaseViewController {
 extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePreviewDelegate {
     func updateImage(image: UIImage) {
         DispatchQueue.main.async {
-            self.viewModel.updateImage(image: image)
             self.mainView.itemImageView.image = image
+            self.mainView.itemImage = image
             self.dismiss(animated: true)
         }
     }

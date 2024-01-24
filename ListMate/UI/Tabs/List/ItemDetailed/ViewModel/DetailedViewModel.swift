@@ -17,7 +17,6 @@ class DetailedViewModel {
     weak var delegate: DetailedViewModelDelegate?
     var item: ItemModel?
     private let manager = DataManager()
-    var cellIndex: Int?
     
     func updateValues(name: String, note: String) {
         guard let item else { return }

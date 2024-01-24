@@ -300,8 +300,7 @@ class NewItemViewController: BaseViewController {
     
     @objc
     private func textFieldDidChange(_ textField: UITextField) {
-        guard let newText = textField.text else { return }
-        viewModel.filterSuggestions(name: newText)
+        viewModel.filterSuggestions(name: nameTextField.text  ?? "")
     }
 }
 
