@@ -71,7 +71,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
         
         let greetingLabel = CustomLabel(text: "THANK YOU!\nfor using\nListMate",
                                         textColor: .gray,
-                                        font: UIFont.monospacedSystemFont(ofSize: 19, weight: .regular),
+                                        font: UIFont.monospacedSystemFont(ofSize: 18, weight: .regular),
                                         alignment: .center)
         
         greetingLabel.numberOfLines = 0

@@ -29,7 +29,6 @@ class ItemsViewController: BaseViewController {
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .poppinsFont(size: 18, weight: .regular)
-        button.backgroundColor = .maingreen
         button.setTitle( "0.00", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
@@ -101,6 +100,12 @@ class ItemsViewController: BaseViewController {
         }
     }
     
+    private func updateUI(forEmptyList isEmpty: Bool) {
+        emptyBagImage.isHidden = !isEmpty
+        summaryButton.isEnabled = !isEmpty
+        summaryButton.backgroundColor = isEmpty ? .maingreen.withAlphaComponent(0.5) : .maingreen
+    }
+    
     @objc
     private func didTapAddItem() {
         let vc  = NewItemViewController()
@@ -124,7 +129,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         let sectionsCount = viewModel.getSections().count
-        emptyBagImage.isHidden = sectionsCount == 0 ? false : true
+        updateUI(forEmptyList: sectionsCount == 0 ? true : false)
         return sectionsCount
     }
     
@@ -167,7 +172,7 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
             self.viewModel.removeRow(indexPath: indexPath)
             
             let areAllSectionsEmpty = self.viewModel.getSections().allSatisfy { $0.data.isEmpty }
-            self.emptyBagImage.isHidden = !areAllSectionsEmpty
+            self.updateUI(forEmptyList: areAllSectionsEmpty)
         }
         return swipeConfiguration
     }

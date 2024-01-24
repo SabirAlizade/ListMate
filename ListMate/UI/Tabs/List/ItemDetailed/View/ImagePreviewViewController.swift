@@ -50,6 +50,14 @@ class ImagePreviewViewController: BaseViewController {
             view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
             sender.scale = 1.0
         }
+        if sender.state == .ended {
+            let currentScale = view.frame.size.width / view.bounds.size.width
+            if currentScale < 1.0 {
+                UIView.animate(withDuration: 0.3) {
+                    view.transform = .identity
+                }
+            }
+        }
     }
     
     private func configureGestures() {
