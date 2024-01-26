@@ -43,7 +43,7 @@ final class NewItemViewModel {
         let item = ItemModel(id: productSession.listID,
                              name: name,
                              amount: amountValue,
-                             image: imagePath,
+                             imagePath: imagePath,
                              measure: measure,
                              price: price,
                              totalPrice: price)
