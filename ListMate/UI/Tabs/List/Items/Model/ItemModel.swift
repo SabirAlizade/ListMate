@@ -30,7 +30,7 @@ class ItemModel: Object {
     convenience init(id: String,
                      name: String,
                      amount: Double,
-                     image: String?,
+                     imagePath: String?,
                      measure: Measures,
                      price: Double,
                      totalPrice: Double = 0,
@@ -42,7 +42,7 @@ class ItemModel: Object {
         self.objectId = ObjectId.generate()
         self.id = id
         self.name = name
-        self.imagePath = image
+        self.imagePath = imagePath
         self.amount = amount
         self.measure = measure
         self.price = price
