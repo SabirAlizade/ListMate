@@ -31,6 +31,7 @@ class CustomTextField: CustomTextFieldConfiguration {
         textColor = .maintext
         self.backgroundColor = backgroundColor
         withBorder(width: 1, color: .buttongreen)
+        self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -66,6 +67,7 @@ class PriceTextField: PriceTextFieldConfiguration {
         priceImageView.image = UIImage(named: "dollarsign")
         setRightView(view: priceImageView)
         withBorder(width: 1, color: .buttongreen)
+        self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]

@@ -85,6 +85,7 @@ class ItemAmountView: BaseView {
     override func setupView() {
         super.setupView()
         setupUI()
+        checkMinimumValue()
     }
     
     private func setupUI() {
@@ -123,7 +124,6 @@ class ItemAmountView: BaseView {
     
     @objc
     private func didTapMinus() {
-        checkMinimumValue()
         updateAmount(with: itemMeasure ?? .pcs, increment: false)
         amountTextField.text = Double.doubleToString(double: quantityAmount)
         delegate?.setAmount(amount: quantityAmount)
@@ -132,16 +132,21 @@ class ItemAmountView: BaseView {
     private func updateAmount(with measureType: Measures, increment: Bool) {
         switch measureType {
         case .pcs:
-            quantityAmount += increment ? 1 : -1
+            quantityAmount = max(quantityAmount + (increment ? 1 : -1), 1)
         case .kgs, .l:
-            let step: Double = increment ? 0.5 : -0.5
-            quantityAmount += increment ? step : (quantityAmount > 0.5 ? step : 0.1)
-        }
+            let step: Double = 0.5
+            
+            if increment {
+                    quantityAmount = (quantityAmount == 0.1) ? step : quantityAmount + step
+                } else {
+                    quantityAmount = (quantityAmount == 0.5) ? 0.1 : quantityAmount - step
+                }
+            }
+        checkMinimumValue()
     }
 
     @objc
     private func didTapPlus() {
-        checkMinimumValue()
         updateAmount(with: itemMeasure ?? .pcs, increment: true)
         amountTextField.text = Double.doubleToString(double: quantityAmount)
         delegate?.setAmount(amount: quantityAmount)

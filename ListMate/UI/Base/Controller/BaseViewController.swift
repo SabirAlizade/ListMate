@@ -23,6 +23,9 @@ class BaseViewController: UIViewController {
                                                            target: self,
                                                            action: #selector(didTapDismiss))
     }
+}
+
+extension BaseViewController {
     
     func imagePickerButtons(takePictureAction: @escaping () -> Void, presentPickerAction: @escaping () -> Void) -> UIMenu {
         lazy var takePicButton = UIAction(title: "Take image", image: UIImage(systemName: "camera")) { action in

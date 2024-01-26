@@ -91,6 +91,7 @@ class NewItemViewController: BaseViewController {
         super.viewDidLoad()
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
+        nameTextField.returnKeyType = .next
         configureKeyboardNotification()
     }
     
@@ -158,7 +159,7 @@ class NewItemViewController: BaseViewController {
             measuresSegmentedControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
             priceLabel.widthAnchor.constraint(equalToConstant: 140),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
@@ -234,6 +235,11 @@ class NewItemViewController: BaseViewController {
         }
     }
     
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        viewModel.filterSuggestions(name: nameTextField.text ?? "")
+    }
+    
     //MARK: - IMAGE PICKER HANDLING
     
     private func configureMenu() {
@@ -260,12 +266,6 @@ class NewItemViewController: BaseViewController {
         itemImageView.isHidden = false
         itemImageView.layer.borderWidth = 1
     }
-    
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        viewModel.filterSuggestions(name: nameTextField.text ?? "")
-    }
-    
     //MARK: - KEYBOARD APPEARANCE HANDLING
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -305,7 +305,11 @@ class NewItemViewController: BaseViewController {
 
 extension NewItemViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+            if textField == nameTextField {
+                priceTextField.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+            }
         return true
     }
 }
