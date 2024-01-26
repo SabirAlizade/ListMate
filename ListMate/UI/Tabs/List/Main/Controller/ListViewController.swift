@@ -26,6 +26,11 @@ class ListViewController: BaseViewController {
         return view
     }()
     
+    private let emptyListLabel = CustomLabel(text: "Tap to plus button to create a new list",
+                                             textColor: .gray,
+                                             font: .poppinsFont(size: 16, weight: .light),
+                                             alignment: .center)
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         configureNavBar()
@@ -38,7 +43,12 @@ class ListViewController: BaseViewController {
     }
     
     private func setupUI(){
+       
         view.anchorFill(view: tableView)
+        view.anchor(view: emptyListLabel) { kit in
+            kit.centerX()
+            kit.centerY()
+        }
     }
     
     private func configureNavBar() {
@@ -51,6 +61,9 @@ class ListViewController: BaseViewController {
         
         rightButton.tintColor = .maingreen
         navigationItem.rightBarButtonItem = rightButton
+    }
+    private func updateUI(forEmptyList isEmpty: Bool) {
+        emptyListLabel.isHidden = isEmpty
     }
     
     @objc
@@ -67,7 +80,9 @@ class ListViewController: BaseViewController {
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.lists?.count ?? 0
+        let listsCount = viewModel.lists?.count
+        updateUI(forEmptyList: listsCount == 0 ? false : true)
+        return listsCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
