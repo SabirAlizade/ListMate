@@ -18,10 +18,10 @@ class ItemModel: Object {
     @Persisted(primaryKey: true) var objectId: ObjectId
     @Persisted var id: String
     @Persisted var name: String
-    @Persisted var amount: Double
+    @Persisted var amount: Decimal128
     @Persisted var measure: Measures
-    @Persisted var price: Double
-    @Persisted var totalPrice: Double
+    @Persisted var price: Decimal128
+    @Persisted var totalPrice: Decimal128
     @Persisted var imagePath: String?
     @Persisted var storeName: String
     @Persisted var isChecked: Bool
@@ -29,11 +29,11 @@ class ItemModel: Object {
     
     convenience init(id: String,
                      name: String,
-                     amount: Double,
+                     amount: Decimal128,
                      image: String?,
                      measure: Measures,
-                     price: Double,
-                     totalPrice: Double = 0,
+                     price: Decimal128,
+                     totalPrice: Decimal128 = 0,
                      boughtAt: String = "",
                      isBought: Bool = false,
                      notes: String = "") {

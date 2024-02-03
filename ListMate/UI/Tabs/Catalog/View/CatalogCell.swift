@@ -13,7 +13,7 @@ class CatalogCell: BaseCell {
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-            priceLabel.text = "\(item.price) $"
+            priceLabel.text = String("\(Double.doubleToString(double: item.price.doubleValue)) $")
         }
     }
     

@@ -31,7 +31,7 @@ class DetailedViewModel {
         }
     }
     
-    func updateValues(measeure: Measures, price: Double, store: String) {
+    func updateValues(measeure: Measures, price: Decimal128, store: String) {
         guard let item else { return }
         do {
             try manager.realm.write {

@@ -95,3 +95,4 @@ extension PriceTextField {
         self.rightView = subView
     }
 }
+

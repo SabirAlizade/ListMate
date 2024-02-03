@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailedViewController: BaseViewController {
     
@@ -122,7 +123,7 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
         configureMenu()
     }
     
-    func updateDetailsData(measeure: Measures, price: Double, store: String) {
+    func updateDetailsData(measeure: Measures, price: Decimal128, store: String) {
         viewModel.updateValues(measeure: measeure, price: price, store: store)
     }
     

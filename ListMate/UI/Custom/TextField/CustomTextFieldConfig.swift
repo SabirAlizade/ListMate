@@ -49,30 +49,33 @@ class PriceTextFieldConfiguration: UITextField, UITextFieldDelegate {
         super.init(frame: frame)
         delegate = self
         doneAccessory = true
-        addTarget(self, action: #selector(editingChanged), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func editingChanged() {
-        guard let text = self.text else { return }
-        let textWithoutCommas = text.replacingOccurrences(of: ",", with: ".")
-        let components = textWithoutCommas.components(separatedBy: ".")
-        if components.count > 2 {
-            let formattedText = components.prefix(2).joined(separator: ".")
-            self.text = formattedText
-        } else {
-            self.text = textWithoutCommas
-        }
-    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        return updatedText.count <= 9
+        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        guard let decimalSeparator = Locale.current.decimalSeparator else {
+            return true
+        }
+        
+        if newText.components(separatedBy: decimalSeparator).count > 2 {
+            return false
+        }
+        
+        let filteredText = newText.replacingOccurrences(of: ",", with: ".")
+        let components = filteredText.components(separatedBy: ".")
+        if components.count > 2 || (components.count == 2 && components[1].count > 2) {
+            return false
+        }
+        
+        textField.text = filteredText
+        sendActions(for: .editingChanged)
+        
+        return true
     }
 }
-
