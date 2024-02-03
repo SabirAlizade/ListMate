@@ -30,7 +30,7 @@ class ItemModel: Object {
     convenience init(id: String,
                      name: String,
                      amount: Decimal128,
-                     image: String?,
+                     imagePath: String?,
                      measure: Measures,
                      price: Decimal128,
                      totalPrice: Decimal128 = 0,
