@@ -14,7 +14,7 @@ protocol NewItemDelegate: AnyObject {
 }
 
 protocol PassSuggestionDelegate: AnyObject {
-    func passSuggested(name: String, price: Double, measure: Measures)
+    func passSuggested(name: String, price: Decimal128, measure: Measures)
     func updateSuggestionsData()
     func checkSuggestionsBar()
 }
@@ -25,7 +25,7 @@ final class NewItemViewModel {
     weak var suggestionDelegate: PassSuggestionDelegate?
     
     var selectedMeasure: Measures = .pcs
-    private var amountValue: Double = 1
+    private var amountValue: Decimal128 = 1
     private let productSession: ProductSession
     private let manager = DataManager()
     
@@ -36,7 +36,7 @@ final class NewItemViewModel {
     }
     
     func saveItem(name: String,
-                  price: Double,
+                  price: Decimal128,
                   imagePath: String?,
                   measure: Measures) {
         
@@ -57,13 +57,13 @@ final class NewItemViewModel {
         passToCatalog(name: name, price: price, measure: measure)
     }
     
-    func setAmount(amount: Double) {
+    func setAmount(amount: Decimal128) {
         amountValue = amount
     }
 }
 
 extension NewItemViewModel {
-    private func passToCatalog(name: String, price: Double, measure: Measures) {
+    private func passToCatalog(name: String, price: Decimal128, measure: Measures) {
         let catalogItem = CatalogModel(name: name, price: price, measure: measure)
         if manager.realm.objects(CatalogModel.self).filter("name == %@", name).first != nil {
             return
@@ -98,7 +98,7 @@ extension NewItemViewModel {
         }
     }
     
-    func passSuggestedItem(name: String, price: Double, measure: Measures) {
+    func passSuggestedItem(name: String, price: Decimal128, measure: Measures) {
         suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
         suggestionDelegate?.updateSuggestionsData()
     }

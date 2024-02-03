@@ -28,13 +28,13 @@ final class ItemsViewModel {
     
     var completedItemsArray: [ItemModel] = []
     
-    private var summaryAmount: Double = 0 {
+    private var summaryAmount: Decimal128 = 0 {
         didSet {
             updateSummaryButton?(summaryAmount)
         }
     }
     
-    var updateSummaryButton: ((Double) -> Void)?
+    var updateSummaryButton: ((Decimal128) -> Void)?
     
     private var completedItemsQuantity: Int = 0
     
@@ -76,8 +76,7 @@ final class ItemsViewModel {
             return ""
         } else {
             let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
-            let formatString = Double.doubleToString(double: sectionTotal)
-            return "\(sectionModel.name) total: \(formatString) $"
+            return "\(sectionModel.name) total: \(Double.doubleToString(double: sectionTotal.doubleValue)) $"
         }
     }
     
@@ -95,7 +94,7 @@ final class ItemsViewModel {
         }
     }
     
-    func updateAmount(amount: Double, id: ObjectId) {
+    func updateAmount(amount: Decimal128, id: ObjectId) {
         if let item = items?.first(where: { $0.objectId == id }) {
             let totalPrice = item.price * amount
             do {

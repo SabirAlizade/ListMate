@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 
 final class SummaryViewModel {
@@ -18,7 +19,7 @@ final class SummaryViewModel {
     
     func countTotal() -> String {
         let sum = items.reduce(0.0) { $0 + $1.totalPrice }
-        return Double.doubleToString(double: sum)
+        return Double.doubleToString(double: sum.doubleValue)
     }
 }
 

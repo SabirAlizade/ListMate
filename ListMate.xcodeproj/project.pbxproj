@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */; };
 		036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2C12B36CED800D3F4F7 /* MainView.swift */; };
+		03867BC72B6C30E40097366D /* Decimal128.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03867BC62B6C30E40097366D /* Decimal128.swift */; };
 		03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105642B2F300700E13A45 /* AppDelegate.swift */; };
 		03A105672B2F300700E13A45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105662B2F300700E13A45 /* SceneDelegate.swift */; };
 		03A105692B2F300700E13A45 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105682B2F300700E13A45 /* ListViewController.swift */; };
@@ -74,6 +75,7 @@
 /* Begin PBXFileReference section */
 		036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		036CC2C12B36CED800D3F4F7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		03867BC62B6C30E40097366D /* Decimal128.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decimal128.swift; sourceTree = "<group>"; };
 		03A105612B2F300700E13A45 /* ListMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A105642B2F300700E13A45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03A105662B2F300700E13A45 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -583,6 +585,7 @@
 			isa = PBXGroup;
 			children = (
 				03C27FE72B40009800E8A368 /* Double.swift */,
+				03867BC62B6C30E40097366D /* Decimal128.swift */,
 			);
 			path = Double;
 			sourceTree = "<group>";
@@ -818,6 +821,7 @@
 				03A105692B2F300700E13A45 /* ListViewController.swift in Sources */,
 				03B5F0F02B3E04130015AA23 /* CatalogModel.swift in Sources */,
 				03CA6E942B30B80E00D59935 /* SwipeAction.swift in Sources */,
+				03867BC72B6C30E40097366D /* Decimal128.swift in Sources */,
 				03C549DA2B5ED169007BE5B4 /* ActivityIndicator.swift in Sources */,
 				03AD576C2B37073D008A48C5 /* ProductSession.swift in Sources */,
 				03E8472B2B333901004323F4 /* BaseView.swift in Sources */,

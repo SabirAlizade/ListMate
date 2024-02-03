@@ -10,7 +10,7 @@ import RealmSwift
 
 protocol ItemCellDelegate: AnyObject {
     func updateCheckmark(isChecked: Bool, id: ObjectId)
-    func updateAmount(amount: Double, id: ObjectId)
+    func updateAmount(amount: Decimal128, id: ObjectId)
 }
 
 final class ItemCell: BaseCell {
@@ -20,7 +20,8 @@ final class ItemCell: BaseCell {
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-            priceLabel.text = Double.doubleToString(double: item.totalPrice)
+//            priceLabel.text = item.totalPrice.description
+            priceLabel.text = Double.doubleToString(double: item.totalPrice.doubleValue)
             itemAmountView.item = item
             checkBox.isChecked = item.isChecked
             loadImageData(imageName: item.imagePath)
@@ -158,7 +159,7 @@ final class ItemCell: BaseCell {
 }
 
 extension ItemCell: ItemAmountDelegate {
-    func setAmount(amount: Double) {
+    func setAmount(amount: Decimal128) {
         guard let id = item?.objectId else { return }
         delegate?.updateAmount(amount: amount, id: id)
     }

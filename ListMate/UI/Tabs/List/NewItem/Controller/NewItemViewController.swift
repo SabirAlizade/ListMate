@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewItemViewController: BaseViewController {
     
@@ -224,7 +225,7 @@ class NewItemViewController: BaseViewController {
             alertMessage(title: "Empty name", message: "Please enter name of item")
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Double(pricetext ?? "0") else { return }
+            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else { return }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
                 self.viewModel.saveItem(name: name,
                                         price: price,
@@ -305,11 +306,11 @@ class NewItemViewController: BaseViewController {
 
 extension NewItemViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField == nameTextField {
-                priceTextField.becomeFirstResponder()
-            } else {
-                textField.resignFirstResponder()
-            }
+        if textField == nameTextField {
+            priceTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }
@@ -321,7 +322,7 @@ extension NewItemViewController: ImagePickerDelegate {
 }
 
 extension NewItemViewController: ItemAmountDelegate {
-    func setAmount(amount: Double) {
+    func setAmount(amount: Decimal128) {
         viewModel.setAmount(amount: amount)
     }
 }
@@ -335,9 +336,9 @@ extension NewItemViewController: PassSuggestionDelegate {
         suggestionToolbar.collectionView.reloadData()
     }
     
-    func passSuggested(name: String, price: Double, measure: Measures) {
+    func passSuggested(name: String, price: Decimal128, measure: Measures) {
         self.nameTextField.text = name
-        self.priceTextField.text = "\(price)"
+        self.priceTextField.text = Double.doubleToString(double: price.doubleValue)
         self.measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }

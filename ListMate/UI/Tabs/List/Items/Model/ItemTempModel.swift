@@ -5,6 +5,7 @@
 //  Created by Sabir Alizade on 08.01.24.
 
 import Foundation
+import RealmSwift
 
 struct ItemSection {
     var name: String = ""
@@ -15,10 +16,10 @@ struct ItemSection {
 struct ItemTempModel {
      var id: String
      var name: String
-     var amount: Double
+     var amount: Decimal128
      var measure: Measures
-     var price: Double
-     var totalPrice: Double
+     var price: Decimal128
+     var totalPrice: Decimal128
      var image: String?
      var boughtAt: String
      var isBought: Bool

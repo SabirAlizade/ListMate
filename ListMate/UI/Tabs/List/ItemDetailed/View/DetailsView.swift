@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol DetailsViewDelegate: AnyObject {
-    func updateDetailsData(measeure: Measures, price: Double, store: String)
+    func updateDetailsData(measeure: Measures, price: Decimal128, store: String)
 }
 
 class DetailsView: BaseView {
@@ -19,7 +20,7 @@ class DetailsView: BaseView {
         didSet {
             guard let item else { return }
             selectedSegmentIndex(item: item)
-            priceTextField.text = Double.doubleToString(double: item.price)
+            priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
             storeTextField.text = item.storeName
         }
     }
@@ -80,7 +81,7 @@ class DetailsView: BaseView {
     
     @objc
     private func didUpdateDetails() {
-        guard let price = Double(priceTextField.text ?? "") else { return }
+        guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? "") else { return }
         guard let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
         

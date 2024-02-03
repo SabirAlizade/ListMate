@@ -28,7 +28,7 @@ class ItemsViewController: BaseViewController {
     
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
-        button.titleLabel?.font = .poppinsFont(size: 18, weight: .regular)
+        button.titleLabel?.font = .poppinsFont(size: 17, weight: .regular)
         button.setTitle( "0.00", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
@@ -71,15 +71,14 @@ class ItemsViewController: BaseViewController {
     
     private func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            let amountString = Double.doubleToString(double: amount )
-            self?.summaryButton.setTitle(" \(amountString) $", for: .normal)
+            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) $", for: .normal)
         }
     }
     
     private func configureNavBar() {
         let summarybutton = UIBarButtonItem(customView: summaryButton)
         if let customView = summarybutton.customView {
-            customView.withWidth(115)
+            customView.withWidth(117)
             customView.withHeight(35)
         }
         navigationItem.rightBarButtonItem = summarybutton
@@ -170,7 +169,6 @@ extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
             self.viewModel.removeRow(indexPath: indexPath)
-            
             let areAllSectionsEmpty = self.viewModel.getSections().allSatisfy { $0.data.isEmpty }
             self.updateUI(forEmptyList: areAllSectionsEmpty)
         }
@@ -193,7 +191,7 @@ extension ItemsViewController: ItemCellDelegate {
         viewModel.updateCheckmark(isCheked: isChecked, id: id)
     }
     
-    func updateAmount(amount: Double, id: ObjectId) {
+    func updateAmount(amount: Decimal128, id: ObjectId) {
         viewModel.updateAmount(amount: amount, id: id)
     }
 }
