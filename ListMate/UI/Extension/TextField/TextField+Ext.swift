@@ -8,27 +8,30 @@
 import UIKit
 
 extension UITextField {
-
+    
     func addShadowOnFocus() {
         addTarget(self, action: #selector(textFieldDidBeginEditing), for: .editingDidBegin)
         addTarget(self, action: #selector(textFieldDidEndEditing), for: .editingDidEnd)
+        superview?.layer.masksToBounds = false
     }
     
-    @objc
-    private func textFieldDidBeginEditing() {
-        layer.shadowColor = UIColor.maingreen.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
-        withBorder(width: 1.5, color: .buttongreen)
+    @objc private func textFieldDidBeginEditing() {
+        addShadow()
     }
-
-    @objc
-    private func textFieldDidEndEditing() {
-        layer.shadowColor = nil
-        layer.shadowOffset = CGSize.zero
-        layer.shadowOpacity = 0.0
-        layer.shadowRadius = 0.0
+    
+    @objc private func textFieldDidEndEditing() {
+        removeShadow()
+    }
+    
+    private func addShadow() {
+        superview?.layer.shadowColor = UIColor.maingreen.cgColor
+        superview?.layer.shadowOpacity = 0.5
+        superview?.layer.shadowOffset = CGSize(width: 0, height: 2)
+        superview?.layer.shadowRadius = 4
+    }
+    
+    private func removeShadow() {
+        superview?.layer.shadowOpacity = 0
     }
     
     //MARK: - Done accessory implementation

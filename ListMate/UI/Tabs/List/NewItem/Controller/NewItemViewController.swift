@@ -124,7 +124,6 @@ class NewItemViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        nameTextField.becomeFirstResponder()
         view.backgroundColor = .maingray
         closeBarButton()
         configureMenu()
@@ -200,6 +199,12 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.heightAnchor.constraint(equalToConstant: 40),
             suggestionToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.layoutIfNeeded()
+        nameTextField.becomeFirstResponder()
     }
     
     private func catalogCountCheck() {

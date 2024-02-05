@@ -21,6 +21,7 @@ class CustomTextField: CustomTextFieldConfiguration {
                      action: Selector? = nil
     ) {
         self.init()
+        clipsToBounds = true
         self.dataSource = dataSource as? TextFieldDataSource
         self.delegate = delegate as? UITextFieldDelegate
         self.textAlignment = textAlignment
@@ -31,7 +32,6 @@ class CustomTextField: CustomTextFieldConfiguration {
         textColor = .maintext
         self.backgroundColor = backgroundColor
         withBorder(width: 1, color: .buttongreen)
-        self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -46,6 +46,21 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.layer.borderWidth = width ?? 0
         self.layer.borderColor = color?.cgColor
     }
+    
+    
+    override init(frame: CGRect) {
+          super.init(frame: frame)
+          commonInit()
+      }
+
+      required init?(coder aDecoder: NSCoder) {
+          super.init(coder: aDecoder)
+          commonInit()
+      }
+
+      private func commonInit() {
+          addShadowOnFocus()
+      }
 }
 
 class PriceTextField: PriceTextFieldConfiguration {
@@ -55,6 +70,7 @@ class PriceTextField: PriceTextFieldConfiguration {
                      action: Selector? = nil
     ) {
         self.init()
+        clipsToBounds = true
         placeholder = placeHolder
         textAlignment = .left
         keyboardType = .decimalPad
@@ -67,7 +83,6 @@ class PriceTextField: PriceTextFieldConfiguration {
         priceImageView.image = UIImage(named: "dollarsign")
         setRightView(view: priceImageView)
         withBorder(width: 1, color: .buttongreen)
-        self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -82,6 +97,19 @@ class PriceTextField: PriceTextFieldConfiguration {
             self.layer.borderColor = color?.cgColor
         }
     }
+    override init(frame: CGRect) {
+          super.init(frame: frame)
+          commonInit()
+      }
+
+      required init?(coder aDecoder: NSCoder) {
+          super.init(coder: aDecoder)
+          commonInit()
+      }
+
+      private func commonInit() {
+          addShadowOnFocus()
+      }
 }
 
 extension PriceTextField {
