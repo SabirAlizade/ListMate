@@ -28,6 +28,7 @@ class CatalogViewController: BaseViewController {
         super.setupUIComponents()
         navigationItem.title = "Catalog"
         viewModel.readData()
+        viewModel.loadMockData()
     }
     
     override func setupUIConstraints() {

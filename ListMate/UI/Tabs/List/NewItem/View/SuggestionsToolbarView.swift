@@ -13,7 +13,7 @@ class SuggestionsToolbarView: BaseView {
     init(viewModel: NewItemViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-        viewModel.readData()
+        viewModel.readCatalogData()
         setupUI()
     }
     

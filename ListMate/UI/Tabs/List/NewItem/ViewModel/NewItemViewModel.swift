@@ -76,7 +76,7 @@ extension NewItemViewModel {
         }
     }
     
-    func readData() {
+    func readCatalogData() {
         catalogItems.removeAll()
         manager.readData(data: CatalogModel.self) { result in
             self.catalogItems.append(contentsOf: result)
@@ -85,7 +85,7 @@ extension NewItemViewModel {
     
     func filterSuggestions(name: String) {
         if name.isEmpty {
-            readData()
+            readCatalogData()
             suggestionDelegate?.updateSuggestionsData()
         } else {
             let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
