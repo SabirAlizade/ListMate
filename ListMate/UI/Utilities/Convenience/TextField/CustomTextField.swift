@@ -32,7 +32,6 @@ class CustomTextField: CustomTextFieldConfiguration {
         textColor = .maintext
         self.backgroundColor = backgroundColor
         withBorder(width: 1, color: .buttongreen)
-      //  self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -41,12 +40,6 @@ class CustomTextField: CustomTextFieldConfiguration {
         if let target = target, let action = action {
             addTarget(target, action: action, for: .editingChanged)
         }
-        
-    //        if let target = target, let action = action {
-    //            addTarget(target, action: action, for: .editingDidBegin)
-    //            addTarget(target, action: #selector(textFieldDidEndEditing), for: .editingDidEnd)
-    //        }
-
     }
     
     func customizeBorder(width: CGFloat?, color: UIColor?) {

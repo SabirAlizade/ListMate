@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-enum Measures: String, PersistableEnum {
+enum Measures: String, PersistableEnum, Codable {
     case pcs = "Pcs"
     case kgs = "Kgs"
     case l = "L"

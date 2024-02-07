@@ -57,6 +57,7 @@
 		03BC076E2B3ED6BE005298F9 /* SuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BC076D2B3ED6BE005298F9 /* SuggestionCell.swift */; };
 		03C27FE82B40009800E8A368 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C27FE72B40009800E8A368 /* Double.swift */; };
 		03C549DA2B5ED169007BE5B4 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C549D92B5ED169007BE5B4 /* ActivityIndicator.swift */; };
+		03C881A22B717A63003BAA67 /* MockCatalogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C881A12B717A63003BAA67 /* MockCatalogModel.swift */; };
 		03CA6E832B30771000D59935 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */; };
 		03CA6E842B30771000D59935 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */; };
 		03CA6E852B30771000D59935 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */; };
@@ -123,6 +124,7 @@
 		03BC076D2B3ED6BE005298F9 /* SuggestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCell.swift; sourceTree = "<group>"; };
 		03C27FE72B40009800E8A368 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		03C549D92B5ED169007BE5B4 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		03C881A12B717A63003BAA67 /* MockCatalogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCatalogModel.swift; sourceTree = "<group>"; };
 		03CA6E7F2B30770F00D59935 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		03CA6E802B30770F00D59935 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		03CA6E812B30770F00D59935 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 			isa = PBXGroup;
 			children = (
 				03B5F0EF2B3E04130015AA23 /* CatalogModel.swift */,
+				03C881A12B717A63003BAA67 /* MockCatalogModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				03B0A6912B3C0AE500B3F8D0 /* DetailedViewModel.swift in Sources */,
 				036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */,
 				03A105D42B3042A900E13A45 /* CustomButton.swift in Sources */,
+				03C881A22B717A63003BAA67 /* MockCatalogModel.swift in Sources */,
 				03A105A92B2F4E5400E13A45 /* ListCell.swift in Sources */,
 				03A105BC2B2F56A100E13A45 /* ItemModel.swift in Sources */,
 				03A105822B2F32B100E13A45 /* CustomTabBar.swift in Sources */,

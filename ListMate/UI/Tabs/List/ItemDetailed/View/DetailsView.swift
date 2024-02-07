@@ -62,7 +62,6 @@ class DetailsView: BaseView {
     }
     
     private func setupUI() {
-        
         let measureStack = UIView().HStack(views: measureLabel, measuresSegmentControl.withWidth(240), spacing: 10, distribution: .fill)
         let priceStack = UIView().HStack(views: priceLabel, priceTextField.withWidth(90), spacing: 10, distribution: .fill)
         let storeStack = UIView().HStack(views: storeLabel, storeTextField.withWidth(160), spacing: 10, distribution: .fill)

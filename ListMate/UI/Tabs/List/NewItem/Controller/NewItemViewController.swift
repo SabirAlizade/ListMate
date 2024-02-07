@@ -92,7 +92,8 @@ class NewItemViewController: BaseViewController {
         super.viewDidLoad()
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
-        nameTextField.returnKeyType = .next
+        view.layoutIfNeeded()
+        nameTextField.becomeFirstResponder()
         configureKeyboardNotification()
     }
     
@@ -148,6 +149,8 @@ class NewItemViewController: BaseViewController {
         view.addSubview(itemImageButton)
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
+        nameTextField.returnKeyType = .next
+
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
