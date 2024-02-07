@@ -50,6 +50,7 @@ class DetailedViewModel {
                 try manager.realm.write {
                     catalogItem.price = price
                 }
+                NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
             }
             catch {
                 print("Error updating catalog item price: \(error.localizedDescription)")

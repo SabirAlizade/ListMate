@@ -134,7 +134,6 @@ class NewItemViewController: BaseViewController {
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
-        nameTextField.becomeFirstResponder()
         setupUI()
     }
     
@@ -203,11 +202,6 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.heightAnchor.constraint(equalToConstant: 40),
             suggestionToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.layoutIfNeeded()
     }
     
     private func catalogCountCheck() {

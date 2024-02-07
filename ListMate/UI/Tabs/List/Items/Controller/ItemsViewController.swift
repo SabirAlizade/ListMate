@@ -122,10 +122,14 @@ class ItemsViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }
+    
+     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
 }
 
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         let sectionsCount = viewModel.getSections().count
         updateUI(forEmptyList: sectionsCount == 0 ? true : false)
