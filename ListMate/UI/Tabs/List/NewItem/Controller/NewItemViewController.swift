@@ -92,7 +92,8 @@ class NewItemViewController: BaseViewController {
         super.viewDidLoad()
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
-        nameTextField.returnKeyType = .next
+        view.layoutIfNeeded()
+        nameTextField.becomeFirstResponder()
         configureKeyboardNotification()
     }
     
@@ -147,6 +148,8 @@ class NewItemViewController: BaseViewController {
         view.addSubview(itemImageButton)
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
+        nameTextField.returnKeyType = .next
+
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -199,12 +202,6 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.heightAnchor.constraint(equalToConstant: 40),
             suggestionToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.layoutIfNeeded()
-        nameTextField.becomeFirstResponder()
     }
     
     private func catalogCountCheck() {

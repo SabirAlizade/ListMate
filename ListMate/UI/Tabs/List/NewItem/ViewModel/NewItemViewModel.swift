@@ -64,17 +64,19 @@ final class NewItemViewModel {
 
 extension NewItemViewModel {
     private func passToCatalog(name: String, price: Decimal128, measure: Measures) {
-        let catalogItem = CatalogModel(name: name, price: price, measure: measure)
-        if manager.realm.objects(CatalogModel.self).filter("name == %@", name).first != nil {
-            return
-        } else {
-            self.manager.saveObject(data: catalogItem) { error in
-                if let error {
-                    print("Error saving to catalog \(error.localizedDescription)")
-                }
-            }
-        }
-    }
+           let catalogItem = CatalogModel(name: name, price: price, measure: measure)
+           guard let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", name).first else {
+               self.manager.saveObject(data: catalogItem) { error in
+                   if let error {
+                       print("Error saving to catalog \(error.localizedDescription)")
+                   }
+               }
+               return
+           }
+           try? manager.realm.write {
+               existingItem.price = catalogItem.price
+           }
+       }
     
     func readCatalogData() {
         catalogItems.removeAll()
