@@ -149,7 +149,7 @@ class NewItemViewController: BaseViewController {
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
         nameTextField.returnKeyType = .next
-
+        
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -227,7 +227,7 @@ class NewItemViewController: BaseViewController {
             alertMessage(title: "Empty name", message: "Please enter name of item")
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else { 
+            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else {
                 alertMessage(title: "Wrong price format", message: "Only numeric digits allowed.")
                 return
             }
@@ -279,25 +279,30 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.isHidden = true
             return
         }
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: true)
+        }
         catalogCountCheck()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: false)
+        }
         suggestionToolbar.isHidden = true
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+        guard let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let keyboardCurveValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        guard let keyboardCurve = UIView.AnimationCurve(rawValue: keyboardCurveValue) else { return }
         
         if keyboardWillShow {
             let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
             let bottomConstant: CGFloat = 20
-            self.bottomCostant?.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
+            viewBottomConstraint.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
         } else {
             viewBottomConstraint.constant = 20
         }

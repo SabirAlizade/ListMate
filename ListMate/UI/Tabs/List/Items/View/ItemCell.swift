@@ -146,7 +146,10 @@ final class ItemCell: BaseCell {
     }
 
     private func loadImageFromFile(_ fileName: String) {
-        let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        guard let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+            print("Library directory is not accessible")
+            return
+        }
         let fileURL = libraryDirectory.appendingPathComponent(fileName)
 
         if let image = UIImage(contentsOfFile: fileURL.path) {

@@ -20,7 +20,7 @@ class ImageManager {
         let fileName = "image_\(Date().timeIntervalSince1970).jpg"
         
         do {
-            let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+            guard let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else { return }
             let fileURL = libraryDirectory.appendingPathComponent(fileName)
             
             try data.write(to: fileURL)
