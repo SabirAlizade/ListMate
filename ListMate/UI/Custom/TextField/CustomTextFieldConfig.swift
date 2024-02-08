@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol TextFieldDataSource {
     func resultValue(hasText: Bool, value: String)
@@ -31,6 +32,7 @@ class CustomTextFieldConfiguration: UITextField {
             dataSource?.resultValue(hasText: false, value: "")
             return
         }
+        
         if text == " " {
             self.text = nil
         }
@@ -56,26 +58,32 @@ class PriceTextFieldConfiguration: UITextField, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = textField.text ?? ""
-        let newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        let allowedCharacters = CharacterSet(charactersIn: "0123456789,.").inverted
+        let filteredString = string.components(separatedBy: allowedCharacters).joined()
         
-        guard let decimalSeparator = Locale.current.decimalSeparator else {
-            return true
+        if filteredString != string {
+            return false
         }
         
+        guard let currentText = textField.text else { return true }
+        var newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        let decimalSeparator = Locale.current.decimalSeparator ?? "."
+        if decimalSeparator != "." {
+            newText = newText.replacingOccurrences(of: ".", with: decimalSeparator)
+        }
+        
+        let convertedText = newText.replacingOccurrences(of: decimalSeparator, with: ".")
         if newText.components(separatedBy: decimalSeparator).count > 2 {
             return false
         }
         
-        let filteredText = newText.replacingOccurrences(of: ",", with: ".")
-        let components = filteredText.components(separatedBy: ".")
+        let components = convertedText.components(separatedBy: ".")
         if components.count > 2 || (components.count == 2 && components[1].count > 2) {
             return false
         }
         
-        textField.text = filteredText
+        textField.text = convertedText
         sendActions(for: .editingChanged)
-        
-        return true
+        return false
     }
 }

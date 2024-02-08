@@ -227,7 +227,10 @@ class NewItemViewController: BaseViewController {
             alertMessage(title: "Empty name", message: "Please enter name of item")
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else { return }
+            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else { 
+                alertMessage(title: "Wrong price format", message: "Only numeric digits allowed.")
+                return
+            }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
                 self.viewModel.saveItem(name: name,
                                         price: price,

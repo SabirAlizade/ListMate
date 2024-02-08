@@ -55,6 +55,7 @@ final class NewItemViewModel {
         }
         delegate?.updateItemsData()
         passToCatalog(name: name, price: price, measure: measure)
+        NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
     }
     
     func setAmount(amount: Decimal128) {
@@ -98,6 +99,7 @@ extension NewItemViewModel {
                 catalogItems.append(contentsOf: result)
                 suggestionDelegate?.updateSuggestionsData()
             }
+            checkCatalogCount()
         }
     }
     

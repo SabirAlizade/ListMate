@@ -47,7 +47,6 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.layer.borderColor = color?.cgColor
     }
     
-    
     override init(frame: CGRect) {
           super.init(frame: frame)
           commonInit()
@@ -71,7 +70,6 @@ class PriceTextField: PriceTextFieldConfiguration {
     ) {
         self.init()
         clipsToBounds = true
-
         placeholder = placeHolder
         textAlignment = .left
         keyboardType = .decimalPad
@@ -84,7 +82,7 @@ class PriceTextField: PriceTextFieldConfiguration {
         priceImageView.image = UIImage(named: "dollarsign")
         setRightView(view: priceImageView)
         withBorder(width: 1, color: .buttongreen)
-        //self.addShadowOnFocus()
+        
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -93,11 +91,7 @@ class PriceTextField: PriceTextFieldConfiguration {
         if let target = target, let action = action {
             addTarget(target, action: action, for: .editingChanged)
         }
-//        if let target = target, let action = action {
-//            addTarget(target, action: action, for: .editingDidBegin)
-//            addTarget(target, action: #selector(textFieldDidEndEditing), for: .editingDidEnd)
-//        }
-        
+
         func customizeBorder(width: CGFloat?, color: UIColor?) {
             self.layer.borderWidth = width ?? 0
             self.layer.borderColor = color?.cgColor
@@ -116,6 +110,14 @@ class PriceTextField: PriceTextFieldConfiguration {
       private func commonInit() {
           addShadowOnFocus()
       }
+    
+    //MARK: Preventing paste to textfield
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+            if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+                return false
+            }
+            return super.canPerformAction(action, withSender: sender)
+        }
 }
 
 extension PriceTextField {
