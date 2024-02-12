@@ -23,10 +23,10 @@
 "detailed_app_measureLabel" = "Ölçü vahidi:";
 "detailed_app_priceLabel" = "Ədəd qiyməti:";
 "detailed_app_storeLabel" = "Mağaza:";
-"detailed_app_storePlaceHolder" = "Mağazanın adı";
+"detailed_app_storePlaceHolder" = "Mağaza adı";
 
 "newItem_app_title" = "Yeni məhsul";
-"newItem_app_namePlaceHolder" = "Məhsulun adı";
+"newItem_app_namePlaceHolder" = "Məhsul adı";
 "newItem_app_priceLabel" = "Ədəd qiyməti:";
 "newItem_app_quantityLabel" = "Miqdarı:";
 "newItem_app_addButton" = "Əlavə et";
@@ -57,12 +57,12 @@
 
 "imagePicker_app_chooseOption" = "Seçim edin";
 "imagePicker_app_takeImage" = "Yeni şəkil";
-"imagePicker_app_selectFromGallery" = "Qalereyadan seçim";
+"imagePicker_app_selectFromGallery" = "Qalereyadan seç";
 "imagePicker_app_sourceAlarmTitle" = "Mənbə xətası";
 "imagePicker_app_sourceAlarmBody" = "Mənbə növü mövcud deyil.";
 
 "measure_app_pcs" = "Əd.";
-"measure_app_kgs" = "Kg";
+"measure_app_kgs" = "Kg.";
 "measure_app_l" = "L";
 
 

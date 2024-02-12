@@ -125,14 +125,7 @@ final class MainView: BaseView {
     private func didTapValueChanged() {
         guard let name = nameTextField.text else { return }
         guard let note = noteTextField.text else { return }
-        if name.isEmpty {
-            if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                (self.delegate as? DetailedViewController)?.alertMessage(
-                    title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
-                    message: LanguageBase.newItem(.emptyNameAlarmBody).translate) }
-            } else {
-                delegate?.updateNameAndNote(name: name, note: note)
-            }
-        }
+        delegate?.updateNameAndNote(name: name, note: note)
     }
+}
 

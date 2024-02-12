@@ -80,7 +80,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
             kit.centerX()
             kit.top(-40)
             kit.height(90)
-            kit.width(120)
+            kit.width(160)
         }
         return headerView
     }
