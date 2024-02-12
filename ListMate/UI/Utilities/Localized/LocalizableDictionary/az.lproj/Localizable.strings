@@ -1,0 +1,68 @@
+/*
+  Localizable.strings
+  ListMate
+
+  Created by Sabir Alizade on 09.02.24.
+*/
+"list_app_title" = "Siyahılar";
+"list_app_emptyListLabel" = "Yeni siyahı üçün + düyməsinə basın.";
+"list_app_newListTitle" = "Yeni siyahı";
+"list_app_newListPlaceHolder" = "Siyahının adı";
+"list_app_saveButton" = "Yadda saxla";
+"list_app_emptyNameAlarmTitle" = "Boş siyaı adı";
+"list_app_emptyNameAlarmBody" = "Xahiş olunur siyahını adlandırın.";
+
+"item_app_remaining" = "Qalığ cəmi: ";
+"item_app_completed" = "Tamamlanmış cəmi: ";
+
+"summary_app_title" = "Yekun";
+"summary_app_thankLabel" = "ListMate\ntətbiqini istifadə etdiyiniz üçün\nÇOX SAĞOLUN!";
+"summary_app_totalLabel" = "CƏMİ: ";
+
+"detailed_app_addNotePlaceHolder" = "Qeyd";
+"detailed_app_measureLabel" = "Ölçü vahidi:";
+"detailed_app_priceLabel" = "Ədəd qiyməti:";
+"detailed_app_storeLabel" = "Mağaza:";
+"detailed_app_storePlaceHolder" = "Mağazanın adı";
+
+"newItem_app_title" = "Yeni məhsul";
+"newItem_app_namePlaceHolder" = "Məhsulun adı";
+"newItem_app_priceLabel" = "Ədəd qiyməti:";
+"newItem_app_quantityLabel" = "Miqdarı:";
+"newItem_app_addButton" = "Əlavə et";
+"newItem_app_emptyNameAlarmTitle" = "Boş ad";
+"newItem_app_emptyNameAlarmBody" = "Xahiş olunur məhsulun adını qeyd edəsiniz";
+"newItem_app_wrongPriceAlarmTitle" = "Yanlış qiymət formatı";
+"newItem_app_wrongPriceAlarmBody" = "Yalnız rəgəmlər daxil oluna bilər.";
+
+"catalog_app_title" = "Kataloq";
+"catalog_app_milk" = "Süd";
+"catalog_app_bread" = "Çörək";
+"catalog_app_butter" = "Yağ";
+"catalog_app_bananas" = "Banan";
+"catalog_app_eggs" = "Yumurta";
+"catalog_app_potatoes" = "Kartof";
+"catalog_app_tomatoes" = "Pomidor";
+"catalog_app_water" = "Su";
+"catalog_app_orangeJuice" = "Portağal şirəsi";
+"catalog_app_chicken" = "Toyuğ əti";
+"catalog_app_cheese" = "Pendir";
+"catalog_app_apples" = "Alma";
+"catalog_app_yougurt" = "Yogurt";
+"catalog_app_pasta" = "Makaron";
+"catalog_app_rice" = "Düyü";
+
+"system_app_doneKeyboard" = "Bitdi";
+"system_app_currency" = "₼";
+
+"imagePicker_app_chooseOption" = "Seçim edin";
+"imagePicker_app_takeImage" = "Yeni şəkil";
+"imagePicker_app_selectFromGallery" = "Qalereyadan seçim";
+"imagePicker_app_sourceAlarmTitle" = "Mənbə xətası";
+"imagePicker_app_sourceAlarmBody" = "Mənbə növü mövcud deyil.";
+
+"measure_app_pcs" = "Əd.";
+"measure_app_kgs" = "Kg";
+"measure_app_l" = "L";
+
+

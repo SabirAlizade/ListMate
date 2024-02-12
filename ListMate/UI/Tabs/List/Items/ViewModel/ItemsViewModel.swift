@@ -59,8 +59,10 @@ final class ItemsViewModel {
         let remainingItems = items.filter { !$0.isChecked }
         let completedItems = items.filter { $0.isChecked }
         
-        let remainingSection = ItemSection(name: "Remaining", data: Array(remainingItems))
-        let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
+        let remainingSection = ItemSection(name: LanguageBase.item(.remainingTotal).translate,
+                                           data: Array(remainingItems))
+        let completedSection = ItemSection(name: LanguageBase.item(.completedTotal).translate,
+                                           data: Array(completedItems))
         
         updateListSummary(completedItems: completedItems, remainItems: remainingItems)
         
@@ -76,7 +78,7 @@ final class ItemsViewModel {
             return ""
         } else {
             let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
-            return "\(sectionModel.name) total: \(Double.doubleToString(double: sectionTotal.doubleValue)) $"
+            return "\(sectionModel.name) \(Double.doubleToString(double: sectionTotal.doubleValue)) \(LanguageBase.system(.currency).translate)"
         }
     }
     

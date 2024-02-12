@@ -53,7 +53,7 @@ extension UITextField {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                         target: nil,
                                         action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done",
+        let done: UIBarButtonItem = UIBarButtonItem(title: LanguageBase.system(.doneKeyboardButton).translate,
                                                     style: .done,
                                                     target: self,
                                                     action: #selector(self.doneButtonAction))

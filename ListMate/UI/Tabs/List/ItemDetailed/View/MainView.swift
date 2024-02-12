@@ -34,14 +34,14 @@ final class MainView: BaseView {
         return view
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "Set name",
+    private lazy var nameTextField = CustomTextField(placeHolder: "",
                                                      font: .poppinsFont(size: 22, weight: .medium),
                                                      border: .none,
                                                      backgroundColor: .mainwhite,
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
-    private lazy var noteTextField = CustomTextField(placeHolder: "Add note",
+    private lazy var noteTextField = CustomTextField(placeHolder: LanguageBase.detailed(.addNotePlaceHolder).translate,
                                                      font: .poppinsFont(size: 18, weight: .light),
                                                      border: .none,
                                                      backgroundColor: .mainwhite,
@@ -125,6 +125,14 @@ final class MainView: BaseView {
     private func didTapValueChanged() {
         guard let name = nameTextField.text else { return }
         guard let note = noteTextField.text else { return }
-        delegate?.updateNameAndNote(name: name, note: note)
+        if name.isEmpty {
+            if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                (self.delegate as? DetailedViewController)?.alertMessage(
+                    title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                    message: LanguageBase.newItem(.emptyNameAlarmBody).translate) }
+            } else {
+                delegate?.updateNameAndNote(name: name, note: note)
+            }
+        }
     }
-}
+

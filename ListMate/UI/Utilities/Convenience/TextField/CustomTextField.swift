@@ -48,18 +48,18 @@ class CustomTextField: CustomTextFieldConfiguration {
     }
     
     override init(frame: CGRect) {
-          super.init(frame: frame)
-          commonInit()
-      }
-
-      required init?(coder aDecoder: NSCoder) {
-          super.init(coder: aDecoder)
-          commonInit()
-      }
-
-      private func commonInit() {
-          addShadowOnFocus()
-      }
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        addShadowOnFocus()
+    }
 }
 
 class PriceTextField: PriceTextFieldConfiguration {
@@ -78,9 +78,7 @@ class PriceTextField: PriceTextFieldConfiguration {
         borderStyle = .roundedRect
         textColor = .maintext
         self.backgroundColor = .textfieldback
-        let priceImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        priceImageView.image = UIImage(named: "dollarsign")
-        setRightView(view: priceImageView)
+        updateRightView()
         withBorder(width: 1, color: .buttongreen)
         
         attributedPlaceholder = NSAttributedString(
@@ -91,33 +89,49 @@ class PriceTextField: PriceTextFieldConfiguration {
         if let target = target, let action = action {
             addTarget(target, action: action, for: .editingChanged)
         }
-
+        
         func customizeBorder(width: CGFloat?, color: UIColor?) {
             self.layer.borderWidth = width ?? 0
             self.layer.borderColor = color?.cgColor
         }
     }
     override init(frame: CGRect) {
-          super.init(frame: frame)
-          commonInit()
-      }
-
-      required init?(coder aDecoder: NSCoder) {
-          super.init(coder: aDecoder)
-          commonInit()
-      }
-
-      private func commonInit() {
-          addShadowOnFocus()
-      }
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        addShadowOnFocus()
+    }
+    
+    private func updateRightView() {
+        let priceImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let languageCode = Locale.current.language.languageCode?.identifier
+        switch languageCode {
+        case "en":
+            priceImageView.image = UIImage(named: "dollarsign")
+        case "ru":
+            priceImageView.image = UIImage(named: "roublesign")
+        case "az":
+            priceImageView.image = UIImage(named: "manatsign")
+        default:
+            priceImageView.image = UIImage(named: "dollarsign")
+        }
+        setRightView(view: priceImageView)
+    }
     
     //MARK: Preventing paste to textfield
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-            if action == #selector(UIResponderStandardEditActions.paste(_:)) {
-                return false
-            }
-            return super.canPerformAction(action, withSender: sender)
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
         }
+        return super.canPerformAction(action, withSender: sender)
+    }
 }
 
 extension PriceTextField {

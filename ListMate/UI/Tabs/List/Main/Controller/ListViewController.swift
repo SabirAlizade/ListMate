@@ -26,13 +26,14 @@ class ListViewController: BaseViewController {
         return view
     }()
     
-    private let emptyListLabel = CustomLabel(text: "Tap to plus button to create a new list",
+    private let emptyListLabel = CustomLabel(text: LanguageBase.list(.emptyListLabel).translate,
                                              textColor: .gray,
                                              font: .poppinsFont(size: 16, weight: .light),
                                              alignment: .center)
     
     override func setupUIComponents() {
         super.setupUIComponents()
+        navigationItem.title = LanguageBase.list(.title).translate
         configureNavBar()
         viewModel.readData()
     }
@@ -43,7 +44,7 @@ class ListViewController: BaseViewController {
     }
     
     private func setupUI(){
-       
+        
         view.anchorFill(view: tableView)
         view.anchor(view: emptyListLabel) { kit in
             kit.centerX()
@@ -52,7 +53,6 @@ class ListViewController: BaseViewController {
     }
     
     private func configureNavBar() {
-        navigationItem.title = "Lists"
         
         let rightButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
                                           style: .plain,
@@ -73,7 +73,7 @@ class ListViewController: BaseViewController {
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4 }
-        )]
+                                                          )]
         present(nc, animated: true)
     }
 }

@@ -40,17 +40,17 @@ class NewItemViewController: BaseViewController {
         return toolbar
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "Enter name of item",
+    private lazy var nameTextField = CustomTextField(placeHolder: LanguageBase.newItem(.newItemNamePlaceHolder).translate,
                                                      delegate: self,
                                                      target: self,
                                                      action:  #selector(textFieldDidChange(_:)))
     
-    private let priceLabel = CustomLabel(text: "Price per package:",
+    private let priceLabel = CustomLabel(text: LanguageBase.newItem(.priceLabel).translate,
                                          textColor: .black,
                                          font: .poppinsFont(size: 12, weight: .light),
                                          alignment: .center)
     
-    private let quantityLabel = CustomLabel(text: "Quantity:",
+    private let quantityLabel = CustomLabel(text: LanguageBase.newItem(.quantityLabel).translate,
                                             textColor: .black,
                                             font: .poppinsFont(size: 12, weight: .light),
                                             alignment: .left)
@@ -82,7 +82,7 @@ class NewItemViewController: BaseViewController {
         return button
     }()
     
-    private lazy var saveButton = CustomButton(title: "Add",
+    private lazy var saveButton = CustomButton(title: LanguageBase.newItem(.addButton).translate,
                                                backgroundColor: .maingreen,
                                                titleColor: .white,
                                                target: self,
@@ -209,6 +209,11 @@ class NewItemViewController: BaseViewController {
     }
     
     private func configureMeasuresControl() {
+        measuresSegmentedControl.removeAllSegments()
+        for (index, measure) in Measures.allCases.enumerated() {
+            let translatedTitle = measure.translate
+            measuresSegmentedControl.insertSegment(withTitle: translatedTitle, at: index, animated: true)
+        }
         measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: viewModel.selectedMeasure) ?? 0
         measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
@@ -224,11 +229,13 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         if name.isEmpty {
-            alertMessage(title: "Empty name", message: "Please enter name of item")
+            alertMessage(title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                         message: LanguageBase.newItem(.emptyNameAlarmBody).translate)
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
             guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else {
-                alertMessage(title: "Wrong price format", message: "Only numeric digits allowed.")
+                alertMessage(title: LanguageBase.newItem(.wrongPriceAlarmTitle).translate,
+                             message: LanguageBase.newItem(.wrongPriceAlarmBody).translate)
                 return
             }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in

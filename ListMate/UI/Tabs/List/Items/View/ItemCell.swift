@@ -20,7 +20,6 @@ final class ItemCell: BaseCell {
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-//            priceLabel.text = item.totalPrice.description
             priceLabel.text = Double.doubleToString(double: item.totalPrice.doubleValue)
             itemAmountView.item = item
             checkBox.isChecked = item.isChecked
@@ -48,7 +47,7 @@ final class ItemCell: BaseCell {
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
     private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium),
                                               alignment: .right)
-    private lazy var currencyLabel = CustomLabel(text: "$",
+    private lazy var currencyLabel = CustomLabel(text: LanguageBase.system(.currency).translate,
                                                  font: .poppinsFont(size: 20, weight: .medium),
                                                  alignment: .center)
     

@@ -15,7 +15,7 @@ class ReceiptCell: BaseCell{
             guard let item else { return }
             nameLabel.text = item.name
             amountLabel.text =  String("x \(item.amount)")
-            priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice.doubleValue)) $")
+            priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice.doubleValue)) \(LanguageBase.system(.currency).translate)")
         }
     }
     

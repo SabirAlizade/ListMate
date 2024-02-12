@@ -71,7 +71,7 @@ class ItemsViewController: BaseViewController {
     
     private func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) $", for: .normal)
+            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) \(LanguageBase.system(.currency).translate)", for: .normal)
         }
     }
     
@@ -109,7 +109,7 @@ class ItemsViewController: BaseViewController {
     private func didTapAddItem() {
         let vc  = NewItemViewController()
         vc.viewModel.delegate = self
-        vc.title = "New Item"
+        vc.title = LanguageBase.newItem(.newItemTitle).translate
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
         present(nc, animated: true)

@@ -26,7 +26,7 @@ class CatalogViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        navigationItem.title = "Catalog"
+        navigationItem.title = LanguageBase.catalog(.title).translate
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCatalog), name: NSNotification.Name("ReloadCatalogData"), object: nil)
         viewModel.readData()
         viewModel.loadMockData()

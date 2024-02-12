@@ -12,6 +12,17 @@ enum Measures: String, PersistableEnum, Codable {
     case pcs = "Pcs"
     case kgs = "Kgs"
     case l = "L"
+    
+    var translate: String {
+        switch self {
+        case .pcs:
+            return MeasureLanguage.pcs.translate
+        case .kgs:
+            return MeasureLanguage.kgs.translate
+        case .l:
+            return MeasureLanguage.l.translate
+        }
+    }
 }
 
 class ItemModel: Object {
