@@ -106,6 +106,7 @@ extension NewItemViewModel {
     func passSuggestedItem(name: String, price: Decimal128, measure: Measures) {
         suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
         suggestionDelegate?.updateSuggestionsData()
+        selectedMeasure = measure
     }
     
     func checkCatalogCount() {

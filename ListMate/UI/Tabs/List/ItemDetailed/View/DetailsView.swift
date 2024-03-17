@@ -19,7 +19,7 @@ class DetailsView: BaseView {
     var item: ItemModel? {
         didSet {
             guard let item else { return }
-            selectedSegmentIndex(item: item)
+            selectedSegmentIndex(item: item.measure)
             priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
             storeTextField.text = item.storeName
         }
@@ -83,14 +83,11 @@ class DetailsView: BaseView {
         guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? "") else { return }
         guard let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
-        
         delegate?.updateDetailsData(measeure: selectedMeasure, price: price, store: store)
     }
     
-    private func selectedSegmentIndex(item: ItemModel) {
-        guard let selectedIndex = Measures.allCases.firstIndex(of: item.measure) else {
-            return
-        }
+    private func selectedSegmentIndex(item: Measures) {
+        guard let selectedIndex = Measures.allCases.firstIndex(of: item) else { return }
         measuresSegmentControl.selectedSegmentIndex = selectedIndex
     }
     

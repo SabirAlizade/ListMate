@@ -242,7 +242,7 @@ class NewItemViewController: BaseViewController {
                 self.viewModel.saveItem(name: name,
                                         price: price,
                                         imagePath: imagePath,
-                                        measure: self.itemAmount.itemMeasure ?? .pcs)
+                                        measure: self.viewModel.selectedMeasure)
                 self.dismiss(animated: true)
             }
         }

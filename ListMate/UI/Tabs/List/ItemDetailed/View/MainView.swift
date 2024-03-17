@@ -14,6 +14,7 @@ protocol MainViewDelegate: AnyObject {
 }
 
 final class MainView: BaseView {
+    
     weak var delegate: MainViewDelegate?
     
     var itemImage: UIImage?

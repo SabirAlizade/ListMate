@@ -58,7 +58,6 @@ final class ItemsViewModel {
         
         let remainingItems = items.filter { !$0.isChecked }
         let completedItems = items.filter { $0.isChecked }
-        
         let remainingSection = ItemSection(name: LanguageBase.item(.remainingTotal).translate,
                                            data: Array(remainingItems))
         let completedSection = ItemSection(name: LanguageBase.item(.completedTotal).translate,
