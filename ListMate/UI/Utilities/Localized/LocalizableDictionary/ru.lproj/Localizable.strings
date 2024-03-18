@@ -24,7 +24,7 @@
 "detailed_app_measureLabel" = "Еденица меры:";
 "detailed_app_priceLabel" = "Цена товара: ";
 "detailed_app_storeLabel" = "Магазин:";
-"detailed_app_storePlaceHolder" = "Название магазина";
+"detailed_app_storePlaceHolder" = "Имя магазина";
 
 "newItem_app_title" = "Новый товар";
 "newItem_app_namePlaceHolder" = "Введите имя товара";
@@ -34,7 +34,7 @@
 "newItem_app_emptyNameAlarmTitle" = "Пустое имя";
 "newItem_app_emptyNameAlarmBody" = "Пожалуйста введите имя товара";
 "newItem_app_wrongPriceAlarmTitle" = "Неверный формат цены";
-"newItem_app_wrongPriceAlarmBody" = "Допустимы лишь цифры и дробный разделитель.";
+"newItem_app_wrongPriceAlarmBody" = "Допустимы лишь цифры и дробный разделитель";
 
 "catalog_app_title" = "Каталог";
 "catalog_app_milk" = "Молоко";
@@ -45,7 +45,7 @@
 "catalog_app_potatoes" = "Картофель";
 "catalog_app_tomatoes" = "Помидоры";
 "catalog_app_water" = "Вода";
-"catalog_app_orangeJuice" = "Аельсиновый сок";
+"catalog_app_orangeJuice" = "Апельсиновый сок";
 "catalog_app_chicken" = "Курица";
 "catalog_app_cheese" = "Сыр";
 "catalog_app_apples" = "Яблоки";
@@ -60,7 +60,7 @@
 "imagePicker_app_takeImage" = "Сфотографировать";
 "imagePicker_app_selectFromGallery" = "Выбрать из галереи";
 "imagePicker_app_sourceAlarmTitle" = "Ошибка источника";
-"imagePicker_app_sourceAlarmBody" = "Источник не доступен.";
+"imagePicker_app_sourceAlarmBody" = "Источник не доступен";
 
 "measure_app_pcs" = "Шт.";
 "measure_app_kgs" = "Кг.";

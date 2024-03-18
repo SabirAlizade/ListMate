@@ -29,7 +29,7 @@ class ItemsViewController: BaseViewController {
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .poppinsFont(size: 17, weight: .regular)
-        button.setTitle( "0.00", for: .normal)
+        button.setTitle("0.00", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "cart"), for: .normal)
@@ -125,7 +125,6 @@ class ItemsViewController: BaseViewController {
     
      override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
     }
 }
 

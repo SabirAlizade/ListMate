@@ -97,3 +97,11 @@ final class CatalogViewModel {
           UserDefaults.standard.set(mockDeletedState, forKey: mockCatalogDataKey)
       }
 }
+
+extension CatalogViewModel {
+    func clearMockData() {
+        try? manager.realm.write {
+                   manager.realm.delete(manager.realm.objects(CatalogModel.self))
+               }
+    }
+}

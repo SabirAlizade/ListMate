@@ -14,7 +14,6 @@ extension UserDefaults {
     
     var language: String  {
         get {
-//            string(forKey: LangKeys.language.rawValue) ?? "en"
             string(forKey: LangKeys.language.rawValue) ?? Locale.preferredLanguages.first ?? "en"
         }
         set {

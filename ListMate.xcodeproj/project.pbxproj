@@ -339,6 +339,7 @@
 		03A105892B2F3EEC00E13A45 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				03C1B7122B7631D500C87407 /* UserDefaults.swift */,
 				03C1B7112B7631B600C87407 /* UserDefaults */,
 				03C1B70C2B76311E00C87407 /* String */,
 				03C27FE62B40007F00E8A368 /* Double */,
@@ -695,7 +696,6 @@
 		03C1B7112B7631B600C87407 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
-				03C1B7122B7631D500C87407 /* UserDefaults.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";

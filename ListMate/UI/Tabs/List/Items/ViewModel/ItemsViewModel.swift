@@ -20,25 +20,19 @@ final class ItemsViewModel {
     
     weak var delegate: ItemsModelDelegate?
     weak var quantityDelegate: ItemsQuantityDelegate?
-    
     private let manager = DataManager()
     private let productSession: ProductSession
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
-    
+    private var completedItemsQuantity: Int = 0
+    private(set) var items: Results<ItemModel>?
+    var updateSummaryButton: ((Decimal128) -> Void)?
     var completedItemsArray: [ItemModel] = []
-    
     private var summaryAmount: Decimal128 = 0 {
         didSet {
             updateSummaryButton?(summaryAmount)
         }
     }
-    
-    var updateSummaryButton: ((Decimal128) -> Void)?
-    
-    private var completedItemsQuantity: Int = 0
-    
-    private(set) var items: Results<ItemModel>?
     
     init(session: ProductSession) {
         self.productSession = session
@@ -132,7 +126,7 @@ final class ItemsViewModel {
 extension ItemsViewModel {
     
     func updateListSummary(completedItems: LazyFilterSequence<Results<ItemModel>>, remainItems: LazyFilterSequence<Results<ItemModel>>) {
-        let summary = completedItems.reduce(0) { $0 + $1.totalPrice}
+        let summary = completedItems.reduce(0) { $0 + $1.totalPrice }
         
         summaryAmount = summary
         
