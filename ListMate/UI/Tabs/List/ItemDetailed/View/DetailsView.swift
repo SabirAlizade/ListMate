@@ -19,7 +19,7 @@ class DetailsView: BaseView {
     var item: ItemModel? {
         didSet {
             guard let item else { return }
-            selectedSegmentIndex(item: item)
+            selectedSegmentIndex(item: item.measure)
             priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
             storeTextField.text = item.storeName
         }
@@ -32,20 +32,20 @@ class DetailsView: BaseView {
         return view
     }()
     
-    private let measureLabel = CustomLabel(text: "Measure:",
+    private let measureLabel = CustomLabel(text: LanguageBase.detailed(.measureLabel).translate,
                                            font: .poppinsFont(size: 16, weight: .light))
     
-    private let priceLabel = CustomLabel(text: "Price per package:",
+    private let priceLabel = CustomLabel(text: LanguageBase.detailed(.priceLabel).translate,
                                          font: .poppinsFont(size: 16, weight: .light))
     
     private lazy var priceTextField = PriceTextField(placeHolder: "0.00",
                                                      target: self,
                                                      action: #selector(didUpdateDetails))
     
-    private let storeLabel = CustomLabel(text: "Store:",
+    private let storeLabel = CustomLabel(text: LanguageBase.detailed(.storeLabel).translate,
                                          font: .poppinsFont(size: 16, weight: .light))
     
-    private lazy var storeTextField = CustomTextField(placeHolder: "Store name ",
+    private lazy var storeTextField = CustomTextField(placeHolder: LanguageBase.detailed(.storePlaceHolder).translate,
                                                       target: self,
                                                       action: #selector(didUpdateDetails))
     
@@ -83,20 +83,18 @@ class DetailsView: BaseView {
         guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? "") else { return }
         guard let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
-        
         delegate?.updateDetailsData(measeure: selectedMeasure, price: price, store: store)
     }
     
-    private func selectedSegmentIndex(item: ItemModel) {
-        guard let selectedIndex = Measures.allCases.firstIndex(of: item.measure) else {
-            return
-        }
+    private func selectedSegmentIndex(item: Measures) {
+        guard let selectedIndex = Measures.allCases.firstIndex(of: item) else { return }
         measuresSegmentControl.selectedSegmentIndex = selectedIndex
     }
     
     private func setupSegmentedControl() {
         for (index, measure) in Measures.allCases.enumerated() {
-            measuresSegmentControl.insertSegment(withTitle: measure.rawValue, at: index, animated: true)
+            let translatedTitle = measure.translate
+            measuresSegmentControl.insertSegment(withTitle: translatedTitle, at: index, animated: true)
         }
     }
 }

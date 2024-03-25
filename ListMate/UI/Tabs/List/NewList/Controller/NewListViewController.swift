@@ -14,9 +14,9 @@ class NewListViewController: BaseViewController {
         return model
     }()
     
-    private let nameTextField = CustomTextField(placeHolder: "New list")
+    private let nameTextField = CustomTextField(placeHolder: LanguageBase.list(.newListPlaceholder).translate)
     
-    private lazy var saveButton = CustomButton(title: "Save",
+    private lazy var saveButton = CustomButton(title: LanguageBase.list(.saveButton).translate,
                                                backgroundColor: .buttongreen,
                                                titleColor: .white,
                                                target: self,
@@ -25,7 +25,7 @@ class NewListViewController: BaseViewController {
     override func setupUIComponents() {
         super.setupUIComponents()
         closeBarButton()
-        title = "Add list"
+        title = LanguageBase.list(.newListTitle).translate
     }
     
     override func setupUIConstraints() {
@@ -49,7 +49,8 @@ class NewListViewController: BaseViewController {
     private func didTapSave() {
         guard let name = nameTextField.text else { return }
         if name.isEmpty {
-            alertMessage(title: "Empty name", message: "Please enter name of list")
+            alertMessage(title: LanguageBase.list(.emptyNameAlarmTitle).translate,
+                         message: LanguageBase.list(.emptyNameAlarmBody).translate)
         } else {
             viewModel.saveListItem(name: name)
             dismiss(animated: true)

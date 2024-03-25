@@ -4,12 +4,16 @@ import UIKit
 
 extension UIView {
     
-//    MARK: - LEADING Anchor
+    //    MARK: - LEADING Anchor
     
     public func leading(_ constant: CGFloat = 0.0) {
-        self.leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: constant).isActive = true
+        if let superview = superview {
+            self.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: constant).isActive = true
+        } else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
     }
-
+    
     public func leading(_ anchor: NSLayoutXAxisAnchor, _ constant: CGFloat = 0.0) {
         self.leadingAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
     }
@@ -21,14 +25,17 @@ extension UIView {
     public func leading(_ view: UIView, _ constant: CGFloat = 0.0) {
         self.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
     }
-
-//    MARK: - TOP Anchor
-
+    
+    //    MARK: - TOP Anchor
+    
     public func top(_ constant: CGFloat = 0.0, safe: Bool = false) {
+        guard let superview = superview else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
         if safe {
-            self.topAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.topAnchor, constant: constant).isActive = true
+            self.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor, constant: constant).isActive = true
         } else {
-            self.topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant).isActive = true
+            self.topAnchor.constraint(equalTo: superview.topAnchor, constant: constant).isActive = true
         }
     }
     
@@ -48,10 +55,14 @@ extension UIView {
         }
     }
     
-//    MARK: - TRAILING Anchor
-//
+    //    MARK: - TRAILING Anchor
+    
     public func trailing(_ constant: CGFloat = 0.0) {
-        self.trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -constant).isActive = true
+        if let superview = superview {
+            self.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -constant).isActive = true
+        } else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
     }
     
     public func trailing(_ anchor: NSLayoutXAxisAnchor, _ constant: CGFloat = 0.0) {
@@ -61,18 +72,21 @@ extension UIView {
     public func trailing(_ anchor: NSLayoutXAxisAnchor) {
         self.trailingAnchor.constraint(equalTo: anchor).isActive = true
     }
-
+    
     public func trailing(_ view: UIView, _ constant: CGFloat = 0.0) {
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
     }
     
-//    MARK: - BOTTOM Anchor
-
+    //    MARK: - BOTTOM Anchor
+    
     public func bottom(_ constant: CGFloat = 0.0, safe: Bool = false) {
+        guard let superview = superview else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
         if safe {
-            self.bottomAnchor.constraint(equalTo: superview!.safeAreaLayoutGuide.bottomAnchor, constant: -constant).isActive = true
+            self.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor, constant: -constant).isActive = true
         } else {
-            self.bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -constant).isActive = true
+            self.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -constant).isActive = true
         }
     }
     
@@ -92,16 +106,20 @@ extension UIView {
         }
     }
     
-//    MARK: - CENTER-X Anchor
-
+    //    MARK: - CENTER-X Anchor
+    
     public func centerX(_ constant: CGFloat = 0.0) {
-        self.centerXAnchor.constraint(equalTo: superview!.centerXAnchor, constant: constant).isActive = true
+        if let superview = superview {
+            self.centerXAnchor.constraint(equalTo: superview.centerXAnchor, constant: constant).isActive = true
+        } else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
     }
     
     public func centerX(_ anchor: NSLayoutXAxisAnchor, _ constant: CGFloat = 0.0) {
         self.centerXAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
     }
-
+    
     public func centerX(_ anchor: NSLayoutXAxisAnchor) {
         self.centerXAnchor.constraint(equalTo: anchor).isActive = true
     }
@@ -109,11 +127,15 @@ extension UIView {
     public func centerX(_ view: UIView, _ constant: CGFloat = 0.0)  {
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: constant).isActive = true
     }
-
-//    MARK: - CENTER-Y Anchor
-
+    
+    //    MARK: - CENTER-Y Anchor
+    
     public func centerY(_ constant: CGFloat = 0.0) {
-        self.centerYAnchor.constraint(equalTo: superview!.centerYAnchor, constant: constant).isActive = true
+        if let superview = superview {
+            self.centerYAnchor.constraint(equalTo: superview.centerYAnchor, constant: constant).isActive = true
+        } else {
+            fatalError("Superview is nil. Make sure the view is added to a superview before calling this method.")
+        }
     }
     
     public func centerY(_ anchor: NSLayoutYAxisAnchor, _ constant: CGFloat = 0.0) {
@@ -127,8 +149,8 @@ extension UIView {
     public func centerY(_ view: UIView, _ constant: CGFloat = 0.0) {
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
     }
-        
-//    MARK: - HEIGHT Anchor
+    
+    //    MARK: - HEIGHT Anchor
     
     public func height(_ anchor: NSLayoutDimension, _ constant: CGFloat = 0.0) {
         self.heightAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
@@ -150,12 +172,12 @@ extension UIView {
         self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier).isActive = true
     }
     
-//    MARK: - WIDTH Anchor
+    //    MARK: - WIDTH Anchor
     
     public func width(_ anchor: NSLayoutDimension, _ constant: CGFloat = 0.0){
         self.widthAnchor.constraint(equalTo: anchor, constant: constant).isActive = true
     }
-
+    
     public func width(_ anchor: NSLayoutDimension){
         self.widthAnchor.constraint(equalTo: anchor).isActive = true
     }

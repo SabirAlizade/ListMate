@@ -30,21 +30,21 @@ final class CatalogViewModel {
     
     func loadMockData() {
         let mockData: [MockCatalogModel] = [
-            MockCatalogModel(name: "Milk", price: 0, measure: .l),
-            MockCatalogModel(name: "Bread", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Butter", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Bananas", price: 0, measure: .kgs),
-            MockCatalogModel(name: "Eggs", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Potatoes", price: 0, measure: .kgs),
-            MockCatalogModel(name: "Tomatoes", price: 0, measure: .kgs),
-            MockCatalogModel(name: "Water", price: 0, measure: .l),
-            MockCatalogModel(name: "Orance juice", price: 0, measure: .l),
-            MockCatalogModel(name: "Chicken", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Cheese", price: 0, measure: .kgs),
-            MockCatalogModel(name: "Apples", price: 0, measure: .kgs),
-            MockCatalogModel(name: "Yougurt", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Pasta", price: 0, measure: .pcs),
-            MockCatalogModel(name: "Rice", price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.milk).translate, price: 0, measure: .l),
+            MockCatalogModel(name: LanguageBase.catalog(.bread).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.butter).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.bananas).translate, price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.eggs).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.potatoes).translate, price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.tomatoes).translate, price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.water).translate, price: 0, measure: .l),
+            MockCatalogModel(name: LanguageBase.catalog(.orangeJuice).translate, price: 0, measure: .l),
+            MockCatalogModel(name: LanguageBase.catalog(.chicken).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.cheese).translate, price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.apples).translate, price: 0, measure: .kgs),
+            MockCatalogModel(name: LanguageBase.catalog(.yougurt).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.pasta).translate, price: 0, measure: .pcs),
+            MockCatalogModel(name: LanguageBase.catalog(.rice).translate, price: 0, measure: .kgs),
         ]
         
         for item in mockData {
@@ -96,4 +96,12 @@ final class CatalogViewModel {
       private func saveDeletedState() {
           UserDefaults.standard.set(mockDeletedState, forKey: mockCatalogDataKey)
       }
+}
+
+extension CatalogViewModel {
+    func clearMockData() {
+        try? manager.realm.write {
+                   manager.realm.delete(manager.realm.objects(CatalogModel.self))
+               }
+    }
 }

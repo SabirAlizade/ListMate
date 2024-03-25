@@ -55,6 +55,7 @@ final class NewItemViewModel {
         }
         delegate?.updateItemsData()
         passToCatalog(name: name, price: price, measure: measure)
+        NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
     }
     
     func setAmount(amount: Decimal128) {
@@ -64,19 +65,20 @@ final class NewItemViewModel {
 
 extension NewItemViewModel {
     private func passToCatalog(name: String, price: Decimal128, measure: Measures) {
-           let catalogItem = CatalogModel(name: name, price: price, measure: measure)
-           guard let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", name).first else {
-               self.manager.saveObject(data: catalogItem) { error in
-                   if let error {
-                       print("Error saving to catalog \(error.localizedDescription)")
-                   }
-               }
-               return
-           }
-           try? manager.realm.write {
-               existingItem.price = catalogItem.price
-           }
-       }
+        let catalogItem = CatalogModel(name: name, price: price, measure: measure)
+        guard let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", name).first else {
+            self.manager.saveObject(data: catalogItem) { error in
+                if let error {
+                    print("Error saving to catalog \(error.localizedDescription)")
+                }
+            }
+            return
+        }
+        try? manager.realm.write {
+            existingItem.price = catalogItem.price
+        }
+        NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
+    }
     
     func readCatalogData() {
         catalogItems.removeAll()
@@ -97,12 +99,14 @@ extension NewItemViewModel {
                 catalogItems.append(contentsOf: result)
                 suggestionDelegate?.updateSuggestionsData()
             }
+            checkCatalogCount()
         }
     }
     
     func passSuggestedItem(name: String, price: Decimal128, measure: Measures) {
         suggestionDelegate?.passSuggested(name: name, price: price, measure: measure)
         suggestionDelegate?.updateSuggestionsData()
+        selectedMeasure = measure
     }
     
     func checkCatalogCount() {

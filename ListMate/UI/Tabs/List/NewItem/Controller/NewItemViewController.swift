@@ -40,17 +40,17 @@ class NewItemViewController: BaseViewController {
         return toolbar
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "Enter name of item",
+    private lazy var nameTextField = CustomTextField(placeHolder: LanguageBase.newItem(.newItemNamePlaceHolder).translate,
                                                      delegate: self,
                                                      target: self,
                                                      action:  #selector(textFieldDidChange(_:)))
     
-    private let priceLabel = CustomLabel(text: "Price per package:",
+    private let priceLabel = CustomLabel(text: LanguageBase.newItem(.priceLabel).translate,
                                          textColor: .black,
                                          font: .poppinsFont(size: 12, weight: .light),
                                          alignment: .center)
     
-    private let quantityLabel = CustomLabel(text: "Quantity:",
+    private let quantityLabel = CustomLabel(text: LanguageBase.newItem(.quantityLabel).translate,
                                             textColor: .black,
                                             font: .poppinsFont(size: 12, weight: .light),
                                             alignment: .left)
@@ -82,7 +82,7 @@ class NewItemViewController: BaseViewController {
         return button
     }()
     
-    private lazy var saveButton = CustomButton(title: "Add",
+    private lazy var saveButton = CustomButton(title: LanguageBase.newItem(.addButton).translate,
                                                backgroundColor: .maingreen,
                                                titleColor: .white,
                                                target: self,
@@ -134,7 +134,6 @@ class NewItemViewController: BaseViewController {
     
     override func setupUIConstraints() {
         super.setupUIConstraints()
-        nameTextField.becomeFirstResponder()
         setupUI()
     }
     
@@ -150,7 +149,7 @@ class NewItemViewController: BaseViewController {
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
         nameTextField.returnKeyType = .next
-
+        
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -163,7 +162,8 @@ class NewItemViewController: BaseViewController {
             measuresSegmentedControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
+            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            priceLabel.trailingAnchor.constraint(equalTo: quantityLabel.leadingAnchor, constant: -160),
             priceLabel.widthAnchor.constraint(equalToConstant: 140),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
@@ -205,16 +205,16 @@ class NewItemViewController: BaseViewController {
         ])
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        view.layoutIfNeeded()
-    }
-    
     private func catalogCountCheck() {
         suggestionToolbar.isHidden = viewModel.catalogItems.isEmpty
     }
     
     private func configureMeasuresControl() {
+        measuresSegmentedControl.removeAllSegments()
+        for (index, measure) in Measures.allCases.enumerated() {
+            let translatedTitle = measure.translate
+            measuresSegmentedControl.insertSegment(withTitle: translatedTitle, at: index, animated: true)
+        }
         measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: viewModel.selectedMeasure) ?? 0
         measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
@@ -230,15 +230,20 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         if name.isEmpty {
-            alertMessage(title: "Empty name", message: "Please enter name of item")
+            alertMessage(title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                         message: LanguageBase.newItem(.emptyNameAlarmBody).translate)
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else { return }
+            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else {
+                alertMessage(title: LanguageBase.newItem(.wrongPriceAlarmTitle).translate,
+                             message: LanguageBase.newItem(.wrongPriceAlarmBody).translate)
+                return
+            }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
                 self.viewModel.saveItem(name: name,
                                         price: price,
                                         imagePath: imagePath,
-                                        measure: self.itemAmount.itemMeasure ?? .pcs)
+                                        measure: self.viewModel.selectedMeasure)
                 self.dismiss(animated: true)
             }
         }
@@ -282,25 +287,30 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.isHidden = true
             return
         }
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: true)
+        }
         catalogCountCheck()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: false)
+        }
         suggestionToolbar.isHidden = true
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+        guard let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let keyboardCurveValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        guard let keyboardCurve = UIView.AnimationCurve(rawValue: keyboardCurveValue) else { return }
         
         if keyboardWillShow {
             let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
             let bottomConstant: CGFloat = 20
-            self.bottomCostant?.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
+            viewBottomConstraint.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
         } else {
             viewBottomConstraint.constant = 20
         }

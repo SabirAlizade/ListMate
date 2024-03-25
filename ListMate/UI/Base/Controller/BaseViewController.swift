@@ -28,16 +28,14 @@ class BaseViewController: UIViewController {
 extension BaseViewController {
     
     func imagePickerButtons(takePictureAction: @escaping () -> Void, presentPickerAction: @escaping () -> Void) -> UIMenu {
-        lazy var takePicButton = UIAction(title: "Take image", image: UIImage(systemName: "camera")) { action in
+        lazy var takePicButton = UIAction(title: LanguageBase.imagePicker(.takeImage).translate, image: UIImage(systemName: "camera")) { action in
             takePictureAction()
         }
-        
-        lazy var choosePicButton = UIAction(title: "Select from gallery", image: UIImage(systemName: "photo.on.rectangle")) { action in
+        lazy var choosePicButton = UIAction(title: LanguageBase.imagePicker(.selectFromGallery).translate, image: UIImage(systemName: "photo.on.rectangle")) { action in
             presentPickerAction()
         }
-        
         lazy var buttons: [UIAction] = [takePicButton, choosePicButton]
-        lazy var menuButtons = UIMenu(title: "Choose option", children: buttons)
+        lazy var menuButtons = UIMenu(title: LanguageBase.imagePicker(.chooseOption).translate, children: buttons)
         
         return menuButtons
     }

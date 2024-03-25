@@ -32,7 +32,7 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
         
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
-            alertMessage(title: "Source error", message: "Camera is not available.")
+            alertMessage(title: LanguageBase.imagePicker(.sourceAlarmTitle).translate, message: LanguageBase.imagePicker(.sourceAlarmBody).translate)
             return
         }
         

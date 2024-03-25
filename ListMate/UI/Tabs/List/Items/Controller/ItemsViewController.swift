@@ -29,7 +29,7 @@ class ItemsViewController: BaseViewController {
     private lazy var summaryButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .poppinsFont(size: 17, weight: .regular)
-        button.setTitle( "0.00", for: .normal)
+        button.setTitle("0.00", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "cart"), for: .normal)
@@ -71,7 +71,7 @@ class ItemsViewController: BaseViewController {
     
     private func configureSummaryButton() {
         viewModel.updateSummaryButton = { [weak self] amount in
-            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) $", for: .normal)
+            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) \(LanguageBase.system(.currency).translate)", for: .normal)
         }
     }
     
@@ -109,7 +109,7 @@ class ItemsViewController: BaseViewController {
     private func didTapAddItem() {
         let vc  = NewItemViewController()
         vc.viewModel.delegate = self
-        vc.title = "New Item"
+        vc.title = LanguageBase.newItem(.newItemTitle).translate
         let nc = UINavigationController(rootViewController: vc)
         nc.sheetPresentationController?.detents = [.large()]
         present(nc, animated: true)
@@ -122,10 +122,13 @@ class ItemsViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
     }
+    
+     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
 }
 
 extension ItemsViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         let sectionsCount = viewModel.getSections().count
         updateUI(forEmptyList: sectionsCount == 0 ? true : false)
