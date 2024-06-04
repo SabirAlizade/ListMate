@@ -31,7 +31,7 @@ class ItemAmountView: BaseView {
                 minValue = 0.1
             }
             checkMinimumValue()
-            amountTextField.text =  Double.doubleToString(double: quantityAmount.doubleValue)
+            amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
         }
     }
     
@@ -48,7 +48,7 @@ class ItemAmountView: BaseView {
     private lazy var stepperView: UIStackView = {
         let view = UIStackView()
         view.withBorder(width: 1, color: .maingreen)
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = 8
         view.backgroundColor = .lightgreen
         return view
     }()
@@ -64,7 +64,6 @@ class ItemAmountView: BaseView {
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
-    
     
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -98,11 +97,13 @@ class ItemAmountView: BaseView {
             kit.width(170)
             kit.height(40)
             
-            let hStack = UIView().HStack(views: minusButton.withWidth(45),
-                                         amountTextField.withWidth(90),
-                                         plusButton.withWidth(45),
-                                         spacing: 5,
-                                         distribution: .fill)
+            let hStack = UIView().HStack(
+                views: minusButton.withWidth(45),
+                amountTextField.withWidth(90),
+                plusButton.withWidth(45),
+                spacing: 5,
+                distribution: .fill
+            )
             
             stepperView.anchor(view: hStack) { kit in
                 kit.leading()

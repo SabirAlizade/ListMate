@@ -46,7 +46,7 @@ final class NewItemViewModel {
                              imagePath: imagePath,
                              measure: measure,
                              price: price,
-                             totalPrice: price)
+                             totalPrice: price * amountValue)
         
         manager.saveObject(data: item) { error in
             if let error {
