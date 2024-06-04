@@ -36,6 +36,7 @@ class DetailedViewController: BaseViewController {
     private lazy var activityIndicator: ActivityIndicator = {
         return ActivityIndicator.shared
     }()
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         title = viewModel.item?.name

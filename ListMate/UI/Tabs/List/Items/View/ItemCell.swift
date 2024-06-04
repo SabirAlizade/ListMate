@@ -45,11 +45,15 @@ final class ItemCell: BaseCell {
     }()
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
-    private lazy var priceLabel = CustomLabel(font: .poppinsFont(size: 20, weight: .medium),
-                                              alignment: .right)
-    private lazy var currencyLabel = CustomLabel(text: LanguageBase.system(.currency).translate,
-                                                 font: .poppinsFont(size: 20, weight: .medium),
-                                                 alignment: .center)
+    private lazy var priceLabel = CustomLabel(
+        font: .poppinsFont(size: 20, weight: .medium),
+        alignment: .right
+    )
+    private lazy var currencyLabel = CustomLabel(
+        text: LanguageBase.system(.currency).translate,
+        font: .poppinsFont(size: 20, weight: .medium),
+        alignment: .center
+    )
     
     private let itemImageView: UIImageView = {
         let view = UIImageView()

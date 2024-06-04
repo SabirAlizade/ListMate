@@ -40,20 +40,26 @@ class NewItemViewController: BaseViewController {
         return toolbar
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: LanguageBase.newItem(.newItemNamePlaceHolder).translate,
-                                                     delegate: self,
-                                                     target: self,
-                                                     action:  #selector(textFieldDidChange(_:)))
+    private lazy var nameTextField = CustomTextField(
+        placeHolder: LanguageBase.newItem(.newItemNamePlaceHolder).translate,
+        delegate: self,
+        target: self,
+        action:  #selector(textFieldDidChange(_:))
+    )
     
-    private let priceLabel = CustomLabel(text: LanguageBase.newItem(.priceLabel).translate,
-                                         textColor: .black,
-                                         font: .poppinsFont(size: 12, weight: .light),
-                                         alignment: .center)
+    private let priceLabel = CustomLabel(
+        text: LanguageBase.newItem(.priceLabel).translate,
+        textColor: .black,
+        font: .poppinsFont(size: 12, weight: .light),
+        alignment: .left
+    )
     
-    private let quantityLabel = CustomLabel(text: LanguageBase.newItem(.quantityLabel).translate,
-                                            textColor: .black,
-                                            font: .poppinsFont(size: 12, weight: .light),
-                                            alignment: .left)
+    private let quantityLabel = CustomLabel(
+        text: LanguageBase.newItem(.quantityLabel).translate,
+        textColor: .black,
+        font: .poppinsFont(size: 12, weight: .light),
+        alignment: .left
+    )
     
     private lazy var priceTextField = PriceTextField(placeHolder: "0.00")
     
@@ -82,11 +88,13 @@ class NewItemViewController: BaseViewController {
         return button
     }()
     
-    private lazy var saveButton = CustomButton(title: LanguageBase.newItem(.addButton).translate,
-                                               backgroundColor: .maingreen,
-                                               titleColor: .white,
-                                               target: self,
-                                               action: #selector(didTapAdd))
+    private lazy var saveButton = CustomButton(
+        title: LanguageBase.newItem(.addButton).translate,
+        backgroundColor: .maingreen,
+        titleColor: .white,
+        target: self,
+        action: #selector(didTapAdd)
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,9 +170,9 @@ class NewItemViewController: BaseViewController {
             measuresSegmentedControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            priceLabel.trailingAnchor.constraint(equalTo: quantityLabel.leadingAnchor, constant: -160),
-            priceLabel.widthAnchor.constraint(equalToConstant: 140),
+            priceLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            priceLabel.trailingAnchor.constraint(equalTo: quantityLabel.leadingAnchor, constant: -120),
+            priceLabel.widthAnchor.constraint(equalToConstant: 160),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
             
@@ -257,8 +265,10 @@ class NewItemViewController: BaseViewController {
     //MARK: - IMAGE PICKER HANDLING
     
     private func configureMenu() {
-        let menu = imagePickerButtons(takePictureAction: takePicture,
-                                      presentPickerAction: presentPicker)
+        let menu = imagePickerButtons(
+            takePictureAction: takePicture,
+            presentPickerAction: presentPicker
+        )
         itemImageButton.menu = menu
     }
     
@@ -288,14 +298,22 @@ class NewItemViewController: BaseViewController {
             return
         }
         if let bottomConstraint = self.bottomCostant {
-            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: true)
+            moveViewWithKeyboard(
+                notification: notification,
+                viewBottomConstraint: bottomConstraint,
+                keyboardWillShow: true
+            )
         }
         catalogCountCheck()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
         if let bottomConstraint = self.bottomCostant {
-            moveViewWithKeyboard(notification: notification, viewBottomConstraint: bottomConstraint, keyboardWillShow: false)
+            moveViewWithKeyboard(
+                notification: notification,
+                viewBottomConstraint: bottomConstraint,
+                keyboardWillShow: false
+            )
         }
         suggestionToolbar.isHidden = true
     }
