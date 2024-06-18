@@ -53,10 +53,12 @@ extension UITextField {
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                         target: nil,
                                         action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: LanguageBase.system(.doneKeyboardButton).translate,
-                                                    style: .done,
-                                                    target: self,
-                                                    action: #selector(self.doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(
+            title: LanguageBase.system(.doneKeyboardButton).translate,
+            style: .done,
+            target: self,
+            action: #selector(self.doneButtonAction)
+        )
         done.tintColor = .maingreen
         let items = [flexSpace, done]
         doneToolbar.items = items

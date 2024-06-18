@@ -30,7 +30,12 @@ class DetailedViewController: BaseViewController {
     }()
     
     private lazy var doneButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveChanges))
+        let translatedTitle = LanguageBase.system(.doneKeyboardButton).translate
+        let button = UIBarButtonItem(title: translatedTitle,
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(saveChanges))
+        return button
     }()
     
     private lazy var activityIndicator: ActivityIndicator = {

@@ -75,7 +75,7 @@ class ListViewController: BaseViewController {
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height / 4 }
-         )]
+        )]
         present(nc, animated: true)
     }
 }
