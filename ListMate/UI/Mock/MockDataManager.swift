@@ -11,7 +11,6 @@ protocol DataManagerProtocol {
     func saveObject<T: Object>(data: T, completion: @escaping(Error?) -> Void)
     func readData<T: Object>(data: T.Type, completion: @escaping(Results<T>) -> Void)
     func delete<T: Object>(data: T, completion: @escaping(Error?) -> Void)
-    // Add any other methods your DataManager provides
 }
 
 class MockDataManager: DataManagerProtocol {
@@ -19,9 +18,8 @@ class MockDataManager: DataManagerProtocol {
     var deleteDataCalled = false
     var saveDataCalled = false
 
-    var mockLists: Results<ListModel>? // You will need to adjust this to simulate Realm's Results
+    var mockLists: Results<ListModel>?
 
-    // Implement the DataManagerProtocol methods here
     func saveObject<T: Object>(data: T, completion: @escaping(Error?) -> Void) {
         saveDataCalled = true
         // Simulate save operation success or failure

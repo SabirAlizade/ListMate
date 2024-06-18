@@ -8,8 +8,7 @@
 import Foundation
 
 enum SystemLanguage: LanguageProtocol {
-    case doneKeyboardButton,
-    currency
+    case doneKeyboardButton, currency
     
     var translate: String {
         switch self {
