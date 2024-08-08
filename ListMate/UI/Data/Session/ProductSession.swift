@@ -1,5 +1,5 @@
 //
-//  ProductSession.swift
+//  Sessin.swift
 //  ListMate
 //
 //  Created by Sabir Alizade on 23.12.23.
@@ -18,11 +18,3 @@ class ProductSession {
         listID = id
     }
 }
-
-protocol ProductSessionProtocol {
-    var listID: String { get }
-    func updateListId(id: String)
-}
-
-extension ProductSession: ProductSessionProtocol { }
-

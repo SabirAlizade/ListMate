@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class DataManager: DataManagerProtocol {
+class DataManager {
     
     let realm: Realm = try! Realm()
     
@@ -24,9 +24,9 @@ class DataManager: DataManagerProtocol {
         }
     }
     
-    func readData<T: Object>(data: T.Type, completion: @escaping (Results<T>?, Error?) -> Void) {
+    func readData<T: Object>(data: T.Type, completion: @escaping(Results<T>) -> Void) {
         let result = realm.objects(data)
-        completion(result, nil)
+        completion(result)
     }
     
     func delete<T: Object>(data: T, completion: @escaping(Error?) -> Void) {

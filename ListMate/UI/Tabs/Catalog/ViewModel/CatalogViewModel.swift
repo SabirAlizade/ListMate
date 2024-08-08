@@ -65,24 +65,9 @@ final class CatalogViewModel {
         readData()
     }
 
-//    func readData() {
-//        manager.readData(data: CatalogModel.self) { result in
-//            self.catalogItems = result
-//        }
-//    }
-//    
-    
     func readData() {
-        manager.readData(data: CatalogModel.self) { result, error in
-            if let error = error {
-                print("Error reading data: \(error.localizedDescription)")
-                // Handle the error as needed
-                self.catalogItems = nil
-            } else if let result = result {
-                self.catalogItems = result
-            } else {
-                self.catalogItems = nil
-            }
+        manager.readData(data: CatalogModel.self) { result in
+            self.catalogItems = result
         }
     }
     

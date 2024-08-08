@@ -20,6 +20,7 @@ protocol PassSuggestionDelegate: AnyObject {
 }
 
 final class NewItemViewModel {
+    
     weak var delegate: NewItemDelegate?
     weak var suggestionDelegate: PassSuggestionDelegate?
     
@@ -79,40 +80,12 @@ extension NewItemViewModel {
         NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
     }
     
-//    func readCatalogData() {
-//        catalogItems.removeAll()
-//        manager.readData(data: CatalogModel.self) { result in
-//            self.catalogItems.append(contentsOf: result)
-//        }
-//    }
-    
     func readCatalogData() {
         catalogItems.removeAll()
-        manager.readData(data: CatalogModel.self) { result, error in
-            if let error = error {
-                print("Error reading catalog data: \(error.localizedDescription)")
-                // Handle the error as needed
-            } else if let result = result {
-                self.catalogItems.append(contentsOf: result)
-            }
+        manager.readData(data: CatalogModel.self) { result in
+            self.catalogItems.append(contentsOf: result)
         }
     }
-    
-//    func filterSuggestions(name: String) {
-//        if name.isEmpty {
-//            readCatalogData()
-//            suggestionDelegate?.updateSuggestionsData()
-//        } else {
-//            let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
-//            manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
-//                guard let self = self else { return }
-//                catalogItems.removeAll()
-//                catalogItems.append(contentsOf: result)
-//                suggestionDelegate?.updateSuggestionsData()
-//            }
-//            checkCatalogCount()
-//        }
-//    }
     
     func filterSuggestions(name: String) {
         if name.isEmpty {
@@ -122,9 +95,9 @@ extension NewItemViewModel {
             let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
             manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
                 guard let self = self else { return }
-                self.catalogItems.removeAll()
-                self.catalogItems.append(contentsOf: result)
-                self.suggestionDelegate?.updateSuggestionsData()
+                catalogItems.removeAll()
+                catalogItems.append(contentsOf: result)
+                suggestionDelegate?.updateSuggestionsData()
             }
             checkCatalogCount()
         }
