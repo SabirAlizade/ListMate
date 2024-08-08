@@ -10,7 +10,8 @@ import UIKit
 class ListViewController: BaseViewController {
     
     private lazy var viewModel: ListViewModel = {
-        let model = ListViewModel(session: .shared)
+        let manager = DataManager()
+        let model = ListViewModel(session: ProductSession.shared, manager: manager)
         model.delegate = self
         return model
     }()
