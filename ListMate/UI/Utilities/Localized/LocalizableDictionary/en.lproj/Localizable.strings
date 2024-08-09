@@ -1,0 +1,68 @@
+/* 
+  Localizable.strings
+  ListMate
+
+  Created by Sabir Alizade on 09.02.24.
+  
+*/
+"list_app_title" = "Lists";
+"list_app_emptyListLabel" = "Tap to + button to create a new list";
+"list_app_newListTitle" = "Add list";
+"list_app_newListPlaceHolder" = "List name";
+"list_app_saveButton" = "Save";
+"list_app_emptyNameAlarmTitle" = "Empty name";
+"list_app_emptyNameAlarmBody" = "Please enter name of list";
+
+"item_app_remaining" = "Remaining total: ";
+"item_app_completed" = "Completed total: ";
+
+"summary_app_title" = "Summary";
+"summary_app_thankLabel" = "THANK YOU!\nfor using\nListMate";
+"summary_app_totalLabel" = "TOTAL: ";
+
+"detailed_app_addNotePlaceHolder" = "Add note";
+"detailed_app_measureLabel" = "Measure:";
+"detailed_app_priceLabel" = "Price per package:";
+"detailed_app_storeLabel" = "Store:";
+"detailed_app_storePlaceHolder" = "Store name";
+
+"newItem_app_title" = "New item";
+"newItem_app_namePlaceHolder" = "Enter item name";
+"newItem_app_priceLabel" = "Price per package:";
+"newItem_app_quantityLabel" = "Quantity:";
+"newItem_app_addButton" = "Add";
+"newItem_app_emptyNameAlarmTitle" = "Empty name";
+"newItem_app_emptyNameAlarmBody" = "Please enter name of item";
+"newItem_app_wrongPriceAlarmTitle" = "Wrong price format";
+"newItem_app_wrongPriceAlarmBody" = "Only numeric digits are allowed.";
+
+"catalog_app_title" = "Catalog";
+"catalog_app_milk" = "Milk";
+"catalog_app_bread" = "Bread";
+"catalog_app_butter" = "Butter";
+"catalog_app_bananas" = "Bananas";
+"catalog_app_eggs" = "Eggs";
+"catalog_app_potatoes" = "Potatoes";
+"catalog_app_tomatoes" = "Tomatoes";
+"catalog_app_water" = "Water";
+"catalog_app_orangeJuice" = "Orange juice";
+"catalog_app_chicken" = "Chicken";
+"catalog_app_cheese" = "Cheese";
+"catalog_app_apples" = "Apples";
+"catalog_app_yougurt" = "Yougurt";
+"catalog_app_pasta" = "Pasta";
+"catalog_app_rice" = "Rice";
+
+"system_app_doneKeyboard" = "Done";
+"system_app_currency" = "$";
+
+"imagePicker_app_chooseOption" = "Choose option";
+"imagePicker_app_takeImage" = "Take new image";
+"imagePicker_app_selectFromGallery" = "Select from gallery";
+"imagePicker_app_sourceAlarmTitle" = "Source error";
+"imagePicker_app_sourceAlarmBody" = "Source type is not available.";
+
+"measure_app_pcs" = "Pcs";
+"measure_app_kgs" = "Kgs";
+"measure_app_l" = "L";
+

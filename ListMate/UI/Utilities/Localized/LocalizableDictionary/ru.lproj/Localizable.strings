@@ -1,0 +1,68 @@
+/*
+  Localizable.strings
+  ListMate
+
+  Created by Sabir Alizade on 09.02.24.
+  
+*/
+"list_app_title" = "Списки";
+"list_app_emptyListLabel" = "Нажмите на + для создания новoго списка";
+"list_app_newListTitle" = "Новый список";
+"list_app_newListPlaceHolder" = "Имя списка";
+"list_app_saveButton" = "Сохранить";
+"list_app_emptyNameAlarmTitle" = "Пустое имя";
+"list_app_emptyNameAlarmBody" = "Пожалуйста введите имя списка";
+
+"item_app_remaining" = "Остаток всего: ";
+"item_app_completed" = "Выполнено всего: ";
+
+"summary_app_title" = "Итог";
+"summary_app_thankLabel" = "ОГРОМНОЕ СПАСИБО!\nза использование программы\nListMate";
+"summary_app_totalLabel" = "СУММА: ";
+
+"detailed_app_addNotePlaceHolder" = "Добавить заметку";
+"detailed_app_measureLabel" = "Еденица меры:";
+"detailed_app_priceLabel" = "Цена товара: ";
+"detailed_app_storeLabel" = "Магазин:";
+"detailed_app_storePlaceHolder" = "Имя магазина";
+
+"newItem_app_title" = "Новый товар";
+"newItem_app_namePlaceHolder" = "Введите имя товара";
+"newItem_app_priceLabel" = "Цена товара:";
+"newItem_app_quantityLabel" = "Количество:";
+"newItem_app_addButton" = "Добавить";
+"newItem_app_emptyNameAlarmTitle" = "Пустое имя";
+"newItem_app_emptyNameAlarmBody" = "Пожалуйста введите имя товара";
+"newItem_app_wrongPriceAlarmTitle" = "Неверный формат цены";
+"newItem_app_wrongPriceAlarmBody" = "Допустимы лишь цифры и дробный разделитель";
+
+"catalog_app_title" = "Каталог";
+"catalog_app_milk" = "Молоко";
+"catalog_app_bread" = "Хлеб";
+"catalog_app_butter" = "Масло";
+"catalog_app_bananas" = "Бананы";
+"catalog_app_eggs" = "Яйца";
+"catalog_app_potatoes" = "Картофель";
+"catalog_app_tomatoes" = "Помидоры";
+"catalog_app_water" = "Вода";
+"catalog_app_orangeJuice" = "Апельсиновый сок";
+"catalog_app_chicken" = "Курица";
+"catalog_app_cheese" = "Сыр";
+"catalog_app_apples" = "Яблоки";
+"catalog_app_yougurt" = "Йогурт";
+"catalog_app_pasta" = "Макароны";
+"catalog_app_rice" = "Рис";
+
+"system_app_doneKeyboard" = "Готово";
+"system_app_currency" = "₽";
+
+"imagePicker_app_chooseOption" = "Выберите вариант";
+"imagePicker_app_takeImage" = "Сфотографировать";
+"imagePicker_app_selectFromGallery" = "Выбрать из галереи";
+"imagePicker_app_sourceAlarmTitle" = "Ошибка источника";
+"imagePicker_app_sourceAlarmBody" = "Источник не доступен";
+
+"measure_app_pcs" = "Шт.";
+"measure_app_kgs" = "Кг.";
+"measure_app_l" = "Л";
+

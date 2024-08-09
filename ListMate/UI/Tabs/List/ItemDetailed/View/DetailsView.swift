@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol DetailsViewDelegate: AnyObject {
-    func updateDetailsData(measeure: Measures, price: Double, store: String)
+    func updateDetailsData(measeure: Measures, price: Decimal128, store: String)
 }
 
 class DetailsView: BaseView {
@@ -18,9 +19,10 @@ class DetailsView: BaseView {
     var item: ItemModel? {
         didSet {
             guard let item else { return }
-            selectedSegmentIndex(item: item)
-            priceTextField.text = Double.doubleToString(double: item.price)
+            selectedSegmentIndex(item: item.measure)
+            priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
             storeTextField.text = item.storeName
+            adjustPriceTextFieldWidth()
         }
     }
     
@@ -31,22 +33,32 @@ class DetailsView: BaseView {
         return view
     }()
     
-    private let measureLabel = CustomLabel(text: "Measure:",
-                                           font: .poppinsFont(size: 16, weight: .light))
+    private let measureLabel = CustomLabel(
+        text: LanguageBase.detailed(.measureLabel).translate,
+        font: .poppinsFont(size: 16, weight: .light)
+    )
     
-    private let priceLabel = CustomLabel(text: "Price per package:",
-                                         font: .poppinsFont(size: 16, weight: .light))
+    private let priceLabel = CustomLabel(
+        text: LanguageBase.detailed(.priceLabel).translate,
+        font: .poppinsFont(size: 16, weight: .light)
+    )
     
-    private lazy var priceTextField = PriceTextField(placeHolder: "0.00",
-                                                     target: self,
-                                                     action: #selector(didUpdateDetails))
+    private lazy var priceTextField = PriceTextField(
+        placeHolder: "0.00",
+        target: self,
+        action: #selector(didUpdateDetails)
+    )
     
-    private let storeLabel = CustomLabel(text: "Store:",
-                                         font: .poppinsFont(size: 16, weight: .light))
+    private let storeLabel = CustomLabel(
+        text: LanguageBase.detailed(.storeLabel).translate,
+        font: .poppinsFont(size: 16, weight: .light)
+    )
     
-    private lazy var storeTextField = CustomTextField(placeHolder: "Store name ",
-                                                      target: self,
-                                                      action: #selector(didUpdateDetails))
+    private lazy var storeTextField = CustomTextField(
+        placeHolder: LanguageBase.detailed(.storePlaceHolder).translate,
+        target: self,
+        action: #selector(didUpdateDetails)
+    )
     
     private lazy var measuresSegmentControl: UISegmentedControl = {
         let control = UISegmentedControl()
@@ -58,15 +70,38 @@ class DetailsView: BaseView {
         super.setupView()
         setupUI()
         setupSegmentedControl()
+        priceTextField.addTarget(self, action: #selector(priceTextFieldDidChange), for: .editingChanged)
     }
     
     private func setupUI() {
+        let measureStack = UIView().HStack(
+            views: measureLabel,
+            measuresSegmentControl.withWidth(240),
+            spacing: 10,
+            distribution: .fill
+        )
         
-        let measureStack = UIView().HStack(views: measureLabel, measuresSegmentControl.withWidth(240), spacing: 10, distribution: .fill)
-        let priceStack = UIView().HStack(views: priceLabel, priceTextField.withWidth(90), spacing: 10, distribution: .fill)
-        let storeStack = UIView().HStack(views: storeLabel, storeTextField.withWidth(160), spacing: 10, distribution: .fill)
-        let vStack = UIView().VStack(views: measureStack, priceStack, storeStack,
-                                     spacing: 20, distribution: .fill)
+        let priceStack = UIView().HStack(
+            views: priceLabel,
+            priceTextField,
+            spacing: 10,
+            distribution: .fill
+        )
+        
+        let storeStack = UIView().HStack(
+            views: storeLabel,
+            storeTextField.withWidth(160),
+            spacing: 10,
+            distribution: .fill
+        )
+        
+        let vStack = UIView().VStack(
+            views: measureStack,
+            priceStack,
+            storeStack,
+            spacing: 20,
+            distribution: .fill
+        )
         
         self.anchorFill(view: detailsView)
         
@@ -79,24 +114,34 @@ class DetailsView: BaseView {
     }
     
     @objc
+    private func priceTextFieldDidChange() {
+        adjustPriceTextFieldWidth()
+    }
+    
+    
+    private func adjustPriceTextFieldWidth() {
+        priceTextField.sizeToFit()
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    @objc
     private func didUpdateDetails() {
-        guard let price = Double(priceTextField.text ?? "") else { return }
+        guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? "") else { return }
         guard let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
-        
         delegate?.updateDetailsData(measeure: selectedMeasure, price: price, store: store)
     }
     
-    private func selectedSegmentIndex(item: ItemModel) {
-        guard let selectedIndex = Measures.allCases.firstIndex(of: item.measure) else {
-            return
-        }
+    private func selectedSegmentIndex(item: Measures) {
+        guard let selectedIndex = Measures.allCases.firstIndex(of: item) else { return }
         measuresSegmentControl.selectedSegmentIndex = selectedIndex
     }
     
     private func setupSegmentedControl() {
         for (index, measure) in Measures.allCases.enumerated() {
-            measuresSegmentControl.insertSegment(withTitle: measure.rawValue, at: index, animated: true)
+            let translatedTitle = measure.translate
+            measuresSegmentControl.insertSegment(withTitle: translatedTitle, at: index, animated: true)
         }
     }
 }

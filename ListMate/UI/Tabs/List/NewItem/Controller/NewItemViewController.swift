@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewItemViewController: BaseViewController {
     
@@ -39,20 +40,26 @@ class NewItemViewController: BaseViewController {
         return toolbar
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "Enter name of item",
-                                                     delegate: self,
-                                                     target: self,
-                                                     action:  #selector(textFieldDidChange(_:)))
+    private lazy var nameTextField = CustomTextField(
+        placeHolder: LanguageBase.newItem(.newItemNamePlaceHolder).translate,
+        delegate: self,
+        target: self,
+        action:  #selector(textFieldDidChange(_:))
+    )
     
-    private let priceLabel = CustomLabel(text: "Price per package:",
-                                         textColor: .black,
-                                         font: .poppinsFont(size: 12, weight: .light),
-                                         alignment: .center)
+    private let priceLabel = CustomLabel(
+        text: LanguageBase.newItem(.priceLabel).translate,
+        textColor: .black,
+        font: .poppinsFont(size: 12, weight: .light),
+        alignment: .left
+    )
     
-    private let quantityLabel = CustomLabel(text: "Quantity:",
-                                            textColor: .black,
-                                            font: .poppinsFont(size: 12, weight: .light),
-                                            alignment: .left)
+    private let quantityLabel = CustomLabel(
+        text: LanguageBase.newItem(.quantityLabel).translate,
+        textColor: .black,
+        font: .poppinsFont(size: 12, weight: .light),
+        alignment: .left
+    )
     
     private lazy var priceTextField = PriceTextField(placeHolder: "0.00")
     
@@ -81,17 +88,20 @@ class NewItemViewController: BaseViewController {
         return button
     }()
     
-    private lazy var saveButton = CustomButton(title: "Add",
-                                               backgroundColor: .maingreen,
-                                               titleColor: .white,
-                                               target: self,
-                                               action: #selector(didTapAdd))
+    private lazy var saveButton = CustomButton(
+        title: LanguageBase.newItem(.addButton).translate,
+        backgroundColor: .maingreen,
+        titleColor: .white,
+        target: self,
+        action: #selector(didTapAdd)
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottomCostant?.isActive = true
-        nameTextField.returnKeyType = .next
+        view.layoutIfNeeded()
+        nameTextField.becomeFirstResponder()
         configureKeyboardNotification()
     }
     
@@ -123,7 +133,6 @@ class NewItemViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        nameTextField.becomeFirstResponder()
         view.backgroundColor = .maingray
         closeBarButton()
         configureMenu()
@@ -147,6 +156,8 @@ class NewItemViewController: BaseViewController {
         view.addSubview(itemImageButton)
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
+        nameTextField.returnKeyType = .next
+        
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -159,8 +170,9 @@ class NewItemViewController: BaseViewController {
             measuresSegmentedControl.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 15),
             measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
-            priceLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
-            priceLabel.widthAnchor.constraint(equalToConstant: 140),
+            priceLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            priceLabel.trailingAnchor.constraint(equalTo: quantityLabel.leadingAnchor, constant: -120),
+            priceLabel.widthAnchor.constraint(equalToConstant: 160),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
             
@@ -206,6 +218,11 @@ class NewItemViewController: BaseViewController {
     }
     
     private func configureMeasuresControl() {
+        measuresSegmentedControl.removeAllSegments()
+        for (index, measure) in Measures.allCases.enumerated() {
+            let translatedTitle = measure.translate
+            measuresSegmentedControl.insertSegment(withTitle: translatedTitle, at: index, animated: true)
+        }
         measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: viewModel.selectedMeasure) ?? 0
         measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
@@ -221,15 +238,20 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         if name.isEmpty {
-            alertMessage(title: "Empty name", message: "Please enter name of item")
+            alertMessage(title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                         message: LanguageBase.newItem(.emptyNameAlarmBody).translate)
         } else {
             let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Double(pricetext ?? "0") else { return }
+            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else {
+                alertMessage(title: LanguageBase.newItem(.wrongPriceAlarmTitle).translate,
+                             message: LanguageBase.newItem(.wrongPriceAlarmBody).translate)
+                return
+            }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
                 self.viewModel.saveItem(name: name,
                                         price: price,
                                         imagePath: imagePath,
-                                        measure: self.itemAmount.itemMeasure ?? .pcs)
+                                        measure: self.viewModel.selectedMeasure)
                 self.dismiss(animated: true)
             }
         }
@@ -243,8 +265,10 @@ class NewItemViewController: BaseViewController {
     //MARK: - IMAGE PICKER HANDLING
     
     private func configureMenu() {
-        let menu = imagePickerButtons(takePictureAction: takePicture,
-                                      presentPickerAction: presentPicker)
+        let menu = imagePickerButtons(
+            takePictureAction: takePicture,
+            presentPickerAction: presentPicker
+        )
         itemImageButton.menu = menu
     }
     
@@ -273,25 +297,38 @@ class NewItemViewController: BaseViewController {
             suggestionToolbar.isHidden = true
             return
         }
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: true)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(
+                notification: notification,
+                viewBottomConstraint: bottomConstraint,
+                keyboardWillShow: true
+            )
+        }
         catalogCountCheck()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.bottomCostant!, keyboardWillShow: false)
+        if let bottomConstraint = self.bottomCostant {
+            moveViewWithKeyboard(
+                notification: notification,
+                viewBottomConstraint: bottomConstraint,
+                keyboardWillShow: false
+            )
+        }
         suggestionToolbar.isHidden = true
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-        let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
-        let keyboardCurve = UIView.AnimationCurve(rawValue: notification.userInfo![UIResponder.keyboardAnimationCurveUserInfoKey] as! Int)!
+        guard let keyboardDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        guard let keyboardCurveValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else { return }
+        guard let keyboardCurve = UIView.AnimationCurve(rawValue: keyboardCurveValue) else { return }
         
         if keyboardWillShow {
             let safeAreaExists = (self.view?.window?.safeAreaInsets.bottom != 0)
             let bottomConstant: CGFloat = 20
-            self.bottomCostant?.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
+            viewBottomConstraint.constant = -keyboardHeight - (safeAreaExists ? 0 : bottomConstant)
         } else {
             viewBottomConstraint.constant = 20
         }
@@ -305,11 +342,11 @@ class NewItemViewController: BaseViewController {
 
 extension NewItemViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            if textField == nameTextField {
-                priceTextField.becomeFirstResponder()
-            } else {
-                textField.resignFirstResponder()
-            }
+        if textField == nameTextField {
+            priceTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
 }
@@ -321,7 +358,7 @@ extension NewItemViewController: ImagePickerDelegate {
 }
 
 extension NewItemViewController: ItemAmountDelegate {
-    func setAmount(amount: Double) {
+    func setAmount(amount: Decimal128) {
         viewModel.setAmount(amount: amount)
     }
 }
@@ -335,9 +372,9 @@ extension NewItemViewController: PassSuggestionDelegate {
         suggestionToolbar.collectionView.reloadData()
     }
     
-    func passSuggested(name: String, price: Double, measure: Measures) {
+    func passSuggested(name: String, price: Decimal128, measure: Measures) {
         self.nameTextField.text = name
-        self.priceTextField.text = "\(price)"
+        self.priceTextField.text = Double.doubleToString(double: price.doubleValue)
         self.measuresSegmentedControl.selectedSegmentIndex = Measures.allCases.firstIndex(of: measure) ?? 0
     }
 }

@@ -10,7 +10,8 @@ import UIKit
 class ListViewController: BaseViewController {
     
     private lazy var viewModel: ListViewModel = {
-        let model = ListViewModel(session: .shared)
+        let manager = DataManager()
+        let model = ListViewModel(session: ProductSession.shared, manager: manager)
         model.delegate = self
         return model
     }()
@@ -26,13 +27,16 @@ class ListViewController: BaseViewController {
         return view
     }()
     
-    private let emptyListLabel = CustomLabel(text: "Tap to plus button to create a new list",
-                                             textColor: .gray,
-                                             font: .poppinsFont(size: 16, weight: .light),
-                                             alignment: .center)
+    private let emptyListLabel = CustomLabel(
+        text: LanguageBase.list(.emptyListLabel).translate,
+        textColor: .gray,
+        font: .poppinsFont(size: 16, weight: .light),
+        alignment: .center
+    )
     
     override func setupUIComponents() {
         super.setupUIComponents()
+        navigationItem.title = LanguageBase.list(.title).translate
         configureNavBar()
         viewModel.readData()
     }
@@ -43,7 +47,7 @@ class ListViewController: BaseViewController {
     }
     
     private func setupUI(){
-       
+        
         view.anchorFill(view: tableView)
         view.anchor(view: emptyListLabel) { kit in
             kit.centerX()
@@ -52,8 +56,6 @@ class ListViewController: BaseViewController {
     }
     
     private func configureNavBar() {
-        navigationItem.title = "Lists"
-        
         let rightButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
                                           style: .plain,
                                           target: self,
@@ -62,6 +64,7 @@ class ListViewController: BaseViewController {
         rightButton.tintColor = .maingreen
         navigationItem.rightBarButtonItem = rightButton
     }
+    
     private func updateUI(forEmptyList isEmpty: Bool) {
         emptyListLabel.isHidden = isEmpty
     }

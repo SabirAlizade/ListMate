@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol TextFieldDataSource {
     func resultValue(hasText: Bool, value: String)
@@ -31,6 +32,7 @@ class CustomTextFieldConfiguration: UITextField {
             dataSource?.resultValue(hasText: false, value: "")
             return
         }
+        
         if text == " " {
             self.text = nil
         }
@@ -49,30 +51,39 @@ class PriceTextFieldConfiguration: UITextField, UITextFieldDelegate {
         super.init(frame: frame)
         delegate = self
         doneAccessory = true
-        addTarget(self, action: #selector(editingChanged), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func editingChanged() {
-        guard let text = self.text else { return }
-        let textWithoutCommas = text.replacingOccurrences(of: ",", with: ".")
-        let components = textWithoutCommas.components(separatedBy: ".")
-        if components.count > 2 {
-            let formattedText = components.prefix(2).joined(separator: ".")
-            self.text = formattedText
-        } else {
-            self.text = textWithoutCommas
-        }
-    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = textField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        return updatedText.count <= 9
+        let allowedCharacters = CharacterSet(charactersIn: "0123456789,.").inverted
+        let filteredString = string.components(separatedBy: allowedCharacters).joined()
+        
+        if filteredString != string {
+            return false
+        }
+        
+        guard let currentText = textField.text else { return true }
+        var newText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        let decimalSeparator = Locale.current.decimalSeparator ?? "."
+        if decimalSeparator != "." {
+            newText = newText.replacingOccurrences(of: ".", with: decimalSeparator)
+        }
+        
+        let convertedText = newText.replacingOccurrences(of: decimalSeparator, with: ".")
+        if newText.components(separatedBy: decimalSeparator).count > 2 {
+            return false
+        }
+        
+        let components = convertedText.components(separatedBy: ".")
+        if components.count > 2 || (components.count == 2 && components[1].count > 2) {
+            return false
+        }
+        
+        textField.text = convertedText
+        sendActions(for: .editingChanged)
+        return false
     }
 }
-

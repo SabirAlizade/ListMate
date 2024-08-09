@@ -17,21 +17,26 @@ class DetailedViewModel {
     weak var delegate: DetailedViewModelDelegate?
     var item: ItemModel?
     private let manager = DataManager()
+    var newItem: String = ""
+    var newNote: String = ""
     
-    func updateValues(name: String, note: String) {
+    func updateValues() {
         guard let item else { return }
-        do {
-            try manager.realm.write {
-                item.name = name
-                item.notes = note
+        let newItemName = newItem.isEmpty ? item.name : newItem
+        if item.name != newItemName || item.notes != newNote {
+            do {
+                try manager.realm.write {
+                    item.name = newItemName
+                    item.notes = newNote
+                }
             }
-        }
-        catch {
-            print("Error updating name or note \(error.localizedDescription)")
+            catch {
+                print("Error updating name or note \(error.localizedDescription)")
+            }
         }
     }
     
-    func updateValues(measeure: Measures, price: Double, store: String) {
+    func updateValues(measeure: Measures, price: Decimal128, store: String) {
         guard let item else { return }
         do {
             try manager.realm.write {
@@ -43,6 +48,18 @@ class DetailedViewModel {
         }
         catch {
             print("Error updating detailed item data \(error.localizedDescription)")
+        }
+        
+        if let catalogItem = manager.realm.objects(CatalogModel.self).filter("name == %@", item.name).first {
+            do {
+                try manager.realm.write {
+                    catalogItem.price = price
+                }
+                NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
+            }
+            catch {
+                print("Error updating catalog item price: \(error.localizedDescription)")
+            }
         }
     }
     

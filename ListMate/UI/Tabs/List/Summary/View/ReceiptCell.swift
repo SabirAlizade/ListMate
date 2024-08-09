@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ReceiptCell: BaseCell{
     
@@ -13,8 +14,8 @@ class ReceiptCell: BaseCell{
         didSet {
             guard let item else { return }
             nameLabel.text = item.name
-            amountLabel.text =  String("x \(Double.doubleToString(double: item.amount))")
-            priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice)) $")
+            amountLabel.text =  String("x \(item.amount)")
+            priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice.doubleValue)) \(LanguageBase.system(.currency).translate)")
         }
     }
     

@@ -26,8 +26,10 @@ class CatalogViewController: BaseViewController {
     
     override func setupUIComponents() {
         super.setupUIComponents()
-        navigationItem.title = "Catalog"
+        navigationItem.title = LanguageBase.catalog(.title).translate
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCatalog), name: NSNotification.Name("ReloadCatalogData"), object: nil)
         viewModel.readData()
+        viewModel.loadMockData()
     }
     
     override func setupUIConstraints() {
@@ -37,6 +39,11 @@ class CatalogViewController: BaseViewController {
     
     private func setupUI() {
         view.anchorFill(view: tableView)
+    }
+    
+    @objc
+    private func reloadCatalog() {
+        viewModel.readData()
     }
 }
 

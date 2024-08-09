@@ -6,17 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol ItemAmountDelegate: AnyObject {
-    func setAmount(amount: Double)
+    func setAmount(amount: Decimal128)
 }
 
 class ItemAmountView: BaseView {
     
     weak var delegate: ItemAmountDelegate?
     
-    var quantityAmount: Double = 1
-    private var minValue: Double = 1
+    var quantityAmount: Decimal128 = 1
+    private var minValue: Decimal128 = 1
     
     var itemMeasure: Measures? {
         didSet {
@@ -30,7 +31,7 @@ class ItemAmountView: BaseView {
                 minValue = 0.1
             }
             checkMinimumValue()
-            amountTextField.text = Double.doubleToString(double: quantityAmount)
+            amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
         }
     }
     
@@ -39,7 +40,7 @@ class ItemAmountView: BaseView {
             guard let item else { return }
             itemMeasure = item.measure
             quantityAmount = item.amount
-            amountTextField.text = Double.doubleToString(double: quantityAmount)
+            amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
             checkMinimumValue()
         }
     }
@@ -47,7 +48,7 @@ class ItemAmountView: BaseView {
     private lazy var stepperView: UIStackView = {
         let view = UIStackView()
         view.withBorder(width: 1, color: .maingreen)
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = 8
         view.backgroundColor = .lightgreen
         return view
     }()
@@ -63,7 +64,6 @@ class ItemAmountView: BaseView {
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
-    
     
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -97,11 +97,13 @@ class ItemAmountView: BaseView {
             kit.width(170)
             kit.height(40)
             
-            let hStack = UIView().HStack(views: minusButton.withWidth(45),
-                                         amountTextField.withWidth(90),
-                                         plusButton.withWidth(45),
-                                         spacing: 5,
-                                         distribution: .fill)
+            let hStack = UIView().HStack(
+                views: minusButton.withWidth(45),
+                amountTextField.withWidth(90),
+                plusButton.withWidth(45),
+                spacing: 5,
+                distribution: .fill
+            )
             
             stepperView.anchor(view: hStack) { kit in
                 kit.leading()
@@ -125,36 +127,36 @@ class ItemAmountView: BaseView {
     @objc
     private func didTapMinus() {
         updateAmount(with: itemMeasure ?? .pcs, increment: false)
-        amountTextField.text = Double.doubleToString(double: quantityAmount)
+        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
         delegate?.setAmount(amount: quantityAmount)
     }
-
+    
     private func updateAmount(with measureType: Measures, increment: Bool) {
         switch measureType {
         case .pcs:
             quantityAmount = max(quantityAmount + (increment ? 1 : -1), 1)
         case .kgs, .l:
-            let step: Double = 0.5
+            let step: Decimal128 = 0.5
             
             if increment {
-                    quantityAmount = (quantityAmount == 0.1) ? step : quantityAmount + step
-                } else {
-                    quantityAmount = (quantityAmount == 0.5) ? 0.1 : quantityAmount - step
-                }
+                quantityAmount = (quantityAmount == 0.1) ? step : quantityAmount + step
+            } else {
+                quantityAmount = (quantityAmount == 0.5) ? 0.1 : quantityAmount - step
             }
+        }
         checkMinimumValue()
     }
-
+    
     @objc
     private func didTapPlus() {
         updateAmount(with: itemMeasure ?? .pcs, increment: true)
-        amountTextField.text = Double.doubleToString(double: quantityAmount)
+        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
         delegate?.setAmount(amount: quantityAmount)
     }
     
     @objc
     private func textFieldDidChange() {
-        guard let amount = Double(amountTextField.text ?? "") else { return }
+        guard let amount = Decimal128.fromStringToDecimal(string: amountTextField.text ?? "") else { return }
         delegate?.setAmount(amount: amount)
     }
 }

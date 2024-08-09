@@ -13,7 +13,7 @@ class SuggestionsToolbarView: BaseView {
     init(viewModel: NewItemViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-        viewModel.readData()
+        viewModel.readCatalogData()
         setupUI()
     }
     
@@ -45,8 +45,10 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = viewModel.catalogItems[indexPath.item]
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SuggestionCell.description(),
-                                                            for: indexPath) as? SuggestionCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: SuggestionCell.description(),
+            for: indexPath
+        ) as? SuggestionCell else { return UICollectionViewCell() }
         cell.item = item
         return cell
     }

@@ -14,11 +14,12 @@ protocol ListViewModelDelegate: AnyObject {
 
 final class ListViewModel {
     weak var delegate: ListViewModelDelegate?
-    private let session: ProductSession
-    private let manager = DataManager()
+    private let session: ProductSessionProtocol
+    private let manager: DataManagerProtocol
     
-    init(session: ProductSession) {
+    init(session: ProductSessionProtocol, manager: DataManagerProtocol) {
         self.session = session
+        self.manager = manager
     }
     
     private(set) var lists: Results<ListModel>? {
@@ -28,8 +29,12 @@ final class ListViewModel {
     }
     
     func readData() {
-        manager.readData(data: ListModel.self) { result in
-            self.lists = result
+        manager.readData(data: ListModel.self) { result, error in
+            if let error = error {
+                print("Error reading data: \(error.localizedDescription)")
+            } else if let result = result {
+                self.lists = result
+            }
         }
     }
     

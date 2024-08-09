@@ -15,14 +15,14 @@ class ListModel: Object {
     @Persisted var completedQuantity: Int
     @Persisted var date: Date
     @Persisted var items = List<ItemModel>()
-    @Persisted var totalAmount: Double
+    @Persisted var totalAmount: Decimal128
     
     convenience init(name: String,
                      toBuyQuantity: Int = 0,
                      remainsQuantity: Int = 0,
                      date: Date,
                      items: List<ItemModel>?,
-                     totalAmount: Double) {
+                     totalAmount: Decimal128) {
         
         self.init()
         self.id = id

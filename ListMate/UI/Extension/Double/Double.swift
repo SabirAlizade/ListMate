@@ -18,10 +18,10 @@ extension Double {
             string = String(string.dropLast(2))
         case let str where str.contains(".") && str.hasSuffix("0"):
             string = String(string.dropLast(1))
-            
         default:
             return string
         }
         return string
     }
 }
+

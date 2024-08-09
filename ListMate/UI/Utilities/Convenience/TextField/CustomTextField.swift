@@ -21,6 +21,7 @@ class CustomTextField: CustomTextFieldConfiguration {
                      action: Selector? = nil
     ) {
         self.init()
+        clipsToBounds = true
         self.dataSource = dataSource as? TextFieldDataSource
         self.delegate = delegate as? UITextFieldDelegate
         self.textAlignment = textAlignment
@@ -31,7 +32,6 @@ class CustomTextField: CustomTextFieldConfiguration {
         textColor = .maintext
         self.backgroundColor = backgroundColor
         withBorder(width: 1, color: .buttongreen)
-        self.addShadowOnFocus()
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -46,6 +46,20 @@ class CustomTextField: CustomTextFieldConfiguration {
         self.layer.borderWidth = width ?? 0
         self.layer.borderColor = color?.cgColor
     }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        addShadowOnFocus()
+    }
 }
 
 class PriceTextField: PriceTextFieldConfiguration {
@@ -55,6 +69,7 @@ class PriceTextField: PriceTextFieldConfiguration {
                      action: Selector? = nil
     ) {
         self.init()
+        clipsToBounds = true
         placeholder = placeHolder
         textAlignment = .left
         keyboardType = .decimalPad
@@ -63,11 +78,9 @@ class PriceTextField: PriceTextFieldConfiguration {
         borderStyle = .roundedRect
         textColor = .maintext
         self.backgroundColor = .textfieldback
-        let priceImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        priceImageView.image = UIImage(named: "dollarsign")
-        setRightView(view: priceImageView)
+        updateRightView()
         withBorder(width: 1, color: .buttongreen)
-        self.addShadowOnFocus()
+        
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
@@ -82,6 +95,43 @@ class PriceTextField: PriceTextFieldConfiguration {
             self.layer.borderColor = color?.cgColor
         }
     }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        addShadowOnFocus()
+    }
+    
+    private func updateRightView() {
+        let priceImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let languageCode = Locale.current.language.languageCode?.identifier
+        switch languageCode {
+        case "en":
+            priceImageView.image = UIImage(named: "dollarsign")
+        case "ru":
+            priceImageView.image = UIImage(named: "roublesign")
+        case "az":
+            priceImageView.image = UIImage(named: "manatsign")
+        default:
+            priceImageView.image = UIImage(named: "dollarsign")
+        }
+        setRightView(view: priceImageView)
+    }
+    
+    //MARK: Preventing paste to textfield
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(UIResponderStandardEditActions.paste(_:)) {
+            return false
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
 }
 
 extension PriceTextField {
@@ -95,3 +145,4 @@ extension PriceTextField {
         self.rightView = subView
     }
 }
+

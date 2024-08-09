@@ -12,11 +12,11 @@ import RealmSwift
 class CatalogModel: Object {
     @Persisted(primaryKey: true) var id: UUID
     @Persisted var name: String
-    @Persisted var price: Double
+    @Persisted var price: Decimal128
     @Persisted var measure: Measures
     
     convenience init(name: String,
-                     price: Double,
+                     price: Decimal128,
                      measure: Measures) {
         
         self.init()

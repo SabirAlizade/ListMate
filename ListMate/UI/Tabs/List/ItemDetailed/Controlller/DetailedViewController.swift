@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailedViewController: BaseViewController {
     
@@ -28,14 +29,24 @@ class DetailedViewController: BaseViewController {
         return model
     }()
     
+    private lazy var doneButton: UIBarButtonItem = {
+        let translatedTitle = LanguageBase.system(.doneKeyboardButton).translate
+        let button = UIBarButtonItem(title: translatedTitle,
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(saveChanges))
+        return button
+    }()
+    
     private lazy var activityIndicator: ActivityIndicator = {
         return ActivityIndicator.shared
     }()
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         title = viewModel.item?.name
+        configureDoneButton()
         closeBarButton()
-        doneBarButton()
     }
     
     override func setupUIConstraints() {
@@ -44,8 +55,7 @@ class DetailedViewController: BaseViewController {
         configureMenu()
     }
     
-    private func doneBarButton() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveChanges))
+    private func configureDoneButton() {
         doneButton.tintColor = .maingreen
         navigationItem.rightBarButtonItem = doneButton
     }
@@ -67,10 +77,12 @@ class DetailedViewController: BaseViewController {
     
     @objc
     private func saveChanges() {
+        viewModel.updateValues()
         viewModel.reloadItemsData()
         saveSelectedPicture()
         dismiss(animated: true)
     }
+    
     //MARK: - IMAGE PICKER HANDLING
     private func configureMenu() {
         let menu = imagePickerButtons(takePictureAction: takePicture,
@@ -122,12 +134,21 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
         configureMenu()
     }
     
-    func updateDetailsData(measeure: Measures, price: Double, store: String) {
+    func updateDetailsData(measeure: Measures, price: Decimal128, store: String) {
         viewModel.updateValues(measeure: measeure, price: price, store: store)
     }
     
     func updateNameAndNote(name: String, note: String) {
-        viewModel.updateValues(name: name, note: note)
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            alertMessage(
+                title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                message: LanguageBase.newItem(.emptyNameAlarmBody).translate )
+            doneButton.isEnabled = false
+        } else {
+            viewModel.newItem = name
+            viewModel.newNote = note
+            doneButton.isEnabled = true
+        }
     }
 }
 

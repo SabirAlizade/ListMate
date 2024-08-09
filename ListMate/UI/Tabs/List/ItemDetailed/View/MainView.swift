@@ -14,6 +14,7 @@ protocol MainViewDelegate: AnyObject {
 }
 
 final class MainView: BaseView {
+    
     weak var delegate: MainViewDelegate?
     
     var itemImage: UIImage?
@@ -34,14 +35,14 @@ final class MainView: BaseView {
         return view
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "Set name",
+    private lazy var nameTextField = CustomTextField(placeHolder: "",
                                                      font: .poppinsFont(size: 22, weight: .medium),
                                                      border: .none,
                                                      backgroundColor: .mainwhite,
                                                      target: self,
                                                      action: #selector(didTapValueChanged))
     
-    private lazy var noteTextField = CustomTextField(placeHolder: "Add note",
+    private lazy var noteTextField = CustomTextField(placeHolder: LanguageBase.detailed(.addNotePlaceHolder).translate,
                                                      font: .poppinsFont(size: 18, weight: .light),
                                                      border: .none,
                                                      backgroundColor: .mainwhite,
@@ -128,3 +129,4 @@ final class MainView: BaseView {
         delegate?.updateNameAndNote(name: name, note: note)
     }
 }
+

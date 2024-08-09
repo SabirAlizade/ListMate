@@ -20,25 +20,19 @@ final class ItemsViewModel {
     
     weak var delegate: ItemsModelDelegate?
     weak var quantityDelegate: ItemsQuantityDelegate?
-    
     private let manager = DataManager()
     private let productSession: ProductSession
     private var itemAmount: Double?
     private var selectedMeasure: Measures?
-    
+    private var completedItemsQuantity: Int = 0
+    private(set) var items: Results<ItemModel>?
+    var updateSummaryButton: ((Decimal128) -> Void)?
     var completedItemsArray: [ItemModel] = []
-    
-    private var summaryAmount: Double = 0 {
+    private var summaryAmount: Decimal128 = 0 {
         didSet {
             updateSummaryButton?(summaryAmount)
         }
     }
-    
-    var updateSummaryButton: ((Double) -> Void)?
-    
-    private var completedItemsQuantity: Int = 0
-    
-    private(set) var items: Results<ItemModel>?
     
     init(session: ProductSession) {
         self.productSession = session
@@ -58,9 +52,10 @@ final class ItemsViewModel {
         
         let remainingItems = items.filter { !$0.isChecked }
         let completedItems = items.filter { $0.isChecked }
-        
-        let remainingSection = ItemSection(name: "Remaining", data: Array(remainingItems))
-        let completedSection = ItemSection(name: "Completed", data: Array(completedItems))
+        let remainingSection = ItemSection(name: LanguageBase.item(.remainingTotal).translate,
+                                           data: Array(remainingItems))
+        let completedSection = ItemSection(name: LanguageBase.item(.completedTotal).translate,
+                                           data: Array(completedItems))
         
         updateListSummary(completedItems: completedItems, remainItems: remainingItems)
         
@@ -76,8 +71,7 @@ final class ItemsViewModel {
             return ""
         } else {
             let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
-            let formatString = Double.doubleToString(double: sectionTotal)
-            return "\(sectionModel.name) total: \(formatString) $"
+            return "\(sectionModel.name) \(Double.doubleToString(double: sectionTotal.doubleValue)) \(LanguageBase.system(.currency).translate)"
         }
     }
     
@@ -95,7 +89,7 @@ final class ItemsViewModel {
         }
     }
     
-    func updateAmount(amount: Double, id: ObjectId) {
+    func updateAmount(amount: Decimal128, id: ObjectId) {
         if let item = items?.first(where: { $0.objectId == id }) {
             let totalPrice = item.price * amount
             do {
@@ -132,7 +126,7 @@ final class ItemsViewModel {
 extension ItemsViewModel {
     
     func updateListSummary(completedItems: LazyFilterSequence<Results<ItemModel>>, remainItems: LazyFilterSequence<Results<ItemModel>>) {
-        let summary = completedItems.reduce(0) { $0 + $1.totalPrice}
+        let summary = completedItems.reduce(0) { $0 + $1.totalPrice }
         
         summaryAmount = summary
         
