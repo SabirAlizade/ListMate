@@ -2,7 +2,7 @@
 //  ListMateTests.swift
 //  ListMateTests
 //
-//  Created by Sabir Alizade on 25.03.24.
+//  Created by Sabir Alizade on 25.03.24
 //
 @testable import ListMate
 import XCTest
