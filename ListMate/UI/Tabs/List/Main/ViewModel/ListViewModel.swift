@@ -28,16 +28,10 @@ final class ListViewModel {
         }
     }
     
-//    func readData() {
-//        manager.readData(data: ListModel.self) { result in
-//            self.lists = result
-//        }
-//    }
     func readData() {
         manager.readData(data: ListModel.self) { result, error in
             if let error = error {
                 print("Error reading data: \(error.localizedDescription)")
-                // Additional error handling can be done here, e.g., updating UI or logging
             } else if let result = result {
                 self.lists = result
             }

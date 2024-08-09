@@ -20,7 +20,7 @@ final class ListMateTests: XCTestCase {
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "TestRealm"
         let realm = try! Realm()
         try! realm.write {
-            realm.deleteAll() // Clear any existing data before each test
+            realm.deleteAll()
         }
         mockDataManager = MockListDataManager()
         mockSession = MockProductSession()
@@ -33,7 +33,7 @@ final class ListMateTests: XCTestCase {
         // Given
         let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "TestRealm"))
         try! realm.write {
-            realm.deleteAll() // Ensure a clean state
+            realm.deleteAll()
             realm.add(ListModel(value: ["name": "Test List"]))
         }
         mockDataManager.mockLists = realm.objects(ListModel.self)
