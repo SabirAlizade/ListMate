@@ -16,6 +16,7 @@ ListMate Shop is a mobile application tailored to make any shopping seamless and
 * [Usage](#usage)
 * [Contributing](#contributing)
 * [Project Status](#project-status)
+* [Contact](#contact)
 
 ## Features
 
@@ -68,4 +69,8 @@ Contributions are welcome! Please fork this repository and contribute back using
 **Current Status: In Progress**
 
 This project is actively being developed. Features are functional, but more enhancements and optimizations are planned.
+
+## Contact
+
+For inquiries, please contact [Sabir Alizada](mailto:sabir.al@icloud.com).
 
