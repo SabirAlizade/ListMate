@@ -76,7 +76,7 @@ class DetailsView: BaseView {
     private func setupUI() {
         let measureStack = UIView().HStack(
             views: measureLabel,
-            measuresSegmentControl.withWidth(240),
+            measuresSegmentControl.withWidth(230),
             spacing: 10,
             distribution: .fill
         )
