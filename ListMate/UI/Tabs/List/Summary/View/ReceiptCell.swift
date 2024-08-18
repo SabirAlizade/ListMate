@@ -15,20 +15,35 @@ class ReceiptCell: BaseCell{
             guard let item else { return }
             nameLabel.text = item.name
             amountLabel.text =  String("x \(item.amount)")
-            priceLabel.text = String("\(Double.doubleToString(double: item.totalPrice.doubleValue)) \(LanguageBase.system(.currency).translate)")
+            priceLabel.text = String(Double.doubleToString(double: item.totalPrice.doubleValue))
+            currencyLabel.text = String(LanguageBase.system(.currency).translate)
         }
     }
     
-    private let nameLabel = CustomLabel(textColor: .gray,
-                                        font: .poppinsFont(size: 18, weight: .medium),
-                                        alignment: .left)
-    private let amountLabel = CustomLabel(textColor: .gray,
-                                          font: .poppinsFont(size: 16, weight: .light),
-                                          alignment: .left)
-    private let priceLabel = CustomLabel(textColor: .gray,
-                                         font: .poppinsFont(size: 20, weight: .light),
-                                         alignment: .left)
-        
+    private let nameLabel = CustomLabel(
+        textColor: .gray,
+        font: .poppinsFont(size: 18, weight: .medium),
+        alignment: .left
+    )
+    
+    private let amountLabel = CustomLabel(
+        textColor: .gray,
+        font: .poppinsFont(size: 16, weight: .light),
+        alignment: .left
+    )
+    
+    private let priceLabel = CustomLabel(
+        textColor: .gray,
+        font: .poppinsFont(size: 20, weight: .light),
+        alignment: .right
+    )
+    
+    private let currencyLabel = CustomLabel(
+        textColor: .gray,
+        font: .poppinsFont(size: 20, weight: .light),
+        alignment: .right
+    )
+    
     override func setupCell() {
         super.setupCell()
         setupUI()
@@ -36,7 +51,6 @@ class ReceiptCell: BaseCell{
     }
     
     private func setupUI() {
-        
         self.anchor(view: nameLabel, completion: { kit in
             kit.leading(25)
             kit.top(10)
@@ -49,11 +63,22 @@ class ReceiptCell: BaseCell{
             kit.bottom(10)
         })
         
-        self.anchor(view: priceLabel, completion: { kit in
+        self.anchor(view: currencyLabel) { kit in
             kit.trailing(25)
             kit.top(10)
             kit.bottom(10)
+        }
+        
+        self.anchor(view: priceLabel, completion: { kit in
+            kit.trailing(currencyLabel.leadingAnchor, 5)
+            kit.top(10)
+            kit.bottom(10)
         })
+        
+        NSLayoutConstraint.activate([
+            nameLabel.widthAnchor.constraint(lessThanOrEqualToConstant: self.bounds.width / 2),
+            priceLabel.widthAnchor.constraint(lessThanOrEqualToConstant: self.bounds.width / 3)
+        ])
     }
     
     private func addDottedLine() {
