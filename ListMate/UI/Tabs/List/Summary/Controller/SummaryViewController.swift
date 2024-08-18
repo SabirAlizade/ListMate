@@ -54,25 +54,56 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
-        let footerLabel = CustomLabel(text: "\(LanguageBase.summary(.totalLabel).translate)  \(viewModel.countTotal()) \(LanguageBase.system(.currency).translate)",
-                                      textColor: .maintext,
-                                      font: .poppinsFont(size: 22, weight: .semiBold),
-                                      alignment: .right)
+        let totalLabel = CustomLabel(
+            text: LanguageBase.summary(.totalLabel).translate,
+            textColor: .maintext,
+            font: .poppinsFont(size: 22, weight: .semiBold),
+            alignment: .right
+        )
         
-        footerView.anchor(view: footerLabel) { kit in
+        let totalAmount = CustomLabel(
+            text: viewModel.countTotal(),
+            textColor: .maintext,
+            font: .poppinsFont(size: 22, weight: .semiBold),
+            alignment: .right
+        )
+        
+        let currencySign = CustomLabel(
+            text: LanguageBase.system(.currency).translate,
+            textColor: .maintext,
+            font: .poppinsFont(size: 22, weight: .semiBold),
+            alignment: .right
+        )
+        
+        let hStack = UIView().HStack(
+            views: totalAmount.withWidth(view.bounds.width / 2),
+            currencySign,
+            spacing: 5,
+            distribution: .fill
+        )
+        
+        footerView.anchor(view: hStack) { kit in
             kit.trailing(20)
             kit.top(40)
         }
+        
+        footerView.anchor(view: totalLabel) { kit in
+            kit.trailing(hStack.leadingAnchor, 15)
+            kit.top(40)
+        }
+        
         return footerView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         
-        let greetingLabel = CustomLabel(text: LanguageBase.summary(.thankLabel).translate,
-                                        textColor: .gray,
-                                        font: UIFont.monospacedSystemFont(ofSize: 14, weight: .regular),
-                                        alignment: .center)
+        let greetingLabel = CustomLabel(
+            text: LanguageBase.summary(.thankLabel).translate,
+            textColor: .gray,
+            font: UIFont.monospacedSystemFont(ofSize: 14, weight: .regular),
+            alignment: .center
+        )
         
         greetingLabel.numberOfLines = 0
         
