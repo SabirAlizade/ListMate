@@ -10,6 +10,7 @@ import RealmSwift
 
 protocol ListViewModelDelegate: AnyObject {
     func reloadData()
+    func showError(_ message: String)
 }
 
 final class ListViewModel {
@@ -29,10 +30,11 @@ final class ListViewModel {
     }
     
     func readData() {
-        manager.readData(data: ListModel.self) { result, error in
-            if let error = error {
-                print("Error reading data: \(error.localizedDescription)")
-            } else if let result = result {
+        manager.readData(data: ListModel.self) { [weak self] result, error in
+            guard let self else { return }
+            if let error {
+                self.handleError(error)
+            } else if let result {
                 self.lists = result
             }
         }
@@ -46,8 +48,13 @@ final class ListViewModel {
         guard let item = lists?[index] else { return }
         manager.delete(data: item) { error in
             if let error {
-                print("Error deleting item \(error.localizedDescription)")
+                self.handleError(error)
             }
         }
     }
+    
+    private func handleError(_ error: Error) {
+        delegate?.showError("Oh no! Something went wrong: \(error.localizedDescription)")
+    }
+
 }
