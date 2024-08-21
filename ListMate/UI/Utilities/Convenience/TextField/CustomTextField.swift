@@ -9,16 +9,17 @@ import UIKit
 
 class CustomTextField: CustomTextFieldConfiguration {
     
-    convenience init(placeHolder: String,
-                     textAlignment: NSTextAlignment = .left,
-                     font: UIFont = .poppinsFont(size: 20, weight: .regular),
-                     border: BorderStyle = .roundedRect,
-                     backgroundColor: UIColor = .textfieldback,
-                     keyboard: UIKeyboardType = .default,
-                     dataSource: Any? = nil,
-                     delegate: Any? = nil,
-                     target: Any? = nil,
-                     action: Selector? = nil
+    convenience init(
+        placeHolder: String,
+        textAlignment: NSTextAlignment = .left,
+        font: UIFont = .poppinsFont(size: 20, weight: .regular),
+        border: BorderStyle = .roundedRect,
+        backgroundColor: UIColor = .textfieldback,
+        keyboard: UIKeyboardType = .default,
+        dataSource: Any? = nil,
+        delegate: Any? = nil,
+        target: Any? = nil,
+        action: Selector? = nil
     ) {
         self.init()
         clipsToBounds = true
@@ -64,9 +65,10 @@ class CustomTextField: CustomTextFieldConfiguration {
 
 class PriceTextField: PriceTextFieldConfiguration {
     
-    convenience init(placeHolder: String,
-                     target: Any? = nil,
-                     action: Selector? = nil
+    convenience init(
+        placeHolder: String,
+        target: Any? = nil,
+        action: Selector? = nil
     ) {
         self.init()
         clipsToBounds = true

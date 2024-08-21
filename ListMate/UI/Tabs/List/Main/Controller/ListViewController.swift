@@ -81,7 +81,7 @@ class ListViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
-            return self.view.bounds.height / 4
+            return self.view.bounds.height / 3
         })]
         present(nc, animated: true)
     }
@@ -94,7 +94,6 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.lists?[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: ListCell.description(),
             for: indexPath) as? ListCell else { return UITableViewCell() }
