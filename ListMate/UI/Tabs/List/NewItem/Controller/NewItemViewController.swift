@@ -10,7 +10,7 @@ import RealmSwift
 
 class NewItemViewController: BaseViewController {
     
-    private var bottomCostant: NSLayoutConstraint?
+    private var bottomCostraint: NSLayoutConstraint?
     private var itemImage: UIImage?
     
     lazy var viewModel: NewItemViewModel = {
@@ -78,36 +78,37 @@ class NewItemViewController: BaseViewController {
     
     private lazy var itemImageButton: UIButton = {
         let button = UIButton(type: .system)
-        button.tintColor = .maingreen
+        button.tintColor = .mainGreen
         let config = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 50))
         button.setImage(UIImage(systemName: "photo.badge.plus")?.withConfiguration(config), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.showsMenuAsPrimaryAction = true
-        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var saveButton = CustomButton(
         title: LanguageBase.newItem(.addButton).translate,
-        backgroundColor: .maingreen,
+        backgroundColor: .mainGreen,
         titleColor: .white,
         target: self,
         action: #selector(didTapAdd)
     )
     
+    private lazy var activityIndicator: ActivityIndicator = {
+        return ActivityIndicator.shared
+    }()
+    
+    // MARK: - Setup UI
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        bottomCostant = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        bottomCostant?.isActive = true
+        bottomCostraint = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        bottomCostraint?.isActive = true
         view.layoutIfNeeded()
         nameTextField.becomeFirstResponder()
         configureKeyboardNotification()
     }
-    
-    private lazy var activityIndicator: ActivityIndicator = {
-        return ActivityIndicator.shared
-    }()
     
     private func configureAutoresizing() {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -116,24 +117,10 @@ class NewItemViewController: BaseViewController {
         priceTextField.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    private func configureKeyboardNotification() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil)
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
-    }
-    
+
     override func setupUIComponents() {
         super.setupUIComponents()
-        view.backgroundColor = .maingray
+        view.backgroundColor = .mainGray
         closeBarButton()
         configureMenu()
         configureAutoresizing()
@@ -157,7 +144,6 @@ class NewItemViewController: BaseViewController {
         view.addSubview(saveButton)
         view.addSubview(suggestionToolbar)
         nameTextField.returnKeyType = .next
-        
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -213,7 +199,7 @@ class NewItemViewController: BaseViewController {
         ])
     }
     
-    private func catalogCountCheck() {
+    private func suggestionToolbarVisibility() {
         suggestionToolbar.isHidden = viewModel.catalogItems.isEmpty
     }
     
@@ -227,6 +213,8 @@ class NewItemViewController: BaseViewController {
         measuresSegmentedControl.addTarget(self, action: #selector(segmentControlValueChanged(_:)), for: .valueChanged)
     }
     
+    // MARK: - Actions
+    
     @objc
     private func segmentControlValueChanged(_ sender: UISegmentedControl) {
         let selectedMeasure = Measures.allCases[sender.selectedSegmentIndex]
@@ -238,20 +226,26 @@ class NewItemViewController: BaseViewController {
     private func didTapAdd() {
         guard let name = nameTextField.text else { return }
         if name.isEmpty {
-            alertMessage(title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
-                         message: LanguageBase.newItem(.emptyNameAlarmBody).translate)
+            alertMessage(
+                title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
+                message: LanguageBase.newItem(.emptyNameAlarmBody).translate
+            )
         } else {
-            let pricetext = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
-            guard let price = Decimal128.fromStringToDecimal(string: pricetext ?? "0") else {
-                alertMessage(title: LanguageBase.newItem(.wrongPriceAlarmTitle).translate,
-                             message: LanguageBase.newItem(.wrongPriceAlarmBody).translate)
+            let priceText = priceTextField.text?.isEmpty ?? true ? "0" : priceTextField.text
+            guard let price = Decimal128.fromStringToDecimal(string: priceText ?? "0") else {
+                alertMessage(
+                    title: LanguageBase.newItem(.wrongPriceAlarmTitle).translate,
+                    message: LanguageBase.newItem(.wrongPriceAlarmBody).translate
+                )
                 return
             }
             ImageManager.shared.saveImageToLibrary(image: itemImage) { imagePath in
-                self.viewModel.saveItem(name: name,
-                                        price: price,
-                                        imagePath: imagePath,
-                                        measure: self.viewModel.selectedMeasure)
+                self.viewModel.saveItem(
+                    name: name,
+                    price: price,
+                    imagePath: imagePath,
+                    measure: self.viewModel.selectedMeasure
+                )
                 self.dismiss(animated: true)
             }
         }
@@ -262,7 +256,7 @@ class NewItemViewController: BaseViewController {
         viewModel.filterSuggestions(name: nameTextField.text ?? "")
     }
     
-    //MARK: - IMAGE PICKER HANDLING
+    // MARK: - Image Picker Handling
     
     private func configureMenu() {
         let menu = imagePickerButtons(
@@ -290,25 +284,40 @@ class NewItemViewController: BaseViewController {
         itemImageView.isHidden = false
         itemImageView.layer.borderWidth = 1
     }
-    //MARK: - KEYBOARD APPEARANCE HANDLING
+    
+    // MARK: - Keyboard Handling
+    
+    private func configureKeyboardNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         guard nameTextField.isEditing else {
             suggestionToolbar.isHidden = true
             return
         }
-        if let bottomConstraint = self.bottomCostant {
+        if let bottomConstraint = self.bottomCostraint {
             moveViewWithKeyboard(
                 notification: notification,
                 viewBottomConstraint: bottomConstraint,
                 keyboardWillShow: true
             )
         }
-        catalogCountCheck()
+        suggestionToolbarVisibility()
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        if let bottomConstraint = self.bottomCostant {
+        if let bottomConstraint = self.bottomCostraint {
             moveViewWithKeyboard(
                 notification: notification,
                 viewBottomConstraint: bottomConstraint,
@@ -365,7 +374,7 @@ extension NewItemViewController: ItemAmountDelegate {
 
 extension NewItemViewController: PassSuggestionDelegate {
     func checkSuggestionsBar() {
-        catalogCountCheck()
+        suggestionToolbarVisibility()
     }
     
     func updateSuggestionsData() {

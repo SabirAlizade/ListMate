@@ -20,9 +20,10 @@ class SummaryViewController: BaseViewController {
     }()
     
     lazy var viewModel: SummaryViewModel = {
-        let model = SummaryViewModel()
-        return model
+        return SummaryViewModel()
     }()
+    
+    // MARK: - Setup UI
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -46,31 +47,37 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptCell.description(), for: indexPath) as? ReceiptCell else {
+            return UITableViewCell()
+        }
         let item = viewModel.summaryItems[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReceiptCell.description(), for: indexPath) as? ReceiptCell else { return UITableViewCell() }
         cell.item = item
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return createFooterView()
+    }
+    
+    private func createFooterView() -> UIView {
         let footerView = UIView()
         let totalLabel = CustomLabel(
             text: LanguageBase.summary(.totalLabel).translate,
-            textColor: .maintext,
+            textColor: .mainText,
             font: .poppinsFont(size: 22, weight: .semiBold),
             alignment: .right
         )
         
         let totalAmount = CustomLabel(
             text: viewModel.countTotal(),
-            textColor: .maintext,
+            textColor: .mainText,
             font: .poppinsFont(size: 22, weight: .semiBold),
             alignment: .right
         )
         
         let currencySign = CustomLabel(
             text: LanguageBase.system(.currency).translate,
-            textColor: .maintext,
+            textColor: .mainText,
             font: .poppinsFont(size: 22, weight: .semiBold),
             alignment: .right
         )
@@ -91,11 +98,14 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
             kit.trailing(hStack.leadingAnchor, 15)
             kit.top(40)
         }
-        
         return footerView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return createHeaderView()
+    }
+    
+    private func createHeaderView() -> UIView {
         let headerView = UIView()
         
         let greetingLabel = CustomLabel(

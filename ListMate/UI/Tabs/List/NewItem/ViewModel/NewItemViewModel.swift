@@ -7,7 +7,6 @@
 
 import Foundation
 import RealmSwift
-import UIKit
 
 protocol NewItemDelegate: AnyObject {
     func updateItemsData()
@@ -20,6 +19,7 @@ protocol PassSuggestionDelegate: AnyObject {
 }
 
 final class NewItemViewModel {
+    
     weak var delegate: NewItemDelegate?
     weak var suggestionDelegate: PassSuggestionDelegate?
     
@@ -34,18 +34,27 @@ final class NewItemViewModel {
         self.productSession = session
     }
     
-    func saveItem(name: String,
-                  price: Decimal128,
-                  imagePath: String?,
-                  measure: Measures) {
-        
-        let item = ItemModel(id: productSession.listID,
-                             name: name,
-                             amount: amountValue,
-                             imagePath: imagePath,
-                             measure: measure,
-                             price: price,
-                             totalPrice: price * amountValue)
+    func setAmount(amount: Decimal128) {
+        amountValue = amount
+    }
+    
+    // MARK: - Data Operations
+    
+    func saveItem(
+        name: String,
+        price: Decimal128,
+        imagePath: String?,
+        measure: Measures
+    ) {
+        let item = ItemModel(
+            id: productSession.listID,
+            name: name,
+            amount: amountValue,
+            imagePath: imagePath,
+            measure: measure,
+            price: price,
+            totalPrice: price * amountValue
+        )
         
         manager.saveObject(data: item) { error in
             if let error {
@@ -56,77 +65,62 @@ final class NewItemViewModel {
         passToCatalog(name: name, price: price, measure: measure)
         NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
     }
-    
-    func setAmount(amount: Decimal128) {
-        amountValue = amount
-    }
 }
+
+// MARK: - Catalog Data Operations
 
 extension NewItemViewModel {
     private func passToCatalog(name: String, price: Decimal128, measure: Measures) {
         let catalogItem = CatalogModel(name: name, price: price, measure: measure)
-        guard let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", name).first else {
-            self.manager.saveObject(data: catalogItem) { error in
-                if let error {
-                    print("Error saving to catalog \(error.localizedDescription)")
-                }
-            }
-            return
+        if let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", name).first {
+            updateCatalogItem(existingItem, with: catalogItem)
+        } else {
+            saveCatalogItem(catalogItem)
         }
+    }
+    
+    private func saveCatalogItem(_ item: CatalogModel) {
+        manager.saveObject(data: item) { error in
+            if let error = error {
+                print("Error saving to catalog \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func updateCatalogItem(_ existingItem: CatalogModel, with newItem: CatalogModel) {
         try? manager.realm.write {
-            existingItem.price = catalogItem.price
+            existingItem.price = newItem.price
         }
         NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
     }
     
-//    func readCatalogData() {
-//        catalogItems.removeAll()
-//        manager.readData(data: CatalogModel.self) { result in
-//            self.catalogItems.append(contentsOf: result)
-//        }
-//    }
-    
     func readCatalogData() {
         catalogItems.removeAll()
-        manager.readData(data: CatalogModel.self) { result, error in
+        manager.readData(data: CatalogModel.self) { [weak self] result, error in
             if let error = error {
                 print("Error reading catalog data: \(error.localizedDescription)")
-                // Handle the error as needed
             } else if let result = result {
-                self.catalogItems.append(contentsOf: result)
+                self?.catalogItems.append(contentsOf: result)
             }
         }
     }
     
-//    func filterSuggestions(name: String) {
-//        if name.isEmpty {
-//            readCatalogData()
-//            suggestionDelegate?.updateSuggestionsData()
-//        } else {
-//            let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
-//            manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
-//                guard let self = self else { return }
-//                catalogItems.removeAll()
-//                catalogItems.append(contentsOf: result)
-//                suggestionDelegate?.updateSuggestionsData()
-//            }
-//            checkCatalogCount()
-//        }
-//    }
-    
     func filterSuggestions(name: String) {
         if name.isEmpty {
             readCatalogData()
-            suggestionDelegate?.updateSuggestionsData()
         } else {
-            let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
-            manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
-                guard let self = self else { return }
-                self.catalogItems.removeAll()
-                self.catalogItems.append(contentsOf: result)
-                self.suggestionDelegate?.updateSuggestionsData()
-            }
-            checkCatalogCount()
+            filterCatalogData(by: name)
+            suggestionDelegate?.updateSuggestionsData()
+        }
+        checkCatalogCount()
+    }
+    
+    private func filterCatalogData(by name: String) {
+        let namePredicate = NSPredicate(format: "name CONTAINS[c] %@", name)
+        manager.filterObjects(type: CatalogModel.self, predicate: namePredicate) { [weak self] result in
+            guard let self else { return }
+            self.catalogItems.removeAll()
+            self.catalogItems.append(contentsOf: result)
         }
     }
     

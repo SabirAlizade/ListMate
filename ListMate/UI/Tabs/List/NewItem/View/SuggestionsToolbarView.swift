@@ -10,15 +10,12 @@ import UIKit
 class SuggestionsToolbarView: BaseView {
     
     var viewModel: NewItemViewModel
+    
     init(viewModel: NewItemViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
-        viewModel.readCatalogData()
+        loadCatalogData()
         setupUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     lazy var collectionView: UICollectionView = {
@@ -33,8 +30,16 @@ class SuggestionsToolbarView: BaseView {
         return view
     }()
     
+    private func loadCatalogData() {
+        viewModel.readCatalogData()
+    }
+    
     private func setupUI() {
         self.anchorFill(view: collectionView)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -44,11 +49,12 @@ extension SuggestionsToolbarView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = viewModel.catalogItems[indexPath.item]
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: SuggestionCell.description(),
             for: indexPath
         ) as? SuggestionCell else { return UICollectionViewCell() }
+        
+        let item = viewModel.catalogItems[indexPath.item]
         cell.item = item
         return cell
     }

@@ -12,11 +12,7 @@ class ReceiptCell: BaseCell{
     
     var item: ItemModel? {
         didSet {
-            guard let item else { return }
-            nameLabel.text = item.name
-            amountLabel.text =  String("x \(item.amount)")
-            priceLabel.text = String(Double.doubleToString(double: item.totalPrice.doubleValue))
-            currencyLabel.text = String(LanguageBase.system(.currency).translate)
+            configureCell()
         }
     }
     
@@ -43,6 +39,16 @@ class ReceiptCell: BaseCell{
         font: .poppinsFont(size: 20, weight: .light),
         alignment: .right
     )
+    
+    // MARK: - Setup UI
+    
+    private func configureCell() {
+        guard let item else { return }
+        nameLabel.text = item.name
+        amountLabel.text =  String("x \(item.amount)")
+        priceLabel.text = String(Double.doubleToString(double: item.totalPrice.doubleValue))
+        currencyLabel.text = String(LanguageBase.system(.currency).translate)
+    }
     
     override func setupCell() {
         super.setupCell()

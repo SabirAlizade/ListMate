@@ -14,6 +14,7 @@ protocol ListViewModelDelegate: AnyObject {
 }
 
 final class ListViewModel {
+    
     weak var delegate: ListViewModelDelegate?
     private let session: ProductSessionProtocol
     private let manager: DataManagerProtocol
@@ -29,6 +30,12 @@ final class ListViewModel {
         }
     }
     
+    func updateListId(id: String) {
+        session.updateListId(id: id)
+    }
+    
+    // MARK: - Data Operations
+
     func readData() {
         manager.readData(data: ListModel.self) { [weak self] result, error in
             guard let self else { return }
@@ -40,10 +47,6 @@ final class ListViewModel {
         }
     }
     
-    func updateListId(id: String) {
-        session.updateListId(id: id)
-    }
-    
     func deleteItem(index: Int) {
         guard let item = lists?[index] else { return }
         manager.delete(data: item) { error in
@@ -53,8 +56,9 @@ final class ListViewModel {
         }
     }
     
+    // MARK: - Error handling
+
     private func handleError(_ error: Error) {
         delegate?.showError("Oh no! Something went wrong: \(error.localizedDescription)")
     }
-
 }

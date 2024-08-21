@@ -17,10 +17,9 @@ class DetailedViewController: BaseViewController {
         scrollView.keyboardDismissMode = .interactive
         return scrollView
     }()
-
+    
     private lazy var contentView: UIView = {
-        let view = UIView()
-        return view
+        return UIView()
     }()
     
     private lazy var mainView: MainView = {
@@ -38,8 +37,7 @@ class DetailedViewController: BaseViewController {
     }()
     
     lazy var viewModel: DetailedViewModel = {
-        let model = DetailedViewModel()
-        return model
+        return DetailedViewModel()
     }()
     
     private lazy var doneButton: UIBarButtonItem = {
@@ -50,12 +48,15 @@ class DetailedViewController: BaseViewController {
             target: self,
             action: #selector(saveChanges)
         )
+        button.tintColor = .mainGreen
         return button
     }()
     
     private lazy var activityIndicator: ActivityIndicator = {
         return ActivityIndicator.shared
     }()
+    
+    // MARK: - Setup UI
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -71,11 +72,6 @@ class DetailedViewController: BaseViewController {
         configureMenu()
     }
     
-    private func configureDoneButton() {
-        doneButton.tintColor = .maingreen
-        navigationItem.rightBarButtonItem = doneButton
-    }
-
     private func setupUI() {
         view.anchor(view: scrollView) { kit in
             kit.top(view.topAnchor)
@@ -107,6 +103,12 @@ class DetailedViewController: BaseViewController {
         }
     }
     
+    private func configureDoneButton() {
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    // MARK: - Actions
+    
     @objc
     private func saveChanges() {
         viewModel.updateValues()
@@ -115,7 +117,8 @@ class DetailedViewController: BaseViewController {
         dismiss(animated: true)
     }
     
-    //MARK: - IMAGE PICKER HANDLING
+    // MARK: - Image Picker Handling
+    
     private func configureMenu() {
         let menu = imagePickerButtons(
             takePictureAction: takePicture,
@@ -125,8 +128,8 @@ class DetailedViewController: BaseViewController {
     }
     
     private func saveSelectedPicture() {
-        guard let selected = mainView.itemImageView.image else { return }
-        viewModel.updateImage(image: selected)
+        guard let selectedImage = mainView.itemImageView.image else { return }
+        viewModel.updateImage(image: selectedImage)
     }
     
     @objc
@@ -163,17 +166,17 @@ class DetailedViewController: BaseViewController {
             object: nil
         )
     }
-
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         let keyboardHeight = keyboardFrame.height
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
-
+    
     @objc private func keyboardWillHide(notification: NSNotification) {
         scrollView.contentInset = .zero
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -194,12 +197,8 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
         openPreviewer(image: image)
     }
     
-    func openMenu() {
-        configureMenu()
-    }
-    
-    func updateDetailsData(measeure: Measures, price: Decimal128, store: String) {
-        viewModel.updateValues(measeure: measeure, price: price, store: store)
+    func updateDetailsData(measure: Measures, price: Decimal128, store: String) {
+        viewModel.updateValues(measure: measure, price: price, store: store)
     }
     
     func updateNameAndNote(name: String, note: String) {
@@ -214,6 +213,10 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
             viewModel.newNote = note
             doneButton.isEnabled = true
         }
+    }
+    
+    func openMenu() {
+        configureMenu()
     }
 }
 

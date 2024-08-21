@@ -14,11 +14,13 @@ extension UserDefaults {
     
     var language: String  {
         get {
-            string(forKey: LangKeys.language.rawValue) ?? Locale.preferredLanguages.first ?? "en"
+            guard let language = string(forKey: LangKeys.language.rawValue) else {
+                return Locale.preferredLanguages.first ?? "en"
+            }
+            return language
         }
         set {
             setValue(newValue, forKey: LangKeys.language.rawValue)
-            synchronize()
         }
     }
 }

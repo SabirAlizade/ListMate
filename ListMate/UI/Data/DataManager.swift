@@ -18,8 +18,7 @@ class DataManager: DataManagerProtocol {
                 realm.add(data)
             }
             completion(nil)
-        }
-        catch {
+        } catch {
             completion(error)
         }
     }
@@ -34,8 +33,8 @@ class DataManager: DataManagerProtocol {
             try realm.write {
                 realm.delete(data)
             }
-        }
-        catch {
+            completion(nil)
+        } catch {
             completion(error)
         }
     }
@@ -45,22 +44,20 @@ class DataManager: DataManagerProtocol {
         do {
             let realm = try Realm()
             let results = realm.objects(ItemModel.self).filter(predicate)
-            if !results.isEmpty {
-                DispatchQueue.main.async {
-                    completion(results)
-                }
-            } else {
-                completion(nil)
+            DispatchQueue.main.async {
+                completion(results.isEmpty ? nil : results)
             }
-        }
-        catch {
+        } catch {
             print("Error: \(error)")
+            completion(nil)
         }
     }
     
-    func filterObjects<T: Object>(type: T.Type,
-                                  predicate: NSPredicate,
-                                  completion: @escaping (Results<T>) -> Void) {
+    func filterObjects<T: Object>(
+        type: T.Type,
+        predicate: NSPredicate,
+        completion: @escaping (Results<T>) -> Void
+    ) {
         let results = realm.objects(type).filter(predicate)
         completion(results)
     }

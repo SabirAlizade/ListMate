@@ -26,6 +26,7 @@ enum Measures: String, PersistableEnum, Codable {
 }
 
 class ItemModel: Object {
+    
     @Persisted(primaryKey: true) var objectId: ObjectId
     @Persisted var id: String
     @Persisted var name: String
@@ -38,17 +39,18 @@ class ItemModel: Object {
     @Persisted var isChecked: Bool
     @Persisted var notes: String
     
-    convenience init(id: String,
-                     name: String,
-                     amount: Decimal128,
-                     imagePath: String?,
-                     measure: Measures,
-                     price: Decimal128,
-                     totalPrice: Decimal128 = 0,
-                     boughtAt: String = "",
-                     isBought: Bool = false,
-                     notes: String = "") {
-        
+    convenience init(
+        id: String,
+        name: String,
+        amount: Decimal128,
+        imagePath: String?,
+        measure: Measures,
+        price: Decimal128,
+        totalPrice: Decimal128 = 0,
+        boughtAt: String = "",
+        isBought: Bool = false,
+        notes: String = ""
+    ) {
         self.init()
         self.objectId = ObjectId.generate()
         self.id = id

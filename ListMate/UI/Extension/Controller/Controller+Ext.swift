@@ -13,26 +13,37 @@ protocol ImagePickerDelegate: AnyObject {
 
 extension UIViewController {
     
+    // MARK: - Alerts
+    
     func alertMessage(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default)
-        okAction.setValue(UIColor.maingreen, forKey: "titleTextColor")
+        okAction.setValue(UIColor.mainGreen, forKey: "titleTextColor")
         
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
     
+    // MARK: - UI
+    
     func customBackgroundColor() {
-        self.view.backgroundColor = .maingray
+        self.view.backgroundColor = .mainGray
+    }
+    
+    func stopActivityIndicator() {
+        ActivityIndicator.shared.stopActivityIndicator()
     }
 }
 
+// MARK: - Image Picker Handling
+
 extension UIViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
-        
         guard UIImagePickerController.isSourceTypeAvailable(sourceType) else {
-            alertMessage(title: LanguageBase.imagePicker(.sourceAlarmTitle).translate, message: LanguageBase.imagePicker(.sourceAlarmBody).translate)
+            alertMessage(
+                title: LanguageBase.imagePicker(.sourceAlarmTitle).translate,
+                message: LanguageBase.imagePicker(.sourceAlarmBody).translate
+            )
             return
         }
         
@@ -68,10 +79,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             imagePickerDelegate.didSelectImage(image, isEdited: isEdited)
         }
     }
-    
-    func stopActivityIndicator() {
-           ActivityIndicator.shared.stopActivityIndicator()
-       }
     
     @objc
     func takePicture() {

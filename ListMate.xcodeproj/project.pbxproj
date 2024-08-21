@@ -559,7 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				03A105C62B303DB600E13A45 /* Controller */,
-				03A105D52B30440400E13A45 /* VIewModel */,
+				03A105D52B30440400E13A45 /* ViewModel */,
 			);
 			path = NewList;
 			sourceTree = "<group>";
@@ -604,12 +604,12 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
-		03A105D52B30440400E13A45 /* VIewModel */ = {
+		03A105D52B30440400E13A45 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				03A105D62B30449B00E13A45 /* NewListViewModel.swift */,
 			);
-			path = VIewModel;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		03A105D82B3048B900E13A45 /* Date */ = {

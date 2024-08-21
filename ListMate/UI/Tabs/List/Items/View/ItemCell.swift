@@ -14,23 +14,18 @@ protocol ItemCellDelegate: AnyObject {
 }
 
 final class ItemCell: BaseCell {
-    weak var delegate: ItemCellDelegate?
     
+    weak var delegate: ItemCellDelegate?
     var item: ItemModel? {
         didSet {
-            guard let item else { return }
-            nameLabel.text = item.name
-            priceLabel.text = Double.doubleToString(double: item.totalPrice.doubleValue)
-            itemAmountView.item = item
-            checkBox.isChecked = item.isChecked
-            loadImageData(imageName: item.imagePath)
+            configureCell()
         }
     }
     
     private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .maincell
-        view.layer.shadowColor = UIColor.maingreen.cgColor
+        view.layer.shadowColor = UIColor.mainGreen.cgColor
         view.layer.shadowOpacity = 0.3
         view.layer.cornerRadius = 10
         view.layer.shadowOffset = CGSize(width: 0, height: 0.3)
@@ -45,10 +40,12 @@ final class ItemCell: BaseCell {
     }()
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 22, weight: .regular))
+    
     private lazy var priceLabel = CustomLabel(
         font: .poppinsFont(size: 20, weight: .medium),
         alignment: .right
     )
+    
     private lazy var currencyLabel = CustomLabel(
         text: LanguageBase.system(.currency).translate,
         font: .poppinsFont(size: 20, weight: .medium),
@@ -64,10 +61,12 @@ final class ItemCell: BaseCell {
     
     private lazy var checkBox: CheckBox = {
         let checkBox = CheckBox()
-        checkBox.imageTint = .maingreen
+        checkBox.imageTint = .mainGreen
         checkBox.addTarget(self, action: #selector(changeCheckboxCheck), for: .valueChanged)
         return checkBox
     }()
+    
+    // MARK: - Setup UI
     
     override func setupCell() {
         super.setupCell()
@@ -75,15 +74,16 @@ final class ItemCell: BaseCell {
         setupUI()
     }
     
-    @objc
-    private func changeCheckboxCheck() {
-        let isCheckboxChecked = checkBox.isChecked ? false : true
-        guard let id = item?.objectId else { return }
-        delegate?.updateCheckmark(isChecked: isCheckboxChecked, id: id)
+    private func configureCell() {
+        guard let item else { return }
+        nameLabel.text = item.name
+        priceLabel.text = Double.doubleToString(double: item.totalPrice.doubleValue)
+        itemAmountView.item = item
+        checkBox.isChecked = item.isChecked
+        loadImageData(from: item.imagePath)
     }
     
     private func setupUI() {
-        
         contentView.anchor(view: containerView) { kit in
             kit.leading(15)
             kit.trailing(15)
@@ -130,36 +130,42 @@ final class ItemCell: BaseCell {
         }
     }
     
-    //MARK: - CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
-    private func loadImageData(imageName: String? = nil) {
+    // MARK: - Actions
+    
+    @objc
+    private func changeCheckboxCheck() {
+        let isCheckboxChecked = checkBox.isChecked ? false : true
+        guard let id = item?.objectId else { return }
+        delegate?.updateCheckmark(isChecked: isCheckboxChecked, id: id)
+    }
+    
+    // MARK: - Image Loading
+    
+    private func loadImageData(from imageName: String? = nil) {
         guard let fileName = imageName else {
-            setNoImage()
+            itemImageView.image = UIImage(named: "noImage")
             return
         }
-
+        
         if let cachedImage = ImageCacheManager.shared.getImage(forKey: fileName) {
             itemImageView.image = cachedImage
         } else {
             loadImageFromFile(fileName)
         }
     }
-
-    private func setNoImage() {
-        itemImageView.image = UIImage(named: "noImage")
-    }
-
+    
     private func loadImageFromFile(_ fileName: String) {
         guard let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first else {
             print("Library directory is not accessible")
             return
         }
         let fileURL = libraryDirectory.appendingPathComponent(fileName)
-
+        
         if let image = UIImage(contentsOfFile: fileURL.path) {
             itemImageView.image = image
             ImageCacheManager.shared.setImage(image, forKey: fileName)
         } else {
-            setNoImage()
+            itemImageView.image = UIImage(named: "noImage")
         }
     }
 }

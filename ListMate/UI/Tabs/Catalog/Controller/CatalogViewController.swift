@@ -13,7 +13,7 @@ class CatalogViewController: BaseViewController {
         let view = UITableView()
         view.dataSource = self
         view.delegate = self
-        view.backgroundColor = .maingray
+        view.backgroundColor = .mainGray
         view.register(CatalogCell.self, forCellReuseIdentifier: CatalogCell.description())
         return view
     }()
@@ -24,10 +24,17 @@ class CatalogViewController: BaseViewController {
         return model
     }()
     
+    // MARK: - Setup UI
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         navigationItem.title = LanguageBase.catalog(.title).translate
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCatalog), name: NSNotification.Name("ReloadCatalogData"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadCatalog),
+            name: NSNotification.Name("ReloadCatalogData"),
+            object: nil
+        )
         viewModel.readData()
         viewModel.loadMockData()
     }
@@ -41,6 +48,8 @@ class CatalogViewController: BaseViewController {
         view.anchorFill(view: tableView)
     }
     
+    // MARK: - Actions
+    
     @objc
     private func reloadCatalog() {
         viewModel.readData()
@@ -49,16 +58,17 @@ class CatalogViewController: BaseViewController {
 
 extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let items = viewModel.catalogItems else { return 0 }
-        return items.count
+        return viewModel.catalogItems?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else {
+            return UITableViewCell()
+        }
         let item = viewModel.catalogItems?[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CatalogCell.description(), for: indexPath) as? CatalogCell else { return UITableViewCell() }
         cell.item = item
         cell.selectionStyle = .none
-        cell.backgroundColor = .maingray
+        cell.backgroundColor = .mainGray
         return cell
     }
     
@@ -69,7 +79,6 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let swipeConfiguration = SwipeActionsHandler.configureSwipeAction(for: tableView, at: indexPath) {
             self.viewModel.deleteItem(index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         return swipeConfiguration
     }

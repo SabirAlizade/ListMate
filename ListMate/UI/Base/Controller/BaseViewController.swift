@@ -18,10 +18,13 @@ class BaseViewController: UIViewController {
     
     func setupUIComponents() {}
     func setupUIConstraints() {}
+    
     func closeBarButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close,
-                                                           target: self,
-                                                           action: #selector(didTapDismiss))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(didTapDismiss)
+        )
     }
 }
 
@@ -34,10 +37,11 @@ extension BaseViewController {
         lazy var choosePicButton = UIAction(title: LanguageBase.imagePicker(.selectFromGallery).translate, image: UIImage(systemName: "photo.on.rectangle")) { action in
             presentPickerAction()
         }
-        lazy var buttons: [UIAction] = [takePicButton, choosePicButton]
-        lazy var menuButtons = UIMenu(title: LanguageBase.imagePicker(.chooseOption).translate, children: buttons)
         
-        return menuButtons
+        return UIMenu(
+            title: LanguageBase.imagePicker(.chooseOption).translate,
+            children: [takePicButton, choosePicButton]
+        )
     }
     
     @objc

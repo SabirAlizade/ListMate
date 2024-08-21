@@ -13,7 +13,7 @@ class ActivityIndicator {
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
-        indicator.color = .maingreen
+        indicator.color = .mainGreen
         return indicator
     }()
     

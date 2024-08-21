@@ -22,7 +22,7 @@ class ListViewController: BaseViewController {
         view.dataSource = self
         view.separatorStyle = .singleLine
         view.delaysContentTouches = false
-        view.backgroundColor = .maingray
+        view.backgroundColor = .mainGray
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
     }()
@@ -34,6 +34,8 @@ class ListViewController: BaseViewController {
         alignment: .center
     )
     
+    // MARK: - Setup UI
+
     override func setupUIComponents() {
         super.setupUIComponents()
         navigationItem.title = LanguageBase.list(.title).translate
@@ -62,7 +64,7 @@ class ListViewController: BaseViewController {
             action: #selector(didTapNewList)
         )
         
-        rightButton.tintColor = .maingreen
+        rightButton.tintColor = .mainGreen
         navigationItem.rightBarButtonItem = rightButton
     }
     
@@ -74,6 +76,8 @@ class ListViewController: BaseViewController {
         let isEmpty = self.viewModel.lists?.isEmpty ?? false
         self.updateUI(forEmptyList: isEmpty)
     }
+    
+    // MARK: - Actions
     
     @objc
     private func didTapNewList() {
@@ -136,15 +140,15 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate, ItemsQuantityDelegate {
     func showError(_ message: String) {
-            let alertController = UIAlertController(
-                title: "Error",
-                message: message,
-                preferredStyle: .alert
-            )
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-        }
+        let alertController = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
     
     func reloadData() {
         tableView.reloadData()
