@@ -57,7 +57,7 @@ open ListMate.xcodeproj
 3.	Deleting Items: Swipe left on an item to remove it from your list.
 4.	Viewing the Bill: Tap on the cart icon to view your total bill.
 
-## Screeenshots
+## Screenshots
 
 <img width="901" alt="image" src="https://github.com/user-attachments/assets/7bb768a0-1a16-4a47-8467-c10e8e4b2d68">
 
