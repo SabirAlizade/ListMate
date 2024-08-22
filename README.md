@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e8ad6485-ff01-492e-9702-7853db3eef57" alt="ListMate Logo" width="200"/>
+  <img src="https://github.com/user-attachments/assets/7bb768a0-1a16-4a47-8467-c10e8e4b2d68" alt="ListMate Logo" width="200"/>
 </p>
 
 # ListMate Shop: Ease your shopping
