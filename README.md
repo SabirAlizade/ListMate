@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7bb768a0-1a16-4a47-8467-c10e8e4b2d68" alt="ListMate Logo" width="200"/>
+  <img src="https://github.com/user-attachments/assets/b38a7a87-e750-485a-89ad-b311d7b7397d" alt="ListMate Logo" width="200"/>
 </p>
 
 # ListMate Shop: Ease your shopping
@@ -59,7 +59,7 @@ open ListMate.xcodeproj
 
 ## Screeenshots
 
-<img width="901" alt="image" src="https://github.com/user-attachments/assets/05a2a425-d9b6-42c4-9c69-3551757ac275">
+<img width="901" alt="image" src="https://github.com/user-attachments/assets/7bb768a0-1a16-4a47-8467-c10e8e4b2d68">
 
 ## Contributing
 
