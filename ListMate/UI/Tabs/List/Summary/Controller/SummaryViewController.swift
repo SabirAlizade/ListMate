@@ -92,6 +92,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
         footerView.anchor(view: hStack) { kit in
             kit.trailing(20)
             kit.top(40)
+            kit.width(view.bounds.width)
         }
         
         footerView.anchor(view: totalLabel) { kit in
