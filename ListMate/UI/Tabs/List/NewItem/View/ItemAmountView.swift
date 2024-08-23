@@ -86,10 +86,9 @@ class ItemAmountView: BaseView {
     private func setupUI() {
         self.anchor(view: stepperView) { kit in
             kit.leading()
-            kit.trailing()
             kit.top()
             kit.bottom()
-            kit.width(170)
+            kit.width(135)
             kit.height(40)
             
             let hStack = UIView().HStack(

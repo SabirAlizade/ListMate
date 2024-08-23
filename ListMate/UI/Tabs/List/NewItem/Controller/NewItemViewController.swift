@@ -157,7 +157,6 @@ class NewItemViewController: BaseViewController {
             measuresSegmentedControl.heightAnchor.constraint(equalToConstant: 40),
             
             priceLabel.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
-            priceLabel.trailingAnchor.constraint(equalTo: quantityLabel.leadingAnchor, constant: -120),
             priceLabel.widthAnchor.constraint(equalToConstant: 160),
             priceLabel.heightAnchor.constraint(equalToConstant: 44),
             priceLabel.topAnchor.constraint(equalTo: measuresSegmentedControl.bottomAnchor, constant: 10),
