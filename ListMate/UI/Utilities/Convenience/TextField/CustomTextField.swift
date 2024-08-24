@@ -116,13 +116,13 @@ class PriceTextField: PriceTextFieldConfiguration {
         let languageCode = Locale.current.language.languageCode?.identifier
         switch languageCode {
         case "en":
-            priceImageView.image = UIImage(named: "dollarsign")
+            priceImageView.image = UIImage(named: "dollarSign")
         case "ru":
-            priceImageView.image = UIImage(named: "roublesign")
+            priceImageView.image = UIImage(named: "roubleSign")
         case "az":
-            priceImageView.image = UIImage(named: "manatsign")
+            priceImageView.image = UIImage(named: "manatSign")
         default:
-            priceImageView.image = UIImage(named: "dollarsign")
+            priceImageView.image = UIImage(named: "dollarSign")
         }
         setRightView(view: priceImageView)
     }
