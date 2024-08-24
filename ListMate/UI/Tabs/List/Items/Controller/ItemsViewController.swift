@@ -43,7 +43,7 @@ class ItemsViewController: BaseViewController {
     
     private var emptyBagImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "emptybag")
+        view.image = UIImage(named: "emptyBag")
         view.contentMode = .scaleAspectFit
         return view
     }()

@@ -83,22 +83,19 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
         )
         
         let hStack = UIView().HStack(
-            views: totalAmount.withWidth(view.bounds.width / 2),
-            currencySign,
+            views: totalLabel.withWidth(100),
+            totalAmount.withWidth(view.bounds.width / 2),
+            currencySign.withWidth(15),
             spacing: 5,
             distribution: .fill
         )
         
         footerView.anchor(view: hStack) { kit in
+            kit.leading(80)
             kit.trailing(20)
             kit.top(40)
-            kit.width(view.bounds.width)
         }
         
-        footerView.anchor(view: totalLabel) { kit in
-            kit.trailing(hStack.leadingAnchor, 15)
-            kit.top(40)
-        }
         return footerView
     }
     

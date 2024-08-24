@@ -24,19 +24,23 @@ class DetailedViewModel {
     // MARK: - Data Handling
     
     func updateValues() {
-        guard let item else { return }
-        let newItemName = newItem.isEmpty ? item.name : newItem
-        if item.name != newItemName || item.notes != newNote {
-            do {
-                try manager.realm.write {
-                    item.name = newItemName
-                    item.notes = newNote
-                }
-            } catch {
-                print("Error updating name or note \(error.localizedDescription)")
-            }
-        }
-    }
+           guard let item = item else { return }
+           
+           let updatedName = newItem.isEmpty ? item.name : newItem
+           let updatedNote = newNote.isEmpty ? item.notes : newNote
+           
+           let shouldUpdate = item.name != updatedName || item.notes != updatedNote
+           guard shouldUpdate else { return }
+           
+           do {
+               try manager.realm.write {
+                   item.name = updatedName
+                   item.notes = updatedNote
+               }
+           } catch {
+               print("Error updating item: \(error.localizedDescription)")
+           }
+       }
     
     func updateValues(measure: Measures, price: Decimal128, store: String) {
         guard let item else { return }
