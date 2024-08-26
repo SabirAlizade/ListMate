@@ -59,7 +59,7 @@ open ListMate.xcodeproj
 
 ## Screenshots
 
-<img width="901" alt="image" src="https://github.com/user-attachments/assets/57249a1a-00b4-4205-bfb7-86371e7e5636">
+<img width="901" alt="image" src="https://github.com/user-attachments/assets/a0c120b4-3e40-4f89-9dbe-fb4d0f4ed9b5">
 
 ## Contributing
 
