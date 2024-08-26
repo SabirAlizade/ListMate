@@ -54,14 +54,18 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView()
-        let footerLabel = CustomLabel(text: "\(LanguageBase.summary(.totalLabel).translate)  \(viewModel.countTotal()) \(LanguageBase.system(.currency).translate)",
-                                      textColor: .maintext,
-                                      font: .poppinsFont(size: 22, weight: .semiBold),
-                                      alignment: .right)
+        let totalLabel = CustomLabel(
+            text: "\(LanguageBase.summary(.totalLabel).translate) \(viewModel.countTotal()) \(LanguageBase.system(.currency).translate)",
+            textColor: .maintext,
+            font: .poppinsFont(size: 22, weight: .semiBold),
+            alignment: .right
+        )
         
-        footerView.anchor(view: footerLabel) { kit in
+        footerView.anchor(view: totalLabel) { kit in
+            kit.leading(20)
             kit.trailing(20)
             kit.top(40)
+            kit.width(view.bounds.width)
         }
         return footerView
     }
@@ -69,10 +73,12 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         
-        let greetingLabel = CustomLabel(text: LanguageBase.summary(.thankLabel).translate,
-                                        textColor: .gray,
-                                        font: UIFont.monospacedSystemFont(ofSize: 14, weight: .regular),
-                                        alignment: .center)
+        let greetingLabel = CustomLabel(
+            text: LanguageBase.summary(.thankLabel).translate,
+            textColor: .gray,
+            font: UIFont.monospacedSystemFont(ofSize: 14, weight: .regular),
+            alignment: .center
+        )
         
         greetingLabel.numberOfLines = 0
         

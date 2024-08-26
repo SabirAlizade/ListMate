@@ -126,7 +126,7 @@ final class ItemCell: BaseCell {
         containerView.anchor(view: priceLabel) { kit in
             kit.trailing(currencyLabel.leadingAnchor, 5)
             kit.centerY()
-            kit.width(70)
+            kit.width(50)
         }
     }
     
