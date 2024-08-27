@@ -14,12 +14,12 @@ class SwipeActionsHandler {
             actionHandler()
             completionHandler(true)
         }
-
+    
+        action.backgroundColor = .textfieldBlack
+        action.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysOriginal)
+        
         let configuration = UISwipeActionsConfiguration(actions: [action])
         configuration.performsFirstActionWithFullSwipe = true
-
-        action.backgroundColor = .textfieldback
-        action.image = UIImage(systemName: "trash")?.withRenderingMode(.alwaysOriginal)
 
         return configuration
     }

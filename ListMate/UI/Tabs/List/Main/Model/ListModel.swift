@@ -17,12 +17,14 @@ class ListModel: Object {
     @Persisted var items = List<ItemModel>()
     @Persisted var totalAmount: Decimal128
     
-    convenience init(name: String,
-                     toBuyQuantity: Int = 0,
-                     remainsQuantity: Int = 0,
-                     date: Date,
-                     items: List<ItemModel>?,
-                     totalAmount: Decimal128) {
+    convenience init(
+        name: String,
+        toBuyQuantity: Int = 0,
+        remainsQuantity: Int = 0,
+        date: Date,
+        items: List<ItemModel>?,
+        totalAmount: Decimal128
+    ) {
         
         self.init()
         self.id = id

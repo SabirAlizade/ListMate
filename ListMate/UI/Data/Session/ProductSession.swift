@@ -7,14 +7,17 @@
 
 import Foundation
 
-class ProductSession {
+final class ProductSession {
     
     static let shared = ProductSession()
     private init() {}
     
+    private var lock = NSLock()
     private(set) var listID: String = ""
     
     func updateListId(id: String) {
+        lock.lock()
+        defer { lock.unlock() }
         listID = id
     }
 }
@@ -24,5 +27,5 @@ protocol ProductSessionProtocol {
     func updateListId(id: String)
 }
 
-extension ProductSession: ProductSessionProtocol { }
+extension ProductSession: ProductSessionProtocol {}
 

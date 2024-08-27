@@ -13,6 +13,7 @@ protocol TextFieldDataSource {
 }
 
 class CustomTextFieldConfiguration: UITextField {
+    
     var dataSource: TextFieldDataSource?
     private var maxCharacterCount = 26
     

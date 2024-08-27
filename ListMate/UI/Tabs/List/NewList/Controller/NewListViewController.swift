@@ -18,12 +18,14 @@ class NewListViewController: BaseViewController {
     
     private lazy var saveButton = CustomButton(
         title: LanguageBase.list(.saveButton).translate,
-        backgroundColor: .buttongreen,
+        backgroundColor: .buttonGreen,
         titleColor: .white,
         target: self,
         action: #selector(didTapSave)
     )
     
+    // MARK: - Setup UI
+
     override func setupUIComponents() {
         super.setupUIComponents()
         closeBarButton()
@@ -51,6 +53,8 @@ class NewListViewController: BaseViewController {
         }
     }
     
+    // MARK: - Actions
+
     @objc
     private func didTapSave() {
         guard let name = nameTextField.text else { return }

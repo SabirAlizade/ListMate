@@ -22,7 +22,7 @@ class ListViewController: BaseViewController {
         view.dataSource = self
         view.separatorStyle = .singleLine
         view.delaysContentTouches = false
-        view.backgroundColor = .maingray
+        view.backgroundColor = .mainGray
         view.register(ListCell.self, forCellReuseIdentifier: ListCell.description())
         return view
     }()
@@ -34,6 +34,8 @@ class ListViewController: BaseViewController {
         alignment: .center
     )
     
+    // MARK: - Setup UI
+
     override func setupUIComponents() {
         super.setupUIComponents()
         navigationItem.title = LanguageBase.list(.title).translate
@@ -47,7 +49,6 @@ class ListViewController: BaseViewController {
     }
     
     private func setupUI(){
-        
         view.anchorFill(view: tableView)
         view.anchor(view: emptyListLabel) { kit in
             kit.centerX()
@@ -56,18 +57,27 @@ class ListViewController: BaseViewController {
     }
     
     private func configureNavBar() {
-        let rightButton = UIBarButtonItem(image: UIImage(systemName: "plus.circle"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(didTapNewList))
+        let rightButton = UIBarButtonItem(
+            image: UIImage(systemName: "plus.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapNewList)
+        )
         
-        rightButton.tintColor = .maingreen
+        rightButton.tintColor = .mainGreen
         navigationItem.rightBarButtonItem = rightButton
     }
     
     private func updateUI(forEmptyList isEmpty: Bool) {
-        emptyListLabel.isHidden = isEmpty
+        emptyListLabel.isHidden = !isEmpty
     }
+    
+    private func checkIsListEmpty() {
+        let isEmpty = self.viewModel.lists?.isEmpty ?? false
+        self.updateUI(forEmptyList: isEmpty)
+    }
+    
+    // MARK: - Actions
     
     @objc
     private func didTapNewList() {
@@ -75,25 +85,27 @@ class ListViewController: BaseViewController {
         let nc = UINavigationController(rootViewController: vc)
         vc.viewModel.delegate = self
         nc.sheetPresentationController?.detents = [.custom(resolver: { context in
-            return self.view.bounds.height / 4 }
-        )]
+            return self.view.bounds.height / 3
+        })]
         present(nc, animated: true)
     }
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let listsCount = viewModel.lists?.count
-        updateUI(forEmptyList: listsCount == 0 ? false : true)
-        return listsCount ?? 0
+        checkIsListEmpty()
+        return viewModel.lists?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.lists?[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: ListCell.description(),
             for: indexPath) as? ListCell else { return UITableViewCell() }
-        cell.item = item
+        
+        if let item = viewModel.lists?[indexPath.row] {
+            cell.item = item
+        }
+        
         cell.accessoryType = .disclosureIndicator
         cell.selectionStyle = .none
         return cell
@@ -127,6 +139,17 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ListViewController: ListViewModelDelegate, NewListViewModelDelegate, ItemsQuantityDelegate {
+    func showError(_ message: String) {
+        let alertController = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func reloadData() {
         tableView.reloadData()
     }

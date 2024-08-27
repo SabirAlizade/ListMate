@@ -11,8 +11,7 @@ class SuggestionCell: UICollectionViewCell {
     
     var item: CatalogModel? {
         didSet {
-            guard let item else { return }
-            nameLabel.text = item.name
+            configureCell()
         }
     }
     
@@ -29,13 +28,20 @@ class SuggestionCell: UICollectionViewCell {
         let view = UIImageView()
         view.image = UIImage(systemName: "plus.square.fill")
         view.contentMode = .scaleAspectFit
-        view.tintColor = .maingreen
+        view.tintColor = .mainGreen
         return view
     }()
     
+    // MARK: - Setup UI
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+    }
+    
+    private func configureCell() {
+        guard let item else { return }
+        nameLabel.text = item.name
     }
     
     private func setupUI() {

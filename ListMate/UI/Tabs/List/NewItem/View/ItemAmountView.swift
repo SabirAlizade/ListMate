@@ -15,41 +15,26 @@ protocol ItemAmountDelegate: AnyObject {
 class ItemAmountView: BaseView {
     
     weak var delegate: ItemAmountDelegate?
-    
     var quantityAmount: Decimal128 = 1
     private var minValue: Decimal128 = 1
     
     var itemMeasure: Measures? {
         didSet {
-            guard let item = itemMeasure else { return }
-            switch item {
-            case .pcs:
-                quantityAmount = 1
-                minValue = 1
-            case .kgs, .l:
-                quantityAmount = 1
-                minValue = 0.1
-            }
-            checkMinimumValue()
-            amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
+            configureMeasure()
         }
     }
     
     var item: ItemModel? {
         didSet {
-            guard let item else { return }
-            itemMeasure = item.measure
-            quantityAmount = item.amount
-            amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
-            checkMinimumValue()
+            configureCell()
         }
     }
     
     private lazy var stepperView: UIStackView = {
         let view = UIStackView()
-        view.withBorder(width: 1, color: .maingreen)
+        view.withBorder(width: 1, color: .mainGreen)
         view.layer.cornerRadius = 8
-        view.backgroundColor = .lightgreen
+        view.backgroundColor = .lightGreen
         return view
     }()
     
@@ -68,19 +53,29 @@ class ItemAmountView: BaseView {
     private lazy var minusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "minus.circle"), for: .normal)
-        button.tintColor = .maingreen
+        button.tintColor = .mainGreen
         button.addTarget(self, action: #selector(didTapMinus), for: .touchUpInside)
         return button
     }()
     
     private lazy var plusButton: UIButton = {
         let button = UIButton(type: .system)
-        button.tintColor = .maingreen
+        button.tintColor = .mainGreen
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(didTapPlus), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Setup UI
+    
+    private func configureCell() {
+        guard let item else { return }
+        itemMeasure = item.measure
+        quantityAmount = item.amount
+        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
+        checkMinimumValue()
+    }
     
     override func setupView() {
         super.setupView()
@@ -91,10 +86,9 @@ class ItemAmountView: BaseView {
     private func setupUI() {
         self.anchor(view: stepperView) { kit in
             kit.leading()
-            kit.trailing()
             kit.top()
             kit.bottom()
-            kit.width(170)
+            kit.width(135)
             kit.height(40)
             
             let hStack = UIView().HStack(
@@ -114,24 +108,57 @@ class ItemAmountView: BaseView {
         }
     }
     
-    private func checkMinimumValue() {
-        if quantityAmount <= minValue {
-            minusButton.isEnabled = false
-            minusButton.tintColor = .maingreen.withAlphaComponent(0.5)
-        } else {
-            minusButton.isEnabled = true
-            minusButton.tintColor = .maingreen
-        }
-    }
+    // MARK: - Actions
     
     @objc
     private func didTapMinus() {
-        updateAmount(with: itemMeasure ?? .pcs, increment: false)
+        updateAmount(increment: false)
         amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
         delegate?.setAmount(amount: quantityAmount)
     }
     
-    private func updateAmount(with measureType: Measures, increment: Bool) {
+    @objc
+    private func didTapPlus() {
+        updateAmount(increment: true)
+        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
+        delegate?.setAmount(amount: quantityAmount)
+    }
+    
+    @objc
+    private func textFieldDidChange() {
+        guard let amount = Decimal128.fromStringToDecimal(string: amountTextField.text ?? "") else { return }
+        delegate?.setAmount(amount: amount)
+        checkMinimumValue()
+    }
+    
+    // MARK: - Amount Operations
+    
+    private func configureMeasure() {
+        guard let measure = itemMeasure else { return }
+        switch measure {
+        case .pcs:
+            quantityAmount = 1
+            minValue = 1
+        case .kgs, .l:
+            quantityAmount = 1
+            minValue = 0.1
+        }
+        checkMinimumValue()
+        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
+    }
+    
+    private func checkMinimumValue() {
+        if quantityAmount <= minValue {
+            minusButton.isEnabled = false
+            minusButton.tintColor = .mainGreen.withAlphaComponent(0.5)
+        } else {
+            minusButton.isEnabled = true
+            minusButton.tintColor = .mainGreen
+        }
+    }
+    
+    private func updateAmount(increment: Bool) {
+        guard let measureType = itemMeasure else { return }
         switch measureType {
         case .pcs:
             quantityAmount = max(quantityAmount + (increment ? 1 : -1), 1)
@@ -145,19 +172,6 @@ class ItemAmountView: BaseView {
             }
         }
         checkMinimumValue()
-    }
-    
-    @objc
-    private func didTapPlus() {
-        updateAmount(with: itemMeasure ?? .pcs, increment: true)
-        amountTextField.text = Double.doubleToString(double: quantityAmount.doubleValue)
-        delegate?.setAmount(amount: quantityAmount)
-    }
-    
-    @objc
-    private func textFieldDidChange() {
-        guard let amount = Decimal128.fromStringToDecimal(string: amountTextField.text ?? "") else { return }
-        delegate?.setAmount(amount: amount)
     }
 }
 

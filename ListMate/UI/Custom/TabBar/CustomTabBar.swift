@@ -17,14 +17,18 @@ class CustomTabBar: UITabBarController {
     private func setupTabBar() {
         
         let listTab = UINavigationController(rootViewController: ListViewController())
-        listTab.tabBarItem = UITabBarItem(title: nil,
-                                          image: UIImage(named: "list"),
-                                          selectedImage: UIImage(named: "listSelected"))
+        listTab.tabBarItem = UITabBarItem(
+            title: nil,
+            image: UIImage(named: "list"),
+            selectedImage: UIImage(named: "listSelected")
+        )
         
         let catalogTab = UINavigationController(rootViewController: CatalogViewController())
-        catalogTab.tabBarItem = UITabBarItem(title: nil,
-                                             image: UIImage(named: "catalog"),
-                                             selectedImage: UIImage(named: "catalogSelected"))
+        catalogTab.tabBarItem = UITabBarItem(
+            title: nil,
+            image: UIImage(named: "catalog"),
+            selectedImage: UIImage(named: "catalogSelected")
+        )
         
         viewControllers = [listTab, catalogTab]
     }

@@ -34,7 +34,7 @@ class ItemsViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "cart"), for: .normal)
         button.tintColor = .white
-        button.layer.shadowColor = UIColor.maingreen.cgColor
+        button.layer.shadowColor = UIColor.mainGreen.cgColor
         button.layer.shadowOpacity = 0.5
         button.layer.shadowOffset = CGSize(width: 1, height: 1)
         button.addTarget(self, action: #selector(didTapSummaryButton), for: .touchUpInside)
@@ -43,7 +43,7 @@ class ItemsViewController: BaseViewController {
     
     private var emptyBagImage: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "emptybag")
+        view.image = UIImage(named: "emptyBag")
         view.contentMode = .scaleAspectFit
         return view
     }()
@@ -53,6 +53,8 @@ class ItemsViewController: BaseViewController {
     private lazy var activityIndicator: ActivityIndicator = {
         return ActivityIndicator.shared
     }()
+    
+    // MARK: - Setup UI
     
     override func setupUIComponents() {
         super.setupUIComponents()
@@ -67,22 +69,6 @@ class ItemsViewController: BaseViewController {
         super.setupUIConstraints()
         configureSummaryButton()
         setupUI()
-    }
-    
-    private func configureSummaryButton() {
-        viewModel.updateSummaryButton = { [weak self] amount in
-            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) \(LanguageBase.system(.currency).translate)", for: .normal)
-        }
-    }
-    
-    private func configureNavBar() {
-        let summarybutton = UIBarButtonItem(customView: summaryButton)
-        if let customView = summarybutton.customView {
-            customView.withWidth(117)
-            customView.withHeight(35)
-        }
-        navigationItem.rightBarButtonItem = summarybutton
-        navigationController?.navigationBar.tintColor = .maingreen
     }
     
     private func setupUI() {
@@ -102,8 +88,26 @@ class ItemsViewController: BaseViewController {
     private func updateUI(forEmptyList isEmpty: Bool) {
         emptyBagImage.isHidden = !isEmpty
         summaryButton.isEnabled = !isEmpty
-        summaryButton.backgroundColor = isEmpty ? .maingreen.withAlphaComponent(0.5) : .maingreen
+        summaryButton.backgroundColor = isEmpty ? .mainGreen.withAlphaComponent(0.5) : .mainGreen
     }
+    
+    private func configureSummaryButton() {
+        viewModel.updateSummaryButton = { [weak self] amount in
+            self?.summaryButton.setTitle(" \(Double.doubleToString(double: amount.doubleValue)) \(LanguageBase.system(.currency).translate)", for: .normal)
+        }
+    }
+    
+    private func configureNavBar() {
+        let summarybutton = UIBarButtonItem(customView: summaryButton)
+        if let customView = summarybutton.customView {
+            customView.withWidth(117)
+            customView.withHeight(35)
+        }
+        navigationItem.rightBarButtonItem = summarybutton
+        navigationController?.navigationBar.tintColor = .mainGreen
+    }
+    
+    // MARK: - Actions
     
     @objc
     private func didTapAddItem() {
@@ -121,10 +125,6 @@ class ItemsViewController: BaseViewController {
         vc.viewModel.updateItems(items: viewModel.completedItemsArray)
         let nc = UINavigationController(rootViewController: vc)
         present(nc, animated: true)
-    }
-    
-     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
     }
 }
 
@@ -191,7 +191,7 @@ extension ItemsViewController: NewItemDelegate, ItemsModelDelegate {
 
 extension ItemsViewController: ItemCellDelegate {
     func updateCheckmark(isChecked: Bool, id: ObjectId) {
-        viewModel.updateCheckmark(isCheked: isChecked, id: id)
+        viewModel.updateCheckmark(isChecked: isChecked, id: id)
     }
     
     func updateAmount(amount: Decimal128, id: ObjectId) {

@@ -10,6 +10,18 @@ import RealmSwift
 
 class DetailedViewController: BaseViewController {
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.keyboardDismissMode = .interactive
+        return scrollView
+    }()
+    
+    private lazy var contentView: UIView = {
+        return UIView()
+    }()
+    
     private lazy var mainView: MainView = {
         let view = MainView()
         view.item = self.viewModel.item
@@ -25,16 +37,18 @@ class DetailedViewController: BaseViewController {
     }()
     
     lazy var viewModel: DetailedViewModel = {
-        let model = DetailedViewModel()
-        return model
+        return DetailedViewModel()
     }()
     
     private lazy var doneButton: UIBarButtonItem = {
         let translatedTitle = LanguageBase.system(.doneKeyboardButton).translate
-        let button = UIBarButtonItem(title: translatedTitle,
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(saveChanges))
+        let button = UIBarButtonItem(
+            title: translatedTitle,
+            style: .plain,
+            target: self,
+            action: #selector(saveChanges)
+        )
+        button.tintColor = .mainGreen
         return button
     }()
     
@@ -42,11 +56,14 @@ class DetailedViewController: BaseViewController {
         return ActivityIndicator.shared
     }()
     
+    // MARK: - Setup UI
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         title = viewModel.item?.name
         configureDoneButton()
         closeBarButton()
+        registerForKeyboardNotifications()
     }
     
     override func setupUIConstraints() {
@@ -55,25 +72,42 @@ class DetailedViewController: BaseViewController {
         configureMenu()
     }
     
-    private func configureDoneButton() {
-        doneButton.tintColor = .maingreen
-        navigationItem.rightBarButtonItem = doneButton
-    }
-    
     private func setupUI() {
-        view.anchor(view: mainView) { kit in
-            kit.leading(20)
-            kit.trailing(20)
-            kit.top(35, safe: true)
+        view.anchor(view: scrollView) { kit in
+            kit.top(view.topAnchor)
+            kit.leading(view.leadingAnchor)
+            kit.trailing(view.trailingAnchor)
+            kit.bottom(view.bottomAnchor)
+        }
+        
+        scrollView.anchor(view: contentView) { kit in
+            kit.top(scrollView.topAnchor)
+            kit.leading(scrollView.leadingAnchor)
+            kit.trailing(scrollView.trailingAnchor)
+            kit.bottom(scrollView.bottomAnchor)
+            kit.width(scrollView.widthAnchor)
+        }
+        
+        contentView.anchor(view: mainView) { kit in
+            kit.top(contentView.topAnchor, 35)
+            kit.leading(contentView.leadingAnchor, 20)
+            kit.trailing(contentView.trailingAnchor, 20)
             kit.height(100)
         }
         
-        view.anchor(view: detailsView) { kit in
-            kit.leading(20)
-            kit.trailing(20)
+        contentView.anchor(view: detailsView) { kit in
             kit.top(mainView.bottomAnchor, 20)
+            kit.leading(contentView.leadingAnchor, 20)
+            kit.trailing(contentView.trailingAnchor, 20)
+            kit.bottom(contentView.bottomAnchor)
         }
     }
+    
+    private func configureDoneButton() {
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    // MARK: - Actions
     
     @objc
     private func saveChanges() {
@@ -83,16 +117,19 @@ class DetailedViewController: BaseViewController {
         dismiss(animated: true)
     }
     
-    //MARK: - IMAGE PICKER HANDLING
+    // MARK: - Image Picker Handling
+    
     private func configureMenu() {
-        let menu = imagePickerButtons(takePictureAction: takePicture,
-                                      presentPickerAction: presentPicker)
+        let menu = imagePickerButtons(
+            takePictureAction: takePicture,
+            presentPickerAction: presentPicker
+        )
         mainView.itemImageButton.menu = menu
     }
     
     private func saveSelectedPicture() {
-        guard let selected = mainView.itemImageView.image else { return }
-        viewModel.updateImage(image: selected)
+        guard let selectedImage = mainView.itemImageView.image else { return }
+        viewModel.updateImage(image: selectedImage)
     }
     
     @objc
@@ -114,6 +151,36 @@ class DetailedViewController: BaseViewController {
         presentImagePicker(sourceType: .photoLibrary)
         activityIndicator.showActivityIndicator(view: self.view)
     }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardHeight = keyboardFrame.height
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset = .zero
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePreviewDelegate {
@@ -130,25 +197,26 @@ extension DetailedViewController: MainViewDelegate, DetailsViewDelegate, ImagePr
         openPreviewer(image: image)
     }
     
-    func openMenu() {
-        configureMenu()
-    }
-    
-    func updateDetailsData(measeure: Measures, price: Decimal128, store: String) {
-        viewModel.updateValues(measeure: measeure, price: price, store: store)
+    func updateDetailsData(measure: Measures, price: Decimal128, store: String) {
+        viewModel.updateValues(measure: measure, price: price, store: store)
     }
     
     func updateNameAndNote(name: String, note: String) {
         if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             alertMessage(
                 title: LanguageBase.newItem(.emptyNameAlarmTitle).translate,
-                message: LanguageBase.newItem(.emptyNameAlarmBody).translate )
+                message: LanguageBase.newItem(.emptyNameAlarmBody).translate
+            )
             doneButton.isEnabled = false
         } else {
             viewModel.newItem = name
             viewModel.newNote = note
             doneButton.isEnabled = true
         }
+    }
+    
+    func openMenu() {
+        configureMenu()
     }
 }
 
