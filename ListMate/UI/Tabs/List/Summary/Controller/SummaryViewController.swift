@@ -94,6 +94,7 @@ extension SummaryViewController: UITableViewDelegate, UITableViewDataSource {
             kit.leading(80)
             kit.trailing(20)
             kit.top(40)
+            kit.width(view.bounds.width)
         }
         
         return footerView

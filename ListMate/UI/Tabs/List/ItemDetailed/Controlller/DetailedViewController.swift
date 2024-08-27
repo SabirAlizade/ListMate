@@ -72,6 +72,11 @@ class DetailedViewController: BaseViewController {
         configureMenu()
     }
     
+    private func configureDoneButton() {
+        doneButton.tintColor = .maingreen
+        navigationItem.rightBarButtonItem = doneButton
+    }
+
     private func setupUI() {
         view.anchor(view: scrollView) { kit in
             kit.top(view.topAnchor)
