@@ -73,7 +73,7 @@ class DetailedViewController: BaseViewController {
     }
     
     private func configureDoneButton() {
-        doneButton.tintColor = .maingreen
+        doneButton.tintColor = .mainGreen
         navigationItem.rightBarButtonItem = doneButton
     }
 
@@ -106,10 +106,6 @@ class DetailedViewController: BaseViewController {
             kit.trailing(contentView.trailingAnchor, 20)
             kit.bottom(contentView.bottomAnchor)
         }
-    }
-    
-    private func configureDoneButton() {
-        navigationItem.rightBarButtonItem = doneButton
     }
     
     // MARK: - Actions
