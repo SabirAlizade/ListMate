@@ -14,54 +14,67 @@ protocol DetailedViewModelDelegate: AnyObject {
 }
 
 class DetailedViewModel {
+    
     weak var delegate: DetailedViewModelDelegate?
     var item: ItemModel?
     private let manager = DataManager()
     var newItem: String = ""
     var newNote: String = ""
     
-    func updateValues() {
-        guard let item else { return }
-        let newItemName = newItem.isEmpty ? item.name : newItem
-        if item.name != newItemName || item.notes != newNote {
-            do {
-                try manager.realm.write {
-                    item.name = newItemName
-                    item.notes = newNote
-                }
-            }
-            catch {
-                print("Error updating name or note \(error.localizedDescription)")
-            }
-        }
-    }
+    // MARK: - Data Handling
     
-    func updateValues(measeure: Measures, price: Decimal128, store: String) {
+    func updateValues() {
+           guard let item = item else { return }
+           
+           let updatedName = newItem.isEmpty ? item.name : newItem
+           let updatedNote = newNote.isEmpty ? item.notes : newNote
+           
+           let shouldUpdate = item.name != updatedName || item.notes != updatedNote
+           guard shouldUpdate else { return }
+           
+           do {
+               try manager.realm.write {
+                   item.name = updatedName
+                   item.notes = updatedNote
+               }
+           } catch {
+               print("Error updating item: \(error.localizedDescription)")
+           }
+       }
+    
+    func updateValues(measure: Measures, price: Decimal128, store: String) {
         guard let item else { return }
         do {
             try manager.realm.write {
-                item.measure = measeure
+                item.measure = measure
                 item.price = price
                 item.storeName = store
                 item.totalPrice = item.amount * price
             }
-        }
-        catch {
+        } catch {
             print("Error updating detailed item data \(error.localizedDescription)")
         }
-        
-        if let catalogItem = manager.realm.objects(CatalogModel.self).filter("name == %@", item.name).first {
+        updateCatalogItemPrice(for: item.name, with: price)
+    }
+    
+    private func updateCatalogItemPrice(for itemName: String, with price: Decimal128) {
+        if let catalogItem = manager.realm.objects(CatalogModel.self).filter("name == %@", itemName).first {
             do {
                 try manager.realm.write {
                     catalogItem.price = price
                 }
                 NotificationCenter.default.post(name: Notification.Name("ReloadCatalogData"), object: nil)
-            }
-            catch {
+            } catch {
                 print("Error updating catalog item price: \(error.localizedDescription)")
             }
         }
     }
+    
+    func reloadItemsData() {
+        delegate?.updateChanges()
+    }
+    
+    // MARK: - Loading Image
     
     func updateImage(image: UIImage) {
         ImageManager.shared.saveImageToLibrary(image: image) { imagePath in
@@ -69,14 +82,9 @@ class DetailedViewModel {
                 try self.manager.realm.write {
                     self.item?.imagePath = imagePath
                 }
-            }
-            catch {
+            } catch {
                 print("Error saving image to library \(error.localizedDescription)")
             }
         }
-    }
-    
-    func reloadItemsData() {
-        delegate?.updateChanges()
     }
 }

@@ -18,6 +18,7 @@ final class CatalogViewModel {
     private let manager = DataManager()
     private let mockCatalogDataKey = "MockCatalogData"
     private var mockDeletedState: [String: Bool] = [:]
+    
     private(set) var catalogItems: Results<CatalogModel>? {
         didSet {
             delegate?.reloadData()
@@ -27,6 +28,8 @@ final class CatalogViewModel {
     init() {
         loadDeletedState()
     }
+    
+    // MARK: - Data Operations
     
     func loadMockData() {
         let mockData: [MockCatalogModel] = [
@@ -48,40 +51,30 @@ final class CatalogViewModel {
         ]
         
         for item in mockData {
-            let existingItem = manager.realm.objects(CatalogModel.self).filter("name == %@", item.name).first
-            if existingItem == nil && !(mockDeletedState[item.name] ?? false) {
-                let catalogModel = CatalogModel()
-                catalogModel.name = item.name
-                catalogModel.price = item.price
-                catalogModel.measure = item.measure
-                
-                manager.saveObject(data: catalogModel) { error in
-                    if let error = error {
-                        print("Error saving catalog item \(error.localizedDescription)")
-                    }
+            if manager.realm.objects(CatalogModel.self).filter("name == %@", item.name).first != nil || (mockDeletedState[item.name] ?? false) {
+                continue
+            }
+            let catalogModel = CatalogModel()
+            catalogModel.name = item.name
+            catalogModel.price = item.price
+            catalogModel.measure = item.measure
+            
+            manager.saveObject(data: catalogModel) { error in
+                if let error = error {
+                    print("Error saving catalog item \(error.localizedDescription)")
                 }
             }
         }
         readData()
     }
-
-//    func readData() {
-//        manager.readData(data: CatalogModel.self) { result in
-//            self.catalogItems = result
-//        }
-//    }
-//    
     
     func readData() {
         manager.readData(data: CatalogModel.self) { result, error in
-            if let error = error {
+            if let error {
                 print("Error reading data: \(error.localizedDescription)")
-                // Handle the error as needed
                 self.catalogItems = nil
-            } else if let result = result {
-                self.catalogItems = result
             } else {
-                self.catalogItems = nil
+                self.catalogItems = result
             }
         }
     }
@@ -100,23 +93,28 @@ final class CatalogViewModel {
             self.readData()
         }
     }
-    //MARK: - Mock data manage
+    
+    // MARK: - Mock Data Handling
     
     private func loadDeletedState() {
-          if let storedState = UserDefaults.standard.dictionary(forKey: mockCatalogDataKey) as? [String: Bool] {
-              mockDeletedState = storedState
-          }
-      }
-
-      private func saveDeletedState() {
-          UserDefaults.standard.set(mockDeletedState, forKey: mockCatalogDataKey)
-      }
+        if let storedState = UserDefaults.standard.dictionary(forKey: mockCatalogDataKey) as? [String: Bool] {
+            mockDeletedState = storedState
+        }
+    }
+    
+    private func saveDeletedState() {
+        UserDefaults.standard.set(mockDeletedState, forKey: mockCatalogDataKey)
+    }
 }
 
 extension CatalogViewModel {
     func clearMockData() {
-        try? manager.realm.write {
-                   manager.realm.delete(manager.realm.objects(CatalogModel.self))
-               }
+        do {
+            try manager.realm.write {
+                manager.realm.delete(manager.realm.objects(CatalogModel.self))
+            }
+        } catch {
+            print("Error clearing mock data: \(error.localizedDescription)")
+        }
     }
 }

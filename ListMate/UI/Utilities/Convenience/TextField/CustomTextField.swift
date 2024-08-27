@@ -9,16 +9,17 @@ import UIKit
 
 class CustomTextField: CustomTextFieldConfiguration {
     
-    convenience init(placeHolder: String,
-                     textAlignment: NSTextAlignment = .left,
-                     font: UIFont = .poppinsFont(size: 20, weight: .regular),
-                     border: BorderStyle = .roundedRect,
-                     backgroundColor: UIColor = .textfieldback,
-                     keyboard: UIKeyboardType = .default,
-                     dataSource: Any? = nil,
-                     delegate: Any? = nil,
-                     target: Any? = nil,
-                     action: Selector? = nil
+    convenience init(
+        placeHolder: String,
+        textAlignment: NSTextAlignment = .left,
+        font: UIFont = .poppinsFont(size: 20, weight: .regular),
+        border: BorderStyle = .roundedRect,
+        backgroundColor: UIColor = .textfieldBlack,
+        keyboard: UIKeyboardType = .default,
+        dataSource: Any? = nil,
+        delegate: Any? = nil,
+        target: Any? = nil,
+        action: Selector? = nil
     ) {
         self.init()
         clipsToBounds = true
@@ -29,12 +30,12 @@ class CustomTextField: CustomTextFieldConfiguration {
         keyboardType = keyboard
         layer.cornerRadius = 8
         borderStyle = border
-        textColor = .maintext
+        textColor = .mainText
         self.backgroundColor = backgroundColor
-        withBorder(width: 1, color: .buttongreen)
+        withBorder(width: 1, color: .buttonGreen)
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainGreen.withAlphaComponent(0.5)]
         )
         
         if let target = target, let action = action {
@@ -64,9 +65,10 @@ class CustomTextField: CustomTextFieldConfiguration {
 
 class PriceTextField: PriceTextFieldConfiguration {
     
-    convenience init(placeHolder: String,
-                     target: Any? = nil,
-                     action: Selector? = nil
+    convenience init(
+        placeHolder: String,
+        target: Any? = nil,
+        action: Selector? = nil
     ) {
         self.init()
         clipsToBounds = true
@@ -76,14 +78,14 @@ class PriceTextField: PriceTextFieldConfiguration {
         font = .poppinsFont(size: 20, weight: .regular)
         layer.cornerRadius = 8
         borderStyle = .roundedRect
-        textColor = .maintext
-        self.backgroundColor = .textfieldback
+        textColor = .mainText
+        self.backgroundColor = .textfieldBlack
         updateRightView()
-        withBorder(width: 1, color: .buttongreen)
+        withBorder(width: 1, color: .mainGreen)
         
         attributedPlaceholder = NSAttributedString(
             string: placeHolder,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.maingreen.withAlphaComponent(0.5)]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.mainGreen.withAlphaComponent(0.5)]
         )
         
         if let target = target, let action = action {
@@ -114,18 +116,18 @@ class PriceTextField: PriceTextFieldConfiguration {
         let languageCode = Locale.current.language.languageCode?.identifier
         switch languageCode {
         case "en":
-            priceImageView.image = UIImage(named: "dollarsign")
+            priceImageView.image = UIImage(named: "dollarSign")
         case "ru":
-            priceImageView.image = UIImage(named: "roublesign")
+            priceImageView.image = UIImage(named: "roubleSign")
         case "az":
-            priceImageView.image = UIImage(named: "manatsign")
+            priceImageView.image = UIImage(named: "manatSign")
         default:
-            priceImageView.image = UIImage(named: "dollarsign")
+            priceImageView.image = UIImage(named: "dollarSign")
         }
         setRightView(view: priceImageView)
     }
     
-    //MARK: Preventing paste to textfield
+    // MARK: Preventing paste to textfield
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(UIResponderStandardEditActions.paste(_:)) {
             return false
@@ -138,7 +140,7 @@ extension PriceTextField {
     func setRightView(view: UIView, padding: CGFloat = 20) {
         self.rightViewMode = .always
         let subView = UIView(frame: CGRect(x: -10, y: 0, width: padding, height: 50))
-        view.backgroundColor = .textfieldback
+        view.backgroundColor = .textfieldBlack
         view.center = subView.center
         view.contentMode = .scaleAspectFit
         subView.addSubview(view)

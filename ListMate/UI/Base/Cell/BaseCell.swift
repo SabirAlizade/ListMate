@@ -13,7 +13,7 @@ class BaseCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
     }
-   
+    
     func setupCell() {}
     
     required init?(coder: NSCoder) {

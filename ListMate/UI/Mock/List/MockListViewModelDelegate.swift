@@ -9,8 +9,13 @@ import Foundation
 
 class MockListViewModelDelegate: ListViewModelDelegate {
     var didReloadData = false
+    var capturedErrorMessage: String?
 
     func reloadData() {
         didReloadData = true
+    }
+    
+    func showError(_ message: String) {
+        capturedErrorMessage = message
     }
 }

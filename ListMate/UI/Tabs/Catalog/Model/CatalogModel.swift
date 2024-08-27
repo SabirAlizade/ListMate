@@ -15,10 +15,11 @@ class CatalogModel: Object {
     @Persisted var price: Decimal128
     @Persisted var measure: Measures
     
-    convenience init(name: String,
-                     price: Decimal128,
-                     measure: Measures) {
-        
+    convenience init(
+        name: String,
+        price: Decimal128,
+        measure: Measures
+    ) {
         self.init()
         self.id = id
         self.name = name

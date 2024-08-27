@@ -16,38 +16,38 @@ protocol MainViewDelegate: AnyObject {
 final class MainView: BaseView {
     
     weak var delegate: MainViewDelegate?
-    
     var itemImage: UIImage?
     
     var item: ItemModel? {
         didSet {
-            guard let item else { return }
-            nameTextField.text = item.name
-            noteTextField.text = item.notes
-            loadImageData(imageName: item.imagePath)
+            configureCell()
         }
     }
     
     private let mainView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .mainwhite
+        view.backgroundColor = .mainWhite
         return view
     }()
     
-    private lazy var nameTextField = CustomTextField(placeHolder: "",
-                                                     font: .poppinsFont(size: 22, weight: .medium),
-                                                     border: .none,
-                                                     backgroundColor: .mainwhite,
-                                                     target: self,
-                                                     action: #selector(didTapValueChanged))
+    private lazy var nameTextField = CustomTextField(
+        placeHolder: "",
+        font: .poppinsFont(size: 22, weight: .medium),
+        border: .none,
+        backgroundColor: .mainWhite,
+        target: self,
+        action: #selector(didTapValueChanged)
+    )
     
-    private lazy var noteTextField = CustomTextField(placeHolder: LanguageBase.detailed(.addNotePlaceHolder).translate,
-                                                     font: .poppinsFont(size: 18, weight: .light),
-                                                     border: .none,
-                                                     backgroundColor: .mainwhite,
-                                                     target: self,
-                                                     action: #selector(didTapValueChanged))
+    private lazy var noteTextField = CustomTextField(
+        placeHolder: LanguageBase.detailed(.addNotePlaceHolder).translate,
+        font: .poppinsFont(size: 18, weight: .light),
+        border: .none,
+        backgroundColor: .mainWhite,
+        target: self,
+        action: #selector(didTapValueChanged)
+    )
     
     lazy var itemImageView: UIImageView = {
         let view = UIImageView()
@@ -64,6 +64,15 @@ final class MainView: BaseView {
         button.addTarget(self, action: #selector(presentPicker), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Setup UI
+    
+    private func configureCell() {
+        guard let item else { return }
+        nameTextField.text = item.name
+        noteTextField.text = item.notes
+        loadImageData(imageName: item.imagePath)
+    }
     
     override func setupView() {
         super.setupView()
@@ -103,18 +112,12 @@ final class MainView: BaseView {
         }
     }
     
-    // CHECKING AND LOADING IMAGE FROM LIBRARY BY IMAGE PATH
-    private func loadImageData(imageName: String?) {
-        if let imageName = imageName, !imageName.isEmpty {
-            let cachedImage = ImageCacheManager.shared.getImage(forKey: imageName)
-            itemImageView.image = cachedImage
-        } else {
-            itemImageButton.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)
-            itemImageButton.tintColor = .maingreen
-            itemImageButton.showsMenuAsPrimaryAction = true
-            itemImageView.layer.borderWidth = 0
-        }
-        itemImage = itemImageView.image
+    // MARK: - Actions
+    
+    @objc
+    private func didTapValueChanged() {
+        guard let name = nameTextField.text, let note = noteTextField.text else { return }
+        delegate?.updateNameAndNote(name: name, note: note)
     }
     
     @objc
@@ -122,11 +125,24 @@ final class MainView: BaseView {
         delegate?.openImage(image: itemImage) ?? delegate?.openMenu()
     }
     
-    @objc
-    private func didTapValueChanged() {
-        guard let name = nameTextField.text else { return }
-        guard let note = noteTextField.text else { return }
-        delegate?.updateNameAndNote(name: name, note: note)
+    // MARK: - Image Loading
+    
+    private func loadImageData(imageName: String?) {
+        if let imageName = imageName, !imageName.isEmpty {
+            if let cachedImage = ImageCacheManager.shared.getImage(forKey: imageName) {
+                itemImageView.image = cachedImage
+            }
+        } else {
+            setupDefaultImageButton()
+        }
+        itemImage = itemImageView.image
+    }
+    
+    private func setupDefaultImageButton() {
+        itemImageButton.setImage(UIImage(systemName: "photo.badge.plus"), for: .normal)
+        itemImageButton.tintColor = .mainGreen
+        itemImageButton.showsMenuAsPrimaryAction = true
+        itemImageView.layer.borderWidth = 0
     }
 }
 

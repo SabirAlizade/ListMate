@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 protocol DetailsViewDelegate: AnyObject {
-    func updateDetailsData(measeure: Measures, price: Decimal128, store: String)
+    func updateDetailsData(measure: Measures, price: Decimal128, store: String)
 }
 
 class DetailsView: BaseView {
@@ -18,18 +18,14 @@ class DetailsView: BaseView {
     
     var item: ItemModel? {
         didSet {
-            guard let item else { return }
-            selectedSegmentIndex(item: item.measure)
-            priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
-            storeTextField.text = item.storeName
-            adjustPriceTextFieldWidth()
+            configureCell()
         }
     }
     
     private let detailsView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = .mainwhite
+        view.backgroundColor = .mainWhite
         return view
     }()
     
@@ -66,6 +62,16 @@ class DetailsView: BaseView {
         return control
     }()
     
+    // MARK: - Setup UI
+    
+    private func configureCell() {
+        guard let item else { return }
+        selectedSegmentIndex(item: item.measure)
+        priceTextField.text = Double.doubleToString(double: item.price.doubleValue)
+        storeTextField.text = item.storeName
+        adjustPriceTextFieldWidth()
+    }
+    
     override func setupView() {
         super.setupView()
         setupUI()
@@ -76,7 +82,7 @@ class DetailsView: BaseView {
     private func setupUI() {
         let measureStack = UIView().HStack(
             views: measureLabel,
-            measuresSegmentControl.withWidth(240),
+            measuresSegmentControl.withWidth(230),
             spacing: 10,
             distribution: .fill
         )
@@ -113,24 +119,25 @@ class DetailsView: BaseView {
         }
     }
     
-    @objc
-    private func priceTextFieldDidChange() {
-        adjustPriceTextFieldWidth()
-    }
-    
-    
     private func adjustPriceTextFieldWidth() {
         priceTextField.sizeToFit()
         setNeedsLayout()
         layoutIfNeeded()
     }
     
+    // MARK: - Actions
+    
+    @objc
+    private func priceTextFieldDidChange() {
+        adjustPriceTextFieldWidth()
+    }
+    
     @objc
     private func didUpdateDetails() {
-        guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? "") else { return }
-        guard let store = storeTextField.text else { return }
+        guard let price = Decimal128.fromStringToDecimal(string: priceTextField.text ?? ""),
+              let store = storeTextField.text else { return }
         let selectedMeasure = Measures.allCases[measuresSegmentControl.selectedSegmentIndex]
-        delegate?.updateDetailsData(measeure: selectedMeasure, price: price, store: store)
+        delegate?.updateDetailsData(measure: selectedMeasure, price: price, store: store)
     }
     
     private func selectedSegmentIndex(item: Measures) {

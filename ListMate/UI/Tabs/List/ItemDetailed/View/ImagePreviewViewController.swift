@@ -26,6 +26,8 @@ class ImagePreviewViewController: BaseViewController {
         return ActivityIndicator.shared
     }()
     
+    // MARK: - Setup UI
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         view.backgroundColor = .black
@@ -42,6 +44,15 @@ class ImagePreviewViewController: BaseViewController {
     private func setupUI() {
         view.anchorFill(view: imageView, safe: true)
     }
+    
+    private func configureEditBarButton() {
+        let menuItems = imagePickerButtons(takePictureAction: takePicture, presentPickerAction: presentPicker)
+        let editButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), menu: menuItems)
+        editButtonItem.tintColor = .mainGreen
+        navigationItem.rightBarButtonItem = editButtonItem
+    }
+    
+    // MARK: - Gestures
     
     @objc
     private func pinchGesture(_ sender: UIPinchGestureRecognizer) {
@@ -65,13 +76,7 @@ class ImagePreviewViewController: BaseViewController {
         imageView.addGestureRecognizer(pinchGesture)
     }
     
-    private func configureEditBarButton() {
-        let menuItems = imagePickerButtons(takePictureAction: takePicture, presentPickerAction: presentPicker)
-        let editButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"),
-                                             menu: menuItems)
-        editButtonItem.tintColor = .maingreen
-        navigationItem.rightBarButtonItem = editButtonItem
-    }
+    // MARK: - Image Actions
     
     @objc
     override func takePicture() {
@@ -85,9 +90,9 @@ class ImagePreviewViewController: BaseViewController {
     }
     
     @objc
-    private func savePicture() {
-        guard let selected = imageView.image else { return }
-        delegate?.updateImage(image: selected)
+    private func saveImage() {
+        guard let selectedImage = imageView.image else { return }
+        delegate?.updateImage(image: selectedImage)
     }
 }
 
@@ -96,7 +101,7 @@ extension ImagePreviewViewController: ImagePickerDelegate {
         imageView.image = image
         if isEdited {
             imageView.isHidden = false
-            savePicture()
+            saveImage()
         }
     }
 }

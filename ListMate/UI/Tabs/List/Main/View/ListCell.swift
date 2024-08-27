@@ -11,24 +11,22 @@ class ListCell: BaseCell {
     
     var item: ListModel? {
         didSet {
-            guard let item = item else { return }
-            nameLabel.text = item.name
-            completedLabel.text = "\(item.completedQuantity)"
-            totalLabel.text = "/\(item.totalItemQuantity)"
+            configureCell()
         }
     }
     
     private let nameLabel = CustomLabel(font: .poppinsFont(size: 18, weight: .medium))
-    private let completedLabel = CustomLabel(textColor: .maingreen)
+    private let completedLabel = CustomLabel(textColor: .mainGreen)
     private let totalLabel = CustomLabel(textColor: .darkGray)
-    
+  
+    // MARK: - Setup UI
+
     override func setupCell() {
         super.setupCell()
         setupUI()
     }
     
     private func setupUI() {
-        
         self.anchor(view: nameLabel) { kit in
             kit.centerY()
             kit.leading(16)
@@ -43,5 +41,12 @@ class ListCell: BaseCell {
             kit.trailing(totalLabel.leadingAnchor, 2)
             kit.centerY()
         }
+    }
+    
+    private func configureCell() {
+        guard let item = item else { return }
+        nameLabel.text = item.name
+        completedLabel.text = "\(item.completedQuantity)"
+        totalLabel.text = "/\(item.totalItemQuantity)"
     }
 }

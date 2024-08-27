@@ -11,14 +11,22 @@ class CatalogCell: BaseCell {
     
     var item: CatalogModel? {
         didSet {
-            guard let item else { return }
-            nameLabel.text = item.name
-            priceLabel.text = String("\(Double.doubleToString(double: item.price.doubleValue)) \(LanguageBase.system(.currency).translate)")
+            configureCell()
         }
     }
     
     private var nameLabel = CustomLabel()
     private var priceLabel = CustomLabel()
+    
+    // MARK: - Setup UI
+    
+    private func configureCell() {
+        guard let item else { return }
+        nameLabel.text = item.name
+        priceLabel.text = String(
+            "\(Double.doubleToString(double: item.price.doubleValue)) \(LanguageBase.system(.currency).translate)"
+        )
+    }
     
     override func setupCell() {
         super.setupCell()

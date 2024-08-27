@@ -13,8 +13,8 @@ protocol NewListViewModelDelegate: AnyObject {
 }
 
 final class NewListViewModel {
-    weak var delegate: NewListViewModelDelegate?
     
+    weak var delegate: NewListViewModelDelegate?
     private var manager = DataManager()
     private var lists: Results<ListModel>?
     private let session: ProductSession
@@ -24,11 +24,15 @@ final class NewListViewModel {
         self.manager = manager
     }
     
+    // MARK: - Data Operations
+
     func saveListItem(name: String) {
-        let list = ListModel(name: name,
-                             date: Date.now,
-                             items: List<ItemModel>(),
-                             totalAmount: 0)
+        let list = ListModel(
+            name: name,
+            date: Date.now,
+            items: List<ItemModel>(),
+            totalAmount: 0
+        )
         manager.saveObject(data: list) { error in
             if let error {
                 print("Error saving list item: \(error.localizedDescription)")

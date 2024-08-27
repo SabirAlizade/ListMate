@@ -9,7 +9,7 @@ import UIKit
 
 final class CheckBox: UIControl {
     
-    let checkedView: UIImageView = {
+    private lazy var checkedView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
@@ -31,81 +31,70 @@ final class CheckBox: UIControl {
             layoutIfNeeded()
         }
     }
-
-    var checkedBackgroundColor: UIColor = .lightgreen {
+    
+    var checkedBackgroundColor: UIColor = .lightGreen {
         didSet {
-            backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
+            updateBackgroundColor()
         }
     }
-
-    var uncheckedBackgroundColor: UIColor = .lightgreen {
+    
+    var uncheckedBackgroundColor: UIColor = .lightGreen {
         didSet {
-            backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
+            updateBackgroundColor()
         }
     }
-
+    
     var checkedImage: UIImage? = UIImage(systemName: "checkmark") {
         didSet {
             checkedView.image = checkedImage?.withRenderingMode(.alwaysTemplate)
-            tintColor = .maingreen
+            tintColor = .mainGreen
         }
     }
-
-    var checkedBorderColor: UIColor = .maingreen {
+    
+    var checkedBorderColor: UIColor = .mainGreen {
         didSet {
-            layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
+            updateBorderColor()
         }
     }
-
-    var uncheckedBorderColor: UIColor = .maingreen {
+    
+    var uncheckedBorderColor: UIColor = .mainGreen {
         didSet {
-            layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
+            updateBorderColor()
         }
     }
-
-    var imageTint: UIColor? = .maingreen {
+    
+    var imageTint: UIColor? = .mainGreen {
         didSet {
             checkedView.tintColor = imageTint
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-
-    func setup() {
+    
+    // MARK: - Setup UI
+    
+    private func setup() {
         backgroundColor = uncheckedBackgroundColor
         layer.borderColor = uncheckedBorderColor.cgColor
         layer.borderWidth = 1
         layer.cornerRadius = 4
         addSubview(checkedView)
     }
-
-    func updateState() {
-        backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
-        layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
+    
+    private func updateState() {
+        updateBackgroundColor()
+        updateBorderColor()
         checkedView.isHidden = !isChecked
     }
     
-  
-    //MARK: - handle touches
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        sendActions(for: .valueChanged)
-        isChecked.toggle()
-    }
-
-    //MARK: - Increase hit area
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return bounds.inset(by: UIEdgeInsets(top: -hitRadiusOffset, left: -hitRadiusOffset, bottom: -hitRadiusOffset, right: -hitRadiusOffset)).contains(point)
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
         checkedView.frame = CGRect(
@@ -115,6 +104,29 @@ final class CheckBox: UIControl {
             height: frame.height - checkedViewInsets.top - checkedViewInsets.bottom
         )
     }
-}
     
+    private func updateBorderColor() {
+        layer.borderColor = isChecked ? checkedBorderColor.cgColor : uncheckedBorderColor.cgColor
+    }
+    
+    private func updateBackgroundColor() {
+        backgroundColor = isChecked ? checkedBackgroundColor : uncheckedBackgroundColor
+    }
+    
+    
+    // MARK: - Touches Handling
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        sendActions(for: .valueChanged)
+        isChecked.toggle()
+    }
+    
+    // MARK: - Hit Area Increasing
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.inset(by: UIEdgeInsets(top: -hitRadiusOffset, left: -hitRadiusOffset, bottom: -hitRadiusOffset, right: -hitRadiusOffset)).contains(point)
+    }
+}
+
 

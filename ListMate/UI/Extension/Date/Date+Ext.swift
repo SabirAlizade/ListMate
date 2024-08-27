@@ -12,7 +12,6 @@ enum DateFormatterType: String {
 }
 
 extension Date {
-        
     func convertDate(format: DateFormatterType) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.rawValue

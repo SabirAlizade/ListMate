@@ -24,7 +24,7 @@ extension UITextField {
     }
     
     private func addShadow() {
-        superview?.layer.shadowColor = UIColor.maingreen.cgColor
+        superview?.layer.shadowColor = UIColor.mainGreen.cgColor
         superview?.layer.shadowOpacity = 0.5
         superview?.layer.shadowOffset = CGSize(width: 0, height: 2)
         superview?.layer.shadowRadius = 4
@@ -34,13 +34,13 @@ extension UITextField {
         superview?.layer.shadowOpacity = 0
     }
     
-    //MARK: - Done accessory implementation
+    // MARK: - Done accessory implementation
     @IBInspectable var doneAccessory: Bool {
         get {
-            return self.doneAccessory
+            return inputAccessoryView is UIToolbar
         }
         set (hasDone) {
-            if hasDone{
+            if hasDone {
                 addDoneButtonOnKeyboard()
             }
         }
@@ -50,16 +50,20 @@ extension UITextField {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
         
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-                                        target: nil,
-                                        action: nil)
+        let flexSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
         let done: UIBarButtonItem = UIBarButtonItem(
             title: LanguageBase.system(.doneKeyboardButton).translate,
             style: .done,
             target: self,
             action: #selector(self.doneButtonAction)
         )
-        done.tintColor = .maingreen
+        
+        done.tintColor = .mainGreen
         let items = [flexSpace, done]
         doneToolbar.items = items
         doneToolbar.sizeToFit()

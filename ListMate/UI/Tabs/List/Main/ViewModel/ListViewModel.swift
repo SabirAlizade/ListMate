@@ -10,9 +10,11 @@ import RealmSwift
 
 protocol ListViewModelDelegate: AnyObject {
     func reloadData()
+    func showError(_ message: String)
 }
 
 final class ListViewModel {
+    
     weak var delegate: ListViewModelDelegate?
     private let session: ProductSessionProtocol
     private let manager: DataManagerProtocol
@@ -28,26 +30,35 @@ final class ListViewModel {
         }
     }
     
+    func updateListId(id: String) {
+        session.updateListId(id: id)
+    }
+    
+    // MARK: - Data Operations
+
     func readData() {
-        manager.readData(data: ListModel.self) { result, error in
-            if let error = error {
-                print("Error reading data: \(error.localizedDescription)")
-            } else if let result = result {
+        manager.readData(data: ListModel.self) { [weak self] result, error in
+            guard let self else { return }
+            if let error {
+                self.handleError(error)
+            } else if let result {
                 self.lists = result
             }
         }
-    }
-    
-    func updateListId(id: String) {
-        session.updateListId(id: id)
     }
     
     func deleteItem(index: Int) {
         guard let item = lists?[index] else { return }
         manager.delete(data: item) { error in
             if let error {
-                print("Error deleting item \(error.localizedDescription)")
+                self.handleError(error)
             }
         }
+    }
+    
+    // MARK: - Error handling
+
+    private func handleError(_ error: Error) {
+        delegate?.showError("Oh no! Something went wrong: \(error.localizedDescription)")
     }
 }

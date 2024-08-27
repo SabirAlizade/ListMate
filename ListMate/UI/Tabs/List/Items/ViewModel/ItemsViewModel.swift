@@ -38,6 +38,8 @@ final class ItemsViewModel {
         self.productSession = session
     }
     
+    // MARK: - List Data
+    
     func readFilteredData(completion: @escaping() -> Void) {
         manager.filterID(id: productSession.listID) { [weak self] result in
             guard let self else { return }
@@ -48,61 +50,47 @@ final class ItemsViewModel {
     }
     
     func getSections() -> [ItemSection] {
-        guard let items else { return [] }
+        guard let items = items else { return [] }
         
         let remainingItems = items.filter { !$0.isChecked }
         let completedItems = items.filter { $0.isChecked }
-        let remainingSection = ItemSection(name: LanguageBase.item(.remainingTotal).translate,
-                                           data: Array(remainingItems))
-        let completedSection = ItemSection(name: LanguageBase.item(.completedTotal).translate,
-                                           data: Array(completedItems))
         
-        updateListSummary(completedItems: completedItems, remainItems: remainingItems)
+        updateListSummary(completedItems: completedItems, remainingItems: remainingItems)
         
-        completedItemsArray.removeAll()
-        completedItemsArray.append(contentsOf: completedItems)
-        return [remainingSection, completedSection]
+        completedItemsArray = Array(completedItems)
+        
+        return [
+            ItemSection(name: LanguageBase.item(.remainingTotal).translate, data: Array(remainingItems)),
+            ItemSection(name: LanguageBase.item(.completedTotal).translate, data: Array(completedItems))
+        ]
     }
     
     func sectionHeaderTitle(for section: Int) -> String {
         let sectionModel = getSections()[section]
+        guard !sectionModel.data.isEmpty else { return "" }
         
-        if sectionModel.data.isEmpty {
-            return ""
-        } else {
-            let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
-            return "\(sectionModel.name) \(Double.doubleToString(double: sectionTotal.doubleValue)) \(LanguageBase.system(.currency).translate)"
-        }
+        let sectionTotal = sectionModel.data.reduce(0, { $0 + $1.totalPrice })
+        return "\(sectionModel.name) \(Double.doubleToString(double: sectionTotal.doubleValue)) \(LanguageBase.system(.currency).translate)"
     }
     
-    func updateCheckmark(isCheked: Bool, id: ObjectId) {
-        if let item = items?.first(where: { $0.objectId == id }) {
-            do {
-                try manager.realm.write {
-                    item.isChecked = isCheked
-                }
-            }
-            catch {
-                print("Failed to update checkmark: \(error.localizedDescription)")
-            }
-            delegate?.reloadData()
+    // MARK: - Data Operations
+    
+    func updateCheckmark(isChecked: Bool, id: ObjectId) {
+        guard let item = items?.first(where: { $0.objectId == id }) else { return }
+        performRealmWrite {
+            item.isChecked = isChecked
         }
+        delegate?.reloadData()
     }
     
     func updateAmount(amount: Decimal128, id: ObjectId) {
-        if let item = items?.first(where: { $0.objectId == id }) {
-            let totalPrice = item.price * amount
-            do {
-                try manager.realm.write {
-                    item.amount = amount
-                    item.totalPrice = totalPrice
-                }
-            }
-            catch {
-                print("Failed to update amount: \(error.localizedDescription)")
-            }
-            delegate?.reloadData()
+        guard let item = items?.first(where: { $0.objectId == id }) else { return }
+        let totalPrice = item.price * amount
+        performRealmWrite {
+            item.amount = amount
+            item.totalPrice = totalPrice
         }
+        delegate?.reloadData()
     }
     
     func removeRow(indexPath: IndexPath) {
@@ -119,30 +107,30 @@ final class ItemsViewModel {
                 print("Failed to delete item: \(error.localizedDescription)")
             }
         }
-        self.delegate?.reloadData()
+        delegate?.reloadData()
     }
-}
-
-extension ItemsViewModel {
     
-    func updateListSummary(completedItems: LazyFilterSequence<Results<ItemModel>>, remainItems: LazyFilterSequence<Results<ItemModel>>) {
-        let summary = completedItems.reduce(0) { $0 + $1.totalPrice }
-        
-        summaryAmount = summary
+    private func updateListSummary(completedItems: LazyFilterSequence<Results<ItemModel>>, remainingItems: LazyFilterSequence<Results<ItemModel>>) {
+        summaryAmount = completedItems.reduce(0) { $0 + $1.totalPrice }
         
         guard let listUUID = UUID(uuidString: productSession.listID) else { return }
-        if let list = manager.realm.objects(ListModel.self).filter("id == %@", listUUID).first {
-            do {
-                try manager.realm.write {
-                    list.totalAmount = summary
-                    list.completedQuantity = completedItems.count
-                    list.totalItemQuantity = completedItems.count + remainItems.count
-                }
-            }
-            catch {
-                print(error.localizedDescription)
-            }
+        guard let list = manager.realm.objects(ListModel.self).filter("id == %@", listUUID).first else { return }
+        
+        performRealmWrite {
+            list.totalAmount = summaryAmount
+            list.completedQuantity = completedItems.count
+            list.totalItemQuantity = completedItems.count + remainingItems.count
         }
         quantityDelegate?.updateQuantity()
+    }
+    
+    private func performRealmWrite(_ block: () -> Void) {
+        do {
+            try manager.realm.write {
+                block()
+            }
+        } catch {
+            print("Realm write error: \(error.localizedDescription)")
+        }
     }
 }
