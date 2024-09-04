@@ -10,7 +10,9 @@
 		<string>Poppins-Medium.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow camera to access to your photo library</string>
+	<string>Allows you to take photos for adding items to your shopping list.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Enables selecting photos from your library to add to your shopping list.</string>
 	<key>CFBundleIdentifier</key>
 	<string></string>
 	<key>UIApplicationSceneManifest</key>

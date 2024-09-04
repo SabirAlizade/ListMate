@@ -79,14 +79,21 @@ class ImagePreviewViewController: BaseViewController {
     // MARK: - Image Actions
     
     @objc
-    override func takePicture() {
-        presentImagePicker(sourceType: .camera)
+    private func takePicture() {
+        PermissionManager.shared.requestCameraPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .camera)
+            }
+        }
     }
     
     @objc
     private func presentPicker() {
-        activityIndicator.showActivityIndicator(view: self.view)
-        presentImagePicker(sourceType: .photoLibrary)
+        PermissionManager.shared.requestPhotoLibraryPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .photoLibrary)
+            }
+        }
     }
     
     @objc

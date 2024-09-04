@@ -24,6 +24,23 @@ extension UIViewController {
         present(alertController, animated: true)
     }
     
+    func showPermissionDeniedAlert(for resource: String) {
+        let alert = UIAlertController(
+            title: "\(resource) Access Denied",
+            message: "Please enable access to the \(resource.lowercased()) in Settings.",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .default) { _ in
+            if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+            }
+        })
+        
+        present(alert, animated: true)
+    }
+    
     // MARK: - UI
     
     func customBackgroundColor() {
@@ -77,17 +94,6 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
     func handleSelectedImage(_ image: UIImage, isEdited: Bool) {
         if let imagePickerDelegate = self as? ImagePickerDelegate {
             imagePickerDelegate.didSelectImage(image, isEdited: isEdited)
-        }
-    }
-    
-    @objc
-    func takePicture() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePC = UIImagePickerController()
-            imagePC.sourceType = .camera
-            imagePC.allowsEditing = true
-            imagePC.delegate = self
-            present(imagePC, animated: true)
         }
     }
 }

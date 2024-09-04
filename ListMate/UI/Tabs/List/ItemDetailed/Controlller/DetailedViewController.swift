@@ -76,7 +76,7 @@ class DetailedViewController: BaseViewController {
         doneButton.tintColor = .mainGreen
         navigationItem.rightBarButtonItem = doneButton
     }
-
+    
     private func setupUI() {
         view.anchor(view: scrollView) { kit in
             kit.top(view.topAnchor)
@@ -143,14 +143,21 @@ class DetailedViewController: BaseViewController {
     }
     
     @objc
-    override func takePicture() {
-        presentImagePicker(sourceType: .camera)
+    private func takePicture() {
+        PermissionManager.shared.requestCameraPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .camera)
+            }
+        }
     }
     
     @objc
     private func presentPicker() {
-        presentImagePicker(sourceType: .photoLibrary)
-        activityIndicator.showActivityIndicator(view: self.view)
+        PermissionManager.shared.requestPhotoLibraryPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .photoLibrary)
+            }
+        }
     }
     
     private func registerForKeyboardNotifications() {

@@ -10,6 +10,7 @@
 		0320769D2C64DAF500403780 /* ListMateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0320769C2C64DAF500403780 /* ListMateTests.swift */; };
 		036CC2BF2B36CCFA00D3F4F7 /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */; };
 		036CC2C22B36CED800D3F4F7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CC2C12B36CED800D3F4F7 /* MainView.swift */; };
+		037D7ED22C884D6A001F5103 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037D7ED12C884D6A001F5103 /* PermissionManager.swift */; };
 		037DB0F42B794E4100A68255 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037DB0F32B794E4100A68255 /* LanguageManager.swift */; };
 		03867BC72B6C30E40097366D /* Decimal128.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03867BC62B6C30E40097366D /* Decimal128.swift */; };
 		03A105652B2F300700E13A45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A105642B2F300700E13A45 /* AppDelegate.swift */; };
@@ -133,6 +134,7 @@
 		0320769C2C64DAF500403780 /* ListMateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMateTests.swift; sourceTree = "<group>"; };
 		036CC2BE2B36CCFA00D3F4F7 /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		036CC2C12B36CED800D3F4F7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		037D7ED12C884D6A001F5103 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		037DB0F32B794E4100A68255 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		03867BC62B6C30E40097366D /* Decimal128.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decimal128.swift; sourceTree = "<group>"; };
 		03A105612B2F300700E13A45 /* ListMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +266,14 @@
 				03B0A6972B3C633B00B3F8D0 /* ImagePreviewViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		037D7ED02C884D50001F5103 /* PermissionManager */ = {
+			isa = PBXGroup;
+			children = (
+				037D7ED12C884D6A001F5103 /* PermissionManager.swift */,
+			);
+			path = PermissionManager;
 			sourceTree = "<group>";
 		};
 		037DB0F22B794E2500A68255 /* LanguageManager */ = {
@@ -467,6 +477,7 @@
 		03A105A52B2F4A6200E13A45 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				037D7ED02C884D50001F5103 /* PermissionManager */,
 				037DB0F22B794E2500A68255 /* LanguageManager */,
 				03BEE1DE2B761F1F00D7D1A2 /* Localized */,
 				03C549D82B5ED13F007BE5B4 /* ActivityIndicatorManager */,
@@ -1088,6 +1099,7 @@
 				03A105B02B2F509800E13A45 /* CustomLabel.swift in Sources */,
 				03CA6E9B2B30D2E500D59935 /* NewItemViewController.swift in Sources */,
 				03B5F0EB2B3DD1490015AA23 /* ReceiptCell.swift in Sources */,
+				037D7ED22C884D6A001F5103 /* PermissionManager.swift in Sources */,
 				03C1B71B2B7639D500C87407 /* SummaryLanguage.swift in Sources */,
 				03A105A32B2F4A2D00E13A45 /* AnchorKit.swift in Sources */,
 				03C1B7132B7631D500C87407 /* UserDefaults.swift in Sources */,
