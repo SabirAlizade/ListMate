@@ -51,6 +51,8 @@
 "catalog_app_yougurt" = "Yogurt";
 "catalog_app_pasta" = "Makaron";
 "catalog_app_rice" = "Düyü";
+"catalog_app_item_name" = "Malın adı:";
+"catalog_app_last_price" = "Son qiymət:";
 
 "system_app_doneKeyboard" = "Hazır";
 "system_app_currency" = "₼";

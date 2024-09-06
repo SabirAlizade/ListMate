@@ -52,6 +52,8 @@
 "catalog_app_yougurt" = "Yougurt";
 "catalog_app_pasta" = "Pasta";
 "catalog_app_rice" = "Rice";
+"catalog_app_item_name" = "Item name:";
+"catalog_app_last_price" = "Last price:";
 
 "system_app_doneKeyboard" = "Done";
 "system_app_currency" = "$";

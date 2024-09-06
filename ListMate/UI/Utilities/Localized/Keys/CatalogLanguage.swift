@@ -23,7 +23,9 @@ enum CatalogLanguage: LanguageProtocol {
          apples,
          yougurt,
          pasta,
-         rice
+         rice,
+         itemName,
+        lastPrice
     
     var translate: String {
         switch self {
@@ -60,6 +62,10 @@ enum CatalogLanguage: LanguageProtocol {
             return "catalog_app_pasta".localize
         case .rice:
             return "catalog_app_rice".localize
+        case .itemName:
+            return "catalog_app_item_name".localize
+        case .lastPrice:
+            return "catalog_app_last_price".localize
         }
     }
 }

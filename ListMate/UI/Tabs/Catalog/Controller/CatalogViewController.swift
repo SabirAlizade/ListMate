@@ -82,6 +82,45 @@ extension CatalogViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return swipeConfiguration
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return createHeaderView()
+    }
+    
+    private func createHeaderView() -> UIView {
+        let headerView = UIView()
+        headerView.backgroundColor = .mainGray
+        
+        let itemNameLabel = CustomLabel(
+            text: LanguageBase.catalog(.itemName).translate,
+            textColor: .mainText,
+            font: .poppinsFont(size: 14, weight: .light),
+            alignment: .left
+        )
+        
+        let lastPriceLabel = CustomLabel(
+            text: LanguageBase.catalog(.lastPrice).translate,
+            textColor: .mainText,
+            font: .poppinsFont(size: 14, weight: .light),
+            alignment: .right
+        )
+        
+        headerView.anchor(view: itemNameLabel) { kit in
+            kit.leading(15)
+            kit.height(16)
+        }
+        
+        headerView.anchor(view: lastPriceLabel) { kit in
+            kit.trailing(15)
+            kit.height(16)
+        }
+        
+        return headerView
+    }
 }
 
 extension CatalogViewController: CatalogViewDelegate {
