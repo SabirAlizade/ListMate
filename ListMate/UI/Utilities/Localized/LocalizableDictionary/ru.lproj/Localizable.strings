@@ -52,6 +52,8 @@
 "catalog_app_yougurt" = "Йогурт";
 "catalog_app_pasta" = "Макароны";
 "catalog_app_rice" = "Рис";
+"catalog_app_item_name" = "Товар:";
+"catalog_app_last_price" = "Последняя цена:";
 
 "system_app_doneKeyboard" = "Готово";
 "system_app_currency" = "₽";

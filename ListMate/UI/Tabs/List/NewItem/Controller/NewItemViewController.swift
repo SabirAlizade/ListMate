@@ -100,7 +100,7 @@ class NewItemViewController: BaseViewController {
     }()
     
     // MARK: - Setup UI
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomCostraint = suggestionToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -117,7 +117,7 @@ class NewItemViewController: BaseViewController {
         priceTextField.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
     override func setupUIComponents() {
         super.setupUIComponents()
         view.backgroundColor = .mainGray
@@ -266,14 +266,21 @@ class NewItemViewController: BaseViewController {
     }
     
     @objc
-    override func takePicture() {
-        presentImagePicker(sourceType: .camera)
+    private func takePicture() {
+        PermissionManager.shared.requestCameraPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .camera)
+            }
+        }
     }
     
     @objc
     private func presentPicker() {
-        activityIndicator.showActivityIndicator(view: self.view)
-        presentImagePicker(sourceType: .photoLibrary)
+        PermissionManager.shared.requestPhotoLibraryPermission(from: self) { [weak self] granted in
+            if granted {
+                self?.presentImagePicker(sourceType: .photoLibrary)
+            }
+        }
     }
     
     private func didFinishPickingImage(_ image: UIImage) {
