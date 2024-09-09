@@ -76,7 +76,7 @@ class DetailedViewController: BaseViewController {
         doneButton.tintColor = .mainGreen
         navigationItem.rightBarButtonItem = doneButton
     }
-
+    
     private func setupUI() {
         view.anchor(view: scrollView) { kit in
             kit.top(view.topAnchor)
@@ -158,36 +158,6 @@ class DetailedViewController: BaseViewController {
                 self?.presentImagePicker(sourceType: .photoLibrary)
             }
         }
-    }
-    
-    private func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil
-        )
-    }
-    
-    @objc private func keyboardWillShow(notification: NSNotification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let keyboardHeight = keyboardFrame.height
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
-    }
-    
-    @objc private func keyboardWillHide(notification: NSNotification) {
-        scrollView.contentInset = .zero
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
     }
     
     private func registerForKeyboardNotifications() {

@@ -96,15 +96,4 @@ extension UIViewController: UIImagePickerControllerDelegate, UINavigationControl
             imagePickerDelegate.didSelectImage(image, isEdited: isEdited)
         }
     }
-    
-    @objc
-    func takePicture() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePC = UIImagePickerController()
-            imagePC.sourceType = .camera
-            imagePC.allowsEditing = true
-            imagePC.delegate = self
-            present(imagePC, animated: true)
-        }
-    }
 }
